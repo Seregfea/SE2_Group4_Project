@@ -2,18 +2,6 @@
 plugins {
     id 'com.android.application' version '7.2.0' apply false
     id 'com.android.library' version '7.2.0' apply false
-    id "jacoco"
-    id "org.sonarqube" version "3.5.0.2730"
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "Seregfea_SE2_Group4_Project"
-        property "sonar.organization", "seregfea"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
-    }
 }
 
 task clean(type: Delete) {

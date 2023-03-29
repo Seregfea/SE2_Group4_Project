@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'jacoco'
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 android {
@@ -23,31 +24,46 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     testOptions {
-        unitTests.all{
+        unitTests.all {
             useJUnitPlatform()
             finalizedBy jacocoTestReport
         }
     }
+
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest'){
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     reports {
         xml.enabled true
+
+        //////////  5. xml.destination must be same as sonaqube property  //////////
         xml.destination file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test.*', 'android/**/*.*']
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
     sourceDirectories.from = files([mainSrc])
     classDirectories.from = files([debugTree])
     executionData.from = files("${buildDir}/jacoco/testDebugUnitTest.exec")
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "Seregfea_SE2_Group4_Project"
+        property "sonar.organization", "seregfea"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.java.coveragePlugin", "jacoco"
+
+        ////////// 5. property same as xml.destination of jacocoTestReport //////////
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+    }
 }
 
 dependencies {
