@@ -40,8 +40,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     reports {
         xml.enabled true
-
-        //////////  5. xml.destination must be same as sonaqube property  //////////
         xml.destination file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
 
@@ -60,8 +58,6 @@ sonarqube {
         property "sonar.organization", "seregfea"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "jacoco"
-
-        ////////// 5. property same as xml.destination of jacocoTestReport //////////
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
