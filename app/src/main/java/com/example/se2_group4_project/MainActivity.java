@@ -15,6 +15,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private EditText inputDice;
     private Button btnRollDice;
+    private Button btnSubmit;
     private LinearLayout diceLayout;
     private TextView tvResult;
     private final int diceSize = 150;
@@ -26,45 +27,57 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         inputDice = findViewById(R.id.inputDice);
+        btnSubmit = findViewById(R.id.btnSubmit);
         btnRollDice = findViewById(R.id.btnRollDice);
         diceLayout = findViewById(R.id.diceLayout);
         tvResult = findViewById(R.id.textViewResult);
 
-        btnRollDice.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 diceLayout.removeAllViews();
-
                 String input = inputDice.getText().toString();
                 if (!input.isEmpty()) {
                     numberOfDice = Integer.parseInt(input);
                 }
+                for (int i = 0; i < numberOfDice; i++) {
+                    createDiceLayout(3);
+                }
+            }
+        });
 
-                List<Integer> results = Dice.rollDice(numberOfDice);
+        btnRollDice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Integer> diceValues = Dice.rollDice(numberOfDice);
                 String resultText = "Results: ";
-                for (int i = 0; i < results.size(); i++) {
+                ImageView diceImage;
+                for (int i = 0; i < diceValues.size(); i++) {
                     if (i != 0) {
                         resultText += ", ";
                     }
-                    resultText += results.get(i);
-                    ImageView dieImage = new ImageView(getApplicationContext());
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    layoutParams.setMargins(5, 0, 5, 0);
-                    dieImage.setLayoutParams(layoutParams);
-                    dieImage.getLayoutParams().height = diceSize;
-                    dieImage.getLayoutParams().width = diceSize;
-                    dieImage.setImageResource(getDrawableId(results.get(i)));
-                    diceLayout.addView(dieImage);
+                    resultText += diceValues.get(i);
+                    diceImage = (ImageView) diceLayout.getChildAt(i);
+                    refreshDiceOutput(diceImage, diceValues.get(i));
                 }
                 tvResult.setText(resultText);
             }
         });
     }
 
-    private int getDrawableId(int result) {
+    private void createDiceLayout(int diceValue) {
+        ImageView diceImage = new ImageView(getApplicationContext());
+        diceImage.setLayoutParams(new LinearLayout.LayoutParams(diceSize, diceSize));
+        diceImage.setPadding(5,0, 5,0);
+        refreshDiceOutput(diceImage, diceValue);
+        diceLayout.addView(diceImage);
+    }
+
+    private void refreshDiceOutput(ImageView diceImage, int diceValue) {
+        diceImage.setImageResource(getDiceImage(diceValue));
+    }
+
+    private int getDiceImage(int result) {
         switch (result) {
             default:
                 return R.drawable.d1;
