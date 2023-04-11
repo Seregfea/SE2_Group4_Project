@@ -2,13 +2,15 @@ package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -17,9 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnRollDice;
     private Button btnSubmit;
     private LinearLayout diceLayout;
-    private TextView tvResult;
+    private MediaPlayer mediaPlayer;
     private final int diceSize = 150;
     private int numberOfDice = 0;
+    private int delayTime = 20;
+    private int rollAnimation = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         btnRollDice = findViewById(R.id.btnRollDice);
         diceLayout = findViewById(R.id.diceLayout);
-        tvResult = findViewById(R.id.textViewResult);
+        mediaPlayer = MediaPlayer.create(this, R.raw.roll);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,18 +53,10 @@ public class MainActivity extends AppCompatActivity {
         btnRollDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Integer> diceValues = Dice.rollDice(numberOfDice);
-                String resultText = "Results: ";
-                ImageView diceImage;
-                for (int i = 0; i < diceValues.size(); i++) {
-                    if (i != 0) {
-                        resultText += ", ";
-                    }
-                    resultText += diceValues.get(i);
-                    diceImage = (ImageView) diceLayout.getChildAt(i);
-                    refreshDiceOutput(diceImage, diceValues.get(i));
+                rollDice();
+                if (mediaPlayer != null) {
+                    mediaPlayer.start();
                 }
-                tvResult.setText(resultText);
             }
         });
     }
@@ -75,6 +71,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshDiceOutput(ImageView diceImage, int diceValue) {
         diceImage.setImageResource(getDiceImage(diceValue));
+    }
+
+    private void rollDice() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for (int j = 0; j < rollAnimation; j++) {
+                    List<Integer> diceValues = Dice.rollDice(numberOfDice);
+                    ImageView diceImage;
+                    for (int i = 0; i < diceValues.size(); i++) {
+                        diceImage = (ImageView) diceLayout.getChildAt(i);
+                        refreshDiceOutput(diceImage, diceValues.get(i));
+                    }
+                    try {
+                        Thread.sleep(delayTime);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                return null;
+            }
+        }.execute();
     }
 
     private int getDiceImage(int result) {
