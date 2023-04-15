@@ -16,7 +16,10 @@
         android:theme="@style/Theme.SE2_Group4_Project"
         tools:targetApi="31">
         <activity
-            android:name=".SpielSucheActivity"
+            android:name=".screens.SelectRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.FindGameActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

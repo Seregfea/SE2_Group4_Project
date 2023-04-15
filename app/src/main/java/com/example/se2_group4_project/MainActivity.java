@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.se2_group4_project.screens.FindGameActivity;
+import com.example.se2_group4_project.screens.SelectRoomActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,11 +23,18 @@ public class MainActivity extends AppCompatActivity {
         Button btnSelectRoom = findViewById(R.id.button_select_room);
 
 
-
         btnFindGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SpielSucheActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FindGameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSelectRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SelectRoomActivity.class);
                 startActivity(intent);
             }
         });

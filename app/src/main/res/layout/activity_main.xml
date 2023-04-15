@@ -10,14 +10,15 @@
         android:id="@+id/button_play"
         android:layout_width="287dp"
         android:layout_height="78dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="284dp"
         android:text="Spielen"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_find_game"
+        app:layout_constraintBottom_toTopOf="@+id/button_options"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.088" />
 
     <Button
         android:id="@+id/button_options"
@@ -26,14 +27,15 @@
         android:text="Einstellungen"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="353dp" />
+        tools:layout_editor_absoluteY="396dp" />
 
     <Button
         android:id="@+id/button_find_game"
         android:layout_width="287dp"
         android:layout_height="78dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="36dp"
         android:text="Spiel Suchen"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,5 +52,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_find_game"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.121" />
 </androidx.constraintlayout.widget.ConstraintLayout>
