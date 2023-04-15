@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.se2_group4_project.screens.FindGameActivity;
+import com.example.se2_group4_project.screens.OptionsActivity;
 import com.example.se2_group4_project.screens.SelectRoomActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FindGameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
                 startActivity(intent);
             }
         });
