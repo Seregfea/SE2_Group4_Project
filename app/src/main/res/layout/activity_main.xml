@@ -6,13 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="287dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="4dp"
+        android:text="Spielen"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_find_game"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518"
+        tools:layout_editor_absoluteX="193dp" />
 
+    <Button
+        android:id="@+id/button_options"
+        android:layout_width="287dp"
+        android:layout_height="78dp"
+        android:text="Einstellungen"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Button
+        android:id="@+id/button_find_game"
+        android:layout_width="287dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="60dp"
+        android:text="Spiel Suchen"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/button_options"
+        tools:layout_editor_absoluteX="193dp" />
+
+    <Button
+        android:id="@+id/button_select_room"
+        android:layout_width="287dp"
+        android:layout_height="78dp"
+        android:text="Raum auswählen"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_find_game"
+        app:layout_constraintVertical_bias="0.11"
+        tools:layout_editor_absoluteX="193dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
