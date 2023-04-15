@@ -19,10 +19,13 @@ public class MainActivity extends AppCompatActivity {
         Button btnOptions = findViewById(R.id.button_options);
         Button btnSelectRoom = findViewById(R.id.button_select_room);
 
+
+
         btnFindGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SpielSucheActivity.class);
+                startActivity(intent);
             }
         });
     }
