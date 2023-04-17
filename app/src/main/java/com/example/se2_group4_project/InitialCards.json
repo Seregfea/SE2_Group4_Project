@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Töpfern",
+    "cardtype": "Witzig",
+    "neededDice":[
+      {
+        "nummer": "3",
+        "anzahl": 3
+      }
+    ],
+    "toDo": [
+    "bad", "Wohnzimmer", "Mitbewohner", "Ich"
+    ],
+    "Schnapspralinen": 5
+  }
+]
