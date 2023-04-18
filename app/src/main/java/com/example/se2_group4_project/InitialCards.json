@@ -2,16 +2,258 @@
   {
     "id": 0,
     "name": "Töpfern",
-    "cardtype": "Witzig",
+    "cardType": "Witzig"
     "neededDice":[
       {
         "nummer": "3",
         "anzahl": 3
       }
     ],
-    "toDo": [
-    "bad", "Wohnzimmer", "Mitbewohner", "Ich"
+    "toDoPenalty": [
+    "Badewanne", "Couch", "Geschirr","Mitbewohner", "Ich"
     ],
-    "Schnapspralinen": 5
-  }
+    "schnapspralinen": 5,
+    "cardFront": "Witzig-Töpfern-VS.png",
+    "cardBack": "Witzig-Töpfern-RS.png"
+  },
+
+  {
+    "id": 1,
+    "name": "Badewanne-türkis",
+    "cardType": "Badewanne",
+    "neededDice":[
+      {
+        "nummer": "2",
+        "anzahl": 2
+      }],
+    "cardFront": "Bad-dreckig-türkis.png",
+    "cardBack": "Bad-sauber-türkis.png"
+  },
+
+  {
+    "id": 2,
+    "name": "Geschirr-türkis",
+    "cardType": "Geschirr",
+    "neededDice":[
+      {
+        "nummer": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "Geschirr-dreckig-türkis.png",
+    "cardBack": "Geschirr-sauber-türkis.png"
+  },
+
+  {
+    "id": 3,
+    "name": "Couch-türkis",
+    "cardType": "Couch",
+    "neededDice":[
+      {
+        "nummer": "1",
+        "anzahl": 2
+      }
+    ],
+    "cardFront": "Couch-dreckig-türkis.png",
+    "cardBack": "Couch-sauber-türkis.png",
+    "myComment": "habe auf der Rückseite mehr Ablegplätze für meinen Würfel -- auch json?"
+  },
+  {
+    "id": 4,
+    "name": "Badewanne-grün",
+    "cardType": "Badewanne",
+    "neededDice":[
+      {
+        "nummer": "3",
+        "anzahl": 2
+      }],
+    "cardFront": "Bad-dreckig-grün.png",
+    "cardBack": "Bad-sauber-grün.png"
+  },
+
+  {
+    "id": 5,
+    "name": "Geschirr-grün",
+    "cardType": "Geschirr",
+    "neededDice":[
+      {
+        "nummer": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "Geschirr-dreckig-grün.png",
+    "cardBack": "Geschirr-sauber-grün.png"
+  },
+
+  {
+    "id": 6,
+    "name": "Couch-grün",
+    "cardType": "Couch",
+    "neededDice":[
+      {
+        "nummer": "5",
+        "anzahl": 2
+      }
+    ],
+    "cardFront": "Couch-dreckig-grün.png",
+    "cardBack": "Couch-sauber-grün.png",
+    "myComment": "habe auf der Rückseite mehr Ablegplätze für meinen Würfel -- auch json?"
+  },
+  {
+    "id": 7,
+    "name": "Badewanne-orange",
+    "cardType": "Badewanne",
+    "neededDice":[
+      {
+        "nummer": "1",
+        "anzahl": 2
+      }],
+    "cardFront": "Bad-dreckig-orange.png",
+    "cardBack": "Bad-sauber-orange.png"
+  },
+
+  {
+    "id": 8,
+    "name": "Geschirr-orange",
+    "cardType": "Geschirr",
+    "neededDice":[
+      {
+        "nummer": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "Geschirr-dreckig-orange.png",
+    "cardBack": "Geschirr-sauber-orange.png"
+  },
+
+  {
+    "id": 9,
+    "name": "Couch-orange",
+    "cardType": "Couch",
+    "neededDice":[
+      {
+        "nummer": "4",
+        "anzahl": 2
+      }
+    ],
+    "cardFront": "Couch-dreckig-orange.png",
+    "cardBack": "Couch-sauber-orange.png",
+    "myComment": "habe auf der Rückseite mehr Ablegplätze für meinen Würfel -- auch json?"
+  },
+  {
+    "id": 10,
+    "name": "Badewanne-hellblau",
+    "cardType": "Badewanne",
+    "neededDice":[
+      {
+        "nummer": "5",
+        "anzahl": 2
+      }],
+    "cardFront": "Bad-dreckig-hellblau.png",
+    "cardBack": "Bad-sauber-hellblau.png"
+  },
+
+  {
+    "id": 11,
+    "name": "Geschirr-hellblau",
+    "cardType": "Geschirr",
+    "neededDice":[
+      {
+        "nummer": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "Geschirr-dreckig-hellblau.png",
+    "cardBack": "Geschirr-sauber-hellblau.png"
+  },
+
+  {
+    "id": 12,
+    "name": "Couch-hellblau",
+    "cardType": "Couch",
+    "neededDice":[
+      {
+        "nummer": "1",
+        "anzahl": 2
+      }
+    ],
+    "cardFront": "Couch-dreckig-hellblau.png",
+    "cardBack": "Couch-sauber-hellblau.png",
+    "myComment": "habe auf der Rückseite mehr Ablegplätze für meinen Würfel -- auch json?"
+  },
+
+  {
+    "id": 13,
+    "name": "Ich-Türkus",
+    "cardType": "Ich",
+    "neededDice":[
+      {
+        "nummer": "1",
+        "anzahl": 2
+      }],
+    "cardFront": "Ich-türkis-VS.png",
+    "cardBack": "Ich-türkis-RS.png",
+    "myComment": "erst auf RS zu würfeln ist das egal?"
+  },
+
+  {
+    "id": 14,
+    "name": "Ich-Grün",
+    "cardType": "Ich",
+    "neededDice":[
+      {
+        "nummer": "5",
+        "anzahl": 2
+      }],
+    "cardFront": "Ich-grün-VS.png",
+    "cardBack": "Ich-grün-RS.png",
+    "myComment": "erst auf RS zu würfeln ist das egal?"
+  },
+
+  {
+    "id": 15,
+    "name": "Ich-Orange",
+    "cardType": "Ich",
+    "neededDice":[
+      {
+        "nummer": "4",
+        "anzahl": 2
+      }],
+    "cardFront": "Ich-orange-VS.png",
+    "cardBack": "Ich-orange-RS.png",
+    "myComment": "erst auf RS zu würfeln ist das egal?"
+  },
+
+  {
+    "id": 16,
+    "name": "Ich-Hellblau",
+    "cardType": "Ich",
+    "neededDice":[
+      {
+        "nummer": "2",
+        "anzahl": 2
+      }],
+    "cardFront": "Ich-hellblau-VS.png",
+    "cardBack": "Ich-hellblau-RS.png",
+    "myComment": "erst auf RS zu würfeln ist das egal?"
+  },
+
+  {
+    "id": 17,
+    "name": "Profikuscheldecke",
+    "cardType": "Gegenstaende",
+    "neededDice":[
+      {
+        "nummer": "3",
+        "anzahl": 2
+      }],
+    "gegenstandPenalty": [
+      "Badewanne", "Couch", "Geschirr","Mitbewohner", "Ich"
+    ],
+    "schnapspralinen": 2,
+    "cardFront": "Gegenstand-Decke-VS.png",
+    "cardBack": "Gegenstand-Decke-RS.png",
+    "myComment": "wenn jemand anders 3x würfelt kann er die klauen, wie tun?"
+  },
+
 ]

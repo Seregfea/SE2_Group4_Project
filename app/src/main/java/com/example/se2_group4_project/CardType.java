@@ -5,8 +5,8 @@ public enum CardType {
     STOERENFRIEDE,
     GEGENSTAENDE,
     ICH,
-    BAD,
-    WOHNZIMMER,
+    BADEWANNE,
+    COUCH,
     GESCHIRR,
     WITZIG,
     WITZIGWITZIG
