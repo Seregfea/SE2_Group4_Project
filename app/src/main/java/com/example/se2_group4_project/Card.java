@@ -13,14 +13,20 @@ public class Card {
     private ArrayList<CardType> toDo;
     private int schnapspralinen;
     private CardType cardType;
+    private String cardFront;
+    private String cardBack;
 
-    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice, ArrayList<CardType> toDo, int schnapspralinen) {
+    //penalty wie?
+
+    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice, ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
         this.neededDice = neededDice;
         this.toDo = toDo;
         this.schnapspralinen = schnapspralinen;
+        this.cardFront = cardFront;
+        this.cardBack = cardBack;
     }
 
     public CardType getCardType() {

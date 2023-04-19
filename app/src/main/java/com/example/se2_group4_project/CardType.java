@@ -2,7 +2,7 @@ package com.example.se2_group4_project;
 
 public enum CardType {
     ROOMMATE,
-    STOERENFRIEDE,
+    TROUBLEMAKER,
     ITEM,
     ME,
     BATHTUB,

@@ -1,9 +1,9 @@
 package com.example.se2_group4_project;
 
 public class NeededDice {
-    private String nummer;
-    private int anzahl;
-    private int min_summe;
+    private String number;
+    private int count;
+    private int min_sum;
     private int following;
 
 }
