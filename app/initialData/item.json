@@ -12,15 +12,15 @@
       "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
     ],
     "schnapspralinen": 2,
-    "cardFront": "Gegenstand-Decke-VS.png",
-    "cardBack": "Gegenstand-RS.png"
+    "cardFront": "gegenstand_decke.png",
+    "cardBack": "gegenstand_rs.png"
   },
   {
     "id": 1,
     "name": "Schaukelstuhl",
     "cardType": "ITEM",
     "schnapspralinen": "gröser gleich 16, wie machen",
-    "cardFront": "Schaukelstuhl-VS.png",
-    "cardBack": "Schaukelstuhl-RS.png"
+    "cardFront": "schaukelstuhl_vs.png",
+    "cardBack": "schaukelstuhl_rs.png"
   }
 ]

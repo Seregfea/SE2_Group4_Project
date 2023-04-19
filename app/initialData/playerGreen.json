@@ -7,8 +7,8 @@
       "number": "3",
       "count": 2
     }],
-  "cardFront": "Bad-dreckig-grün.png",
-  "cardBack": "Bad-sauber-grün.png"
+  "cardFront": "bad_dreckig_gruen.png",
+  "cardBack": "bad_sauber_gruen.png"
 },
 
 {
@@ -21,8 +21,8 @@
 "following": 2
 }
 ],
-"cardFront": "Geschirr-dreckig-grün.png",
-"cardBack": "Geschirr-sauber-grün.png"
+"cardFront": "geschirr_dreckig_gruen.png",
+"cardBack": "geschirr_sauber_gruen.png"
 },
 
 {
@@ -35,8 +35,8 @@
 "count": 2
 }
 ],
-"cardFront": "Couch-dreckig-grün.png",
-"cardBack": "Couch-sauber-grün.png"
+"cardFront": "couch_matschig_gruen.png",
+"cardBack": "couch_sauber_gruen.png"
 },
   {
     "id": 3,
@@ -47,7 +47,7 @@
         "number": "5",
         "count": 2
       }],
-    "cardFront": "Ich-grün-VS.png",
-    "cardBack": "Ich-grün-RS.png"
+    "cardFront": "ich_gruen_vs.png",
+    "cardBack": "ich_gruen_rs.png"
   }
 ]

@@ -13,7 +13,7 @@
       "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
     ],
     "schnapspralinen": 5,
-    "cardFront": "Witzig-Töpfern-VS.png",
-    "cardBack": "Witzig-RS.png"
+    "cardFront": "witzig_toepfern_vs.png",
+    "cardBack": "witzig_rs.png"
   }
   ]
