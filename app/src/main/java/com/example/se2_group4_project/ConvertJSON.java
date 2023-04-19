@@ -15,7 +15,7 @@ public class ConvertJSON {
 
         //auslesen der JSON Datei
         JsonParser parser = new JsonParser();
-        Object obj = parser.parse(new FileReader("InitialCards.json"));
+        Object obj = parser.parse(new FileReader("items.json"));
         //konvertiere das Objekt in ein JSON Objekt
         JsonObject jsonObject = (JsonObject) obj;
 

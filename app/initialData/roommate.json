@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "name": "Bukowksi",
+    "cardType": "ROOMMATE",
+    "troublemakerPenalty": [
+      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME, was mach ich da, weil da kann man nie schlafen, true false abfrage, so lassen"
+    ],
+    "cardFront": "Bukowski-VS.png",
+    "cardBack": "Bukowski-RS.png"
+  }
+]

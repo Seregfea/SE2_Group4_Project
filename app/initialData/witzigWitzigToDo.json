@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "name": "Schnapspralinen-Wettessen",
+    "cardType": "WITZIGWITZIG",
+    "neededDice":[
+      {
+        "count": 3
+      },
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+    ],
+    "schnapspralinen": 7,
+    "cardFront": "WitzigWitzig-Wettessen-VS.png",
+    "cardBack": "WitzigWitzig-RS.png"
+  }
+]

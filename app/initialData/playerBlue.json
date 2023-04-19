@@ -1,0 +1,54 @@
+[
+{
+  "id": 0,
+  "name": "Badewanne-hellblau",
+  "cardType": "BATHTUB",
+  "neededDice":[
+    {
+      "number": "5",
+      "count": 2
+    }],
+  "cardFront": "Bad-dreckig-hellblau.png",
+  "cardBack": "Bad-sauber-hellblau.png"
+},
+
+{
+"id": 1,
+"name": "Geschirr-hellblau",
+"cardType": "TABLEWARE",
+"neededDice":[
+{
+"number": "*",
+"following": 2
+}
+],
+"cardFront": "Geschirr-dreckig-hellblau.png",
+"cardBack": "Geschirr-sauber-hellblau.png"
+},
+
+{
+"id": 2,
+"name": "Couch-hellblau",
+"cardType": "COUCH",
+"neededDice":[
+{
+"number": "1",
+"count": 2
+}
+],
+"cardFront": "Couch-dreckig-hellblau.png",
+"cardBack": "Couch-sauber-hellblau.png"
+},
+{
+"id": 3,
+"name": "Ich-Hellblau",
+"cardType": "ME",
+"neededDice":[
+{
+"number": "2",
+"count": 2
+}],
+"cardFront": "Ich-hellblau-VS.png",
+"cardBack": "Ich-hellblau-RS.png"
+}
+  ]

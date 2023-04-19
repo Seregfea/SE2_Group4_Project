@@ -1,13 +1,13 @@
 package com.example.se2_group4_project;
 
 public enum CardType {
-    MITBEWOHNER,
+    ROOMMATE,
     STOERENFRIEDE,
-    GEGENSTAENDE,
-    ICH,
-    BADEWANNE,
+    ITEM,
+    ME,
+    BATHTUB,
     COUCH,
-    GESCHIRR,
+    TABLEWARE,
     WITZIG,
     WITZIGWITZIG
 }

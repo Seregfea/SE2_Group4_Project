@@ -1,0 +1,53 @@
+[{
+  "id": 0,
+  "name": "Badewanne-grün",
+  "cardType": "BATHTUB",
+  "neededDice":[
+    {
+      "number": "3",
+      "count": 2
+    }],
+  "cardFront": "Bad-dreckig-grün.png",
+  "cardBack": "Bad-sauber-grün.png"
+},
+
+{
+"id": 1,
+"name": "Geschirr-grün",
+"cardType": "TABLEWARE",
+"neededDice":[
+{
+"number": "*",
+"following": 2
+}
+],
+"cardFront": "Geschirr-dreckig-grün.png",
+"cardBack": "Geschirr-sauber-grün.png"
+},
+
+{
+"id": 2,
+"name": "Couch-grün",
+"cardType": "COUCH",
+"neededDice":[
+{
+"number": "5",
+"count": 2
+}
+],
+"cardFront": "Couch-dreckig-grün.png",
+"cardBack": "Couch-sauber-grün.png"
+},
+  {
+    "id": 3,
+    "name": "Ich-Grün",
+    "cardType": "ME",
+    "neededDice":[
+      {
+        "number": "5",
+        "count": 2
+      }],
+    "cardFront": "Ich-grün-VS.png",
+    "cardBack": "Ich-grün-RS.png"
+  }
+]

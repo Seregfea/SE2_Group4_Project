@@ -1,0 +1,13 @@
+[
+  {
+    "id": 0,
+    "name": "Pinguin",
+    "cardType": "TROUBLEMAKER",
+    "troublemakerPenalty": [
+      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+    ],
+    "schnapspralinen": "wie mache ich das da? wenn du 10 Schnapspralinen hast bekommst du einen",
+    "cardFront": "Pinguin-VS.png",
+    "cardBack": "Störenfried-RS.png"
+  }
+]

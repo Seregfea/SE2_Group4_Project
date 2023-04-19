@@ -1,0 +1,19 @@
+[
+  {
+    "id": 0,
+    "name": "Töpfern",
+    "cardType": "WITZIG",
+    "neededDice":[
+      {
+        "number": "3",
+        "count": 3
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "Witzig-Töpfern-VS.png",
+    "cardBack": "Witzig-RS.png"
+  }
+  ]

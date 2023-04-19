@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "name": "Profikuscheldecke",
+    "cardType": "ITEM",
+    "neededDice":[
+      {
+        "number": "3",
+        "count": 2
+      }],
+    "itemPenalty": [
+      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+    ],
+    "schnapspralinen": 2,
+    "cardFront": "Gegenstand-Decke-VS.png",
+    "cardBack": "Gegenstand-RS.png"
+  }
+]

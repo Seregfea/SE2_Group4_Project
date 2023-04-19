@@ -1,0 +1,53 @@
+[{
+  "id": 0,
+  "name": "Badewanne-türkis",
+  "cardType": "BATHTUB",
+  "neededDice":[
+    {
+      "number": "2",
+      "count": 2
+    }],
+  "cardFront": "Bad-dreckig-türkis.png",
+  "cardBack": "Bad-sauber-türkis.png"
+},
+
+{
+"id": 1,
+"name": "Geschirr-türkis",
+"cardType": "TABLEWARE",
+"neededDice":[
+{
+"number": "*",
+"following": 2
+}
+],
+"cardFront": "Geschirr-dreckig-türkis.png",
+"cardBack": "Geschirr-sauber-türkis.png"
+},
+
+{
+"id": 2,
+"name": "Couch-türkis",
+"cardType": "COUCH",
+"neededDice":[
+{
+"number": "1",
+"count": 2
+}
+],
+"cardFront": "Couch-dreckig-türkis.png",
+"cardBack": "Couch-sauber-türkis.png",
+},
+  {
+    "id": 3,
+    "name": "Ich-Türkus",
+    "cardType": "ME",
+    "neededDice":[
+      {
+        "number": "1",
+        "count": 2
+      }],
+    "cardFront": "Ich-türkis-VS.png",
+    "cardBack": "Ich-türkis-RS.png"
+  }
+]
