@@ -13,6 +13,79 @@ public class CardDrawer {
     private ArrayList<Card> witzigStack = new ArrayList<>();
     private ArrayList<Card> witzigWitzigStack = new ArrayList<>();
     private ArrayList<Card> itemsStack = new ArrayList<>();
+
+    public ArrayList<Card> getPlayerBlueStack() {
+        return playerBlueStack;
+    }
+
+    public void setPlayerBlueStack(ArrayList<Card> playerBlueStack) {
+        this.playerBlueStack = playerBlueStack;
+    }
+
+    public ArrayList<Card> getPlayerGreenStack() {
+        return playerGreenStack;
+    }
+
+    public void setPlayerGreenStack(ArrayList<Card> playerGreenStack) {
+        this.playerGreenStack = playerGreenStack;
+    }
+
+    public ArrayList<Card> getPlayerOrangeStack() {
+        return playerOrangeStack;
+    }
+
+    public void setPlayerOrangeStack(ArrayList<Card> playerOrangeStack) {
+        this.playerOrangeStack = playerOrangeStack;
+    }
+
+    public ArrayList<Card> getPlayerTealStack() {
+        return playerTealStack;
+    }
+
+    public void setPlayerTealStack(ArrayList<Card> playerTealStack) {
+        this.playerTealStack = playerTealStack;
+    }
+
+    public ArrayList<Card> getWitzigStack() {
+        return witzigStack;
+    }
+
+    public void setWitzigStack(ArrayList<Card> witzigStack) {
+        this.witzigStack = witzigStack;
+    }
+
+    public ArrayList<Card> getWitzigWitzigStack() {
+        return witzigWitzigStack;
+    }
+
+    public void setWitzigWitzigStack(ArrayList<Card> witzigWitzigStack) {
+        this.witzigWitzigStack = witzigWitzigStack;
+    }
+
+    public ArrayList<Card> getItemsStack() {
+        return itemsStack;
+    }
+
+    public void setItemsStack(ArrayList<Card> itemsStack) {
+        this.itemsStack = itemsStack;
+    }
+
+    public ArrayList<Card> getTroublemakerStack() {
+        return troublemakerStack;
+    }
+
+    public void setTroublemakerStack(ArrayList<Card> troublemakerStack) {
+        this.troublemakerStack = troublemakerStack;
+    }
+
+    public ArrayList<Card> getRoommateStack() {
+        return roommateStack;
+    }
+
+    public void setRoommateStack(ArrayList<Card> roommateStack) {
+        this.roommateStack = roommateStack;
+    }
+
     private ArrayList<Card> troublemakerStack = new ArrayList<>();
     private ArrayList<Card> roommateStack = new ArrayList<>();
 
