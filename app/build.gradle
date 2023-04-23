@@ -33,6 +33,7 @@ android {
             finalizedBy jacocoTestReport
         }
     }
+    namespace 'com.example.se2_group4_project'
 
 }
 
