@@ -1,7 +1,7 @@
 package com.example.se2_group4_project;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,18 +45,17 @@ public class ConvertJSON {
                 break;
         }
 
-        //auslesen der JSON Datei
-        JsonParser parser = new JsonParser();
-        Object obj = parser.parse(new FileReader(fileName));
-        //konvertiere das Objekt in ein JSON Objekt
-        JsonObject jsonObject = (JsonObject) obj;
+        //Auslesen der JSON Datei
+        JsonArray jsonArray = JsonParser.parseReader(new FileReader("initialData/" + fileName)).getAsJsonArray();
 
         // Erstellen Gson Object
         Gson gson = new Gson();
 
         // Bekomme Liste mit allen Kartenobjekten
-        ArrayList<Card> cards = gson.fromJson(jsonObject.toString(),
-                new TypeToken<ArrayList<Card>>(){}.getType());
+        ArrayList<Card> cards = gson.fromJson(jsonArray.toString(),
+                new TypeToken<ArrayList<Card>>() {
+                }.getType());
+
 
         return cards;
     }

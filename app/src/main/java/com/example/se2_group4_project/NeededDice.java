@@ -5,5 +5,4 @@ public class NeededDice {
     private int count;
     private int min_sum;
     private int following;
-
 }

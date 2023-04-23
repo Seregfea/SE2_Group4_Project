@@ -3,13 +3,18 @@
     "id": 0,
     "name": "Profikuscheldecke",
     "cardType": "ITEM",
-    "neededDice":[
+    "neededDice": [
       {
         "number": "3",
         "count": 2
-      }],
+      }
+    ],
     "itemPenalty": [
-      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
     ],
     "schnapspralinen": 2,
     "cardFront": "gegenstand_decke.png",

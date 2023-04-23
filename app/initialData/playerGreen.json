@@ -1,52 +1,53 @@
-[{
-  "id": 0,
-  "name": "Badewanne-grün",
-  "cardType": "BATHTUB",
-  "neededDice":[
-    {
-      "number": "3",
-      "count": 2
-    }],
-  "cardFront": "bad_dreckig_gruen.png",
-  "cardBack": "bad_sauber_gruen.png"
-},
-
-{
-"id": 1,
-"name": "Geschirr-grün",
-"cardType": "TABLEWARE",
-"neededDice":[
-{
-"number": "*",
-"following": 2
-}
-],
-"cardFront": "geschirr_dreckig_gruen.png",
-"cardBack": "geschirr_sauber_gruen.png"
-},
-
-{
-"id": 2,
-"name": "Couch-grün",
-"cardType": "COUCH",
-"neededDice":[
-{
-"number": "5",
-"count": 2
-}
-],
-"cardFront": "couch_matschig_gruen.png",
-"cardBack": "couch_sauber_gruen.png"
-},
+[
+  {
+    "id": 0,
+    "name": "Badewanne-grün",
+    "cardType": "BATHTUB",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "cardFront": "bad_dreckig_gruen.png",
+    "cardBack": "bad_sauber_gruen.png"
+  },
+  {
+    "id": 1,
+    "name": "Geschirr-grün",
+    "cardType": "TABLEWARE",
+    "neededDice": [
+      {
+        "number": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "geschirr_dreckig_gruen.png",
+    "cardBack": "geschirr_sauber_gruen.png"
+  },
+  {
+    "id": 2,
+    "name": "Couch-grün",
+    "cardType": "COUCH",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "cardFront": "couch_matschig_gruen.png",
+    "cardBack": "couch_sauber_gruen.png"
+  },
   {
     "id": 3,
     "name": "Ich-Grün",
     "cardType": "ME",
-    "neededDice":[
+    "neededDice": [
       {
         "number": "5",
         "count": 2
-      }],
+      }
+    ],
     "cardFront": "ich_gruen_vs.png",
     "cardBack": "ich_gruen_rs.png"
   }

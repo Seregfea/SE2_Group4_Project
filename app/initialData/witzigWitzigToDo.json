@@ -3,7 +3,7 @@
     "id": 0,
     "name": "Schnapspralinen-Wettessen",
     "cardType": "WITZIGWITZIG",
-    "neededDice":[
+    "neededDice": [
       {
         "count": 3
       },
@@ -13,7 +13,11 @@
       }
     ],
     "toDoPenalty": [
-      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_wettessen_vs.png",

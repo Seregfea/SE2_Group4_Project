@@ -4,7 +4,11 @@
     "name": "Pinguin",
     "cardType": "TROUBLEMAKER",
     "troublemakerPenalty": [
-      "BATHTUB", "COUCH", "TABLEWARE","ROOMMATE", "ME"
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
     ],
     "schnapspralinen": "wie mache ich das da? wenn du 10 Schnapspralinen hast bekommst du einen",
     "cardFront": "pinguin_vs.png",
