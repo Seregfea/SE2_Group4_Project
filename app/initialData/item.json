@@ -24,7 +24,7 @@
     "id": 1,
     "name": "Schaukelstuhl",
     "cardType": "ITEM",
-    "schnapspralinen": "gröser gleich 16, wie machen",
+    "neededSchnapspralinen": 16,
     "cardFront": "schaukelstuhl_vs.png",
     "cardBack": "schaukelstuhl_rs.png"
   }

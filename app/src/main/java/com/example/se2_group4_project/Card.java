@@ -15,10 +15,12 @@ public class Card {
     private CardType cardType;
     private String cardFront;
     private String cardBack;
+    private int neededSchnapspralinen;
 
     //penalty wie?
 
-    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice, ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack) {
+    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
+                ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
@@ -27,6 +29,7 @@ public class Card {
         this.schnapspralinen = schnapspralinen;
         this.cardFront = cardFront;
         this.cardBack = cardBack;
+        this.neededSchnapspralinen = neededSchnapspralinen;
     }
 
     public CardType getCardType() {
@@ -77,6 +80,28 @@ public class Card {
         this.schnapspralinen = schnapspralinen;
     }
 
-
+    public String getCardFront() {
+        return cardFront;
     }
+
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
+
+    public String getCardBack() {
+        return cardBack;
+    }
+
+    public void setCardBack(String cardBack) {
+        this.cardBack = cardBack;
+    }
+
+    public int getNeededSchnapspralinen() {
+        return neededSchnapspralinen;
+    }
+
+    public void setNeededSchnapspralinen(int neededSchnapspralinen) {
+        this.neededSchnapspralinen = neededSchnapspralinen;
+    }
+}
 

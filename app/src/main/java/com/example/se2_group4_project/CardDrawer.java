@@ -97,8 +97,8 @@ public class CardDrawer {
         this.playerTealStack = ConvertJSON.getCards("playerTeal");
         this.witzigStack = ConvertJSON.getCards("witzig");
         this.witzigWitzigStack = ConvertJSON.getCards("witzigWitzig");
-//        this.itemsStack = ConvertJSON.getCards("item");
-//        this.troublemakerStack = ConvertJSON.getCards("troublemaker");
-//        this.roommateStack = ConvertJSON.getCards("roommate");
+        this.itemsStack = ConvertJSON.getCards("item");
+        this.troublemakerStack = ConvertJSON.getCards("troublemaker");
+        this.roommateStack = ConvertJSON.getCards("roommate");
     }
 }
