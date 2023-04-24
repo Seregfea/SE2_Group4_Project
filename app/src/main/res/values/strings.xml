@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SE2_Group4_Project</string>
+    <string name="ip_adresse">Ip Adresse</string>
+    <string name="start_client">Start Client</string>
+    <string name="start_server">Start Server</string>
 </resources>

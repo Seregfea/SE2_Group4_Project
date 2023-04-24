@@ -1,5 +1,8 @@
 package com.example.se2_group4_project.server.listener;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
@@ -10,6 +13,7 @@ public class Serverlistener extends Listener {
     @Override
     public void connected(Connection connection){
         Log.debug(connection.getRemoteAddressTCP().getHostString() + "  is connected!!!");
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.example.Server;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
+import org.example.Server.response.ResponseTest;
 
 import java.io.IOException;
 
@@ -18,9 +19,12 @@ public class DatabaseServer {
             throw new RuntimeException(e);
         }
 
+
         server.addListener(new ServerListener());
 
         Kryo kryo = server.getKryo();
+
+        kryo.register(ResponseTest.class);
     }
 
 }
