@@ -15,4 +15,15 @@ public class Dice {
         }
         return results;
     }
+
+    public static int getTotalDiceResult(List<Integer> results) {
+        int sum = 0;
+
+        for (int i = 0; i < results.size(); i++) {
+            if (results.get(i) != 6) {
+                sum += results.get(i);
+            }
+        }
+        return sum;
+    }
 }
