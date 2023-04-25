@@ -7,53 +7,88 @@
     android:background="@drawable/holztisch"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="410dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/w_rfelwg_schriftzug" />
+
     <Button
         android:id="@+id/button_options"
-        android:layout_width="287dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="224dp"
+        android:layout_width="314dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="452dp"
         android:text="Einstellungen"
-        android:textSize="24sp"
+        android:background="@color/green"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_find_game"
-        android:layout_width="287dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="314dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="28dp"
         android:text="Spiel Suchen"
-        android:textSize="24sp"
+        android:background="@color/green"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_options" />
 
     <Button
         android:id="@+id/button_select_room"
-        android:layout_width="287dp"
-        android:layout_height="78dp"
+        android:layout_width="314dp"
+        android:layout_height="75dp"
         android:text="Raum auswählen"
-        android:textSize="24sp"
+        android:background="@color/green"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_find_game"
-        app:layout_constraintVertical_bias="0.054" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
         android:id="@+id/button_play"
-        android:layout_width="282dp"
-        android:layout_height="63dp"
+        android:layout_width="314dp"
+        android:layout_height="75dp"
         android:layout_marginTop="88dp"
         android:text="Spielen!"
-        android:textSize="24sp"
+        android:background="@color/green"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/button_options"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.851" />
+
+    <Button
+        android:id="@+id/button_server"
+        android:layout_width="314dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="76dp"
+        android:text="Server"
+        android:background="@color/green"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_select_room"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
