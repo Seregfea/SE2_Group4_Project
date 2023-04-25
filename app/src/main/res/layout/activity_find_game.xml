@@ -7,14 +7,25 @@
     android:background="@drawable/holztisch"
     tools:context=".screens.FindGameActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="387dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/w_rfelwg_schriftzug" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="197dp"
         android:layout_height="54dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="240dp"
         android:text="Spiel Suchen!"
         android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

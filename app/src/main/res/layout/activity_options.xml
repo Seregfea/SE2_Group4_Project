@@ -7,6 +7,16 @@
     android:background="@drawable/holztisch"
     tools:context=".screens.OptionsActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="387dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/w_rfelwg_schriftzug" />
+
     <Button
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
@@ -21,7 +31,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="264dp"
         android:text="Einstellungen"
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
