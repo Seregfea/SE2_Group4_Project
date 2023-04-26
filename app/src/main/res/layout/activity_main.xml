@@ -54,4 +54,27 @@
         app:layout_constraintStart_toEndOf="@+id/clientBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/rmivarview"
+        android:layout_width="48dp"
+        android:layout_height="29dp"
+        android:text="@string/rmi_var"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/rmivar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IpAdresse"
+        app:layout_constraintVertical_bias="0.783" />
+
+    <TextView
+        android:id="@+id/rmivar"
+        android:layout_width="54dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="112dp"
+        android:text="@string/rmi_var"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

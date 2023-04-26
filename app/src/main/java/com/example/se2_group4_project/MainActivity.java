@@ -4,16 +4,20 @@ package com.example.se2_group4_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.se2_group4_project.client.ClientKryo;
+import com.example.se2_group4_project.databinding.ActivityMainBinding;
+import com.example.se2_group4_project.jsonComunication.Server;
 import com.example.se2_group4_project.server.ServerKryo;
 import com.example.se2_group4_project.server.response.Test;
 
@@ -28,31 +32,33 @@ public class MainActivity extends AppCompatActivity {
     ServerKryo server;
     ClientKryo client;
     ExecutorService service;
-    TextView ipView;
-    Button serverBtn;
-    Button clientBtn;
+    //////////////////////////////////////////
+
+    ActivityMainBinding activityMainBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        clientBtn = findViewById(R.id.clientBtn);
-        serverBtn = findViewById(R.id.serverBtn);
-
-        ipView = findViewById(R.id.IpAdresse);
-        showIP();
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = activityMainBinding.getRoot();
+        setContentView(view);
 
         setListener();
 
 
     }
 
-    private void setListener(){
-        clientBtn.setOnClickListener(view -> executeService(0));
 
-        serverBtn.setOnClickListener(view -> executeService(1));
+    //////////////////////////////////// krynoet //////////////////
+    private void setListener(){
+        activityMainBinding.serverBtn.setOnClickListener(view -> switchActivity());
+
+        activityMainBinding.clientBtn.setOnClickListener(view -> executeService(0));
     }
 
+    private void switchActivity(){
+        Intent switchactivity = new Intent(this, ServerActivity.class);
+        startActivity(switchactivity);
+    }
     private void executeService(int i){
         service = Executors.newSingleThreadExecutor();
 
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void executeClient(){
         client = new ClientKryo();
         try {
-            client.clientSrt(50000,"192.168.8.103", this);
+            client.clientSrt(50000,"192.168.1.2", this);
         } catch (IOException e) {
             Log.e("client","client failed: " + e);
             throw new RuntimeException(e);
@@ -83,15 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void executeServer(){
         server = new ServerKryo();
-
         try {
-            server.serverStart(50000);
-            Toast toast = Toast.makeText(this,  "  server started!!!",Toast.LENGTH_LONG);
-            toast.show();
-
+            server.serverStart(50000, activityMainBinding);
         } catch (IOException e) {
-            Toast toast =  Toast.makeText(this, e + "  server Failed!!!",Toast.LENGTH_LONG);
-            toast.show();
             throw new RuntimeException(e);
         }
     }
@@ -101,6 +101,6 @@ public class MainActivity extends AppCompatActivity {
         WifiInfo wifiInfo = wm.getConnectionInfo();
         String ip = Formatter.formatIpAddress(wifiInfo.getIpAddress());
 
-        ipView.setText(ip);
+        activityMainBinding.IpAdresse.setText(ip);
     }
 }

@@ -1,14 +1,17 @@
 package com.example.se2_group4_project.server.listener;
 
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import com.example.se2_group4_project.databinding.ActivityMainBinding;
 import com.example.se2_group4_project.server.response.Test;
 
 public class Serverlistener extends Listener {
+
 
     @Override
     public void connected(Connection connection){
@@ -23,9 +26,11 @@ public class Serverlistener extends Listener {
 
     public void received(Connection connection, Object object){
             if (object instanceof Test){
+                Log.debug(((Test) object).testnumber + " from client ");
                 Test test = new Test();
                 test.testnumber += 5;
                 connection.sendTCP(test);
+                Log.debug(test.testnumber + "  to client");
             }
     }
 }

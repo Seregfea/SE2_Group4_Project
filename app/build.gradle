@@ -4,6 +4,7 @@ plugins {
     id "org.sonarqube" version "3.5.0.2730"
 }
 
+
 android {
     compileSdk 33
 
@@ -32,6 +33,9 @@ android {
             useJUnitPlatform()
             finalizedBy jacocoTestReport
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -68,7 +72,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.code.gson:gson:2.8.9'
+
+
     implementation 'com.esotericsoftware:kryonet:2.22.0-RC1'
+
 
 
 
