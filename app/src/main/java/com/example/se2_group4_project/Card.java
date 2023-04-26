@@ -17,8 +17,6 @@ public class Card {
     private String cardBack;
     private int neededSchnapspralinen;
 
-    //penalty wie?
-
     public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
                 ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen) {
         this.cardType = cardType;

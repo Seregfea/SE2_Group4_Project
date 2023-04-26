@@ -10,9 +10,13 @@
       "ROOMMATE",
       "ME"
     ],
-    "neededSchnapspralinen": 10,
+    "neededDice": [
+      {
+        "number": "*",
+        "following": 3
+      }
+    ],
     "cardFront": "bukowski_vs.png",
-    "cardBack": "bukowski_rs.png",
-    "myComment": "Es gibt verschiedene Roommates"
+    "cardBack": "bukowski_rs.png"
   }
 ]

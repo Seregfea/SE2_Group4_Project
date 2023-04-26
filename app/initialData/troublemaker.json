@@ -10,6 +10,7 @@
       "ROOMMATE",
       "ME"
     ],
+    "neededSchnapspralinen": 10,
     "cardFront": "pinguin_vs.png",
     "cardBack": "stoerenfried-rs.png"
   }
