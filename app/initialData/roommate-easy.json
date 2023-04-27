@@ -1,0 +1,15 @@
+[
+  {
+    "id": 0,
+    "name": "Pierre",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_pierre_vs.png",
+    "cardBack": "normal_pierre_rs.png"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Pinguin",
+    "cardType": "TROUBLEMAKER",
+    "troublemakerPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "neededSchnapspralinen": 10,
+    "cardFront": "pinguin_vs.png",
+    "cardBack": "stoerenfried-rs.png"
+  }
+]

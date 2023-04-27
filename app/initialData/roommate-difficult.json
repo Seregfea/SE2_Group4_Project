@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "name": "Bukowksi",
+    "cardType": "ROOMMATE",
+    "roommatePenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "neededDice": [
+      {
+        "number": "*",
+        "following": 3
+      }
+    ],
+    "cardFront": "bukowski_vs.png",
+    "cardBack": "bukowski_rs.png"
+  }
+]

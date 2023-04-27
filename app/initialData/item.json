@@ -1,0 +1,31 @@
+[
+  {
+    "id": 0,
+    "name": "Profikuscheldecke",
+    "cardType": "ITEM",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "itemPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 2,
+    "cardFront": "decke_vs.png",
+    "cardBack": "gegenstand_rs.png"
+  },
+  {
+    "id": 1,
+    "name": "Schaukelstuhl",
+    "cardType": "ITEM",
+    "neededSchnapspralinen": 16,
+    "cardFront": "schaukelstuhl_vs.png",
+    "cardBack": "schaukelstuhl_rs.png"
+  }
+]

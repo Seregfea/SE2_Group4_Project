@@ -1,0 +1,54 @@
+[
+  {
+    "id": 0,
+    "name": "Badewanne-orange",
+    "cardType": "BATHTUB",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      }
+    ],
+    "cardFront": "bad_dreckig_orange.png",
+    "cardBack": "bad_sauber_orange.png"
+  },
+  {
+    "id": 1,
+    "name": "Geschirr-orange",
+    "cardType": "TABLEWARE",
+    "neededDice": [
+      {
+        "number": "*",
+        "following": 2
+      }
+    ],
+    "cardFront": "geschirr_dreckig_orange.png",
+    "cardBack": "geschirr_sauber_orange.png"
+  },
+  {
+    "id": 2,
+    "name": "Couch-orange",
+    "cardType": "COUCH",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "couch_matschig_orange.png",
+    "cardBack": "couch_sauber_orange.png"
+  },
+  {
+    "id": 3,
+    "name": "Ich-Orange",
+    "cardType": "ME",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "ich_orange_vs.png",
+    "cardBack": "ich_orange_rs.png"
+  }
+]
