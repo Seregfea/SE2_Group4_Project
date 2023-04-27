@@ -2,6 +2,10 @@ package com.example.se2_group4_project;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.example.se2_group4_project.cards.Card;
+import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.cards.CardType;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
