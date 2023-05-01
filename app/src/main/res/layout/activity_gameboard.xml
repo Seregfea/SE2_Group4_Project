@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/UserCardsLayout"
-        android:layout_width="456dp"
+        android:layout_width = "wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="351dp"
@@ -33,7 +33,7 @@
 
     <LinearLayout
         android:id="@+id/CardsLayoutTop"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="57dp"
         android:layout_marginTop="10dp"
@@ -46,7 +46,7 @@
     <LinearLayout
         android:id="@+id/CardsLayoutRight"
         android:layout_width="50dp"
-        android:layout_height="224dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="93dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="94dp"
@@ -60,7 +60,7 @@
     <LinearLayout
         android:id="@+id/CardsLayoutLeft"
         android:layout_width="50dp"
-        android:layout_height="224dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="88dp"
@@ -71,133 +71,23 @@
 
     <LinearLayout
         android:id="@+id/ItemCardsLayout"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="145dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="147dp"
-        android:layout_marginBottom="37dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/ToDoCardsLayout"
         app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
         app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
         app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ToDoCardsLayout"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="145dp"
-        android:layout_marginBottom="73dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/UserCardsLayout"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/RoommateCardsLayout"
-        android:layout_width="167dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="73dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/UserCardsLayout"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintStart_toEndOf="@+id/ToDoCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/Dices"
-        android:layout_width="115dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></LinearLayout>
-
-    <ImageView
-        android:id="@+id/DiceLot1"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/DiceLot4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/DiceLot2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/DiceLot5"
-        app:layout_constraintStart_toEndOf="@+id/DiceLot1"
-        app:srcCompat="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/diceLot3"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/DiceLot6"
-        app:layout_constraintStart_toEndOf="@+id/DiceLot2"
-        app:srcCompat="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/DiceLot4"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/DiceLot5"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DiceLot4"
-        app:srcCompat="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/DiceLot6"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DiceLot5"
-        app:srcCompat="@android:drawable/gallery_thumb" />
 
     <Button
         android:id="@+id/btnRollDice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="335dp"
         android:text="@string/roll_dice_btn"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/ToDoCardsLayout"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="20dp" />
-
-    <LinearLayout
-        android:id="@+id/PralineLayout"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="67dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutTop"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
