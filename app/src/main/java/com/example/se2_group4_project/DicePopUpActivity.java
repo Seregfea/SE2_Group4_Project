@@ -1,5 +1,6 @@
 package com.example.se2_group4_project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,6 +25,7 @@ public class DicePopUpActivity extends PopupWindow {
     private int rollAnimation = 40;
 
 
+    @SuppressLint("InflateParams")
     public DicePopUpActivity(Context context) {
         super(context);
         dicePopUpView = LayoutInflater.from(context).inflate(R.layout.activity_dice, null);
@@ -49,6 +51,7 @@ public class DicePopUpActivity extends PopupWindow {
         rollDiceAnimation();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void rollDiceAnimation() {
         if (mediaPlayer != null) {
             mediaPlayer.start();

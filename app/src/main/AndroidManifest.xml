@@ -18,6 +18,18 @@
             android:name=".Gameboard"
             android:exported="false" />
         <activity
+            android:name=".screens.PlayGameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.OptionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.SelectRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.FindGameActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="sensorLandscape">
