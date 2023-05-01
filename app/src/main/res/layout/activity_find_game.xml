@@ -15,7 +15,7 @@
         android:layout_marginTop="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/w_rfelwg_schriftzug" />
+        app:srcCompat="@drawable/wg_schriftzug" />
 
     <TextView
         android:id="@+id/textView"
