@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -36,6 +38,21 @@ public class Gameboard extends AppCompatActivity {
             }
         });
 
+        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
+        CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
+        ImageView zwei = new ImageView(this);
+        zwei.setImageResource(R.drawable.couch_dreckig_orange);
+        zwei.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
+        left.addImage(imageView);
+        left.addImage(zwei);
+    }
+}
+
 
 
         /*CardDrawer cardDrawer = new CardDrawer();
@@ -54,5 +71,3 @@ public class Gameboard extends AppCompatActivity {
 
          */
 
-    }
-}

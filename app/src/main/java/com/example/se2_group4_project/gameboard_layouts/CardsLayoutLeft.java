@@ -1,14 +1,19 @@
 package com.example.se2_group4_project.gameboard_layouts;
 
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class CardsLayoutLeft extends LinearLayout {
+import com.example.se2_group4_project.R;
 
-    LinearLayout layoutLeft;
+public class CardsLayoutLeft {
 
-    public CardsLayoutLeft(LinearLayout layoutLeft) {
-        super(layoutLeft.getContext());
-        this.layoutLeft = layoutLeft;
+    LinearLayout layout;
 
+    public CardsLayoutLeft(LinearLayout layout) {
+        this.layout = layout;
+    }
+
+    public void addImage(ImageView imageView) {
+        layout.addView(imageView);
     }
 }
