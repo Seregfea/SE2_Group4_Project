@@ -36,6 +36,8 @@ public class Gameboard extends AppCompatActivity {
             }
         });
 
+
+
         CardDrawer cardDrawer = new CardDrawer();
         try {
             cardDrawer.generateInitialCards();
@@ -49,9 +51,6 @@ public class Gameboard extends AppCompatActivity {
         // jeder Spieler bekommt Nummer mit einer Farbe random - von dieser Farbe bekommt er Karten
         // Layout passt sich an
 
-        GridLayout cardGrid = findViewById(R.id.cardStacks);
-        ImageView card1 = findViewById(R.id.card1);
-        card1.setImageResource(R.drawable.bad_dreckig_hellblau);
 
     }
 }

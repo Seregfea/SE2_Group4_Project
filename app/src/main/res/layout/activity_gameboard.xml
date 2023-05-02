@@ -104,28 +104,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/card1"
+            android:id="@+id/witzigLayout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center" />
 
         <ImageView
-            android:id="@+id/card2"
+            android:id="@+id/witzigWitzigLayout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center" />
 
         <ImageView
-            android:id="@+id/card3"
+            android:id="@+id/roommateLayout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center" />
 
         <ImageView
-            android:id="@+id/card4"
+            android:id="@+id/troublemakerLayout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_columnWeight="1"
