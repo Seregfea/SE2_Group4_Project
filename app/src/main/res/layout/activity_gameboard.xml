@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="93dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="94dp"
+        android:layout_marginBottom="88dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="145dp"
         android:layout_marginTop="76dp"
-        android:layout_marginEnd="147dp"
+        android:layout_marginEnd="145dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
         app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
@@ -90,56 +90,48 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="20dp" />
 
-    <LinearLayout
-        android:id="@+id/roommateLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:layout_marginBottom="180dp"
-        android:orientation="horizontal"
+    <GridLayout
+        android:id="@+id/cardStacks"
+        android:layout_width="369dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="141dp"
+        android:columnCount="4"
+        android:rowCount="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="507dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/card1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center" />
 
-    <LinearLayout
-        android:id="@+id/troublemakerLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:layout_marginBottom="180dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="419dp">
+        <ImageView
+            android:id="@+id/card2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/card3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center" />
 
-    <LinearLayout
-        android:id="@+id/witzigLayout"
-        android:layout_width="1dp"
-        android:layout_height="4dp"
-        android:layout_marginTop="230dp"
-        android:layout_marginBottom="180dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="218dp">
+        <ImageView
+            android:id="@+id/card4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center" />
 
-    </LinearLayout>
+    </GridLayout>
 
-    <LinearLayout
-        android:id="@+id/witzigWitzigLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:layout_marginBottom="180dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="327dp">
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

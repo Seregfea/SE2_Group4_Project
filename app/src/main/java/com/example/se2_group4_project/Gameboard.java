@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -48,6 +49,9 @@ public class Gameboard extends AppCompatActivity {
         // jeder Spieler bekommt Nummer mit einer Farbe random - von dieser Farbe bekommt er Karten
         // Layout passt sich an
 
+        GridLayout cardGrid = findViewById(R.id.cardStacks);
+        ImageView card1 = findViewById(R.id.card1);
+        card1.setImageResource(R.drawable.bad_dreckig_hellblau);
 
     }
 }
