@@ -67,7 +67,9 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ItemCardsLayout"
@@ -91,7 +93,9 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/UserCardsLayout"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"></LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/RoommateCardsLayout"
@@ -199,5 +203,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/CardsLayoutTop"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <ImageView
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="210dp"
+        tools:layout_editor_absoluteY="217dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
