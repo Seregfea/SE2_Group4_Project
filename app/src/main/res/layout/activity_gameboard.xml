@@ -90,4 +90,56 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="20dp" />
 
+    <LinearLayout
+        android:id="@+id/roommateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="180dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="507dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/troublemakerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="180dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="419dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/witzigLayout"
+        android:layout_width="1dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="180dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="218dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/witzigWitzigLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="180dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="327dp">
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
