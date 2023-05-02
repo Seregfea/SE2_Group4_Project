@@ -38,7 +38,7 @@ public class Gameboard extends AppCompatActivity {
 
 
 
-        CardDrawer cardDrawer = new CardDrawer();
+        /*CardDrawer cardDrawer = new CardDrawer();
         try {
             cardDrawer.generateInitialCards();
         } catch (FileNotFoundException e) {
@@ -51,6 +51,8 @@ public class Gameboard extends AppCompatActivity {
         // jeder Spieler bekommt Nummer mit einer Farbe random - von dieser Farbe bekommt er Karten
         // Layout passt sich an
 
+
+         */
 
     }
 }
