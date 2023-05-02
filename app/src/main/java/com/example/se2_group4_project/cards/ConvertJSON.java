@@ -40,8 +40,11 @@ public class ConvertJSON {
             case "troublemaker":
                 fileName = "troublemaker.json";
                 break;
-            case "roommate":
-                fileName = "roommate.json";
+            case "roommateEasy":
+                fileName = "roommate-easy.json";
+                break;
+            case "roommateDifficult":
+                fileName = "roommate-difficult.json";
                 break;
         }
 

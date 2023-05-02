@@ -13,6 +13,9 @@ public class CardDrawer {
     private ArrayList<Card> witzigStack = new ArrayList<>();
     private ArrayList<Card> witzigWitzigStack = new ArrayList<>();
     private ArrayList<Card> itemsStack = new ArrayList<>();
+    private ArrayList<Card> roommateEasyStack = new ArrayList<>();
+    private ArrayList<Card> roommateDifficultStack = new ArrayList<>();
+    private ArrayList<Card> troublemakerStack = new ArrayList<>();
 
     public ArrayList<Card> getPlayerBlueStack() {
         return playerBlueStack;
@@ -78,16 +81,21 @@ public class CardDrawer {
         this.troublemakerStack = troublemakerStack;
     }
 
-    public ArrayList<Card> getRoommateStack() {
-        return roommateStack;
+    public ArrayList<Card> getRoommateEasyStack() {
+        return roommateEasyStack;
     }
 
-    public void setRoommateStack(ArrayList<Card> roommateStack) {
-        this.roommateStack = roommateStack;
+    public void setRoommateEasyStack(ArrayList<Card> roommateEasyStack) {
+        this.roommateEasyStack = roommateEasyStack;
     }
 
-    private ArrayList<Card> troublemakerStack = new ArrayList<>();
-    private ArrayList<Card> roommateStack = new ArrayList<>();
+    public ArrayList<Card> getRoommateDifficultStack() {
+        return roommateDifficultStack;
+    }
+
+    public void setRoommateDifficultStack(ArrayList<Card> roommateDifficultStack) {
+        this.roommateDifficultStack = roommateDifficultStack;
+    }
 
     //Karten holen und speichern
     public void generateInitialCards() throws FileNotFoundException {
@@ -99,6 +107,7 @@ public class CardDrawer {
         this.witzigWitzigStack = ConvertJSON.getCards("witzigWitzig");
         this.itemsStack = ConvertJSON.getCards("item");
         this.troublemakerStack = ConvertJSON.getCards("troublemaker");
-        this.roommateStack = ConvertJSON.getCards("roommate");
+        this.roommateEasyStack = ConvertJSON.getCards("roommateEasy");
+        this.roommateDifficultStack = ConvertJSON.getCards("roommateDifficult");
     }
 }
