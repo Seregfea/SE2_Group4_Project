@@ -31,6 +31,7 @@ public class FindGameActivity extends AppCompatActivity {
                     Toast.makeText(FindGameActivity.this, "Please enter IP-adress", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getApplicationContext(), Gameboard.class);
+                    intent.putExtra("ip", ip.getText().toString());
                     startActivity(intent);
                 }
             }
