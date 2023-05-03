@@ -3,6 +3,7 @@ package com.example.se2_group4_project;
 import static java.security.AccessController.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
@@ -36,7 +38,7 @@ public class Gameboard extends AppCompatActivity {
                 dicePopUpActivity.rollDice();
             }
         });
-        CardDrawer c = new CardDrawer();
+        CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
             c.generateInitialCards();
         } catch (FileNotFoundException e) {
@@ -45,15 +47,20 @@ public class Gameboard extends AppCompatActivity {
 
         ArrayList<Card> player1 = c.getPlayerBlueStack();
         for (Card card: player1) {
-            ImageView iView = new ImageView(this.getBaseContext());
+            LinearLayout playerBlue = findViewById(R.id.CardsLayoutLeft);
+            ImageView iView = new ImageView(playerBlue.getContext());
             final int imageRessourceID =
                     getResources()
                             .getIdentifier(
                                     card.getCardFront(), "drawable", this.getBaseContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
-            iView.layout(100, 100, 100,100);
-
+            iView.setVisibility(View.VISIBLE);
+            //LinearLayout.LayoutParams params = new LinearLayout
+              //  .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+           iView.setLayoutParams(new LinearLayout.LayoutParams(50,50));
+            playerBlue.addView(iView);
+            break;
         }
 
     }
