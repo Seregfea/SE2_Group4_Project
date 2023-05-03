@@ -27,7 +27,7 @@ public class GameLogic {
     }
 
     public void enableSchaukelstuhl(){
-       //playerList.add zu jetztigem Spieler
+       //playerList.add zu jetztigem Spieler 
     }
 
 }
