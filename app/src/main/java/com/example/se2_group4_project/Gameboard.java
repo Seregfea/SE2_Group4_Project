@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
 import java.io.FileNotFoundException;
@@ -39,9 +41,18 @@ public class Gameboard extends AppCompatActivity {
                 dicePopUpActivity.rollDice();
             }
         });
+        // Client connects to server
+        Client client = new Client();
+        Bundle extra = getIntent().getExtras();
+        String ip = extra.getString("ip");
+        Toast.makeText(this, "Connected with"+ip, Toast.LENGTH_SHORT).show();
+        //client.startConnection(ip);
+
+
         LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
+// create the first ImageView and set its width to 60dp
         ImageView drei = new ImageView(this);
         drei.setImageResource(R.drawable.bad_dreckig_hellblau);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
