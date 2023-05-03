@@ -38,15 +38,18 @@ public class Gameboard extends AppCompatActivity {
             }
         });
 
+
+
         LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
+
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
 
         ImageView zwei = new ImageView(this);
         zwei.setImageResource(R.drawable.couch_dreckig_orange);
-        zwei.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+
 
         left.addImage(imageView);
         left.addImage(zwei);
