@@ -3,6 +3,8 @@ package com.example.se2_group4_project;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.se2_group4_project.dices.Dice;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

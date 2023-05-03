@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SE2_Group4_Project</string>
     <string name="roll_dice_btn">würfeln</string>
+    <string name="available_dices_et">verfügbare Würfel:</string>
 </resources>
