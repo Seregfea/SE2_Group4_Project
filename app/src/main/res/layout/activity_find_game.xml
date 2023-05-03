@@ -46,7 +46,8 @@
         android:layout_height="58dp"
         android:ems="10"
         android:inputType="text"
-        android:text="IP-adress"
+        android:hint="IP-adress"
+        android:text=""
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +57,7 @@
         app:layout_constraintVertical_bias="0.29" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_game"
         android:layout_width="112dp"
         android:layout_height="58dp"
         android:backgroundTint="#28AF0F"
