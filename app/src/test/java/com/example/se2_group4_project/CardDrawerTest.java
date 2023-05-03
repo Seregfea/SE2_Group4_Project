@@ -35,7 +35,7 @@ class CardDrawerTest {
         ArrayList<Card> blueStackCards = cardDrawer.getPlayerBlueStack();
         assertEquals(blueStackCards.get(0).getCardType(), CardType.BATHTUB);
         assertEquals(blueStackCards.get(1).getCardType(), CardType.TABLEWARE);
-        assertEquals(blueStackCards.get(2).getCardType(), CardType.BATHTUB);
+        assertEquals(blueStackCards.get(2).getCardType(), CardType.COUCH);
 
     }
 
