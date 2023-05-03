@@ -43,14 +43,25 @@ public class Gameboard extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
+        ImageView drei = new ImageView(this);
+        drei.setImageResource(R.drawable.bad_dreckig_hellblau);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        drei.setLayoutParams(params);
+
+// create the second ImageView and set its width to 60dp
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(params);
 
+// create the third ImageView and set its width to 60dp
         ImageView zwei = new ImageView(this);
         zwei.setImageResource(R.drawable.couch_dreckig_orange);
+        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        zwei.setLayoutParams(params);
 
-
+// add the ImageViews to the layout
+        left.addImage(drei);
         left.addImage(imageView);
         left.addImage(zwei);
     }
