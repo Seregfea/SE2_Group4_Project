@@ -1,4 +1,4 @@
-package com.example.se2_group4_project;
+package com.example.se2_group4_project.dices;
 
 import java.util.ArrayList;
 import java.util.List;
