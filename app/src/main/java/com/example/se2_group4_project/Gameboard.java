@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
     private Button btnRollDice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +46,11 @@ public class Gameboard extends AppCompatActivity {
         Client client = new Client();
         Bundle extra = getIntent().getExtras();
         String ip = extra.getString("ip");
-        Toast.makeText(this, "Connected with"+ip, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
 
 
-        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
+    /*    LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
 // create the first ImageView and set its width to 60dp
@@ -75,6 +76,9 @@ public class Gameboard extends AppCompatActivity {
         left.addImage(imageView);
         left.addImage(zwei);
 
+
+     */
+
         CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
             c.generateInitialCards();
@@ -83,21 +87,20 @@ public class Gameboard extends AppCompatActivity {
         }
 
         ArrayList<Card> player1 = c.getPlayerBlueStack();
-        for (Card card: player1) {
+        for (Card card : player1) {
             LinearLayout playerBlue = findViewById(R.id.CardsLayoutLeft);
             ImageView iView = new ImageView(playerBlue.getContext());
             final int imageRessourceID =
-                    getResources()
+                    this.getResources()
                             .getIdentifier(
-                                    card.getCardFront(), "drawable", this.getBaseContext().getPackageName());
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
             iView.setVisibility(View.VISIBLE);
             //LinearLayout.LayoutParams params = new LinearLayout
-              //  .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-           iView.setLayoutParams(new LinearLayout.LayoutParams(50,50));
+            //  .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
             playerBlue.addView(iView);
-            break;
         }
 
     }
