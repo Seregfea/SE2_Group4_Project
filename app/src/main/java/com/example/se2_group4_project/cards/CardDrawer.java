@@ -1,5 +1,7 @@
 package com.example.se2_group4_project.cards;
 
+import android.content.Context;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -13,6 +15,14 @@ public class CardDrawer {
     private ArrayList<Card> witzigStack = new ArrayList<>();
     private ArrayList<Card> witzigWitzigStack = new ArrayList<>();
     private ArrayList<Card> itemsStack = new ArrayList<>();
+    private ArrayList<Card> roommateEasyStack = new ArrayList<>();
+    private ArrayList<Card> roommateDifficultStack = new ArrayList<>();
+    private ArrayList<Card> troublemakerStack = new ArrayList<>();
+    private ConvertJSON convertJSON;
+
+    public CardDrawer(Context context) {
+        this.convertJSON = new ConvertJSON(context);
+    }
 
     public ArrayList<Card> getPlayerBlueStack() {
         return playerBlueStack;
@@ -78,27 +88,33 @@ public class CardDrawer {
         this.troublemakerStack = troublemakerStack;
     }
 
-    public ArrayList<Card> getRoommateStack() {
-        return roommateStack;
+    public ArrayList<Card> getRoommateEasyStack() {
+        return roommateEasyStack;
     }
 
-    public void setRoommateStack(ArrayList<Card> roommateStack) {
-        this.roommateStack = roommateStack;
+    public void setRoommateEasyStack(ArrayList<Card> roommateEasyStack) {
+        this.roommateEasyStack = roommateEasyStack;
     }
 
-    private ArrayList<Card> troublemakerStack = new ArrayList<>();
-    private ArrayList<Card> roommateStack = new ArrayList<>();
+    public ArrayList<Card> getRoommateDifficultStack() {
+        return roommateDifficultStack;
+    }
+
+    public void setRoommateDifficultStack(ArrayList<Card> roommateDifficultStack) {
+        this.roommateDifficultStack = roommateDifficultStack;
+    }
 
     //Karten holen und speichern
     public void generateInitialCards() throws FileNotFoundException {
-        this.playerBlueStack = ConvertJSON.getCards("playerBlue");
-        this.playerGreenStack = ConvertJSON.getCards("playerGreen");
-        this.playerOrangeStack = ConvertJSON.getCards("playerOrange");
-        this.playerTealStack = ConvertJSON.getCards("playerTeal");
-        this.witzigStack = ConvertJSON.getCards("witzig");
-        this.witzigWitzigStack = ConvertJSON.getCards("witzigWitzig");
-        this.itemsStack = ConvertJSON.getCards("item");
-        this.troublemakerStack = ConvertJSON.getCards("troublemaker");
-        this.roommateStack = ConvertJSON.getCards("roommate");
+        this.playerBlueStack = this.convertJSON.getCards("playerBlue");
+        this.playerGreenStack = this.convertJSON.getCards("playerGreen");
+        this.playerOrangeStack = this.convertJSON.getCards("playerOrange");
+        this.playerTealStack = this.convertJSON.getCards("playerTeal");
+        this.witzigStack = this.convertJSON.getCards("witzig");
+        this.witzigWitzigStack = this.convertJSON.getCards("witzigWitzig");
+        this.itemsStack = this.convertJSON.getCards("item");
+        this.troublemakerStack = this.convertJSON.getCards("troublemaker");
+        this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
+        this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
     }
 }

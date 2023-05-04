@@ -9,7 +9,7 @@
         "count": 2
       }
     ],
-    "cardFront": "bad_dreckig_hellblau.png",
+    "cardFront": "bad_dreckig_hellblau",
     "cardBack": "bad_sauber_hellblau.png"
   },
   {
@@ -22,7 +22,7 @@
         "following": 2
       }
     ],
-    "cardFront": "geschirr_dreckig_hellblau.png",
+    "cardFront": "geschirr_dreckig_hellblau",
     "cardBack": "geschirr_sauber_hellblau.png"
   },
   {
@@ -35,7 +35,7 @@
         "count": 2
       }
     ],
-    "cardFront": "couch_matschig_hellblau.png",
+    "cardFront": "couch_matschig_hellblau",
     "cardBack": "couch_sauber_hellblau.png"
   },
   {
@@ -48,7 +48,7 @@
         "count": 2
       }
     ],
-    "cardFront": "ich_hellblau_vs.png",
+    "cardFront": "ich_hellblau_vs",
     "cardBack": "ich_hellblau_rs.png"
   }
 ]
