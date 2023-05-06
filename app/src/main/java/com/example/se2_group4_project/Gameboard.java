@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
+import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -48,6 +50,13 @@ public class Gameboard extends AppCompatActivity {
                 dicePopUpActivity.rollDice();
             }
         });
+
+        // Client connects to server
+        Client client = new Client();
+        Bundle extra = getIntent().getExtras();
+        String ip = extra.getString("ip");
+        Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
+        //client.startConnection(ip);
 
         CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
