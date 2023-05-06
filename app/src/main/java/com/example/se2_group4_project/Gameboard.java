@@ -56,42 +56,6 @@ public class Gameboard extends AppCompatActivity {
                 dicePopUpActivity.rollDice();
             }
         });
-        // Client connects to server
-        Client client = new Client();
-        Bundle extra = getIntent().getExtras();
-        String ip = extra.getString("ip");
-        Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-        //client.startConnection(ip);
-
-
-    /*    LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
-        CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
-
-// create the first ImageView and set its width to 60dp
-        ImageView drei = new ImageView(this);
-        drei.setImageResource(R.drawable.bad_dreckig_hellblau);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        drei.setLayoutParams(params);
-
-// create the second ImageView and set its width to 60dp
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(params);
-
-// create the third ImageView and set its width to 60dp
-        ImageView zwei = new ImageView(this);
-        zwei.setImageResource(R.drawable.couch_dreckig_orange);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        zwei.setLayoutParams(params);
-
-// add the ImageViews to the layout
-        left.addImage(drei);
-        left.addImage(imageView);
-        left.addImage(zwei);
-
-
-     */
 
         CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
@@ -99,6 +63,9 @@ public class Gameboard extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        //wuerde gerne Methoden darausmachen und dann callen
+        //Methode player1,2,3,4
 
         ArrayList<Card> player1 = c.getPlayerBlueStack();
         for (Card card : player1) {
@@ -110,28 +77,135 @@ public class Gameboard extends AppCompatActivity {
                                     card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
-            iView.setVisibility(View.VISIBLE);
-            //LinearLayout.LayoutParams params = new LinearLayout
-            //  .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
             playerBlue.addView(iView);
         }
 
+        ArrayList<Card> player2 = c.getPlayerGreenStack();
+        for (Card card : player2) {
+            LinearLayout playerGreen = findViewById(R.id.CardsLayoutTop);
+            ImageView iView = new ImageView(playerGreen.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            playerGreen.addView(iView);
+        }
+
+        ArrayList<Card> player3 = c.getPlayerOrangeStack();
+        for (Card card : player3) {
+            LinearLayout playerOrange = findViewById(R.id.CardsLayoutRight);
+            ImageView iView = new ImageView(playerOrange.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            playerOrange.addView(iView);
+        }
+
+        ArrayList<Card> player4 = c.getPlayerTealStack();
+        for (Card card : player4) {
+            LinearLayout playerTeal = findViewById(R.id.UserCardsLayout);
+            ImageView iView = new ImageView(playerTeal.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            playerTeal.addView(iView);
+        }
+
+        ArrayList<Card> roommateDifficultStack = c.getRoommateDifficultStack();
+        for (Card card : roommateDifficultStack) {
+            LinearLayout roommateDifficult = findViewById(R.id.roommateDifficultLayout);
+            ImageView iView = new ImageView(roommateDifficult.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            roommateDifficult.addView(iView);
+        }
+
+        ArrayList<Card> roommateEasyStack = c.getRoommateEasyStack();
+        for (Card card : roommateEasyStack) {
+            LinearLayout roommateEasy = findViewById(R.id.roommateEasyLayout);
+            ImageView iView = new ImageView(roommateEasy.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            roommateEasy.addView(iView);
+        }
+
+        ArrayList<Card> witzigStack = c.getWitzigStack();
+        for (Card card : witzigStack) {
+            LinearLayout witzig = findViewById(R.id.witzigLayout);
+            ImageView iView = new ImageView(witzig.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            witzig.addView(iView);
+        }
+
+        ArrayList<Card> witzigWitzigStack = c.getWitzigWitzigStack();
+        for (Card card : witzigWitzigStack) {
+            LinearLayout witzigWitzig = findViewById(R.id.witzigWitzigLayout);
+            ImageView iView = new ImageView(witzigWitzig.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            witzigWitzig.addView(iView);
+        }
+
+        ArrayList<Card> troublemakerStack = c.getTroublemakerStack();
+        for (Card card : troublemakerStack) {
+            LinearLayout troublemaker = findViewById(R.id.troublemakerLayout);
+            ImageView iView = new ImageView(troublemaker.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            troublemaker.addView(iView);
+        }
+
+        ArrayList<Card> itemStack = c.getItemsStack();
+        for (Card card : itemStack) {
+            LinearLayout items = findViewById(R.id.ItemCardsLayout);
+            ImageView iView = new ImageView(items.getContext());
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+            items.addView(iView);
+        }
+
     }
 }
-
-/*CardDrawer cardDrawer = new CardDrawer();
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
-
-        // ich greife auf stack zu und habe index 0 - 4
-        // ich nehme die playerBlueStack z.B. und bekomme da meine Images
-        // jeder Spieler bekommt Nummer mit einer Farbe random - von dieser Farbe bekommt er Karten
-        // Layout passt sich an
-
-
-         */
