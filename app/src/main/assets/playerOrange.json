@@ -9,8 +9,8 @@
         "count": 2
       }
     ],
-    "cardFront": "bad_dreckig_orange.png",
-    "cardBack": "bad_sauber_orange.png"
+    "cardFront": "bad_dreckig_orange",
+    "cardBack": "bad_sauber_orange"
   },
   {
     "id": 1,
@@ -22,8 +22,8 @@
         "following": 2
       }
     ],
-    "cardFront": "geschirr_dreckig_orange.png",
-    "cardBack": "geschirr_sauber_orange.png"
+    "cardFront": "geschirr_dreckig_orange",
+    "cardBack": "geschirr_sauber_orange"
   },
   {
     "id": 2,
@@ -35,8 +35,8 @@
         "count": 2
       }
     ],
-    "cardFront": "couch_matschig_orange.png",
-    "cardBack": "couch_sauber_orange.png"
+    "cardFront": "couch_matschig_orange",
+    "cardBack": "couch_sauber_orange"
   },
   {
     "id": 3,
@@ -48,7 +48,7 @@
         "count": 2
       }
     ],
-    "cardFront": "ich_orange_vs.png",
-    "cardBack": "ich_orange_rs.png"
+    "cardFront": "ich_orange_vs",
+    "cardBack": "ich_orange_rs"
   }
 ]

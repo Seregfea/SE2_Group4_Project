@@ -11,7 +11,7 @@
       "ME"
     ],
     "neededSchnapspralinen": 10,
-    "cardFront": "pinguin_vs.png",
-    "cardBack": "stoerenfried-rs.png"
+    "cardFront": "pinguin_vs",
+    "cardBack": "stoerenfried-rs"
   }
 ]

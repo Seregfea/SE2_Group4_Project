@@ -9,8 +9,8 @@
         "count": 2
       }
     ],
-    "cardFront": "bad_dreckig_tuerkis.png",
-    "cardBack": "bad_sauber_tuerkis.png"
+    "cardFront": "bad_dreckig_tuerkis",
+    "cardBack": "bad_sauber_tuerkis"
   },
   {
     "id": 1,
@@ -22,8 +22,8 @@
         "following": 2
       }
     ],
-    "cardFront": "geschirr_dreckig_tuerkis.png",
-    "cardBack": "geschirr_sauber_tuerkis.png"
+    "cardFront": "geschirr_dreckig_tuerkis",
+    "cardBack": "geschirr_sauber_tuerkis"
   },
   {
     "id": 2,
@@ -35,8 +35,8 @@
         "count": 2
       }
     ],
-    "cardFront": "couch_matschig_tuerkis.png",
-    "cardBack": "couch_sauber_tuerkis.png"
+    "cardFront": "couch_matschig_tuerkis",
+    "cardBack": "couch_sauber_tuerkis"
   },
   {
     "id": 3,
@@ -48,7 +48,7 @@
         "count": 2
       }
     ],
-    "cardFront": "ich_tuerkis_vs.png",
-    "cardBack": "ich_tuerkis_rs.png"
+    "cardFront": "ich_tuerkis_vs",
+    "cardBack": "ich_tuerkis_rs"
   }
 ]

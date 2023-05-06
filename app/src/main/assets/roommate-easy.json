@@ -9,7 +9,7 @@
         "count": 2
       }
     ],
-    "cardFront": "normal_pierre_vs.png",
-    "cardBack": "normal_pierre_rs.png"
+    "cardFront": "normal_pierre_vs",
+    "cardBack": "normal_pierre_rs"
   }
 ]

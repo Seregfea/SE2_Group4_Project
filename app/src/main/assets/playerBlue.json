@@ -10,7 +10,7 @@
       }
     ],
     "cardFront": "bad_dreckig_hellblau",
-    "cardBack": "bad_sauber_hellblau.png"
+    "cardBack": "bad_sauber_hellblau"
   },
   {
     "id": 1,
@@ -23,7 +23,7 @@
       }
     ],
     "cardFront": "geschirr_dreckig_hellblau",
-    "cardBack": "geschirr_sauber_hellblau.png"
+    "cardBack": "geschirr_sauber_hellblau"
   },
   {
     "id": 2,
@@ -36,7 +36,7 @@
       }
     ],
     "cardFront": "couch_matschig_hellblau",
-    "cardBack": "couch_sauber_hellblau.png"
+    "cardBack": "couch_sauber_hellblau"
   },
   {
     "id": 3,
@@ -49,6 +49,6 @@
       }
     ],
     "cardFront": "ich_hellblau_vs",
-    "cardBack": "ich_hellblau_rs.png"
+    "cardBack": "ich_hellblau_rs"
   }
 ]
