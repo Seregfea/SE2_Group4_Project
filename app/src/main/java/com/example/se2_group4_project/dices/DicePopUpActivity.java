@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.player.Player;
 
 import java.util.List;
 
@@ -43,8 +44,7 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     public void rollDice() {
-        //hardcoded
-        numberOfDice = 4;
+        numberOfDice = Player.getDiceCount();
         diceLayout.removeAllViews();
 
         for (int i = 0; i < numberOfDice; i++) {

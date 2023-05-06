@@ -22,6 +22,7 @@ import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
+import com.example.se2_group4_project.player.Player;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -30,9 +31,7 @@ public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
-    // hardcoded
-    // später: methode aus player-klasse
-    private int availableDices = 4;
+    private int availableDices = Player.getDiceCount();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,7 @@ public class Gameboard extends AppCompatActivity {
         String ip = extra.getString("ip");
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
+
 
 
     /*    LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);

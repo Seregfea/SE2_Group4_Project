@@ -3,7 +3,7 @@ package com.example.se2_group4_project.player;
 public class Player {
     private int id;
     private String name;
-    private int diceCount;
+    private static int diceCount = 4;
     private int chocolateCount;
 
     public Player(int id, String name, int diceCount, int chocolateCount) {
@@ -29,7 +29,7 @@ public class Player {
         this.name = name;
     }
 
-    public int getDiceCount() {
+    public static int getDiceCount() {
         return diceCount;
     }
 
