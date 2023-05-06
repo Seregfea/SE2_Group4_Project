@@ -23,6 +23,9 @@ import com.example.se2_group4_project.cards.CardDrawer;
 import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
