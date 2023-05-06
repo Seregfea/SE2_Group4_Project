@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+
+import com.example.se2_group4_project.dices.DicePopUpActivity;
+
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 import com.example.se2_group4_project.client.Client;
@@ -25,7 +28,11 @@ import java.util.ArrayList;
 
 public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
+    private LinearLayout availableDiceLayout;
     private Button btnRollDice;
+    // hardcoded
+    // später: methode aus player-klasse
+    private int availableDices = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,13 @@ public class Gameboard extends AppCompatActivity {
 
         dicePopUpActivity = new DicePopUpActivity(this);
         btnRollDice = findViewById(R.id.btnRollDice);
+        availableDiceLayout = findViewById(R.id.availableDiceContainer);
+
+        for (int i = 0; i < availableDices; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.dice);
+            availableDiceLayout.addView(imageView);
+        }
 
         btnRollDice.setOnClickListener(new View.OnClickListener() {
             @Override

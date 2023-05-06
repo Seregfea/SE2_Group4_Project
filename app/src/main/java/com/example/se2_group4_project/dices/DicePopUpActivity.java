@@ -1,4 +1,4 @@
-package com.example.se2_group4_project;
+package com.example.se2_group4_project.dices;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+
+import com.example.se2_group4_project.R;
 
 import java.util.List;
 
