@@ -155,17 +155,22 @@ public class WitzigToDos {
 
 
     // Getters and Setters
+
     public ArrayList<NeededDice> getNeededDice() {
         return neededDice;
     }
-
     public ArrayList<String> getToDoPenalty() {
         return toDoPenalty;
     }
-
     public int getSchnapspralinen() {
         return schnapspralinen;
     }
+    public boolean getBathtub() { return bathtub; }
+    public boolean getCouch() { return couch; }
+    public boolean getTableware() { return tableware; }
+    public boolean getSleep() { return sleep; }
+    public boolean getAwake() { return awake; }
+    public boolean getIsAvailable() { return isAvailable; }
 
     public void setNeededDice(ArrayList<NeededDice> neededDice) {
         this.neededDice = neededDice;
@@ -178,5 +183,11 @@ public class WitzigToDos {
     public void setSchnapspralinen(int schnapspralinen) {
         this.schnapspralinen = schnapspralinen;
     }
+    public void setBathtub(boolean bathtub) { this.bathtub = bathtub;}
+    public void setCouch(boolean couch) { this.couch = couch;}
+    public void setTableware(boolean tableware) { this.tableware = tableware;}
+    public void setSleep(boolean sleep) { this.sleep = sleep;}
+    public void setAwake(boolean awake) { this.awake = awake;}
+    public void setIsAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
 
 }
