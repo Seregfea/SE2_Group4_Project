@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 import com.example.se2_group4_project.client.Client;
@@ -16,6 +18,7 @@ import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class Gameboard extends AppCompatActivity {
     // später: methode aus player-klasse
     private int availableDices = 4;
 
+    private TextView pointView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class Gameboard extends AppCompatActivity {
         dicePopUpActivity = new DicePopUpActivity(this);
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
+        pointView = findViewById(R.id.points);
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -57,6 +63,9 @@ public class Gameboard extends AppCompatActivity {
         String ip = extra.getString("ip");
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
+
+        PointDisplay pointDisplay = new PointDisplay();
+        startPointView(pointDisplay);
 
         CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
@@ -89,5 +98,13 @@ public class Gameboard extends AppCompatActivity {
             iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
             linearLayout.addView(iView);
         }
+    }
+
+    public void startPointView(PointDisplay pointDisplay){
+        pointView.setText(String.valueOf(pointDisplay.startPoints()));
+    }
+
+    public void updatePointView(int point, PointDisplay pointDisplay){
+        pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
 }
