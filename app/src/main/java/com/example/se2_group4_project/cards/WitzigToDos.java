@@ -87,13 +87,74 @@ public class WitzigToDos {
         }
     }
 
+    // methode to check if the card is available for the current rolledDices
+    // runs though neededDice array of the card to check if rolledDice matches card conditions
+    public boolean isAvailable(int[] rolledDice) {
+        for (NeededDice neededDiceObject : neededDice) {
+            if (neededDiceObject.getNumber() != null && neededDiceObject.getCount() != 0) {
+                int number = Integer.parseInt(neededDiceObject.getNumber());
+                if (countInArray(rolledDice, number) == neededDiceObject.getCount()) {
+                    isAvailable = true;
+                    return true;
+                }
+            } else if (neededDiceObject.getCount() != 0 && neededDiceObject.getNumber() == null) {
+                for (int i = 1; i <= 6; i++) {
+                    if (countInArray(rolledDice, i) == neededDiceObject.getCount()) {
+                        isAvailable = true;
+                        return true;
+                    }
+                }
+            } else if (neededDiceObject.getMin_sum() != 0) {
+                if (sumOfArray(rolledDice) == neededDiceObject.getMin_sum()) {
+                    isAvailable = true;
+                    return true;
+                }
+            } else if (neededDiceObject.getNumber() != null && neededDiceObject.getFollowing() != 0) {
+                int number = Integer.parseInt(neededDiceObject.getNumber());
+                if (checkFollowing(rolledDice, number, neededDiceObject.getFollowing())) {
+                    isAvailable = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int countInArray(int[] arr, int num) {
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == num) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int sumOfArray(int[] arr) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    public boolean checkFollowing(int[]arr, int number, int following) {
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                count++;
+                if (count == following) {
+                    return true;
+                }
+                number++; // check next number in sequence
+            }
+        }
+        return false;
+    }
 
 
 
-
-
-
-
+    // Getters and Setters
     public ArrayList<NeededDice> getNeededDice() {
         return neededDice;
     }
@@ -105,8 +166,6 @@ public class WitzigToDos {
     public int getSchnapspralinen() {
         return schnapspralinen;
     }
-
-
 
     public void setNeededDice(ArrayList<NeededDice> neededDice) {
         this.neededDice = neededDice;

@@ -164,7 +164,7 @@
   "neededDice": [
     { //x bis x+2 würfeln
       "number": "3",
-      "following": 2
+      "following": 3
     }
   ],
   "toDoPenalty": [

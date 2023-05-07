@@ -16,8 +16,7 @@
       "BATHTUB",
       "COUCH",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_wettessen_vs",
@@ -45,8 +44,7 @@
       "BATHTUB",
       "COUCH",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_bud_spencer",
@@ -65,9 +63,8 @@
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "TABLEWARE", //bei allen Spielern - tableware all
-      "ROOMMATE",
-      "ME"
+      "TABLEWAREALL",
+      "SLEEP"
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_facebookhausparty",
@@ -98,8 +95,7 @@
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_kunstpeformance",
@@ -123,8 +119,7 @@
       "BATHTUB",
       "COUCH",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_lebowski",
@@ -147,8 +142,7 @@
     "toDoPenalty": [
       "TABLEWARE",
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_monopoly",
@@ -171,8 +165,7 @@
     "toDoPenalty": [
       "BATHTUB",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_porsche",
@@ -195,8 +188,7 @@
     "toDoPenalty": [
       "TABLEWARE",
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_trampolin",
