@@ -65,7 +65,7 @@
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "TABLEWARE", //bei allen Spielern
+      "TABLEWARE", //bei allen Spielern - tableware all
       "ROOMMATE",
       "ME"
     ],

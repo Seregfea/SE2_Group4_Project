@@ -12,8 +12,7 @@
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_toepfern",
@@ -31,8 +30,7 @@
     ],
     "toDoPenalty": [
       "BATHTUB",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_antiterror",
@@ -51,8 +49,7 @@
     "toDoPenalty": [
       "BATHTUB",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_boxtraining",
@@ -65,14 +62,13 @@
     "neededDice": [
       {
         "number": "",
-        "min-sum": 20
+        "min_sum": 20
       }
     ],
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 6,
     "cardFront": "witzig_dielenboden",
@@ -85,13 +81,12 @@
     "neededDice": [
       {
         "number": "",
-        "min-sum": 16
+        "min_sum": 16
       }
     ],
     "toDoPenalty": [
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 4,
     "cardFront": "witzig_eierkuchen",
@@ -102,7 +97,7 @@
     "name": "Geheimbund gründen",
     "cardType": "WITZIG",
     "neededDice": [
-      { //2mal x würfeln
+      {
         "number": "",
         "count": 2
       },
@@ -114,8 +109,7 @@
     "toDoPenalty": [
       "COUCH",
       "BATHTUB",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_geheimbund",
@@ -133,8 +127,7 @@
     ],
     "toDoPenalty": [
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_nirvana",
@@ -158,8 +151,7 @@
     "toDoPenalty": [
       "COUCH",
       "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 6,
     "cardFront": "witzig_nottodoliste",
@@ -177,9 +169,7 @@
   ],
   "toDoPenalty": [
     "TABLEWARE",
-    "ROOMMATE",
-    "ME"
-    //Alle wach
+    "AWAKE"
   ],
   "schnapspralinen": 2,
   "cardFront": "witzig_posaune",
@@ -197,8 +187,7 @@
     ],
     "toDoPenalty": [
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_sinndeslebens",
@@ -216,8 +205,7 @@
     ],
     "toDoPenalty": [
       "COUCH",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_transformers",
@@ -235,8 +223,7 @@
     ],
     "toDoPenalty": [
       "BATHTUB",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
     "cardFront": "witzig_youtube",
