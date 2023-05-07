@@ -12,12 +12,234 @@
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_toepfern",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 1,
+    "name": "Anti-Terror-Anschlag planen",
+    "cardType": "WITZIG",
+    "neededDice": [
+      { //egal welche Zahl aber 4-mal die gleiche
+        "number": "",
+        "count": 4
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_antiterror",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 2,
+    "name": "Boxtraining",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 3
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
       "TABLEWARE",
       "ROOMMATE",
       "ME"
     ],
     "schnapspralinen": 5,
-    "cardFront": "witzig_toepfern_vs",
+    "cardFront": "witzig_boxtraining",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 3,
+    "name": "Dielenboden abschleifen",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "min-sum": 20
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 6,
+    "cardFront": "witzig_dielenboden",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 4,
+    "name": "Eierkuchen backen",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "min-sum": 16
+      }
+    ],
+    "toDoPenalty": [
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 4,
+    "cardFront": "witzig_eierkuchen",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 5,
+    "name": "Geheimbund gründen",
+    "cardType": "WITZIG",
+    "neededDice": [
+      { //2mal x würfeln
+        "number": "",
+        "count": 2
+      },
+      { //2mal y würfeln
+        "number": "",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "COUCH",
+      "BATHTUB",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_geheimbund",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 6,
+    "name": "Zu Nirvana durchs Zimmer pogen",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "min_sum": 18
+      }
+    ],
+    "toDoPenalty": [
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_nirvana",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 7,
+    "name": "Not-To-Do-Listen schreiben",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "2",
+        "count": 2
+      },
+      { //2mal x würfeln
+        "number": "",
+        "count": 2
+      }
+
+    ],
+    "toDoPenalty": [
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 6,
+    "cardFront": "witzig_nottodoliste",
+    "cardBack": "witzig_rs"
+  },
+  {
+  "id": 8,
+  "name": "Posaune üben",
+  "cardType": "WITZIG",
+  "neededDice": [
+    { //x bis x+2 würfeln
+      "number": "3",
+      "following": 2
+    }
+  ],
+  "toDoPenalty": [
+    "TABLEWARE",
+    "ROOMMATE",
+    "ME"
+    //Alle wach
+  ],
+  "schnapspralinen": 2,
+  "cardFront": "witzig_posaune",
+  "cardBack": "witzig_rs"
+  },
+  {
+    "id": 9,
+    "name": "Sinn des Lebens finden",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 3
+      }
+    ],
+    "toDoPenalty": [
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_sinndeslebens",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 10,
+    "name": "Transformers gucken in doppelter Geschwindigkeit",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "count": 4
+      }
+    ],
+    "toDoPenalty": [
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_transformers",
+    "cardBack": "witzig_rs"
+  },
+  {
+    "id": 11,
+    "name": "YouTube-Videos kommentieren",
+    "cardType": "WITZIG",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 3
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_youtube",
     "cardBack": "witzig_rs"
   }
 ]

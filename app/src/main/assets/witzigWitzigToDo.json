@@ -22,5 +22,184 @@
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_wettessen_vs",
     "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 1,
+    "name": "Bud-Spencer-Filme nachspielen",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      },
+      {
+        "number": "4",
+        "count": 1
+      },
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 8,
+    "cardFront": "witzigwitzig_bud_spencer",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 2,
+    "name": "Auf Facebook zu einer Hausparty einladen",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      { //5mal x würfeln
+        "number": "",
+        "count": 5
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE", //bei allen Spielern
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 8,
+    "cardFront": "witzigwitzig_facebookhausparty",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 3,
+    "name": "Kunstperformance mit Rohöl",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      },
+      {
+        "number": "2",
+        "count": 1
+      },
+      {
+        "number": "3",
+        "count": 1
+      },
+      {
+        "number": "4",
+        "count": 1
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 7,
+    "cardFront": "witzigwitzig_kunstpeformance",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 4,
+    "name": "Großer Lebowski Abend",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "count": 2
+      },
+      {
+        "number": "2",
+        "count": 3
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 8,
+    "cardFront": "witzigwitzig_lebowski",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 5,
+    "name": "Neue Regeln für Monopoly erfinden",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "count": 3
+      },
+      {
+        "number": "2",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "TABLEWARE",
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 7,
+    "cardFront": "witzigwitzig_monopoly",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 6,
+    "name": "Porsche-im-Pool-Party",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "",
+        "count": 3
+      },
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "BATHTUB",
+      "TABLEWARE",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 7,
+    "cardFront": "witzigwitzig_porsche",
+    "cardBack": "witzigwitzig_rs"
+  },
+  {
+    "id": 7,
+    "name": "Trampolin hüpfen",
+    "cardType": "WITZIGWITZIG",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      },
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "toDoPenalty": [
+      "TABLEWARE",
+      "COUCH",
+      "ROOMMATE",
+      "ME"
+    ],
+    "schnapspralinen": 7,
+    "cardFront": "witzigwitzig_trampolin",
+    "cardBack": "witzigwitzig_rs"
   }
 ]

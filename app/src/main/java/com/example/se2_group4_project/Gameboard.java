@@ -63,8 +63,8 @@ public class Gameboard extends AppCompatActivity {
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
 
-
-    /*    LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
+/*
+       LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
 // create the first ImageView and set its width to 60dp
@@ -79,7 +79,7 @@ public class Gameboard extends AppCompatActivity {
         params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(params);
 
-// create the third ImageView and set its width to 60dp
+
         ImageView zwei = new ImageView(this);
         zwei.setImageResource(R.drawable.couch_dreckig_orange);
         params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -89,8 +89,6 @@ public class Gameboard extends AppCompatActivity {
         left.addImage(drei);
         left.addImage(imageView);
         left.addImage(zwei);
-
-
      */
 
         CardDrawer c = new CardDrawer(this.getApplicationContext());
@@ -116,7 +114,6 @@ public class Gameboard extends AppCompatActivity {
             iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
             playerBlue.addView(iView);
         }
-
     }
 }
 
