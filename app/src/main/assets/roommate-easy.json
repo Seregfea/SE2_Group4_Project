@@ -11,5 +11,213 @@
     ],
     "cardFront": "normal_pierre_vs",
     "cardBack": "normal_pierre_rs"
+  },
+  {
+    "id": 1,
+    "name": "Anita",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_anita_vs",
+    "cardBack": "normal_anita_rs"
+  },
+  {
+    "id": 2,
+    "name": "Anneliese",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_anneliese_vs",
+    "cardBack": "normal_anneliese_rs"
+  },
+  {
+    "id": 3,
+    "name": "Astrid",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_astrid_vs",
+    "cardBack": "normal_astrid_rs"
+  },
+  {
+    "id": 4,
+    "name": "Bärbel",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_bärbel_vs",
+    "cardBack": "normal_bärbel_rs"
+  },
+  {
+    "id": 5,
+    "name": "Carsten",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_carsten_vs",
+    "cardBack": "normal_carsten_rs"
+  },
+  {
+    "id": 6,
+    "name": "Didi Kötke",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_didi_vs",
+    "cardBack": "normal_didi_rs"
+  },
+  {
+    "id": 7,
+    "name": "Ekkehard",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "2",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_ekkehard_vs",
+    "cardBack": "normal_ekkehard_rs"
+  },
+  {
+    "id": 8,
+    "name": "Jennifer",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_jennifer_vs",
+    "cardBack": "normal_jennifer_rs"
+  },
+  {
+    "id": 9,
+    "name": "Jesus",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "3",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_jesus_vs",
+    "cardBack": "normal_jesus_rs"
+  },
+  {
+    "id": 10,
+    "name": "Johannes",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_johannes_vs",
+    "cardBack": "normal_johannes_rs"
+  },
+  {
+    "id": 11,
+    "name": "Julia",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "2",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_julia_vs",
+    "cardBack": "normal_julia_rs"
+  },
+  {
+    "id": 12,
+    "name": "Manni",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "2",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_manni_vs",
+    "cardBack": "normal_manni_rs"
+  },
+  {
+    "id": 13,
+    "name": "Maria-Theresia",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "5",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_mariatheresia_vs",
+    "cardBack": "normal_mariatheresia_rs"
+  },
+  {
+    "id": 14,
+    "name": "Paula",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_paula_vs",
+    "cardBack": "normal_paula_rs"
+  },
+  {
+    "id": 15,
+    "name": "Sissi",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "4",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_sissi_vs",
+    "cardBack": "normal_sissi_rs"
+  },
+  {
+    "id": 16,
+    "name": "Alex",
+    "cardType": "ROOMMATE",
+    "neededDice": [
+      {
+        "number": "1",
+        "count": 2
+      }
+    ],
+    "cardFront": "normal_alex_vs",
+    "cardBack": "normal_alex_rs"
   }
 ]
