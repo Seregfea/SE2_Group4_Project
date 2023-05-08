@@ -3,52 +3,39 @@
     "id": 0,
     "name": "Badewanne-orange",
     "cardType": "BATHTUB",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": 1,
+    "count": 2,
     "cardFront": "bad_dreckig_orange",
-    "cardBack": "bad_sauber_orange"
+    "cardBack": "bad_sauber_orange",
+    "isFront": true
   },
   {
     "id": 1,
     "name": "Geschirr-orange",
     "cardType": "TABLEWARE",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "geschirr_dreckig_orange",
-    "cardBack": "geschirr_sauber_orange"
+    "cardBack": "geschirr_sauber_orange",
+    "isFront": true
   },
   {
     "id": 2,
     "name": "Couch-orange",
     "cardType": "COUCH",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": 4,
+    "count": 2,
     "cardFront": "couch_matschig_orange",
-    "cardBack": "couch_sauber_orange"
+    "cardBack": "couch_sauber_orange",
+    "isFront": true
   },
   {
     "id": 3,
     "name": "Ich-Orange",
     "cardType": "ME",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": 4,
+    "count": 2,
     "cardFront": "ich_orange_vs",
-    "cardBack": "ich_orange_rs"
+    "cardBack": "ich_orange_rs",
+    "isFront": true
   }
 ]
