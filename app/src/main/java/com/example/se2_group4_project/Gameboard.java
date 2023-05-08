@@ -99,6 +99,35 @@ public class Gameboard extends AppCompatActivity {
             linearLayout.addView(iView);
         }
     }
+    public void flipCard (Card cardFlip){
+        String currentImage;
+        String flipedImage;
+
+        if(cardFlip.isFront()) {
+            currentImage = cardFlip.getCardFront();
+            flipedImage = cardFlip.getCardBack();
+        }
+        else{
+            currentImage = cardFlip.getCardBack();
+            flipedImage = cardFlip.getCardFront();
+        }
+
+        final int currentImageRessource =
+        this.getResources()
+                .getIdentifier(
+                        currentImage, "drawable",this.getApplicationContext().getPackageName());
+
+        ImageView currentCardSide = findViewById(currentImageRessource);
+
+        final int flipedImageRessource =
+        this.getResources()
+                .getIdentifier(
+                        flipedImage, "drawable",this.getApplicationContext().getPackageName());
+
+        currentCardSide.setImageResource(flipedImageRessource);
+
+        cardFlip.setFront(!cardFlip.isFront());
+    }
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.startPoints()));
@@ -107,4 +136,5 @@ public class Gameboard extends AppCompatActivity {
     public void updatePointView(int point, PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
-}
+        }
+

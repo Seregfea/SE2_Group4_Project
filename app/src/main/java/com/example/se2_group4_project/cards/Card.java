@@ -15,10 +15,11 @@ public class Card {
     private CardType cardType;
     private String cardFront;
     private String cardBack;
+    private boolean isFront;
     private int neededSchnapspralinen;
 
     public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
-                ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen) {
+                ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
@@ -28,6 +29,7 @@ public class Card {
         this.cardFront = cardFront;
         this.cardBack = cardBack;
         this.neededSchnapspralinen = neededSchnapspralinen;
+        this.isFront = isFront;
     }
 
     public CardType getCardType() {
@@ -100,6 +102,14 @@ public class Card {
 
     public void setNeededSchnapspralinen(int neededSchnapspralinen) {
         this.neededSchnapspralinen = neededSchnapspralinen;
+    }
+
+    public boolean isFront() {
+        return isFront;
+    }
+
+    public void setFront(boolean front) {
+        isFront = front;
     }
 }
 
