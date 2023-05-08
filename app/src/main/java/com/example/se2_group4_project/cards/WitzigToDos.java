@@ -88,36 +88,37 @@ public class WitzigToDos {
     }
 
     // methode to check if the card is available for the current rolledDices
-    // runs though neededDice array of the card to check if rolledDice matches card conditions
+    // runs though neededDice array of the card to check if rolledDice matches any card condition
     public boolean isAvailable(int[] rolledDice) {
+        boolean checkIfCondition = true;
         for (NeededDice neededDiceObject : neededDice) {
-            if (neededDiceObject.getNumber() != null && neededDiceObject.getCount() != 0) {
+            if (neededDiceObject.getCount() != 0 && !neededDiceObject.getNumber().equals("")) {
                 int number = Integer.parseInt(neededDiceObject.getNumber());
-                if (countInArray(rolledDice, number) == neededDiceObject.getCount()) {
-                    isAvailable = true;
-                    return true;
+                if (countInArray(rolledDice, number) != neededDiceObject.getCount()) {
+                    checkIfCondition = false;
+                    break;
                 }
-            } else if (neededDiceObject.getCount() != 0 && neededDiceObject.getNumber() == null) {
-                for (int i = 1; i <= 6; i++) {
+            } else if (neededDiceObject.getCount() != 0 && neededDiceObject.getNumber().equals("")) {
+                for (int i = 1; i <= 5; i++) {
                     if (countInArray(rolledDice, i) == neededDiceObject.getCount()) {
-                        isAvailable = true;
-                        return true;
+                        break;
                     }
+                    checkIfCondition = false;
                 }
             } else if (neededDiceObject.getMin_sum() != 0) {
-                if (sumOfArray(rolledDice) == neededDiceObject.getMin_sum()) {
-                    isAvailable = true;
-                    return true;
+                if (sumOfArray(rolledDice) != neededDiceObject.getMin_sum()) {
+                    checkIfCondition = false;
+                    break;
                 }
-            } else if (neededDiceObject.getNumber() != null && neededDiceObject.getFollowing() != 0) {
+            } else if (!neededDiceObject.getNumber().equals("") && neededDiceObject.getFollowing() != 0) {
                 int number = Integer.parseInt(neededDiceObject.getNumber());
-                if (checkFollowing(rolledDice, number, neededDiceObject.getFollowing())) {
-                    isAvailable = true;
-                    return true;
+                if (!checkFollowing(rolledDice, number, neededDiceObject.getFollowing())) {
+                    checkIfCondition = false;
+                    break;
                 }
             }
         }
-        return false;
+        return checkIfCondition;
     }
 
     public int countInArray(int[] arr, int num) {

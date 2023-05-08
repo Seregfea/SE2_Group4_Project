@@ -5,6 +5,7 @@
     "cardType": "WITZIGWITZIG",
     "neededDice": [
       {
+        "number": "",
         "count": 3
       },
       {
