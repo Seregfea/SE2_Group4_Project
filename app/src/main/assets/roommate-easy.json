@@ -3,221 +3,170 @@
     "id": 0,
     "name": "Pierre",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": "1",
+    "count": 2,
     "cardFront": "normal_pierre_vs",
-    "cardBack": "normal_pierre_rs"
+    "cardBack": "normal_pierre_rs",
+    "isFront": false
   },
   {
     "id": 1,
     "name": "Anita",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 2
-      }
-    ],
+    "number": "3",
+    "count": 2,
     "cardFront": "normal_anita_vs",
-    "cardBack": "normal_anita_rs"
+    "cardBack": "normal_anita_rs",
+    "isFront": false
   },
   {
     "id": 2,
     "name": "Anneliese",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 2
-      }
-    ],
+    "number": "3",
+    "count": 2,
     "cardFront": "normal_anneliese_vs",
-    "cardBack": "normal_anneliese_rs"
+    "cardBack": "normal_anneliese_rs",
+    "isFront": false
   },
   {
     "id": 3,
     "name": "Astrid",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": "4",
+    "count": 2,
     "cardFront": "normal_astrid_vs",
-    "cardBack": "normal_astrid_rs"
+    "cardBack": "normal_astrid_rs",
+    "isFront": false
   },
   {
     "id": 4,
     "name": "Bärbel",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": "1",
+    "count": 2,
     "cardFront": "normal_bärbel_vs",
-    "cardBack": "normal_bärbel_rs"
+    "cardBack": "normal_bärbel_rs",
+    "isFront": false
   },
   {
     "id": 5,
     "name": "Carsten",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "5",
+    "count": 2,
     "cardFront": "normal_carsten_vs",
-    "cardBack": "normal_carsten_rs"
+    "cardBack": "normal_carsten_rs",
+    "isFront": false
   },
   {
     "id": 6,
     "name": "Didi Kötke",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "5",
+    "count": 2,
     "cardFront": "normal_didi_vs",
-    "cardBack": "normal_didi_rs"
+    "cardBack": "normal_didi_rs",
+    "isFront": false
   },
   {
     "id": 7,
     "name": "Ekkehard",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "2",
-        "count": 2
-      }
-    ],
+    "number": "2",
+    "count": 2,
     "cardFront": "normal_ekkehard_vs",
-    "cardBack": "normal_ekkehard_rs"
+    "cardBack": "normal_ekkehard_rs",
+    "isFront": false
   },
   {
     "id": 8,
     "name": "Jennifer",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "5",
+    "count": 2,
     "cardFront": "normal_jennifer_vs",
-    "cardBack": "normal_jennifer_rs"
+    "cardBack": "normal_jennifer_rs",
+    "isFront": false
   },
   {
     "id": 9,
     "name": "Jesus",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 2
-      }
-    ],
+    "number": "3",
+    "count": 2,
     "cardFront": "normal_jesus_vs",
-    "cardBack": "normal_jesus_rs"
+    "cardBack": "normal_jesus_rs",
+    "isFront": false
   },
   {
     "id": 10,
     "name": "Johannes",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": "4",
+    "count": 2,
     "cardFront": "normal_johannes_vs",
-    "cardBack": "normal_johannes_rs"
+    "cardBack": "normal_johannes_rs",
+    "isFront": false
   },
   {
     "id": 11,
     "name": "Julia",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "2",
-        "count": 2
-      }
-    ],
+    "number": "2",
+    "count": 2,
     "cardFront": "normal_julia_vs",
-    "cardBack": "normal_julia_rs"
+    "cardBack": "normal_julia_rs",
+    "isFront": false
   },
   {
     "id": 12,
     "name": "Manni",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "2",
-        "count": 2
-      }
-    ],
+    "number": "2",
+    "count": 2,
     "cardFront": "normal_manni_vs",
-    "cardBack": "normal_manni_rs"
+    "cardBack": "normal_manni_rs",
+    "isFront": false
   },
   {
     "id": 13,
     "name": "Maria-Theresia",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "5",
+    "count": 2,
     "cardFront": "normal_mariatheresia_vs",
-    "cardBack": "normal_mariatheresia_rs"
+    "cardBack": "normal_mariatheresia_rs",
+    "isFront": false
   },
   {
     "id": 14,
     "name": "Paula",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": "4",
+    "count": 2,
     "cardFront": "normal_paula_vs",
-    "cardBack": "normal_paula_rs"
+    "cardBack": "normal_paula_rs",
+    "isFront": false
   },
   {
     "id": 15,
     "name": "Sissi",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "number": "4",
+    "count": 2,
     "cardFront": "normal_sissi_vs",
-    "cardBack": "normal_sissi_rs"
+    "cardBack": "normal_sissi_rs",
+    "isFront": false
   },
   {
     "id": 16,
     "name": "Alex",
     "cardType": "ROOMMATE",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": "1",
+    "count": 2,
     "cardFront": "normal_alex_vs",
-    "cardBack": "normal_alex_rs"
+    "cardBack": "normal_alex_rs",
+    "isFront": false
   }
 ]

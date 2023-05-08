@@ -4,111 +4,79 @@
     "name": "Bukowksi",
     "cardType": "ROOMMATE",
     "roommateBenefit": "does_not_sleep",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 3
-      }
-    ],
+    "following": 4,
     "cardFront": "spezial_bukowski_vs",
-    "cardBack": "spezial_bukowski_rs"
+    "cardBack": "spezial_bukowski_rs",
+    "isFront": false
   },
   {
     "id": 1,
     "name": "Friedrich-Wilhelm",
     "cardType": "ROOMMATE",
     "roommateBenefit": "clean_dishes",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "spezial_friedrichwilhelm_vs",
-    "cardBack": "spezial_friedrichwilhelm_rs"
+    "cardBack": "spezial_friedrichwilhelm_rs",
+    "isFront": false
   },
   {
     "id": 2,
     "name": "Herta",
     "cardType": "ROOMMATE",
     "roommateBenefit": "clean_couch",
-    "neededDice": [
-      {
-        "number": "*",
-        "count": 3
-      }
-    ],
+    "count": 3,
     "cardFront": "spezial_herta_vs",
-    "cardBack": "spezial_herta_rs"
+    "cardBack": "spezial_herta_rs",
+    "isFront": false
   },
   {
     "id": 3,
     "name": "Krapotke",
     "cardType": "ROOMMATE",
     "roommateBenefit": "park_dice",
-    "neededDice": [
-      {
-        "number": "*",
-        "count": 3
-      }
-    ],
+    "count": 3,
     "cardFront": "spezial_krapotke_vs",
-    "cardBack": "spezial_krapotke_rs"
+    "cardBack": "spezial_krapotke_rs",
+    "isFront": false
   },
   {
     "id": 4,
     "name": "Marc-Uwe",
     "cardType": "ROOMMATE",
     "roommateBenefit": "reroll",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "spezial_marcuwe_vs",
-    "cardBack": "spezial_marcuwe_rs"
+    "cardBack": "spezial_marcuwe_rs",
+    "isFront": false
   },
   {
     "id": 5,
     "name": "Maria",
     "cardType": "ROOMMATE",
     "roommateBenefit": "reroll",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "spezial_maria_vs",
-    "cardBack": "spezial_maria_rs"
+    "cardBack": "spezial_maria_rs",
+    "isFront": false
   },
   {
     "id": 6,
     "name": "Otto-Von",
     "cardType": "ROOMMATE",
     "roommateBenefit": "clean_bathtub",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "spezial_ottovon_vs",
-    "cardBack": "spezial_ottovon_rs"
+    "cardBack": "spezial_ottovon_rs",
+    "isFront": false
   },
   {
     "id": 7,
     "name": "Sarah",
     "cardType": "ROOMMATE",
     "roommateBenefit": "park_dice",
-    "neededDice": [
-      {
-        "number": "*",
-        "count": 3
-      }
-    ],
+    "count": 3,
     "cardFront": "spezial_sarah_vs",
-    "cardBack": "spezial_sarah_rs"
+    "cardBack": "spezial_sarah_rs",
+    "isFront": false
   }
 ]
