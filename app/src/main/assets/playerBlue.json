@@ -10,7 +10,8 @@
       }
     ],
     "cardFront": "bad_dreckig_hellblau",
-    "cardBack": "bad_sauber_hellblau"
+    "cardBack": "bad_sauber_hellblau",
+    "isFront": true
   },
   {
     "id": 1,
@@ -18,8 +19,7 @@
     "cardType": "TABLEWARE",
     "neededDice": [
       {
-        "number": "*",
-        "following": 2
+        "following": 3
       }
     ],
     "cardFront": "geschirr_dreckig_hellblau",
