@@ -95,6 +95,7 @@ public class Gameboard extends AppCompatActivity {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
+
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
