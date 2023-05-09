@@ -36,6 +36,10 @@ android {
     }
     namespace 'com.example.se2_group4_project'
 
+    useLibrary 'android.test.mock'
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {

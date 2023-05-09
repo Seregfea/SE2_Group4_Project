@@ -3,20 +3,193 @@
     "id": 0,
     "name": "Töpfern",
     "cardType": "WITZIG",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 3
-      }
-    ],
+    "number": "3",
+    "count": 3,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
-      "TABLEWARE",
-      "ROOMMATE",
-      "ME"
+      "SLEEP"
     ],
     "schnapspralinen": 5,
+    "cardFront": "witzig_toepfern",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 1,
+    "name": "Anti-Terror-Anschlag planen",
+    "cardType": "WITZIG",
+    "count": 4,
+
+    "toDoPenalty": [
+      "BATHTUB",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_antiterror",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 2,
+    "name": "Boxtraining",
+    "cardType": "WITZIG",
+    "number": "4",
+    "count": 3,
+    "toDoPenalty": [
+      "BATHTUB",
+      "TABLEWARE",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_boxtraining",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 3,
+    "name": "Dielenboden abschleifen",
+    "cardType": "WITZIG",
+    "min_sum": 20,
+
+    "toDoPenalty": [
+      "BATHTUB",
+      "COUCH",
+      "SLEEP"
+    ],
+    "schnapspralinen": 6,
+    "cardFront": "witzig_dielenboden",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 4,
+    "name": "Eierkuchen backen",
+    "cardType": "WITZIG",
+    "min_sum": 16,
+
+    "toDoPenalty": [
+      "TABLEWARE",
+      "SLEEP"
+    ],
+    "schnapspralinen": 4,
+    "cardFront": "witzig_eierkuchen",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 5,
+    "name": "Geheimbund gründen",
+    "cardType": "WITZIG",
+    "count": 2,
+    "count2": 2,
+
+    "toDoPenalty": [
+      "COUCH",
+      "BATHTUB",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_geheimbund",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 6,
+    "name": "Zu Nirvana durchs Zimmer pogen",
+    "cardType": "WITZIG",
+    "min_sum": 18,
+
+    "toDoPenalty": [
+      "TABLEWARE",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_nirvana",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 7,
+    "name": "Not-To-Do-Listen schreiben",
+    "cardType": "WITZIG",
+    "count": 2,
+    "number2": "2",
+    "count2": 2,
+
+    "toDoPenalty": [
+      "COUCH",
+      "TABLEWARE",
+      "SLEEP"
+    ],
+    "schnapspralinen": 6,
+    "cardFront": "witzig_nottodoliste",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 8,
+    "name": "Posaune üben",
+    "cardType": "WITZIG",
+    "number": "1",
+    "following": 3,
+
+    "toDoPenalty": [
+      "TABLEWARE",
+      "AWAKE"
+    ],
+    "schnapspralinen": 2,
+    "cardFront": "witzig_posaune",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 9,
+    "name": "Sinn des Lebens finden",
+    "cardType": "WITZIG",
+    "number": "5",
+    "count": 3,
+
+    "toDoPenalty": [
+      "COUCH",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_sinndeslebens",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 10,
+    "name": "Transformers gucken in doppelter Geschwindigkeit",
+    "cardType": "WITZIG",
+    "count": 4,
+
+    "toDoPenalty": [
+      "COUCH",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_transformers",
+    "cardBack": "witzig_rs",
+    "isFront": true
+  },
+  {
+    "id": 11,
+    "name": "YouTube-Videos kommentieren",
+    "cardType": "WITZIG",
+    "number": "1",
+    "count": 3,
+
+    "toDoPenalty": [
+      "BATHTUB",
+      "SLEEP"
+    ],
+    "schnapspralinen": 5,
+    "cardFront": "witzig_youtube",
+    "cardBack": "witzig_rs",
+    "isFront": true
     "cardFront": "witzig_toepfern",
     "cardBack": "witzig_rs"
   }

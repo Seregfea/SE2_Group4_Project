@@ -63,7 +63,33 @@ public class Gameboard extends AppCompatActivity {
         String ip = extra.getString("ip");
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
+/*
+       LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
+        CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
+// create the first ImageView and set its width to 60dp
+        ImageView drei = new ImageView(this);
+        drei.setImageResource(R.drawable.bad_dreckig_hellblau);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        drei.setLayoutParams(params);
+
+// create the second ImageView and set its width to 60dp
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
+        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(params);
+
+
+        ImageView zwei = new ImageView(this);
+        zwei.setImageResource(R.drawable.couch_dreckig_orange);
+        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
+        zwei.setLayoutParams(params);
+
+// add the ImageViews to the layout
+        left.addImage(drei);
+        left.addImage(imageView);
+        left.addImage(zwei);
+     */
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
 
