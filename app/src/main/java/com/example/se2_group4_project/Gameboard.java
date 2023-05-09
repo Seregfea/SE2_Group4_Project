@@ -43,6 +43,10 @@ public class Gameboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_gameboard);
 
         dicePopUpActivity = new DicePopUpActivity(this);
@@ -147,28 +151,6 @@ public class Gameboard extends AppCompatActivity {
             linearLayout.addView(iView);
         }
     }
-
-/*
-
-
-            // Erstelle LayoutParams, um ImageView-Größe automatisch anzupassen
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.weight = aspectRatio;
-            iView.setLayoutParams(params);
-
-
-            }else if(linearLayoutId == R.id.CardsLayoutRight){
-                iView.setRotation(90);
-            } else if(linearLayoutId == R.id.CardsLayoutTop){
-                iView.setRotation(180);
-            }
-            linearLayout.addView(iView);
-        }
-    }
-
- */
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.startPoints()));
