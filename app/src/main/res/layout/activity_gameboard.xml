@@ -55,16 +55,17 @@
     <LinearLayout
         android:id="@+id/CardsLayoutRight"
         android:layout_width="80dp"
-        android:layout_height="0dp"
+        android:layout_height="207dp"
         android:layout_marginStart="637dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="63dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="116dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/points"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/CardsLayoutLeft"
@@ -82,17 +83,18 @@
 
     <LinearLayout
         android:id="@+id/ItemCardsLayout"
-        android:layout_width="0dp"
+        android:layout_width="291dp"
         android:layout_height="60dp"
-        android:layout_marginStart="145dp"
+        android:layout_marginStart="218dp"
         android:layout_marginTop="133dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginEnd="222dp"
         android:layout_marginBottom="228dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"></LinearLayout>
 
     <Button
         android:id="@+id/btnRollDice"
@@ -101,29 +103,29 @@
         android:layout_row="0"
         android:layout_column="0"
         android:layout_marginStart="69dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         android:text="@string/roll_dice_btn"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/availableDiceContainer" />
+        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout" />
 
 
     <TextView
         android:id="@+id/tv_availableDices"
-        android:layout_width="95dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="307dp"
+        android:layout_marginTop="308dp"
         android:layout_marginEnd="14dp"
+        android:layout_marginBottom="87dp"
         android:gravity="right"
         android:text="@string/available_dices_et"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,13 +135,13 @@
         android:layout_height="30dp"
         android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
-        android:layout_marginBottom="5dp"
         android:gravity="right"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnRollDice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/UserCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tv_availableDices"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tv_availableDices"
+        app:layout_constraintVertical_bias="1.0"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/cardStacks"
