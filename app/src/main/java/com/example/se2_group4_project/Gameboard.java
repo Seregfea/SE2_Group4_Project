@@ -114,7 +114,6 @@ public class Gameboard extends AppCompatActivity {
 
             iView.setImageResource(imageRessourceID);
 
-            // Lade das Bild, um das Seitenverhältnis zu berechnen
             Drawable drawable = getResources().getDrawable(imageRessourceID);
             float aspectRatio = (float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
 
