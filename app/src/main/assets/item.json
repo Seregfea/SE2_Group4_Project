@@ -1,31 +1,52 @@
 [
   {
     "id": 0,
-    "name": "Profikuscheldecke",
+    "name": "Jojo",
     "cardType": "ITEM",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 2
-      }
-    ],
-    "itemPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "TABLEWARE",
-      "ROOMMATE",
-      "ME"
-    ],
-    "schnapspralinen": 2,
-    "cardFront": "decke_vs",
-    "cardBack": "gegenstand_rs"
+    "number": "1",
+    "count": 3,
+    "itemBenefit": "Couch matschig",
+    "cardFront": "jojo_vs",
+    "isFront": false
   },
   {
     "id": 1,
-    "name": "Schaukelstuhl",
+    "name": "Decke",
     "cardType": "ITEM",
-    "neededSchnapspralinen": 16,
-    "cardFront": "schaukelstuhl_vs",
-    "cardBack": "schaukelstuhl_rs"
+    "number": "3",
+    "count": 3,
+    "itemBenefit": "Couch matschig",
+    "cardFront": "decke_vs",
+    "isFront": false
+  },
+  {
+    "id": 2,
+    "name": "Wasserbombe",
+    "cardType": "ITEM",
+    "number": "4",
+    "count": 3,
+    "itemBenefit": "Badewanne dreckig",
+    "cardFront": "wasserbombe_vs",
+    "isFront": false
+  },
+  {
+    "id": 3,
+    "name": "Pfannenundco",
+    "cardType": "ITEM",
+    "number": "5",
+    "count": 3,
+    "itemBenefit": "Geschirr dreckig",
+    "cardFront": "pfannenundco_vs",
+    "isFront": false
+  },
+  {
+    "id": 4,
+    "name": "Kuechenradio",
+    "cardType": "ITEM",
+    "number": "2",
+    "count": 3,
+    "itemBenefit": "Geschirr dreckig",
+    "cardFront": "kuechenradio_vs",
+    "isFront": false
   }
 ]
