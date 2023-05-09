@@ -1,17 +1,12 @@
 package com.example.se2_group4_project.cards;
 
-import com.example.se2_group4_project.cards.Card;
-import com.example.se2_group4_project.cards.CardType;
-import com.example.se2_group4_project.cards.NeededDice;
-import com.example.se2_group4_project.dices.Dice;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WitzigToDos {
 
@@ -22,21 +17,51 @@ public class WitzigToDos {
     private boolean tableware = false;
     private boolean sleep = false;
     private boolean awake = false;
-    private ArrayList<NeededDice> neededDice;
-    private boolean isAvailable = false;
+    private String number;
+    private String number2;
+    private int count;
+    private int count2;
+    private int min_sum;
+    private int following;
+    private Set<String> filledFields;
 
 
     public WitzigToDos(JSONObject witzigCard) throws JSONException {
 
         this.schnapspralinen = witzigCard.getInt("schnapspralinen");
 
-        this.toDoPenalty = new ArrayList<>();
+        this.filledFields = new HashSet<String>();
 
-        JSONArray jsonToDoPenalties = witzigCard.getJSONArray("toDoPenalty");
+        if (witzigCard.has("number")) {
+            this.number = witzigCard.getString("number");
+            this.filledFields.add("number");
+        }
+        if (witzigCard.has("number2")) {
+            this.number2 = witzigCard.getString("number2");
+            this.filledFields.add("number2");
+        }
+        if (witzigCard.has("count")) {
+            this.count = witzigCard.getInt("count");
+            this.filledFields.add("count");
+        }
+        if (witzigCard.has("count2")) {
+            this.count2 = witzigCard.getInt("count2");
+            this.filledFields.add("count2");
+        }
+        if (witzigCard.has("min_sum")) {
+            this.min_sum = witzigCard.getInt("min_sum");
+            this.filledFields.add("min_sum");
+        }
+        if (witzigCard.has("following")) {
+            this.following = witzigCard.getInt("following");
+            this.filledFields.add("following");
+        }
 
-        for (int i = 0; i < jsonToDoPenalties.length(); i++) {
-            String penalty = jsonToDoPenalties.getString(i);
-            switch (penalty) {
+
+        JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
+
+        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+            switch (toDoPenaltyArray.getString(i)) {
                 case "BATHTUB":
                     this.bathtub = true;
                     break;
@@ -56,139 +81,102 @@ public class WitzigToDos {
                     System.out.println("No to-do penalty assignments to do");
                     break;
             }
-            this.toDoPenalty.add(penalty);
-        }
-
-        this.neededDice = new ArrayList<>();
-
-        JSONArray neededDiceArray = witzigCard.getJSONArray("neededDice");
-
-        for (int i = 0; i < neededDiceArray.length(); i++) {
-            JSONObject jsonNeededDice = neededDiceArray.getJSONObject(i);
-            NeededDice neededDiceObject = new NeededDice();
-
-            if (jsonNeededDice.has("number")) {
-                neededDiceObject.setNumber(jsonNeededDice.getString("number"));
-            }
-
-            if (jsonNeededDice.has("count")) {
-                neededDiceObject.setCount(jsonNeededDice.getInt("count"));
-            }
-
-            if (jsonNeededDice.has("min_sum")) {
-                neededDiceObject.setMin_sum(jsonNeededDice.getInt("min_sum"));
-            }
-
-            if (jsonNeededDice.has("following")) {
-                neededDiceObject.setFollowing(jsonNeededDice.getInt("following"));
-            }
-
-            this.neededDice.add(neededDiceObject);
         }
     }
 
-    // methode to check if the card is available for the current rolledDices
-    // runs though neededDice array of the card to check if rolledDice matches any card condition
+
     public boolean isAvailable(int[] rolledDice) {
-        boolean checkIfCondition = true;
-        for (NeededDice neededDiceObject : neededDice) {
-            if (neededDiceObject.getCount() != 0 && !neededDiceObject.getNumber().equals("")) {
-                int number = Integer.parseInt(neededDiceObject.getNumber());
-                if (countInArray(rolledDice, number) != neededDiceObject.getCount()) {
-                    checkIfCondition = false;
-                    break;
-                }
-            } else if (neededDiceObject.getCount() != 0 && neededDiceObject.getNumber().equals("")) {
-                for (int i = 1; i <= 5; i++) {
-                    if (countInArray(rolledDice, i) == neededDiceObject.getCount()) {
-                        break;
-                    }
-                    checkIfCondition = false;
-                }
-            } else if (neededDiceObject.getMin_sum() != 0) {
-                if (sumOfArray(rolledDice) != neededDiceObject.getMin_sum()) {
-                    checkIfCondition = false;
-                    break;
-                }
-            } else if (!neededDiceObject.getNumber().equals("") && neededDiceObject.getFollowing() != 0) {
-                int number = Integer.parseInt(neededDiceObject.getNumber());
-                if (!checkFollowing(rolledDice, number, neededDiceObject.getFollowing())) {
-                    checkIfCondition = false;
+        boolean checkBoolean = false;
+        Set<Integer> usedIndices = new HashSet<Integer>();
+
+        if (filledFields.contains("number") && filledFields.contains("count")) {
+            int intNumber = Integer.parseInt(number);
+            if (rolledDice[intNumber - 1] >= count) {
+                checkBoolean = true;
+                usedIndices.add(intNumber - 1);
+            }
+        } else if (filledFields.contains("count")) {
+            for (int i = 0; i < rolledDice.length; i++) {
+                if (rolledDice[i] >= count && !usedIndices.contains(i)) {
+                    checkBoolean = true;
+                    usedIndices.add(i);
                     break;
                 }
             }
         }
-        return checkIfCondition;
-    }
-
-    public int countInArray(int[] arr, int num) {
-        int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == num) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int sumOfArray(int[] arr) {
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-        }
-        return sum;
-    }
-
-    public boolean checkFollowing(int[]arr, int number, int following) {
-        int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == number) {
-                count++;
-                if (count == following) {
-                    return true;
+        if (filledFields.contains("number") && filledFields.contains("following")) {
+            int intNumber = Integer.parseInt(number);
+            int count = 0;
+            for (int i = intNumber; i < intNumber + following; i++) {
+                if (rolledDice[i - 1] > 0 && !usedIndices.contains(i - 1)) {
+                    count++;
+                } else {
+                    break;
                 }
-                number++; // check next number in sequence
+            }
+            if (count == following) {
+                checkBoolean = true;
             }
         }
-        return false;
+        if (filledFields.contains("number2") && filledFields.contains("count2")) {
+            int intNumber2 = Integer.parseInt(number2);
+            if (rolledDice[intNumber2 - 1] >= count2 && !usedIndices.contains(intNumber2 - 1)) {
+                checkBoolean = true;
+                usedIndices.add(intNumber2 - 1);
+            }
+        } else if (filledFields.contains("count2")) {
+            for (int i = 0; i < rolledDice.length; i++) {
+                if (rolledDice[i] >= count2 && !usedIndices.contains(i)) {
+                    checkBoolean = true;
+                    usedIndices.add(i);
+                    break;
+                }
+            }
+        }
+        if (filledFields.contains("min_sum")) {
+            int sum = 0;
+            for (int i = 0; i < rolledDice.length; i++) {
+                sum += (i + 1) * rolledDice[i];
+            }
+            if (sum >= min_sum) {
+                checkBoolean = true;
+            }
+        }
+        return checkBoolean;
     }
 
 
 
     // Getters and Setters
 
-    public ArrayList<NeededDice> getNeededDice() {
-        return neededDice;
-    }
-    public ArrayList<String> getToDoPenalty() {
-        return toDoPenalty;
-    }
-    public int getSchnapspralinen() {
-        return schnapspralinen;
-    }
+    public int getSchnapspralinen() { return schnapspralinen; }
+    public ArrayList<String> getToDoPenalty() { return toDoPenalty; }
     public boolean getBathtub() { return bathtub; }
     public boolean getCouch() { return couch; }
     public boolean getTableware() { return tableware; }
     public boolean getSleep() { return sleep; }
     public boolean getAwake() { return awake; }
-    public boolean getIsAvailable() { return isAvailable; }
+    public String getNumber() { return this.number; }
+    public String getNumber2() { return number2; }
+    public int getCount() { return count; }
+    public int getCount2() { return count2; }
+    public int getMin_sum() { return min_sum; }
+    public int getFollowing() { return following; }
 
-    public void setNeededDice(ArrayList<NeededDice> neededDice) {
-        this.neededDice = neededDice;
-    }
 
-    public void setToDoPenalty(ArrayList<String> toDoPenalty) {
-        this.toDoPenalty = toDoPenalty;
-    }
-
-    public void setSchnapspralinen(int schnapspralinen) {
-        this.schnapspralinen = schnapspralinen;
-    }
+    public void setSchnapspralinen(int schnapspralinen) { this.schnapspralinen = schnapspralinen; }
+    public void setToDoPenalty(ArrayList<String> toDoPenalty) { this.toDoPenalty = toDoPenalty; }
     public void setBathtub(boolean bathtub) { this.bathtub = bathtub;}
     public void setCouch(boolean couch) { this.couch = couch;}
     public void setTableware(boolean tableware) { this.tableware = tableware;}
     public void setSleep(boolean sleep) { this.sleep = sleep;}
     public void setAwake(boolean awake) { this.awake = awake;}
-    public void setIsAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
+    public void setNumber(String number) { this.number = this.number; }
+    public void setNumber2(String number2) { this.number2 = number2; }
+    public void setCount(int count) { this.count = count; }
+    public void setCount2(int count2) { this.count2 = count2; }
+    public void setMin_sum(int min_sum) { this.min_sum = min_sum;}
+    public void setFollowing(int following) { this.following = following; }
+
 
 }

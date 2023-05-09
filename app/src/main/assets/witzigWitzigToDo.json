@@ -3,16 +3,10 @@
     "id": 0,
     "name": "Schnapspralinen-Wettessen",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "",
-        "count": 3
-      },
-      {
-        "number": "4",
-        "count": 2
-      }
-    ],
+    "count": 3,
+    "number2": "4",
+    "count2": 2,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
@@ -21,26 +15,20 @@
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_wettessen_vs",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 1,
     "name": "Bud-Spencer-Filme nachspielen",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "3",
-        "count": 2
-      },
-      {
-        "number": "4",
-        "count": 1
-      },
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "3",
+    "count": 2,
+    "number2": "4",
+    "count2": 1,
+    "number3": "5",
+    "count3": 2,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
@@ -49,18 +37,15 @@
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_bud_spencer",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 2,
     "name": "Auf Facebook zu einer Hausparty einladen",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      { //5mal x würfeln
-        "number": "",
-        "count": 5
-      }
-    ],
+    "count": 5,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
@@ -69,30 +54,22 @@
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_facebookhausparty",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 3,
     "name": "Kunstperformance mit Rohöl",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      },
-      {
-        "number": "2",
-        "count": 1
-      },
-      {
-        "number": "3",
-        "count": 1
-      },
-      {
-        "number": "4",
-        "count": 1
-      }
-    ],
+    "number": "1",
+    "count": 2,
+    "number2": "2",
+    "count2": 1,
+    "number3": "3",
+    "count3": 1,
+    "number4": "4",
+    "count4": 1,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
@@ -100,22 +77,17 @@
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_kunstpeformance",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 4,
     "name": "Großer Lebowski Abend",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "",
-        "count": 2
-      },
-      {
-        "number": "2",
-        "count": 3
-      }
-    ],
+    "count": 2,
+    "number2": "2",
+    "count2": 3,
+
     "toDoPenalty": [
       "BATHTUB",
       "COUCH",
@@ -124,22 +96,17 @@
     ],
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_lebowski",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 5,
     "name": "Neue Regeln für Monopoly erfinden",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "",
-        "count": 3
-      },
-      {
-        "number": "2",
-        "count": 2
-      }
-    ],
+    "count": 3,
+    "number2": "2",
+    "count2": 2,
+
     "toDoPenalty": [
       "TABLEWARE",
       "COUCH",
@@ -147,22 +114,17 @@
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_monopoly",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 6,
     "name": "Porsche-im-Pool-Party",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "",
-        "count": 3
-      },
-      {
-        "number": "3",
-        "count": 2
-      }
-    ],
+    "count": 3,
+    "number2": "3",
+    "count2": 2,
+
     "toDoPenalty": [
       "BATHTUB",
       "TABLEWARE",
@@ -170,22 +132,18 @@
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_porsche",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   },
   {
     "id": 7,
     "name": "Trampolin hüpfen",
     "cardType": "WITZIGWITZIG",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      },
-      {
-        "number": "5",
-        "count": 2
-      }
-    ],
+    "number": "1",
+    "count": 2,
+    "number2": "5",
+    "count2": 2,
+
     "toDoPenalty": [
       "TABLEWARE",
       "COUCH",
@@ -193,6 +151,7 @@
     ],
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_trampolin",
-    "cardBack": "witzigwitzig_rs"
+    "cardBack": "witzigwitzig_rs",
+    "isFront": true
   }
 ]
