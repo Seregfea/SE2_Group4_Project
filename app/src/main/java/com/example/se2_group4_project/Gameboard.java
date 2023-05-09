@@ -22,6 +22,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
@@ -32,6 +33,9 @@ public class Gameboard extends AppCompatActivity {
     private int availableDices = 4;
 
     private TextView pointView;
+    private List<ImageView> displayedCards = new ArrayList<>();
+    private Card test;
+    private Button testFLip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class Gameboard extends AppCompatActivity {
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
         pointView = findViewById(R.id.points);
+        testFLip = findViewById(R.id.flipTest);
+
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -84,45 +90,46 @@ public class Gameboard extends AppCompatActivity {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
+        test = c.getPlayerBlueStack().get(0);
+
+        testFLip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               flipCard(test);
+            }
+        });
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
+            String currentCardFront = card.getCurrentCardFront();
             final int imageRessourceID =
                     this.getResources()
                             .getIdentifier(
-                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
             iView.setImageResource(imageRessourceID);
             iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
             linearLayout.addView(iView);
+            displayedCards.add(iView);
+            card.setImageViewID(iView.getId());
         }
     }
     public void flipCard (Card cardFlip){
-        String currentImage;
-        String flipedImage;
-
-        if(cardFlip.isFront()) {
-            currentImage = cardFlip.getCardFront();
-            flipedImage = cardFlip.getCardBack();
+        String currentBackImage = cardFlip.getCurrentCardBack();
+        ImageView currentCardSide = null;
+        for (ImageView iView: displayedCards
+             ) {
+            if(iView.getId() == cardFlip.getImageViewID()) {
+                currentCardSide = iView;
+            }
         }
-        else{
-            currentImage = cardFlip.getCardBack();
-            flipedImage = cardFlip.getCardFront();
-        }
-
-        final int currentImageRessource =
-        this.getResources()
-                .getIdentifier(
-                        currentImage, "drawable",this.getApplicationContext().getPackageName());
-
-        ImageView currentCardSide = findViewById(currentImageRessource);
 
         final int flipedImageRessource =
         this.getResources()
                 .getIdentifier(
-                        flipedImage, "drawable",this.getApplicationContext().getPackageName());
+                        currentBackImage, "drawable",this.getApplicationContext().getPackageName());
 
         currentCardSide.setImageResource(flipedImageRessource);
 
