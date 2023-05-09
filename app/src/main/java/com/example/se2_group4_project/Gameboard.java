@@ -101,10 +101,17 @@ public class Gameboard extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-            final int imageRessourceID =
-                    this.getResources()
-                            .getIdentifier(
-                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            int imageRessourceID;
+
+            if (linearLayoutId == R.id.roommateDifficultLayout || linearLayoutId == R.id.roommateEasyLayout || linearLayoutId == R.id.troublemakerLayout) {
+                imageRessourceID = this.getResources()
+                        .getIdentifier(card.getCardBack(), "drawable", this.getApplicationContext().getPackageName());
+            } else {
+                imageRessourceID = this.getResources()
+                        .getIdentifier(card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+            }
+
             iView.setImageResource(imageRessourceID);
 
             // Lade das Bild, um das Seitenverhältnis zu berechnen
@@ -152,27 +159,7 @@ public class Gameboard extends AppCompatActivity {
         }
     }
 
-/*
 
-
-            // Erstelle LayoutParams, um ImageView-Größe automatisch anzupassen
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.weight = aspectRatio;
-            iView.setLayoutParams(params);
-
-
-            }else if(linearLayoutId == R.id.CardsLayoutRight){
-                iView.setRotation(90);
-            } else if(linearLayoutId == R.id.CardsLayoutTop){
-                iView.setRotation(180);
-            }
-            linearLayout.addView(iView);
-        }
-    }
-
- */
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.startPoints()));
