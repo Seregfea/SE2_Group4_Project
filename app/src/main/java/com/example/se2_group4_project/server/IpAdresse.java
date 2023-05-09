@@ -1,4 +1,4 @@
-package com.example.se2_group4_project.jsonComunication;
+package com.example.se2_group4_project.server;
 
 public class IpAdresse {
     private String ipAdresse;

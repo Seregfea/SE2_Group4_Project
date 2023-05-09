@@ -14,6 +14,11 @@
         android:theme="@style/Theme.SE2_Group4_Project"
         tools:targetApi="31">
         <activity
+            android:name=".ClientActivity"
+            android:exported="false"
+            android:label="@string/title_activity_client"
+            android:theme="@style/Theme.SE2_Group4_Project" />
+        <activity
             android:name=".ServerActivity"
             android:exported="true" />
         <activity
@@ -26,9 +31,9 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
