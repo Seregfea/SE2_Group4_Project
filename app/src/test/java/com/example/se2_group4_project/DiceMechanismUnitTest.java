@@ -1,5 +1,6 @@
 package com.example.se2_group4_project;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,6 +30,20 @@ public class DiceMechanismUnitTest {
     public void getTotalDiceResult_checkResult() {
         List<Integer> testValues = List.of(1, 2, 3, 4, 5, 6);
         assertEquals(15, Dice.getTotalDiceResult(testValues));
+    }
+
+    @Test
+    public void sortedCountDiceArrayTest() {
+        List<Integer> testValues = List.of(1, 1, 1, 2, 2, 3, 4, 5, 5);
+        int[] expectedResult = {3, 2, 1, 1, 2};
+        assertArrayEquals(expectedResult, Dice.sortedCountDiceArray(testValues));
+    }
+
+    @Test
+    public void checkSortedCountDiceArrayWithUnsortedValuesTest() {
+        List<Integer> testValues = List.of(3, 2, 5, 2);
+        int[] expectedResult = {0, 2, 1, 0, 1};
+        assertArrayEquals(expectedResult, Dice.sortedCountDiceArray(testValues));
     }
 
 }
