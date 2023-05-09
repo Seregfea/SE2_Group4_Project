@@ -1,27 +1,24 @@
 package com.example.se2_group4_project;
 
-import static java.security.AccessController.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+
+import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
-import com.example.se2_group4_project.client.Client;
-import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
+import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -34,6 +31,8 @@ public class Gameboard extends AppCompatActivity {
     // später: methode aus player-klasse
     private int availableDices = 4;
 
+    private TextView pointView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +41,7 @@ public class Gameboard extends AppCompatActivity {
         dicePopUpActivity = new DicePopUpActivity(this);
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
+        pointView = findViewById(R.id.points);
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -56,13 +56,13 @@ public class Gameboard extends AppCompatActivity {
                 dicePopUpActivity.rollDice();
             }
         });
+
         // Client connects to server
         Client client = new Client();
         Bundle extra = getIntent().getExtras();
         String ip = extra.getString("ip");
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
-
 /*
        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
@@ -90,6 +90,8 @@ public class Gameboard extends AppCompatActivity {
         left.addImage(imageView);
         left.addImage(zwei);
      */
+        PointDisplay pointDisplay = new PointDisplay();
+        startPointView(pointDisplay);
 
         CardDrawer c = new CardDrawer(this.getApplicationContext());
         try {
@@ -98,37 +100,37 @@ public class Gameboard extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        ArrayList<Card> player1 = c.getPlayerBlueStack();
-        for (Card card : player1) {
-            LinearLayout playerBlue = findViewById(R.id.CardsLayoutLeft);
-            ImageView iView = new ImageView(playerBlue.getContext());
+        addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
+        addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
+        addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
+        addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
+        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+        addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
+    }
+
+    public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
+        LinearLayout linearLayout = findViewById(linearLayoutId);
+        for (Card card : cards) {
+            ImageView iView = new ImageView(linearLayout.getContext());
             final int imageRessourceID =
                     this.getResources()
                             .getIdentifier(
                                     card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
-
             iView.setImageResource(imageRessourceID);
-            iView.setVisibility(View.VISIBLE);
-            //LinearLayout.LayoutParams params = new LinearLayout
-            //  .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
-            playerBlue.addView(iView);
+            linearLayout.addView(iView);
         }
     }
+
+    public void startPointView(PointDisplay pointDisplay){
+        pointView.setText(String.valueOf(pointDisplay.startPoints()));
+    }
+
+    public void updatePointView(int point, PointDisplay pointDisplay){
+        pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
+    }
 }
-
-/*CardDrawer cardDrawer = new CardDrawer();
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
-
-        // ich greife auf stack zu und habe index 0 - 4
-        // ich nehme die playerBlueStack z.B. und bekomme da meine Images
-        // jeder Spieler bekommt Nummer mit einer Farbe random - von dieser Farbe bekommt er Karten
-        // Layout passt sich an
-
-
-         */

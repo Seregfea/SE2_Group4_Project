@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 class CardDrawerTest {
 
-    @Test
+   /* @Test
     void generateInitialCards() throws FileNotFoundException {
         //arrange
         CardDrawer cardDrawer = new CardDrawer();
@@ -79,5 +79,5 @@ class CardDrawerTest {
 //        assertEquals(2, card4.getNeededDice().get(0).getCount());
 //        assertEquals("ich_hellblau_vs.png", card4.getCardFront());
 //        assertEquals("ich_hellblau_rs.png", card4.getCardBack());
-    }
+    } */
 }

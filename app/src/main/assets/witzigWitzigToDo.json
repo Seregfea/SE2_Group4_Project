@@ -153,5 +153,7 @@
     "cardFront": "witzigwitzig_trampolin",
     "cardBack": "witzigwitzig_rs",
     "isFront": true
+    "cardFront": "witzigwitzig_schnapspralinen",
+    "cardBack": "witzigwitzig_rs"
   }
 ]
