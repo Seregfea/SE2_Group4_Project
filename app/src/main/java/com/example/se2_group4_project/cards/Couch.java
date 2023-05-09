@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 public class Couch {
 
-    private int diceSpace = 1;
-    private boolean increaseDiceSpace = false;
+    private int diceSpaceCocuh = 1;
+    private boolean increaseDiceSpaceCouch = false;
     private int number;
     private int count;
 
@@ -25,29 +25,29 @@ public class Couch {
     }
 
     public boolean checkDiceSpace() {
-        return increaseDiceSpace;
+        return increaseDiceSpaceCouch;
     }
 
-    public int getDiceSpace() {
-        return diceSpace;
+    public int getDiceSpaceCocuh() {
+        return diceSpaceCocuh;
     }
 
-    public void setDiceSpace(int diceSpace) {
-        this.diceSpace = diceSpace;
+    public void setDiceSpaceCocuh(int diceSpaceCocuh) {
+        this.diceSpaceCocuh = diceSpaceCocuh;
     }
 
-    public boolean isIncreaseDiceSpace() {
-        return increaseDiceSpace;
+    public boolean isIncreaseDiceSpaceCouch() {
+        return increaseDiceSpaceCouch;
     }
 
-    public void setIncreaseDiceSpace(boolean increaseDiceSpace) {
-        this.increaseDiceSpace = increaseDiceSpace;
+    public void setIncreaseDiceSpaceCouch(boolean increaseDiceSpaceCouch) {
+        this.increaseDiceSpaceCouch = increaseDiceSpaceCouch;
 
-        if(increaseDiceSpace){
-            setDiceSpace(4);
+        if(increaseDiceSpaceCouch){
+            setDiceSpaceCocuh(4);
         }
         else{
-            setDiceSpace(1);
+            setDiceSpaceCocuh(1);
         }
     }
 
