@@ -6,6 +6,7 @@
     "troublemakerPenalty": "TABLEWARE",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_pinguin",
     "cardBack": "stoerenfried_rs"
   },
@@ -16,6 +17,7 @@
     "troublemakerPenalty": "ROOM",
     "neededSchnapspralinen": 10,
     "schnapspralinen": -1,
+    "isFront": false,
     "cardFront": "troublemaker_gespenst",
     "cardBack": "stoerenfried_rs"
   },
@@ -26,6 +28,7 @@
     "troublemakerPenalty": "ITEMS",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_nachbarin",
     "cardBack": "stoerenfried_rs"
   },
@@ -36,6 +39,7 @@
     "troublemakerPenalty": "ROOMMATE",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_sektenmitglied",
     "cardBack": "stoerenfried_rs"
   },
@@ -46,6 +50,7 @@
     "troublemakerPenalty": "TURN",
     "neededSchnapspralinen": 10,
     "schnapspralinen": -2,
+    "isFront": false,
     "cardFront": "troublemaker_dickermann",
     "cardBack": "stoerenfried_rs"
   },
@@ -56,6 +61,7 @@
     "troublemakerPenalty": "BATHTUB",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_handwerker",
     "cardBack": "stoerenfried_rs"
   },
@@ -66,6 +72,7 @@
     "troublemakerPenalty": "ICH",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_wachtmeister",
     "cardBack": "stoerenfried_rs"
   },
@@ -76,6 +83,7 @@
     "troublemakerPenalty": "COUCH",
     "neededSchnapspralinen": 10,
     "schnapspralinen": 0,
+    "isFront": false,
     "cardFront": "troublemaker_clubmalte",
     "cardBack": "stoerenfried_rs"
   }
