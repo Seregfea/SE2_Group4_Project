@@ -1,10 +1,17 @@
 package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +43,10 @@ public class Gameboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_gameboard);
 
         dicePopUpActivity = new DicePopUpActivity(this);
@@ -110,21 +121,71 @@ public class Gameboard extends AppCompatActivity {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
+
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-            final int imageRessourceID =
-                    this.getResources()
-                            .getIdentifier(
-                                    card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+
+            int imageRessourceID;
+
+            if (linearLayoutId == R.id.roommateDifficultLayout || linearLayoutId == R.id.roommateEasyLayout || linearLayoutId == R.id.troublemakerLayout) {
+                imageRessourceID = this.getResources()
+                        .getIdentifier(card.getCardBack(), "drawable", this.getApplicationContext().getPackageName());
+            } else {
+                imageRessourceID = this.getResources()
+                        .getIdentifier(card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
+            }
+
             iView.setImageResource(imageRessourceID);
-            iView.setLayoutParams(new LinearLayout.LayoutParams(100, 300));
+
+            Drawable drawable = getResources().getDrawable(imageRessourceID);
+            float aspectRatio = (float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+
+            if (linearLayoutId == R.id.UserCardsLayout) {
+                iView.setRotation(0);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = aspectRatio;
+                iView.setLayoutParams(params);
+
+            } else if (linearLayoutId == R.id.CardsLayoutLeft) {
+                iView.setRotation(90);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = aspectRatio;
+                iView.setLayoutParams(params);
+
+            } else if (linearLayoutId == R.id.CardsLayoutRight) {
+                iView.setRotation(-90f);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = aspectRatio;
+                iView.setLayoutParams(params);
+
+            } else if (linearLayoutId == R.id.CardsLayoutTop) {
+                iView.setRotation(180f);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = aspectRatio;
+                iView.setLayoutParams(params);
+
+            }
             linearLayout.addView(iView);
         }
     }
+
+
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.startPoints()));
