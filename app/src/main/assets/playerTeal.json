@@ -3,52 +3,39 @@
     "id": 0,
     "name": "Badewanne-türkis",
     "cardType": "BATHTUB",
-    "neededDice": [
-      {
-        "number": "2",
-        "count": 2
-      }
-    ],
+    "number": 2,
+    "count": 2,
     "cardFront": "bad_dreckig_tuerkis",
-    "cardBack": "bad_sauber_tuerkis"
+    "cardBack": "bad_sauber_tuerkis",
+    "isFront": true
   },
   {
     "id": 1,
     "name": "Geschirr-türkis",
     "cardType": "TABLEWARE",
-    "neededDice": [
-      {
-        "number": "*",
-        "following": 2
-      }
-    ],
+    "following": 3,
     "cardFront": "geschirr_dreckig_tuerkis",
-    "cardBack": "geschirr_sauber_tuerkis"
+    "cardBack": "geschirr_sauber_tuerkis",
+    "isFront": true
   },
   {
     "id": 2,
     "name": "Couch-türkis",
     "cardType": "COUCH",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": 1,
+    "count": 2,
     "cardFront": "couch_matschig_tuerkis",
-    "cardBack": "couch_sauber_tuerkis"
+    "cardBack": "couch_sauber_tuerkis",
+    "isFront": true
   },
   {
     "id": 3,
     "name": "Ich-Türkus",
     "cardType": "ME",
-    "neededDice": [
-      {
-        "number": "1",
-        "count": 2
-      }
-    ],
+    "number": 1,
+    "count": 2,
     "cardFront": "ich_tuerkis_vs",
-    "cardBack": "ich_tuerkis_rs"
+    "cardBack": "ich_tuerkis_rs",
+    "isFront": true
   }
 ]
