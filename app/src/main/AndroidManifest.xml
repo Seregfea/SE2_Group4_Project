@@ -21,7 +21,7 @@
             android:label="@string/title_activity_client"
             android:theme="@style/Theme.SE2_Group4_Project" />
         <activity
-            android:name=".ServerActivity"
+            android:name=".screens.ServerActivity"
             android:exported="true" />
         <activity
             android:name=".Gameboard"

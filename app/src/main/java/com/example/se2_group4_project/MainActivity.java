@@ -7,17 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.se2_group4_project.databinding.ActivityMainBinding;
+import com.example.se2_group4_project.databinding.ActivityServerBinding;
 import com.example.se2_group4_project.screens.FindGameActivity;
 import com.example.se2_group4_project.screens.OptionsActivity;
 import com.example.se2_group4_project.screens.PlayGameActivity;
 import com.example.se2_group4_project.screens.SelectRoomActivity;
+import com.example.se2_group4_project.screens.ServerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding activityMainBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = activityMainBinding.getRoot();
+        setContentView(view);
 
         Button btnPlay = findViewById(R.id.button_play);
         Button btnFindGame = findViewById(R.id.button_find_game);
@@ -44,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        activityMainBinding.buttonServer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
                 startActivity(intent);
             }
         });
