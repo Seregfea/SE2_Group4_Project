@@ -25,4 +25,8 @@ public class PointDisplay {
         this.points = this.points + point;
         return points;
     }
+
+    public int getPoints() {
+        return points;
+    }
 }
