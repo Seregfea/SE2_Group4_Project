@@ -76,7 +76,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
         String ip = extra.getString("ip");
         Client client = new Client(ip, 1234, this);
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-        //client.startConnection(ip);
+        //client.start();
 /*
        LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
         CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
