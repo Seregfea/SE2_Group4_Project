@@ -2,7 +2,7 @@ package com.example.se2_group4_project.client;
 
 import android.util.Log;
 
-import com.example.se2_group4_project.Callbacks.ClientCallbacks;
+import com.example.se2_group4_project.callbacks.ServerCallbacks;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -18,9 +18,9 @@ public class Client extends Thread {
     DataOutputStream serverMessage;
     DataInputStream clientInput;
     String messageInput;
-    ClientCallbacks callbacks;
+    ServerCallbacks callbacks;
 
-    public Client(String ipAdresse, int port, ClientCallbacks callbacks){
+    public Client(String ipAdresse, int port, ServerCallbacks callbacks){
         this.ipAdresse =  ipAdresse;
         this.port = port;
         this.callbacks = callbacks;
@@ -29,6 +29,7 @@ public class Client extends Thread {
     public void run() {
 
         try {
+            Log.d("ip adresse", ipAdresse);
             client = new Socket(ipAdresse,port);
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());

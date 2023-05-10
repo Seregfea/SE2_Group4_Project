@@ -3,7 +3,7 @@ package com.example.se2_group4_project.server;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.se2_group4_project.Callbacks.ServerCallbacks;
+import com.example.se2_group4_project.callbacks.ServerCallbacks;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
