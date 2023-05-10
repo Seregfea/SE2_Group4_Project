@@ -8,7 +8,7 @@
     "stealCard": 3,
     "itemBenefit": "Couch matschig",
     "cardFront": "jojo_vs",
-    "isFront": false
+    "isFront": true
   },
   {
     "id": 1,
@@ -19,7 +19,7 @@
     "stealCard": 3,
     "itemBenefit": "Couch matschig",
     "cardFront": "decke_vs",
-    "isFront": false
+    "isFront": true
   },
   {
     "id": 2,
@@ -30,7 +30,7 @@
     "stealCard": 3,
     "itemBenefit": "Badewanne dreckig",
     "cardFront": "wasserbombe_vs",
-    "isFront": false
+    "isFront": true
   },
   {
     "id": 3,
@@ -41,7 +41,7 @@
     "stealCard": 3,
     "itemBenefit": "Geschirr dreckig",
     "cardFront": "pfannenundco_vs",
-    "isFront": false
+    "isFront": true
   },
   {
     "id": 4,
@@ -52,6 +52,6 @@
     "stealCard": 3,
     "itemBenefit": "Geschirr dreckig",
     "cardFront": "kuechenradio_vs",
-    "isFront": false
+    "isFront": true
   }
 ]

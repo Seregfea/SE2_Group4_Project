@@ -4,15 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Item {
-    private int id;
-    private String name;
     private int number;
     private int count;
     private int stealCard;
-    private String itemBenefit;
-    private String cardFront;
-    private boolean isFront;
-
     private boolean couchMatschig = false;
     private boolean badewanneDreckig = false;
     private boolean geschirrDreckig = false;
@@ -59,23 +53,6 @@ public class Item {
 
 
     // Getters/Setters
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getNumber() {
         return number;
     }
@@ -98,29 +75,5 @@ public class Item {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getItemBenefit() {
-        return itemBenefit;
-    }
-
-    public void setItemBenefit(String itemBenefit) {
-        this.itemBenefit = itemBenefit;
-    }
-
-    public String getCardFront() {
-        return cardFront;
-    }
-
-    public void setCardFront(String cardFront) {
-        this.cardFront = cardFront;
-    }
-
-    public boolean isFront() {
-        return isFront;
-    }
-
-    public void setFront(boolean front) {
-        isFront = front;
     }
 }
