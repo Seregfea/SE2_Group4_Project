@@ -1,0 +1,41 @@
+[
+  {
+    "id": 0,
+    "name": "Badewanne-grün",
+    "cardType": "BATHTUB",
+    "number": 3,
+    "count": 2,
+    "cardFront": "bad_dreckig_gruen",
+    "cardBack": "bad_sauber_gruen",
+    "isFront": true
+  },
+  {
+    "id": 1,
+    "name": "Geschirr-grün",
+    "cardType": "TABLEWARE",
+    "following": 3,
+    "cardFront": "geschirr_dreckig_gruen",
+    "cardBack": "geschirr_sauber_gruen",
+    "isFront": true
+  },
+  {
+    "id": 2,
+    "name": "Couch-grün",
+    "cardType": "COUCH",
+    "number": 5,
+    "count": 2,
+    "cardFront": "couch_matschig_gruen",
+    "cardBack": "couch_sauber_gruen",
+    "isFront": true
+  },
+  {
+    "id": 3,
+    "name": "Ich-Grün",
+    "cardType": "ME",
+    "number": 5,
+    "count": 2,
+    "cardFront": "ich_gruen_vs",
+    "cardBack": "ich_gruen_rs",
+    "isFront": true
+  }
+]
