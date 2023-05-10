@@ -4,16 +4,6 @@ import java.util.ArrayList;
 
 public class Schaukelstuhl {
 
-
-   public int sumSchnapspralinen(ArrayList<Card> player){
-        int sum = 0;
-
-       for (Card card:player) {
-           sum += card.getSchnapspralinen();
-       }
-       return sum;
-    }
-
     public void checkSpecialCards(){
        //Liste vom aktuellen Player
 

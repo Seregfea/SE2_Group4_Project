@@ -33,9 +33,7 @@ public class Gameboard extends AppCompatActivity {
     private int availableDices = 4;
 
     private TextView pointView;
-    private List<ImageView> displayedCards = new ArrayList<>();
-    private Card test;
-    private Button testFLip;
+    private static List<ImageView> displayedCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +44,6 @@ public class Gameboard extends AppCompatActivity {
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
         pointView = findViewById(R.id.points);
-        testFLip = findViewById(R.id.flipTest);
-
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -90,14 +86,6 @@ public class Gameboard extends AppCompatActivity {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
-        test = c.getPlayerBlueStack().get(0);
-
-        testFLip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               flipCard(test);
-            }
-        });
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -116,7 +104,7 @@ public class Gameboard extends AppCompatActivity {
             card.setImageViewID(iView.getId());
         }
     }
-    public void flipCard (Card cardFlip){
+    public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
         ImageView currentCardSide = null;
         for (ImageView iView: displayedCards

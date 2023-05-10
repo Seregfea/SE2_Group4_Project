@@ -37,4 +37,5 @@ public class NeededDice {
     public void setFollowing(int following) {
         this.following = following;
     }
+
 }

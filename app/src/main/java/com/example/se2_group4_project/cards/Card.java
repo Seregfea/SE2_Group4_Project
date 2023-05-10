@@ -32,7 +32,6 @@ public class Card {
         this.neededSchnapspralinen = neededSchnapspralinen;
         this.isFront = isFront;
     }
-
     public CardType getCardType() {
         return cardType;
     }
