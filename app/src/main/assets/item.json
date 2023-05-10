@@ -4,7 +4,8 @@
     "name": "Jojo",
     "cardType": "ITEM",
     "number": "1",
-    "count": 3,
+    "count": 2,
+    "stealCard": 3,
     "itemBenefit": "Couch matschig",
     "cardFront": "jojo_vs",
     "isFront": false
@@ -14,7 +15,8 @@
     "name": "Decke",
     "cardType": "ITEM",
     "number": "3",
-    "count": 3,
+    "count": 2,
+    "stealCard": 3,
     "itemBenefit": "Couch matschig",
     "cardFront": "decke_vs",
     "isFront": false
@@ -24,7 +26,8 @@
     "name": "Wasserbombe",
     "cardType": "ITEM",
     "number": "4",
-    "count": 3,
+    "count": 2,
+    "stealCard": 3,
     "itemBenefit": "Badewanne dreckig",
     "cardFront": "wasserbombe_vs",
     "isFront": false
@@ -34,7 +37,8 @@
     "name": "Pfannenundco",
     "cardType": "ITEM",
     "number": "5",
-    "count": 3,
+    "count": 2,
+    "stealCard": 3,
     "itemBenefit": "Geschirr dreckig",
     "cardFront": "pfannenundco_vs",
     "isFront": false
@@ -44,7 +48,8 @@
     "name": "Kuechenradio",
     "cardType": "ITEM",
     "number": "2",
-    "count": 3,
+    "count": 2,
+    "stealCard": 3,
     "itemBenefit": "Geschirr dreckig",
     "cardFront": "kuechenradio_vs",
     "isFront": false
