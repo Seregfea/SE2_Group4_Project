@@ -140,8 +140,8 @@ public class Gameboard extends AppCompatActivity {
 
             iView.setImageResource(imageRessourceID);
 
-            Drawable drawable = getResources().getDrawable(imageRessourceID);
-            float aspectRatio = (float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+//            Drawable drawable = getResources().getDrawable(imageRessourceID);
+            float aspectRatio = 5;//(float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
 
             if (linearLayoutId == R.id.UserCardsLayout) {
                 iView.setRotation(0);
