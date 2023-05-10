@@ -41,7 +41,7 @@ public class Client extends Thread {
             int count = 0;
             Player player = new Player("test",1,1,1,1,1);
             player.setChoice(10);
-            String message = objectToString(player);
+            String message = objectToJson(player);
             Log.d("player send", message);
             while (client.isConnected()){
 
@@ -75,7 +75,7 @@ public class Client extends Thread {
         return player;
     }
 
-    private String objectToString(Object object){
+    private String objectToJson(Object object){
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {

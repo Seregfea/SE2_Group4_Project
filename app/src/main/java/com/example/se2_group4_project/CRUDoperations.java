@@ -29,7 +29,9 @@ public class CRUDoperations extends Thread{
         mapper = new ObjectMapper();
         Log.d("database inserted", object.toString());
 
-
+        if(object.getClass().isAssignableFrom(Player.class)){
+            Log.d("compare object", "object == class");
+        }
         Log.d("database is instance", " true");
         String message = objectToString(object);
         Player player = jsonToObject(message);

@@ -29,19 +29,19 @@ public interface RoomateDAO {
     public String getName(int roomMateID);
 
     @Query("select trouble from roomate where roomMateID==:roomMateID")
-    public String getTrouble(int roomMateID);
+    public int getTrouble(int roomMateID);
 
     @Query("select awake from roomate where roomMateID==:roomMateID")
-    public String getAwake(int roomMateID);
+    public int getAwake(int roomMateID);
 
     @Query("select dicePlace from roomate where roomMateID==:roomMateID")
-    public String getDicePlace(int roomMateID);
+    public int getDicePlace(int roomMateID);
 
     @Query("select diceNeeded from roomate where roomMateID==:roomMateID")
-    public String getDiceNeeded(int roomMateID);
+    public int getDiceNeeded(int roomMateID);
 
     @Query("select diceCount from roomate where roomMateID==:roomMateID")
-    public String getDiceCount(int roomMateID);
+    public int getDiceCount(int roomMateID);
 
     //////////////////////////////////// set ///////////////////////////////////////////
 

@@ -25,8 +25,8 @@ public interface ChocolateItemsDAO {
     public String getName(int chocolateID);
 
     @Query("select diceNeeded from chocolateItems where chocolateID==:chocolateID")
-    public String getDiceNeeded(int chocolateID);
+    public int getDiceNeeded(int chocolateID);
 
     @Query("select chocolateCount from chocolateItems where chocolateID==:chocolateID")
-    public String getChocolateCount(int chocolateID);
+    public int getChocolateCount(int chocolateID);
 }
