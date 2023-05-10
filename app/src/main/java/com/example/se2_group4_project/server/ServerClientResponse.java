@@ -79,10 +79,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
         new Thread(this.cruDoperations).start();
     }
 
-    private String encodeUTF8(ByteBuffer byteBuffer){
-        String rawString = "";
-        return rawString = String.valueOf(StandardCharsets.UTF_8.decode(byteBuffer));
-    }
 
     private Player jsonToObject(String object){
 
