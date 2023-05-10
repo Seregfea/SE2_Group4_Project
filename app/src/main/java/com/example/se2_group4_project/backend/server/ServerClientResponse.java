@@ -1,13 +1,13 @@
-package com.example.se2_group4_project.server;
+package com.example.se2_group4_project.backend.server;
 
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.se2_group4_project.CRUDoperations;
-import com.example.se2_group4_project.callbacks.DatabaseCallbacks;
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.database.WGDatabase;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.database.CRUDoperations;
+import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.database.WGDatabase;
+import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,8 +15,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
@@ -26,12 +24,14 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
     private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
     private WGDatabase wgDatabase;
+    private int playerNumber;
 
-    ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase){
+    ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
         this.client = client;
         this.mainThread = mainThread;
         this.callbacks = callbacks;
         this.wgDatabase = wgDatabase;
+        this.playerNumber = playerNumber;
     }
 
     @Override

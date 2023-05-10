@@ -6,15 +6,15 @@ import android.os.HandlerThread;
 import android.util.Log;
 import android.view.View;
 
-import com.example.se2_group4_project.callbacks.DatabaseCallbacks;
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.client.Client;
-import com.example.se2_group4_project.database.WGDatabase;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.backend.database.WGDatabase;
+import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.databinding.ActivityServerBinding;
 import com.example.se2_group4_project.handler.ServerUIHandler;
-import com.example.se2_group4_project.server.IpAdresse;
-import com.example.se2_group4_project.server.Server;
+import com.example.se2_group4_project.backend.server.IpAdresse;
+import com.example.se2_group4_project.backend.server.Server;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

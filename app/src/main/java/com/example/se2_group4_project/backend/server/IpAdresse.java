@@ -1,4 +1,4 @@
-package com.example.se2_group4_project.server;
+package com.example.se2_group4_project.backend.server;
 
 public class IpAdresse {
     private String ipAdresse;

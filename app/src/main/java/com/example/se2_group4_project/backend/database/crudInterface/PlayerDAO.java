@@ -1,6 +1,6 @@
-package com.example.se2_group4_project.database.crudInterface;
+package com.example.se2_group4_project.backend.database.crudInterface;
 
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.database.entities.Player;
 
 import java.util.List;
 

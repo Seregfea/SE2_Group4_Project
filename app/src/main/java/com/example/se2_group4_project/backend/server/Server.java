@@ -1,10 +1,10 @@
-package com.example.se2_group4_project.server;
+package com.example.se2_group4_project.backend.server;
 
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.database.WGDatabase;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.database.WGDatabase;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,13 +42,14 @@ public class Server extends Thread {
 
             String message = "server started on port: " + serverPort;
             handlerServer.post(() -> callbacks.onMessageSend(message));
-
+            int count = 0;
             while (serverrun){
                 Log.d("loop","in loop");
                 Socket client = server.accept();
                 Log.d("client respond", " client respond : " + client.getRemoteSocketAddress());
-                ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this.callbacks, wgDatabase);
+                ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this.callbacks, wgDatabase, count);
                 socketListener.start();
+                count++;
             }
         } catch (IOException e) {
             Log.e("server error", "server error: "+e);
@@ -57,6 +58,13 @@ public class Server extends Thread {
     }
 
 
+    public String returnPlayer(int count){
+        switch (count){
+            case 0:
+
+        }
+
+    }
 
     public void serverStop(){
         this.serverrun = false;
