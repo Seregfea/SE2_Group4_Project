@@ -208,7 +208,7 @@ public class Gameboard extends AppCompatActivity {
 
 
     public void startPointView(PointDisplay pointDisplay){
-        pointView.setText(String.valueOf(pointDisplay.startPoints()));
+        pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay){
