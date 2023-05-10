@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.example.se2_group4_project.callbacks.ClientCallbacks;
+import com.example.se2_group4_project.callbacks.ServerCallbacks;
 import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
@@ -31,7 +32,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gameboard extends AppCompatActivity {
+public class Gameboard extends AppCompatActivity implements ServerCallbacks {
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
@@ -71,9 +72,9 @@ public class Gameboard extends AppCompatActivity {
         });
 
         // Client connects to server
-        Client client = new Client();
         Bundle extra = getIntent().getExtras();
         String ip = extra.getString("ip");
+        Client client = new Client(ip, 1234, this);
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.startConnection(ip);
 /*
@@ -214,5 +215,15 @@ public class Gameboard extends AppCompatActivity {
     public void updatePointView(int point, PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
-        }
+
+    @Override
+    public void onMessageSend(String send) {
+
+    }
+
+    @Override
+    public void onMessageRecieve(String recieve) {
+
+    }
+}
 
