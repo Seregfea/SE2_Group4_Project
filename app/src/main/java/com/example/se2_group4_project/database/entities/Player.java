@@ -2,6 +2,7 @@ package com.example.se2_group4_project.database.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "player")
@@ -9,20 +10,24 @@ public class Player {
 
     @ColumnInfo(name = "playerID")
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
     @ColumnInfo(name = "name")
-    String name;
+    public String name;
     @ColumnInfo(name = "diceCount")
-    int diceCount;
+    public int diceCount;
     @ColumnInfo(name = "chocolateCount")
-    int chocolateCount;
+    public int chocolateCount;
     @ColumnInfo(name = "dicePlace")
-    int dicePlace;
+    public int dicePlace;
     @ColumnInfo(name = "awake")
-    int awake;
+    public int awake;
     @ColumnInfo(name = "diceNeeded")
-    int diceNeeded;
+    public int diceNeeded;
+    @Ignore
+    public int choice;
 
+    @Ignore
+    public Player(){}
 
     public Player(String name, int diceCount, int chocolateCount, int dicePlace, int awake, int diceNeeded){
         this.name = name;
@@ -33,6 +38,7 @@ public class Player {
         this.diceNeeded = diceNeeded;
     }
 
+    /////////////////////////////////////// get ///////////////////////////////
     public int getId() {
         return id;
     }
@@ -61,6 +67,10 @@ public class Player {
         return diceNeeded;
     }
 
+    public int getChoice() {return choice;}
+
+    /////////////////////////////////////// set ///////////////////////////////
+
     public void setDiceCount(int diceCount) {
         this.diceCount = diceCount;
     }
@@ -79,5 +89,9 @@ public class Player {
 
     public void setDiceNeeded(int diceNeeded) {
         this.diceNeeded = diceNeeded;
+    }
+
+    public void setChoice(int choice) {
+        this.choice = choice;
     }
 }

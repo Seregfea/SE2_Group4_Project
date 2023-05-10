@@ -123,7 +123,7 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
 
         activityServerBinding.Servermessage.setText("start the server");
         Log.d("serverstart1", "server startet");
-        this.server = new Server( 1234, this.handler, this);
+        this.server = new Server( 1234, this.handler, this, wgDatabase);
         new Thread(this.server).start();
         Log.d("serverstart2", "server startet");
 
@@ -135,6 +135,7 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
     @Override
     public void onMessageSend(String send) {
         Log.d("client connected", send);
+        activityServerBinding.Servermessage.setText("from database" + send);
     }
 
     @Override
@@ -169,7 +170,7 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
 
     @Override
     public void addPLayer(Player player) {
-       wgDatabase.getPlayer().addPlayer(player);
+
     }
 
     @Override

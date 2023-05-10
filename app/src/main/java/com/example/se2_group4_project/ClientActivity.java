@@ -8,7 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.se2_group4_project.callbacks.ClientCallbacks;
+import com.example.se2_group4_project.database.entities.Player;
 import com.example.se2_group4_project.databinding.ActivityClientBinding;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 
 public class ClientActivity extends AppCompatActivity implements ClientCallbacks {
@@ -21,7 +26,6 @@ public class ClientActivity extends AppCompatActivity implements ClientCallbacks
 
         activityClientBinding = ActivityClientBinding.inflate(getLayoutInflater());
         setContentView(activityClientBinding.getRoot());
-
         //setListenerBit();
 
 
@@ -41,6 +45,8 @@ public class ClientActivity extends AppCompatActivity implements ClientCallbacks
         //new Thread(client).start();
 
     }
+
+
 
     @Override
     public void onMessageSend(String send) {
