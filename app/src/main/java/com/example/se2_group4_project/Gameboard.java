@@ -29,6 +29,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gameboard extends AppCompatActivity {
     private DicePopUpActivity dicePopUpActivity;
@@ -39,6 +40,7 @@ public class Gameboard extends AppCompatActivity {
     private int availableDices = 4;
 
     private TextView pointView;
+    private static List<ImageView> displayedCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,16 +130,13 @@ public class Gameboard extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-
-            int imageRessourceID;
-
-            if (linearLayoutId == R.id.roommateDifficultLayout || linearLayoutId == R.id.roommateEasyLayout || linearLayoutId == R.id.troublemakerLayout) {
-                imageRessourceID = this.getResources()
-                        .getIdentifier(card.getCardBack(), "drawable", this.getApplicationContext().getPackageName());
-            } else {
-                imageRessourceID = this.getResources()
-                        .getIdentifier(card.getCardFront(), "drawable", this.getApplicationContext().getPackageName());
-            }
+          
+            String currentCardFront = card.getCurrentCardFront();
+          
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
 
@@ -182,7 +181,28 @@ public class Gameboard extends AppCompatActivity {
 
             }
             linearLayout.addView(iView);
+            displayedCards.add(iView);
+            card.setImageViewID(iView.getId());
         }
+    }
+    public void flipCard(Card cardFlip){
+        String currentBackImage = cardFlip.getCurrentCardBack();
+        ImageView currentCardSide = null;
+        for (ImageView iView: displayedCards
+             ) {
+            if(iView.getId() == cardFlip.getImageViewID()) {
+                currentCardSide = iView;
+            }
+        }
+
+        final int flipedImageRessource =
+        this.getResources()
+                .getIdentifier(
+                        currentBackImage, "drawable",this.getApplicationContext().getPackageName());
+
+        currentCardSide.setImageResource(flipedImageRessource);
+
+        cardFlip.setFront(!cardFlip.isFront());
     }
 
 
@@ -194,4 +214,5 @@ public class Gameboard extends AppCompatActivity {
     public void updatePointView(int point, PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
-}
+        }
+
