@@ -141,8 +141,15 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
 
             iView.setImageResource(imageRessourceID);
 
-//            Drawable drawable = getResources().getDrawable(imageRessourceID);
-            float aspectRatio = 5;//(float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+            float aspectRatio = 5;
+
+            if (linearLayoutId == R.id.ItemCardsLayout){
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = aspectRatio;
+                iView.setLayoutParams(params);
+            }
 
             if (linearLayoutId == R.id.UserCardsLayout) {
                 iView.setRotation(0);
