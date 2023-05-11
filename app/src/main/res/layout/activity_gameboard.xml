@@ -26,14 +26,12 @@
         android:layout_width="368dp"
         android:layout_height="70dp"
         android:layout_marginStart="89dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/availableDiceContainer"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
-        app:layout_constraintTop_toBottomOf="@+id/cardStacks"></LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/CardsLayoutTop"
@@ -42,9 +40,7 @@
         android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="220dp"
-        android:layout_marginBottom="40dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/ItemCardsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
@@ -53,14 +49,12 @@
         android:id="@+id/CardsLayoutRight"
         android:layout_width="80dp"
         android:layout_height="207dp"
-        android:layout_marginStart="76dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="116dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardStacks"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
     <LinearLayout
@@ -69,34 +63,35 @@
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="71dp"
         android:layout_marginBottom="88dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cardStacks"
+        app:layout_constraintEnd_toStartOf="@+id/ItemCardsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/ItemCardsLayout"
-        android:layout_width="398dp"
+        android:layout_width="324dp"
         android:layout_height="60dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginEnd="133dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="19dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/cardStacks"
         app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintHorizontal_bias="0.471"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"
+        app:layout_constraintVertical_bias="1.0"></LinearLayout>
 
     <Button
         android:id="@+id/btnRollDice"
-        android:layout_width="99dp"
-        android:layout_height="37dp"
+        android:layout_width="109dp"
+        android:layout_height="40dp"
         android:layout_row="0"
         android:layout_column="0"
         android:layout_marginStart="69dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
@@ -104,7 +99,8 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout" />
+        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/availableDiceContainer" />
 
 
     <TextView
@@ -139,15 +135,16 @@
 
     <LinearLayout
         android:id="@+id/cardStacks"
-        android:layout_width="400dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginEnd="107dp"
+        android:layout_width="324dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="115dp"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout">
 
         <LinearLayout
             android:id="@+id/roommateDifficultLayout"
@@ -199,6 +196,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/CardsLayoutTop"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/SchaukelstuhlLayout"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="19dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cardStacks"
+        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
+        app:layout_constraintStart_toEndOf="@+id/ItemCardsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"></LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
