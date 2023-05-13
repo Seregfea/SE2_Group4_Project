@@ -77,33 +77,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
         Client client = new Client(ip, 1234, this);
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         //client.start();
-/*
-       LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
-        CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
 
-// create the first ImageView and set its width to 60dp
-        ImageView drei = new ImageView(this);
-        drei.setImageResource(R.drawable.bad_dreckig_hellblau);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        drei.setLayoutParams(params);
-
-// create the second ImageView and set its width to 60dp
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(params);
-
-
-        ImageView zwei = new ImageView(this);
-        zwei.setImageResource(R.drawable.couch_dreckig_orange);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        zwei.setLayoutParams(params);
-
-// add the ImageViews to the layout
-        left.addImage(drei);
-        left.addImage(imageView);
-        left.addImage(zwei);
-     */
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
 
@@ -124,6 +98,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
+        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
 
     }
 
@@ -141,43 +116,31 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
 
             iView.setImageResource(imageRessourceID);
 
-//            Drawable drawable = getResources().getDrawable(imageRessourceID);
-            float aspectRatio = 5;//(float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+            float aspectRatio = 5;
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.weight = aspectRatio ;
+
+            if (linearLayoutId == R.id.ItemCardsLayout){
+                iView.setLayoutParams(params);
+            }
 
             if (linearLayoutId == R.id.UserCardsLayout) {
                 iView.setRotation(0);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutLeft) {
                 iView.setRotation(90);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutRight) {
                 iView.setRotation(-90f);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutTop) {
                 iView.setRotation(180f);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             }
