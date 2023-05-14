@@ -1,0 +1,11 @@
+[
+  {
+    "id": 0,
+    "name": "Schaukelstuhl",
+    "cardType": "ITEM",
+    "neededSchnapspralinen": 16,
+    "cardFront": "schaukelstuhl_vs",
+    "cardBack": "schaukelstuhl_rs",
+    "isFront": "false"
+  }
+]
