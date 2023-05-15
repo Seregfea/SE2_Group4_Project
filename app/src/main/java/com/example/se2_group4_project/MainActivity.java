@@ -12,6 +12,7 @@ import com.example.se2_group4_project.databinding.ActivityServerBinding;
 import com.example.se2_group4_project.screens.FindGameActivity;
 import com.example.se2_group4_project.screens.OptionsActivity;
 import com.example.se2_group4_project.screens.PlayGameActivity;
+import com.example.se2_group4_project.screens.RulesActivity;
 import com.example.se2_group4_project.screens.SelectRoomActivity;
 import com.example.se2_group4_project.screens.ServerActivity;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Gameboard.class);
+                Intent intent = new Intent(getApplicationContext(), RulesActivity.class);
                 startActivity(intent);
             }
         });
