@@ -67,7 +67,12 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
             @Override
             public void onClick(View view) {
                 dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-                dicePopUpActivity.rollDice();
+                try {
+                    dicePopUpActivity.rollDice();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         });
 

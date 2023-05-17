@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.callbacks.DiceCallbacks;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DicePopUpActivity extends PopupWindow {
+public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
+
+    private Handler handler;
     private View dicePopUpView;
     private MediaPlayer mediaPlayer;
     private LinearLayout diceLayout;
@@ -26,6 +32,24 @@ public class DicePopUpActivity extends PopupWindow {
     private int delayTime = 20;
     private int rollAnimation = 40;
 
+    private List<Integer> playerDice;
+    private List<Integer> enemyDice;
+
+    public List<Integer> getPlayerDice() {
+        return playerDice;
+    }
+
+    public void setPlayerDice(List<Integer> playerDice) {
+        this.playerDice = playerDice;
+    }
+
+    public List<Integer> getEnemyDice() {
+        return enemyDice;
+    }
+
+    public void setEnemyDice(List<Integer> enemyDice) {
+        this.enemyDice = enemyDice;
+    }
 
     @SuppressLint("InflateParams")
     public DicePopUpActivity(Context context) {
@@ -38,11 +62,12 @@ public class DicePopUpActivity extends PopupWindow {
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        handler = new Handler(context.getMainLooper());
         diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
     }
 
-    public void rollDice() {
+    public void rollDice() throws InterruptedException {
         //hardcoded
         numberOfDice = 4;
         diceLayout.removeAllViews();
@@ -54,11 +79,38 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void rollDiceAnimation() {
+    public void rollDiceAnimation() throws InterruptedException {
         if (mediaPlayer != null) {
             mediaPlayer.start();
         }
+        Thread thread = new Thread(){
+            public void run(){
+                List<Integer> diceValues = new ArrayList<>();
 
+                for (int j = 0; j < rollAnimation; j++) {
+                    diceValues = Dice.rollDice(numberOfDice);
+                    ImageView diceImage;
+
+                    for (int i = 0; i < diceValues.size(); i++) {
+                        diceImage = (ImageView) diceLayout.getChildAt(i);
+                        refreshDiceOutput(diceImage, diceValues.get(i));
+                    }
+
+                    try {
+                        Thread.sleep(delayTime);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                Log.d("thread dice", diceValues.toString());
+                diceResults(diceValues, diceValues);
+            }
+        };
+        thread.start();
+        //handler.post(thread);
+        Thread.sleep(5000);
+        testDice();
+/*
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -78,6 +130,12 @@ public class DicePopUpActivity extends PopupWindow {
                 return null;
             }
         }.execute();
+
+ */
+    }
+
+    public void testDice() {
+        Log.d("dice callback", this.playerDice.toString());
     }
 
     public void createDiceLayout(int diceValue) {
@@ -107,5 +165,11 @@ public class DicePopUpActivity extends PopupWindow {
             case 6:
                 return R.drawable.d6;
         }
+    }
+
+    @Override
+    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
+        this.playerDice = playerDice;
+        this.enemyDice = enemyDice;
     }
 }
