@@ -3,6 +3,7 @@ package com.example.se2_group4_project.dices;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
@@ -27,6 +30,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     private View dicePopUpView;
     private MediaPlayer mediaPlayer;
     private LinearLayout diceLayout;
+    private Button submitClickedDices;
     private final int diceSize = 80;
     private int numberOfDice = 0;
     private int delayTime = 20;
@@ -55,6 +59,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     public DicePopUpActivity(Context context) {
         super(context);
         dicePopUpView = LayoutInflater.from(context).inflate(R.layout.activity_dice, null);
+
         setContentView(dicePopUpView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -63,8 +68,9 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         handler = new Handler(context.getMainLooper());
-        diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
+        diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
+        submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
     }
 
     public void rollDice() throws InterruptedException {
@@ -83,59 +89,55 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         if (mediaPlayer != null) {
             mediaPlayer.start();
         }
-        Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 List<Integer> diceValues = new ArrayList<>();
 
                 for (int j = 0; j < rollAnimation; j++) {
                     diceValues = Dice.rollDice(numberOfDice);
-                    ImageView diceImage;
 
                     for (int i = 0; i < diceValues.size(); i++) {
-                        diceImage = (ImageView) diceLayout.getChildAt(i);
+                        final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
+                        diceImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                submitClickedDices.setEnabled(true);
+
+                                // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
+                                if (diceImage.getBackground() instanceof ColorDrawable) {
+                                    ColorDrawable drawable = (ColorDrawable) diceImage.getBackground();
+
+                                    // bereits ausgewählt -> wieder abwählen
+                                    if (drawable.getColor() == Color.GREEN) {
+                                        diceImage.setBackgroundColor(Color.TRANSPARENT);
+                                    } else {
+                                        diceImage.setBackgroundColor(Color.GREEN);
+                                    }
+
+                                } else {
+                                    diceImage.setBackgroundColor(Color.GREEN);
+                                }
+                            }
+                        });
+
                         refreshDiceOutput(diceImage, diceValues.get(i));
                     }
-
                     try {
                         Thread.sleep(delayTime);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 }
+
                 Log.d("thread dice", diceValues.toString());
                 diceResults(diceValues, diceValues);
             }
         };
+
         thread.start();
-        //handler.post(thread);
-        Thread.sleep(5000);
+        // wartet bis zum Ende des Threads
+        thread.join();
         testDice();
-/*
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                for (int j = 0; j < rollAnimation; j++) {
-                    List<Integer> diceValues = Dice.rollDice(numberOfDice);
-                    ImageView diceImage;
-                    for (int i = 0; i < diceValues.size(); i++) {
-                        diceImage = (ImageView) diceLayout.getChildAt(i);
-                        refreshDiceOutput(diceImage, diceValues.get(i));
-                    }
-                    try {
-                        Thread.sleep(delayTime);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                return null;
-            }
-        }.execute();
-
- */
-    }
-
-    public void testDice() {
-        Log.d("dice callback", this.playerDice.toString());
     }
 
     public void createDiceLayout(int diceValue) {
@@ -172,4 +174,9 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         this.playerDice = playerDice;
         this.enemyDice = enemyDice;
     }
+
+    public void testDice() {
+        Log.d("dice callback", this.playerDice.toString());
+    }
+
 }
