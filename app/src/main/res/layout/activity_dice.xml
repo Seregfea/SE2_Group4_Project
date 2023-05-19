@@ -2,18 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
+    android:background="@drawable/dice_background"
     android:backgroundDimEnabled="true"
-    android:background="@drawable/dice_background">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-            <LinearLayout
-                android:id="@+id/diceLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/diceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmitClickedDices"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="@string/submit_clicked_btns"
+            android:textSize="10sp">
+        </Button>
 
 </LinearLayout>

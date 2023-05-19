@@ -7,6 +7,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,10 @@ import android.widget.Toast;
 
 
 import com.example.se2_group4_project.callbacks.ClientCallbacks;
+import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import com.example.se2_group4_project.callbacks.ServerCallbacks;
 import com.example.se2_group4_project.client.Client;
+import com.example.se2_group4_project.dices.Dice;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -32,15 +35,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gameboard extends AppCompatActivity implements ServerCallbacks {
+public class Gameboard extends AppCompatActivity implements ServerCallbacks, DiceCallbacks {
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
-
     private TextView pointView;
+    private LinearLayout savedplayerDices;
+
     private static List<ImageView> displayedCards = new ArrayList<>();
 
     @Override
@@ -53,10 +57,13 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
         setContentView(R.layout.activity_gameboard);
 
         dicePopUpActivity = new DicePopUpActivity(this);
+        dicePopUpActivity.setDiceCallbacks(this);
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
+        savedplayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
 
+        // available Dice Layout
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.dice);
@@ -67,7 +74,11 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
             @Override
             public void onClick(View view) {
                 dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-                dicePopUpActivity.rollDice();
+                try {
+                    dicePopUpActivity.rollDice();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -188,5 +199,46 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
     public void onMessageRecieve(String recieve) {
 
     }
+
+    @Override
+    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
+        // anzeigen der gespeicherten Würfel
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                savedplayerDices.removeAllViews();
+
+                for (int diceValue : playerDice) {
+                    ImageView imageView = new ImageView(Gameboard.this);
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                    imageView.setPadding(3, 3, 3, 3);
+                    imageView.setImageResource(getDiceImage(diceValue));
+                    savedplayerDices.addView(imageView);
+                }
+                Log.d("display selected dices","Image Views created " + playerDice.size());
+
+                savedplayerDices.invalidate();
+                savedplayerDices.requestLayout();
+            }
+        });
+    }
+
+    public int getDiceImage(int result) {
+        switch (result) {
+            default:
+                return R.drawable.d1;
+            case 2:
+                return R.drawable.d2;
+            case 3:
+                return R.drawable.d3;
+            case 4:
+                return R.drawable.d4;
+            case 5:
+                return R.drawable.d5;
+            case 6:
+                return R.drawable.d6;
+        }
+    }
+
 }
 
