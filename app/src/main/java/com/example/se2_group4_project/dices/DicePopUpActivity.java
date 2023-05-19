@@ -1,6 +1,8 @@
 package com.example.se2_group4_project.dices;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -38,8 +40,13 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
 
     private List<Integer> playerDice;
     private List<Integer> enemyDice;
-    private List<Integer> selected = new ArrayList<>();
+    private List<Integer> selected;
     private List<Integer> unselected = new ArrayList<>();
+    private DiceCallbacks diceCallbacks;
+
+    public void setDiceCallbacks(DiceCallbacks callbacks) {
+        this.diceCallbacks = callbacks;
+    }
 
     public List<Integer> getPlayerDice() {
         return playerDice;
@@ -79,6 +86,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
             public void onClick(View view) {
                 dismiss();
                 testDice();
+                diceResults(selected, unselected);
             }
         });
     }
@@ -106,6 +114,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
                 for (int j = 0; j < rollAnimation; j++) {
                     diceValues = Dice.rollDice(numberOfDice);
                     unselected = diceValues;
+                    selected = new ArrayList<>();
 
                     for (int i = 0; i < diceValues.size(); i++) {
                         final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
@@ -165,7 +174,6 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         thread.start();
         // wartet bis zum Ende des Threads
         thread.join();
-
         testDice();
     }
 
@@ -202,6 +210,10 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
         this.playerDice = playerDice;
         this.enemyDice = enemyDice;
+
+        if (diceCallbacks != null) {
+            diceCallbacks.diceResults(playerDice, enemyDice);
+        }
     }
 
     public void testDice() {
