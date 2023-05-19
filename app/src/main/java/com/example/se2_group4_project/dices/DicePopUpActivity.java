@@ -38,6 +38,8 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
 
     private List<Integer> playerDice;
     private List<Integer> enemyDice;
+    private List<Integer> selected = new ArrayList<>();
+    private List<Integer> unselected = new ArrayList<>();
 
     public List<Integer> getPlayerDice() {
         return playerDice;
@@ -71,10 +73,18 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
         diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
+
+        submitClickedDices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+                testDice();
+            }
+        });
     }
 
     public void rollDice() throws InterruptedException {
-        //hardcoded
+        // hardcoded
         numberOfDice = 4;
         diceLayout.removeAllViews();
 
@@ -95,9 +105,11 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
 
                 for (int j = 0; j < rollAnimation; j++) {
                     diceValues = Dice.rollDice(numberOfDice);
+                    unselected = diceValues;
 
                     for (int i = 0; i < diceValues.size(); i++) {
                         final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
+                        final int diceValue = diceValues.get(i);
                         diceImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -107,19 +119,34 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
                                 if (diceImage.getBackground() instanceof ColorDrawable) {
                                     ColorDrawable drawable = (ColorDrawable) diceImage.getBackground();
 
-                                    // bereits ausgewählt -> wieder abwählen
+                                    // bereits ausgewählt -> wieder abwählen und aus selected entfernen
+                                    // falls nicht wird es ausgewählt und der Wert wird aus unselected entfernt
                                     if (drawable.getColor() == Color.GREEN) {
                                         diceImage.setBackgroundColor(Color.TRANSPARENT);
+
+                                        if (selected.size() != 0) {
+                                            selected.remove(Integer.valueOf(diceValue));
+                                        }
+                                        unselected.add(diceValue);
                                     } else {
                                         diceImage.setBackgroundColor(Color.GREEN);
+
+                                        if (unselected.size() != 0) {
+                                            unselected.remove(Integer.valueOf(diceValue));
+                                        }
+                                        selected.add(diceValue);
                                     }
 
                                 } else {
                                     diceImage.setBackgroundColor(Color.GREEN);
+
+                                    if (unselected.size() != 0) {
+                                        unselected.remove(Integer.valueOf(diceValue));
+                                    }
+                                    selected.add(diceValue);
                                 }
                             }
                         });
-
                         refreshDiceOutput(diceImage, diceValues.get(i));
                     }
                     try {
@@ -130,13 +157,15 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
                 }
 
                 Log.d("thread dice", diceValues.toString());
-                diceResults(diceValues, diceValues);
+                Log.d("unselected dices", unselected.toString());
+                diceResults(selected, unselected);
             }
         };
 
         thread.start();
         // wartet bis zum Ende des Threads
         thread.join();
+
         testDice();
     }
 
@@ -176,7 +205,8 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     }
 
     public void testDice() {
-        Log.d("dice callback", this.playerDice.toString());
+        Log.d("dice callback - playerDice", this.playerDice.toString());
+        Log.d("dice callback - enemyDice", this.enemyDice.toString());
     }
 
 }
