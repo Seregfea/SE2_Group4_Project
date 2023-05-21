@@ -139,8 +139,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             itemCardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Clicked Item Image " + itemCard);
-                    ArrayList<Card> itemCards = new ArrayList<>();
                     itemCardsLayout.removeView(itemCardImage);
                     userCardsLayout.addView(itemCardImage);
                 }
