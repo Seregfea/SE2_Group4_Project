@@ -48,8 +48,17 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     private TextView pointView;
     private LinearLayout savedplayerDices;
 
+    private LinearLayout cardsStacks;
+
     private LinearLayout itemCardsLayout;
     private LinearLayout userCardsLayout;
+    private LinearLayout roommateEasyLayout;
+    private LinearLayout roommateDifficultLayout;
+    private LinearLayout witzigLayout;
+    private LinearLayout witzigWitzigLayout;
+    private LinearLayout troublemakerLayout;
+
+    private boolean diceIsRolled = false;
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
@@ -69,8 +78,16 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         savedplayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
 
+
+        cardsStacks = findViewById(R.id.cardStacks);
         itemCardsLayout = findViewById(R.id.ItemCardsLayout);
         userCardsLayout = findViewById(R.id.UserCardsLayout);
+        roommateEasyLayout = findViewById(R.id.roommateEasyLayout);
+        roommateDifficultLayout = findViewById(R.id.roommateDifficultLayout);
+        witzigLayout = findViewById(R.id.witzigLayout);
+        witzigWitzigLayout = findViewById(R.id.witzigWitzigLayout);
+        troublemakerLayout = findViewById(R.id.troublemakerLayout);
+
 
         // available Dice Layout
         for (int i = 0; i < availableDices; i++) {
@@ -119,11 +136,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
-
-        addItemCardsToPlayer();
     }
 
-    public void addItemCardsToPlayer(){
+    public void addCardsToPlayer(){
         CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
 
         try {
@@ -134,17 +149,42 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
         for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
             final ImageView itemCardImage = (ImageView) itemCardsLayout.getChildAt(i);
-            final Card itemCard = cardDrawer.getItemsStack().get(i);
-
-            itemCardImage.setOnClickListener(new View.OnClickListener() {
+             itemCardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     itemCardsLayout.removeView(itemCardImage);
                     userCardsLayout.addView(itemCardImage);
                 }
+             });
+        }
+
+        for (int i = 0; i < cardDrawer.getRoommateEasyStack().size(); i++){
+            final ImageView roommateEasyCardImage = (ImageView) roommateEasyLayout.getChildAt(0);
+
+            roommateEasyCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Roommate easy Card");
+                    roommateEasyLayout.removeView(roommateEasyCardImage);
+                    userCardsLayout.addView(roommateEasyCardImage);
+                }
+            });
+        }
+
+        for (int i = 0; i < cardDrawer.getRoommateDifficultStack().size(); i++){
+            final ImageView roommateDifficultCardImage = (ImageView) roommateDifficultLayout.getChildAt(0);
+
+            roommateDifficultCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Roommate difficult Card");
+                    roommateDifficultLayout.removeView(roommateDifficultCardImage);
+                    userCardsLayout.addView(roommateDifficultCardImage);
+                }
             });
         }
     }
+
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
@@ -252,6 +292,12 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
                 savedplayerDices.invalidate();
                 savedplayerDices.requestLayout();
+
+                diceIsRolled = true;
+
+                if (diceIsRolled){
+                    addCardsToPlayer();
+                }
             }
         });
     }
