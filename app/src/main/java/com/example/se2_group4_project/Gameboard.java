@@ -6,6 +6,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ import com.example.se2_group4_project.cards.CardDrawer;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     private int availableDices = 4;
     private TextView pointView;
     private LinearLayout savedplayerDices;
+
+    private LinearLayout itemCardsLayout;
+    private LinearLayout userCardsLayout;
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
@@ -62,6 +68,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
         savedplayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
+
+        itemCardsLayout = findViewById(R.id.ItemCardsLayout);
+        userCardsLayout = findViewById(R.id.UserCardsLayout);
 
         // available Dice Layout
         for (int i = 0; i < availableDices; i++) {
@@ -111,6 +120,32 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
 
+        addItemCardsToPlayer();
+    }
+
+    public void addItemCardsToPlayer(){
+        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
+
+        try {
+            cardDrawer.generateInitialCards();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
+            final ImageView itemCardImage = (ImageView) itemCardsLayout.getChildAt(i);
+            final Card itemCard = cardDrawer.getItemsStack().get(i);
+
+            itemCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Item Image " + itemCard);
+                    ArrayList<Card> itemCards = new ArrayList<>();
+                    itemCardsLayout.removeView(itemCardImage);
+                    userCardsLayout.addView(itemCardImage);
+                }
+            });
+        }
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
