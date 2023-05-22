@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.se2_group4_project.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.cards.Badewanne;
+import com.example.se2_group4_project.cards.CardType;
 import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
@@ -99,14 +101,13 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
-
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-          
+            iView.setId(View.generateViewId());
             String currentCardFront = card.getCurrentCardFront();
           
             final int imageRessourceID =
@@ -144,9 +145,19 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
                 iView.setLayoutParams(params);
 
             }
-            linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+
+            if(card.getCardType() == CardType.BATHTUB || card.getCardType() == CardType.ME
+            || card.getCardType() == CardType.COUCH) {
+                iView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        flipCard(card);
+                    }
+                });
+            }
+            linearLayout.addView(iView);
         }
     }
     public void flipCard(Card cardFlip){
@@ -168,8 +179,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
 
         cardFlip.setFront(!cardFlip.isFront());
     }
-
-
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
