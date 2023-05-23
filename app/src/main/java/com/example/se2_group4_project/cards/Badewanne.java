@@ -1,5 +1,9 @@
 package com.example.se2_group4_project.cards;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.se2_group4_project.Gameboard;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

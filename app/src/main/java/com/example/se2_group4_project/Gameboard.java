@@ -41,6 +41,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
+    private Badewanne badewanne;
 
     private TextView pointView;
     private static List<ImageView> displayedCards = new ArrayList<>();
@@ -148,15 +149,16 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
 
-            if(card.getCardType() == CardType.BATHTUB || card.getCardType() == CardType.ME
-            || card.getCardType() == CardType.COUCH) {
-                iView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        flipCard(card);
-                    }
-                });
-            }
+            //gehört noch die isAvailable klasse? wie am Besten machen?
+               if (card.getCardType() == CardType.BATHTUB || card.getCardType() == CardType.ME
+                       || card.getCardType() == CardType.COUCH || card.getCardType() == CardType.TABLEWARE) {
+                   iView.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           flipCard(card);
+                       }
+                   });
+               }
             linearLayout.addView(iView);
         }
     }
