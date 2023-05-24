@@ -60,6 +60,8 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
     private boolean diceIsRolled = false;
 
+    private Card card;
+
     private static List<ImageView> displayedCards = new ArrayList<>();
 
     @Override
@@ -158,28 +160,79 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
              });
         }
 
+
+        // Views Recycle
         for (int i = 0; i < cardDrawer.getRoommateEasyStack().size(); i++){
-            final ImageView roommateEasyCardImage = (ImageView) roommateEasyLayout.getChildAt(0);
+            ImageView roommateEasyCardImage = (ImageView) roommateEasyLayout.getChildAt(i);
 
             roommateEasyCardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     System.out.println("Clicked Roommate easy Card");
                     roommateEasyLayout.removeView(roommateEasyCardImage);
+                    Log.d("Card easy remove", "Card Easy found");
                     userCardsLayout.addView(roommateEasyCardImage);
+                    Log.d("Card easy remove", "Card Easy add");
                 }
             });
         }
 
         for (int i = 0; i < cardDrawer.getRoommateDifficultStack().size(); i++){
-            final ImageView roommateDifficultCardImage = (ImageView) roommateDifficultLayout.getChildAt(0);
+            ImageView roommateDifficultCardImage = (ImageView) roommateDifficultLayout.getChildAt(i);
 
             roommateDifficultCardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     System.out.println("Clicked Roommate difficult Card");
                     roommateDifficultLayout.removeView(roommateDifficultCardImage);
+                    Log.d("Card easy remove", "Card Difficult remove");
                     userCardsLayout.addView(roommateDifficultCardImage);
+                    Log.d("Card easy remove", "Card Difficult add");
+                }
+            });
+        }
+
+        for (int i = 0; i < cardDrawer.getWitzigStack().size(); i++){
+            ImageView witzigCardImage = (ImageView) witzigLayout.getChildAt(i);
+
+            witzigCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Witzig Card");
+                    witzigLayout.removeView(witzigCardImage);
+                    Log.d("Card easy remove", "Card Difficult remove");
+                    userCardsLayout.addView(witzigCardImage);
+                    Log.d("Card easy remove", "Card Difficult add");
+                }
+            });
+        }
+
+        for (int i = 0; i < cardDrawer.getWitzigWitzigStack().size(); i++){
+            ImageView witzigWitzigCardImage = (ImageView) witzigWitzigLayout.getChildAt(i);
+
+            witzigWitzigCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked WitzigWitzig Card");
+                    witzigWitzigLayout.removeView(witzigWitzigCardImage);
+                    Log.d("Card easy remove", "Card Difficult remove");
+                    userCardsLayout.addView(witzigWitzigCardImage);
+                    Log.d("Card easy remove", "Card Difficult add");
+                }
+            });
+        }
+
+        for (int i = 0; i < cardDrawer.getTroublemakerStack().size(); i++){
+            ImageView troublemakerCardImage = (ImageView) troublemakerLayout.getChildAt(i);
+
+            troublemakerCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Troublemaker Card");
+                    troublemakerLayout.removeView(troublemakerCardImage);
+                    Log.d("Card easy remove", "Card Difficult remove");
+                    userCardsLayout.addView(troublemakerCardImage);
+                    Log.d("Card easy remove", "Card Difficult add");
                 }
             });
         }
@@ -233,6 +286,20 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             card.setImageViewID(iView.getId());
         }
     }
+
+    // TODO: Implement onClickListener on cards to flip them
+    public void flipCurrentCardListener(){
+        // If card is available --> then we can flip
+        for (ImageView card : displayedCards){
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // flipCard(card);
+                }
+            });
+        }
+    }
+
     public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
         ImageView currentCardSide = null;
@@ -297,6 +364,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
                 if (diceIsRolled){
                     addCardsToPlayer();
+
+                    // call function to flip current card
+                    // flipCurrentCardListener();
                 }
             }
         });
