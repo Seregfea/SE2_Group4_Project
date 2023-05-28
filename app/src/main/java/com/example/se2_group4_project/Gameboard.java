@@ -1,12 +1,7 @@
 package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,11 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.se2_group4_project.callbacks.ClientCallbacks;
+
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import com.example.se2_group4_project.callbacks.ServerCallbacks;
 import com.example.se2_group4_project.client.Client;
-import com.example.se2_group4_project.dices.Dice;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -34,7 +27,6 @@ import com.example.se2_group4_project.cards.CardDrawer;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +34,8 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
+    private Button btnRollDice2;
+
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
@@ -59,6 +53,8 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     private LinearLayout troublemakerLayout;
 
     private boolean diceIsRolled = false;
+
+    private boolean hasCheated = false;
 
     private Card card;
 
@@ -79,6 +75,8 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
         savedplayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
+
+        btnRollDice2 = findViewById(R.id.btnRollDice2);
 
 
         cardsStacks = findViewById(R.id.cardStacks);
@@ -101,14 +99,23 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         btnRollDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-                try {
-                    dicePopUpActivity.rollDice();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                startDiceRolling(view);
+                // testweise auf true setzen
+                hasCheated = true;
+            }
+        });
+
+        btnRollDice2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (hasCheated) {
+                    startDiceRolling(view);
+                } else {
+                    System.out.println("not cheated");
                 }
             }
         });
+
 
         // Client connects to server
         Bundle extra = getIntent().getExtras();
@@ -320,7 +327,14 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         cardFlip.setFront(!cardFlip.isFront());
     }
 
-
+    public void startDiceRolling(View view) {
+        dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+        try {
+            dicePopUpActivity.rollDice();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
