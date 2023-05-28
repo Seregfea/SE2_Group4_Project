@@ -1,7 +1,9 @@
 package com.example.se2_group4_project.screens;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.SoundManager;
+
+import java.util.HashMap;
 
 public class MusicActivity extends AppCompatActivity {
 
@@ -26,6 +31,10 @@ public class MusicActivity extends AppCompatActivity {
         Button btnBackMusic = findViewById(R.id.buttonBackgroundMusic);
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);
         Switch switchMute = findViewById(R.id.mute);
+        final String[] songTitles = {"Mysterious", "Slow and Childish"};
+        final HashMap<String, Integer> songMap = new HashMap<>();
+        songMap.put("Mysterious", R.raw.mysterious);
+        songMap.put("Slow and Childish", R.raw.slowandchildish);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -36,26 +45,30 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-       /* btnBackMusic.setOnClickListener(new View.OnClickListener) {
+        btnBackMusic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 new AlertDialog.Builder(MusicActivity.this)
                         .setTitle("Wähle einen Song")
                         .setItems(songTitles, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Der 'which' Parameter enthält den Index des ausgewählten Elements.
                                 String selectedSong = songTitles[which];
+                                int resId = songMap.get(selectedSong);
 
-                                // Hier können Sie die Logik zum Ändern der Musik einfügen.
-                                // Zum Beispiel könnten Sie eine Methode aufrufen, um die aktuell gespielte Musik zu stoppen und den ausgewählten Song zu starten.
+                                // Save the selected song's resource ID to SharedPreferences
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("musicChoice", resId);
+                                editor.apply();
 
+                                // Then you can play the selected song
+                                SoundManager.start(MusicActivity.this,resId);
                             }
                         })
                         .show();
             }
         });
 
-        */
 
 
 
