@@ -10,8 +10,24 @@ import android.widget.Button;
 import com.example.se2_group4_project.Gameboard;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.SoundManager;
 
 public class PlayGameActivity extends AppCompatActivity {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, R.raw.mysterious);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

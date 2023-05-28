@@ -33,6 +33,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gameboard extends AppCompatActivity implements ServerCallbacks {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, R.raw.mysterious);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;

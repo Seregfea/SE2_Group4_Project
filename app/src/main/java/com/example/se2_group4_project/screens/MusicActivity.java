@@ -2,6 +2,7 @@ package com.example.se2_group4_project.screens;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +23,10 @@ public class MusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music);
 
         Button btnBack = findViewById(R.id.button_back);
-        Button btnBackgrMusic = findViewById(R.id.buttonBackgroundMusic);
+        Button btnBackMusic = findViewById(R.id.buttonBackgroundMusic);
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);
         Switch switchMute = findViewById(R.id.mute);
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +36,7 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-        /*btnBackgrMusic.setOnClickListener(new View.OnClickListener) {
+       /* btnBackMusic.setOnClickListener(new View.OnClickListener) {
             @Override
             public void onClick (View v){
                 new AlertDialog.Builder(MusicActivity.this)
@@ -53,7 +55,9 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-         */
+        */
+
+
 
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

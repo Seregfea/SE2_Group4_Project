@@ -8,14 +8,27 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.se2_group4_project.databinding.ActivityMainBinding;
-import com.example.se2_group4_project.databinding.ActivityServerBinding;
 import com.example.se2_group4_project.screens.FindGameActivity;
 import com.example.se2_group4_project.screens.OptionsActivity;
-import com.example.se2_group4_project.screens.PlayGameActivity;
 import com.example.se2_group4_project.screens.SelectRoomActivity;
 import com.example.se2_group4_project.screens.ServerActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, R.raw.mysterious);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
 
     private ActivityMainBinding activityMainBinding;
     @Override
@@ -29,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnFindGame = findViewById(R.id.button_find_game);
         Button btnOptions = findViewById(R.id.button_options);
         Button btnSelectRoom = findViewById(R.id.button_select_room);
+
+
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
