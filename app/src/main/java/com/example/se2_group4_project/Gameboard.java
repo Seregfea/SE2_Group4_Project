@@ -2,6 +2,8 @@ package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,7 +42,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     // später: methode aus player-klasse
     private int availableDices = 4;
     private TextView pointView;
-    private LinearLayout savedplayerDices;
+    private LinearLayout savedPlayerDices;
 
     private LinearLayout cardsStacks;
 
@@ -73,7 +75,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         dicePopUpActivity.setDiceCallbacks(this);
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
-        savedplayerDices = findViewById(R.id.savedDicesContainer);
+        savedPlayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
 
         btnRollDice2 = findViewById(R.id.btnRollDice2);
@@ -360,19 +362,42 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                savedplayerDices.removeAllViews();
+                savedPlayerDices.removeAllViews();
 
                 for (int diceValue : playerDice) {
                     ImageView imageView = new ImageView(Gameboard.this);
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
                     imageView.setPadding(3, 3, 3, 3);
                     imageView.setImageResource(getDiceImage(diceValue));
-                    savedplayerDices.addView(imageView);
+                    savedPlayerDices.addView(imageView);
+
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int diceIndex = savedPlayerDices.indexOfChild(v);
+                            Log.d("index of clicked dice", "diceIndex: " + diceIndex);
+
+                            // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
+                            if (imageView.getBackground() instanceof ColorDrawable) {
+                                ColorDrawable drawable = (ColorDrawable) imageView.getBackground();
+
+                                // bereits ausgewählt -> wieder abwählen
+                                // falls nicht wird es ausgewählt
+                                if (drawable.getColor() == Color.GREEN) {
+                                    imageView.setBackgroundColor(Color.TRANSPARENT);
+                                } else {
+                                    imageView.setBackgroundColor(Color.GREEN);
+                                }
+                            } else {
+                                imageView.setBackgroundColor(Color.GREEN);
+                            }
+                        }
+                    });
                 }
                 Log.d("display selected dices","Image Views created " + playerDice.size());
 
-                savedplayerDices.invalidate();
-                savedplayerDices.requestLayout();
+                savedPlayerDices.invalidate();
+                savedPlayerDices.requestLayout();
 
                 diceIsRolled = true;
 
@@ -402,6 +427,4 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 return R.drawable.d6;
         }
     }
-
 }
-

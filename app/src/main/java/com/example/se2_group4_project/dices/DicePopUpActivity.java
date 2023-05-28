@@ -1,14 +1,10 @@
 package com.example.se2_group4_project.dices;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Notification;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
@@ -107,6 +102,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         if (mediaPlayer != null) {
             mediaPlayer.start();
         }
+
         Thread thread = new Thread() {
             public void run() {
                 List<Integer> diceValues = new ArrayList<>();
