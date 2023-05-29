@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
@@ -23,6 +24,23 @@ import java.util.HashMap;
 public class MusicActivity extends AppCompatActivity {
 
     @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, musicChoice);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
@@ -31,10 +49,13 @@ public class MusicActivity extends AppCompatActivity {
         Button btnBackMusic = findViewById(R.id.buttonBackgroundMusic);
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);
         Switch switchMute = findViewById(R.id.mute);
-        final String[] songTitles = {"Mysterious", "Slow and Childish"};
+
+        final String[] songTitles = {"Mysterious", "Slow and Childish", "Orchestra Epic", "Swing"};
         final HashMap<String, Integer> songMap = new HashMap<>();
         songMap.put("Mysterious", R.raw.mysterious);
         songMap.put("Slow and Childish", R.raw.slowandchildish);
+        songMap.put("Orchestra Epic", R.raw.orchestra_epic);
+        songMap.put("Swing", R.raw.swing);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -55,39 +76,47 @@ public class MusicActivity extends AppCompatActivity {
                                 String selectedSong = songTitles[which];
                                 int resId = songMap.get(selectedSong);
 
-                                // Save the selected song's resource ID to SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                // SharedPreferences speichert Benutzereinstellungen für die ganze Laufzeit der App
+                                // mit dem Editor wird SharedPreferences bearbeitet und die resId gespeichert
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putInt("musicChoice", resId);
                                 editor.apply();
 
-                                // Then you can play the selected song
-                                SoundManager.start(MusicActivity.this,resId);
+                                SoundManager.changeMusic(MusicActivity.this,resId);
                             }
                         })
                         .show();
             }
         });
 
-
-
-
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // Hier können Sie die Lautstärke entsprechend dem Fortschritt der SeekBar einstellen.
                 float volume = progress / 100f;
-                // mediaPlayer.setVolume(volume, volume); // Sie müssen den MediaPlayer hier zugänglich machen.
+                SoundManager.setVolume(volume);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Wird aufgerufen, wenn der Benutzer beginnt, die SeekBar zu bewegen.
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Wird aufgerufen, wenn der Benutzer aufhört, die SeekBar zu bewegen.
+            }
+        });
+
+        switchMute.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if(SoundManager.gameMusic != null) {
+                        SoundManager.gameMusic.setVolume(0,0);
+                    }
+                } else {
+                    if(SoundManager.gameMusic != null) {
+                        SoundManager.gameMusic.setVolume(1,1);
+                    }
+                }
             }
         });
     }
