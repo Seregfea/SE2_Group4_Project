@@ -5,6 +5,8 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -37,8 +39,10 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
     @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
         SoundManager.keepMusicGoing = true;
-        SoundManager.start(this, R.raw.mysterious);
+        SoundManager.start(this, musicChoice);
     }
     @Override
     public void onStop() {
