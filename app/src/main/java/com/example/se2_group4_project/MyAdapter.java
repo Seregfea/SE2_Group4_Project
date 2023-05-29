@@ -15,10 +15,12 @@ import com.example.se2_group4_project.cards.PlayerTeal;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     Context context;
     ArrayList<Card> playerCards;
+    CardDrawer cardDrawer;
 
     public MyAdapter(Context context, ArrayList<Card> playerCards) {
         this.context = context;
@@ -33,9 +35,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+//        for (int i = 0; i < cardDrawer.getPlayerTealStack().size(); i++){
+//            ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
+//            imageView.setImageResource(playerCards.get(position).getImageViewID());
+//        }
+
+        for (Card card : playerCards){
+            ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
+            imageView.setImageResource(playerCards.get(position).getImageViewID());
+            card.setImageViewID(imageView.getId());
+        }
         // Set images ins RecycleView
-        ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
-        imageView.setImageResource(playerCards.get(position).getImageViewID());
+//        ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
+//        imageView.setImageResource(playerCards.get(position).getImageViewID());
     }
 
     @Override
