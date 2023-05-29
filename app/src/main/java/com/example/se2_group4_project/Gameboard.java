@@ -30,7 +30,9 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Gameboard extends AppCompatActivity implements ServerCallbacks, DiceCallbacks {
     private DicePopUpActivity dicePopUpActivity;
@@ -358,10 +360,11 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
     @Override
     public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
-        // anzeigen der gespeicherten Würfel
+        // anzeigen und selektieren der gespeicherten Würfel
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                final Map<ImageView, Boolean> diceSelect = new HashMap<>();
                 savedPlayerDices.removeAllViews();
 
                 for (int diceValue : playerDice) {
@@ -370,30 +373,37 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                     imageView.setPadding(3, 3, 3, 3);
                     imageView.setImageResource(getDiceImage(diceValue));
                     savedPlayerDices.addView(imageView);
+                    diceSelect.put(imageView, false);
 
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             int diceIndex = savedPlayerDices.indexOfChild(v);
+
                             Log.d("index of clicked dice", "diceIndex: " + diceIndex);
+                            Log.d("clicked image view", imageView.toString());
 
-                            // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
-                            if (imageView.getBackground() instanceof ColorDrawable) {
-                                ColorDrawable drawable = (ColorDrawable) imageView.getBackground();
+                            diceSelect.put((ImageView) v, !diceSelect.get(v));
 
-                                // bereits ausgewählt -> wieder abwählen
-                                // falls nicht wird es ausgewählt
-                                if (drawable.getColor() == Color.GREEN) {
-                                    imageView.setBackgroundColor(Color.TRANSPARENT);
-                                } else {
-                                    imageView.setBackgroundColor(Color.GREEN);
-                                }
+                            if (diceSelect.get(v)) {
+                                v.setBackgroundColor(Color.GREEN);
+                                Log.d("selected saved dice", "set to green: " + diceIndex);
                             } else {
-                                imageView.setBackgroundColor(Color.GREEN);
+                                v.setBackgroundColor(Color.TRANSPARENT);
+                                Log.d("unselected saved dice", "set to standard: " + diceIndex);
                             }
+
+                            // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
+                            v.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    v.invalidate();
+                                }
+                            });
                         }
                     });
                 }
+
                 Log.d("display selected dices","Image Views created " + playerDice.size());
 
                 savedPlayerDices.invalidate();
