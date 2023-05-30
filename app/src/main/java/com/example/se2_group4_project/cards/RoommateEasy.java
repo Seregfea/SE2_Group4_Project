@@ -37,12 +37,25 @@ public class RoommateEasy {
     }
 
     public boolean isAvailable(int[] dice) {
+        int counter = 0;
+
+        for (int i = 0; i < dice.length; i++) {
+            if (dice[i] == number) {
+                counter++;
+            }
+            if (counter == count) {
+                return true;
+            }
+        }
+        return false;
+        /*
         for (int i = 0; i < dice.length; i++) {
             if (dice[i] >= count && i+1 == number) {
                 return true;
             }
         }
         return false;
+         */
     }
 
 }

@@ -3,6 +3,8 @@ package com.example.se2_group4_project.cards;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class RoommateDifficult {
     private int additionalDice = 0;
     private int addedDicePlace = 0;
@@ -120,29 +122,38 @@ public class RoommateDifficult {
     }
 
     public boolean isAvailable(int[] dice) {
-        if (count > 0) {
+         if (count > 0) {
             for (int i = 0; i < dice.length; i++) {
-                if (dice[i] >= count) {
-                    return true;
+                int counter = 1;
+
+                for (int j = i + 1; j < dice.length; j++) {
+                    if (dice[j] == dice[i]) {
+                        counter++;
+                    }
+                    if (counter == count) {
+                        return true;
+                    }
                 }
             }
             return false;
         }
-        switch (following) {
-            case 3:
-                for (int i = 0; i < 3; i++) {
-                    if (dice[i] != 0 && dice[i + 1] != 0 && dice[i + 2] != 0) {
+
+        if (following > 0) {
+            int counter = 1;
+            Arrays.sort(dice);
+
+            for (int i = 0; i < dice.length - 1; i++) {
+                if (dice[i] + 1 == dice[i + 1]) {
+                    counter++;
+
+                    if (counter == following) {
                         return true;
                     }
+                } else {
+                    counter = 1;
                 }
-                return false;
-            case 4:
-                for (int i = 0; i < 2; i++) {
-                    if (dice[i] != 0 && dice[i + 1] != 0 && dice[i + 2] != 0 && dice[i + 3] != 0) {
-                        return true;
-                    }
-                }
-                return false;
+            }
+            return false;
         }
         return false;
     }
@@ -156,27 +167,35 @@ public class RoommateDifficult {
                 case BUKOWSKI:
                     this.awake = true;
                     this.additionalDice = 1;
+                    break;
                 case FW:
                     this.clean_dishes = true;
                     this.additionalDice = 1;
+                    break;
                 case HERTA:
                     this.clean_couch = true;
                     this.additionalDice = 1;
+                    break;
                 case KRAPOTKE:
                     this.addedDicePlace = 1;
                     this.additionalDice = 1;
+                    break;
                 case MU:
                     this.reroll = true;
                     this.additionalDice = 1;
+                    break;
                 case MARIA:
                     this.reroll = true;
                     this.additionalDice = 1;
+                    break;
                 case OV:
                     this.clean_bathtub = true;
                     this.additionalDice = 1;
+                    break;
                 case SARAH:
                     this.addedDicePlace = 1;
                     this.additionalDice = 1;
+                    break;
             }
 
         } else {
@@ -185,27 +204,35 @@ public class RoommateDifficult {
                 case BUKOWSKI:
                     this.awake = true;
                     this.additionalDice = 1;
+                    break;
                 case FW:
                     this.clean_dishes = false;
                     this.additionalDice = 0;
+                    break;
                 case HERTA:
                     this.clean_couch = false;
                     this.additionalDice = 0;
+                    break;
                 case KRAPOTKE:
                     this.addedDicePlace = 1;
                     this.additionalDice = 0;
+                    break;
                 case MU:
                     this.reroll = false;
                     this.additionalDice = 0;
+                    break;
                 case MARIA:
                     this.reroll = false;
                     this.additionalDice = 0;
+                    break;
                 case OV:
                     this.clean_bathtub = false;
                     this.additionalDice = 0;
+                    break;
                 case SARAH:
                     this.addedDicePlace = 1;
                     this.additionalDice = 0;
+                    break;
             }
         }
     }

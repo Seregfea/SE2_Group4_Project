@@ -2,6 +2,11 @@ package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,12 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Item;
+import com.example.se2_group4_project.cards.RoommateDifficult;
+import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.gameboard_layouts.ItemCardsLayout;
+import com.example.se2_group4_project.gameboard_layouts.UserCardsLayout;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
@@ -28,6 +39,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, musicChoice);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
+
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
@@ -46,6 +76,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_gameboard);
+
 
         dicePopUpActivity = new DicePopUpActivity(this);
         btnRollDice = findViewById(R.id.btnRollDice);
@@ -71,34 +102,8 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
         String ip = extra.getString("ip");
         Client client = new Client(ip, 1234, this);
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-        //client.startConnection(ip);
-/*
-       LinearLayout linearLayout = findViewById(R.id.UserCardsLayout);
-        CardsLayoutLeft left = new CardsLayoutLeft(linearLayout);
+        //client.start();
 
-// create the first ImageView and set its width to 60dp
-        ImageView drei = new ImageView(this);
-        drei.setImageResource(R.drawable.bad_dreckig_hellblau);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        drei.setLayoutParams(params);
-
-// create the second ImageView and set its width to 60dp
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.bad_dreckig_hellblau);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(params);
-
-
-        ImageView zwei = new ImageView(this);
-        zwei.setImageResource(R.drawable.couch_dreckig_orange);
-        params = new LinearLayout.LayoutParams(60, LinearLayout.LayoutParams.MATCH_PARENT);
-        zwei.setLayoutParams(params);
-
-// add the ImageViews to the layout
-        left.addImage(drei);
-        left.addImage(imageView);
-        left.addImage(zwei);
-     */
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
 
@@ -119,7 +124,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
-
+        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -136,51 +141,42 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
 
             iView.setImageResource(imageRessourceID);
 
-//            Drawable drawable = getResources().getDrawable(imageRessourceID);
-            float aspectRatio = 5;//(float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+            float aspectRatio = 5;
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.weight = aspectRatio ;
+
+            if (linearLayoutId == R.id.ItemCardsLayout){
+                iView.setLayoutParams(params);
+            }
 
             if (linearLayoutId == R.id.UserCardsLayout) {
                 iView.setRotation(0);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutLeft) {
                 iView.setRotation(90);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutRight) {
                 iView.setRotation(-90f);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             } else if (linearLayoutId == R.id.CardsLayoutTop) {
                 iView.setRotation(180f);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = aspectRatio;
                 iView.setLayoutParams(params);
 
             }
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+
         }
     }
+
+
     public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
         ImageView currentCardSide = null;

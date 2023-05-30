@@ -35,6 +35,9 @@
             android:name=".screens.FindGameActivity"
             android:exported="false" />
         <activity
+            android:name=".screens.MusicActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
