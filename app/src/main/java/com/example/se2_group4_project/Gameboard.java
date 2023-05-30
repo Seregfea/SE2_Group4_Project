@@ -172,6 +172,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 }
              });
         }
+    }
 
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -399,3 +400,4 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         }
     }
 }
+
