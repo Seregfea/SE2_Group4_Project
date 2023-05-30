@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,7 +39,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
-    private Button btnRollDice2;
 
     // hardcoded
     // später: methode aus player-klasse
@@ -80,9 +80,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         savedPlayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
 
-        btnRollDice2 = findViewById(R.id.btnRollDice2);
-
-
         cardsStacks = findViewById(R.id.cardStacks);
         itemCardsLayout = findViewById(R.id.ItemCardsLayout);
         userCardsLayout = findViewById(R.id.UserCardsLayout);
@@ -109,6 +106,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             }
         });
 
+        /*
         btnRollDice2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +117,8 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 }
             }
         });
+
+         */
 
 
         // Client connects to server
@@ -170,7 +170,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 }
              });
         }
-
 
         // Views Recycle
         for (int i = 0; i < cardDrawer.getRoommateEasyStack().size(); i++){
