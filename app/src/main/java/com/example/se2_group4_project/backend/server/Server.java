@@ -4,25 +4,31 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
-public class Server extends Thread {
+public class Server extends Thread implements ServerCallbacks {
 
     private final int serverPort;
     private ServerSocket server;
+    private Map<Integer, Socket> clients = new HashMap<Integer, Socket>();
     private Boolean serverrun;
     private final Handler handlerServer;
-    private final ServerCallbacks callbacks;
+    private final ServerUICallbacks callbacks;
     private WGDatabase wgDatabase;
 
-    public Server(int serverPort, Handler handlerServer, ServerCallbacks callbacks, WGDatabase wgDatabase){
+    public Server(int serverPort, Handler handlerServer, ServerUICallbacks callbacks, WGDatabase wgDatabase){
         this.serverPort = serverPort;
         this.serverrun = true;
         this.handlerServer = handlerServer;
@@ -46,6 +52,7 @@ public class Server extends Thread {
             while (serverrun){
                 Log.d("loop","in loop");
                 Socket client = server.accept();
+                clients.put(count,client);
                 Log.d("client respond", " client respond : " + client.getRemoteSocketAddress());
                 ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this.callbacks, wgDatabase, count);
                 socketListener.start();
@@ -63,7 +70,7 @@ public class Server extends Thread {
             case 0:
 
         }
-
+        return null;
     }
 
     public void serverStop(){
@@ -85,5 +92,27 @@ public class Server extends Thread {
         }
     }
 
+    ///////////////////////// callbacks ///////////////////////
+    @Override
+    public void messageCheat(String message)  {
+        for (int key : clients.keySet()) {
+            sendMessage(message,key);
+        }
+    }
 
+    @Override
+    public void messageNextPlayer(String message, Integer player) {
+        sendMessage(message,player);
+    }
+
+    private void sendMessage(String message, Integer player){
+        Socket client = clients.get(player);
+        DataOutputStream serverMessage = null;
+        try {
+            serverMessage = new DataOutputStream(Objects.requireNonNull(client).getOutputStream());
+            serverMessage.writeUTF(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -7,12 +7,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.databinding.ActivityServerBinding;
-import com.example.se2_group4_project.handler.ServerUIHandler;
 import com.example.se2_group4_project.backend.server.IpAdresse;
 import com.example.se2_group4_project.backend.server.Server;
 
@@ -29,13 +28,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-public class ServerActivity extends AppCompatActivity implements ServerCallbacks, DatabaseCallbacks {
+public class ServerActivity extends AppCompatActivity implements ServerUICallbacks, DatabaseCallbacks {
 
     private Server server;
+    private int serverIP;
 
     private ActivityServerBinding activityServerBinding;
     private HandlerThread handlerThread;
-    private ServerUIHandler handler;
+    private Handler handler;
     private Handler handlerUI;
     private RoomDatabase.Callback myCallback;
     private WGDatabase wgDatabase;
@@ -50,8 +50,9 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
         handlerThread = new HandlerThread("Server Handler");
         handlerThread.start();
 
-        handler = new ServerUIHandler(handlerThread.getLooper());
+        handler = new Handler(handlerThread.getLooper());
 
+        serverIP = 1234;
         setListenerBit();
         createDB();
     }
@@ -123,14 +124,17 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
 
         activityServerBinding.Servermessage.setText("start the server");
         Log.d("serverstart1", "server startet");
-        this.server = new Server( 1234, this.handler, this, wgDatabase);
+        this.server = new Server( serverIP, this.handler, this, wgDatabase);
         new Thread(this.server).start();
+        activityServerBinding.ServerportNumber.setText(Integer.toString(serverIP));
         Log.d("serverstart2", "server startet");
 
         Client client = new Client("localhost", 1234, this);
         Log.d("client start", "client startet");
         new Thread(client).start();
     }
+
+    ///////////////////////////////// callbacks ////////////////////////
 
     @Override
     public void onMessageSend(String send) {
@@ -142,6 +146,11 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
     public void onMessageRecieve(String recieve) {
        Log.d("Server got message", recieve);
        //activityServerBinding.Servermessage.setText(recieve);
+    }
+
+    @Override
+    public void messageToAll(String message) {
+
     }
 
     /////////////////////////////////////////////// DB ///////////////////////////////////
@@ -180,5 +189,11 @@ public class ServerActivity extends AppCompatActivity implements ServerCallbacks
        String message = player1.getName();
        activityServerBinding.Servermessage.setText(message);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        handlerThread.quit();
+        super.onDestroy();
     }
 }

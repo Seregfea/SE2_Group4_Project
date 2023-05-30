@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gameboard extends AppCompatActivity implements ServerCallbacks {
+public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
@@ -218,6 +218,11 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
 
     @Override
     public void onMessageRecieve(String recieve) {
+
+    }
+
+    @Override
+    public void messageToAll(String message) {
 
     }
 }
