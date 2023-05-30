@@ -19,6 +19,10 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit_clicked_btns">Bestätigen</string>
+    <string name="cheat_popup">Who cheated?</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
