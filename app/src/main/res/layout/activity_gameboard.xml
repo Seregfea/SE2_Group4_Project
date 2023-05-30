@@ -31,7 +31,9 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/availableDiceContainer"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"></LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/CardsLayoutTop"
