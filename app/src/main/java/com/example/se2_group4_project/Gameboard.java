@@ -142,8 +142,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
 
         RecyclerView recyclerView = findViewById(R.id.RecycleView);
+        MyAdapter myAdapter = new MyAdapter(this, c.getPlayerTealStack());
+        recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), c.getPlayerTealStack()));
     }
 
     public void addCardsToPlayer(){

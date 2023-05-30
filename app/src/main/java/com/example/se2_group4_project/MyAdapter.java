@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,6 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     Context context;
     ArrayList<Card> playerCards;
-    CardDrawer cardDrawer;
 
     public MyAdapter(Context context, ArrayList<Card> playerCards) {
         this.context = context;
@@ -35,19 +35,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        for (int i = 0; i < cardDrawer.getPlayerTealStack().size(); i++){
+//        for (Card card : playerCards){
 //            ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
 //            imageView.setImageResource(playerCards.get(position).getImageViewID());
+//            card.setImageViewID(imageView.getId());
 //        }
-
-        for (Card card : playerCards){
-            ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
-            imageView.setImageResource(playerCards.get(position).getImageViewID());
-            card.setImageViewID(imageView.getId());
-        }
         // Set images ins RecycleView
 //        ImageView imageView = new ImageView(holder.playerCardsLayout.getContext());
 //        imageView.setImageResource(playerCards.get(position).getImageViewID());
+
+        ListView listView = new ListView(holder.playerCardsList.getContext());
+        listView.setSelection(playerCards.get(position).getImageViewID());
+
+        // setText
+        // setText
+        // setImgeRessource(items.get(position).getImage)
     }
 
     @Override
