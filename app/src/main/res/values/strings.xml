@@ -13,9 +13,7 @@
     <string name="name_of_the_server">Name of the Server:</string>
     <string name="message_to_server">Message to Server:</string>
     <string name="title_activity_client">ClientActivity</string>
-    <string name="player1">Player 1</string>
-    <string name="player2">Player 2</string>
-    <string name="player3">Player 3</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -67,4 +65,8 @@
     <string name="client_ip">Client IP</string>
     <string name="client_port">Client port</string>
     <string name="client">Client</string>
+    <string name="player1">Player1</string>
+    <string name="player2">Player2</string>
+    <string name="player3">Player3</string>
+
 </resources>
