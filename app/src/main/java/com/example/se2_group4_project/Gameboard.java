@@ -2,8 +2,16 @@ package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,13 +28,23 @@ import android.widget.Toast;
 
 
 
+
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import com.example.se2_group4_project.callbacks.ServerCallbacks;
+
+// Please have a look at this 
+// import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
+import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Item;
+import com.example.se2_group4_project.cards.RoommateDifficult;
+
 import com.example.se2_group4_project.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+import com.example.se2_group4_project.gameboard_layouts.ItemCardsLayout;
+import com.example.se2_group4_project.gameboard_layouts.UserCardsLayout;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
@@ -35,7 +53,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Gameboard extends AppCompatActivity implements ServerCallbacks, DiceCallbacks {
+
+// Please have a look at this 
+//public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, musicChoice);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
+
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
@@ -72,6 +113,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_gameboard);
+
 
         dicePopUpActivity = new DicePopUpActivity(this);
         dicePopUpActivity.setDiceCallbacks(this);
@@ -151,6 +193,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
 
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
+
     }
 
     public void addCardsToPlayer(){
@@ -172,6 +215,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
                 }
              });
         }
+
     }
 
 
@@ -256,8 +300,10 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+
         }
     }
+
 
     // TODO: Implement onClickListener on cards to flip them
     public void flipCurrentCardListener(){
@@ -271,6 +317,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             });
         }
     }
+
 
     public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
@@ -322,6 +369,7 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
     }
 
     @Override
+
     public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
         // anzeigen und selektieren der gespeicherten Würfel
         runOnUiThread(new Runnable() {
@@ -398,6 +446,9 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks, Dic
             case 6:
                 return R.drawable.d6;
         }
+
+    public void messageToAll(String message) {
+
     }
 }
 
