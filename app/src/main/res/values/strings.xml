@@ -13,13 +13,20 @@
     <string name="name_of_the_server">Name of the Server:</string>
     <string name="message_to_server">Message to Server:</string>
     <string name="title_activity_client">ClientActivity</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit_clicked_btns">Bestätigen</string>
+    <string name="cheat_popup">Who cheated?</string>
+   
+
     <string name="change_dice_value">neuer Würfelwert (1-5)</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
