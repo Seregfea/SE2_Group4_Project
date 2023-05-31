@@ -10,7 +10,7 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.database.entities.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
