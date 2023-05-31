@@ -1,9 +1,9 @@
-package com.example.se2_group4_project.client;
+package com.example.se2_group4_project.backend.client;
 
 import android.util.Log;
 
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
+import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,10 +21,10 @@ public class Client extends Thread {
     DataOutputStream serverMessage;
     DataInputStream clientInput;
     String messageInput;
-    ServerCallbacks callbacks;
+    ServerUICallbacks callbacks;
     ObjectMapper mapper;
 
-    public Client(String ipAdresse, int port, ServerCallbacks callbacks){
+    public Client(String ipAdresse, int port, ServerUICallbacks callbacks){
         this.ipAdresse =  ipAdresse;
         this.port = port;
         this.callbacks = callbacks;
@@ -44,6 +44,8 @@ public class Client extends Thread {
             String message = objectToJson(player);
             Log.d("player send", message);
             while (client.isConnected()){
+
+                messageInput = clientInput.readUTF();
 
                 if(count == 0){
                     serverMessage.writeUTF(message);
@@ -82,4 +84,6 @@ public class Client extends Thread {
             throw new RuntimeException(e);
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.se2_group4_project.database.entities;
+package com.example.se2_group4_project.backend.database.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

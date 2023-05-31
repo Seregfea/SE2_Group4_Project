@@ -1,7 +1,6 @@
-package com.example.se2_group4_project.database.crudInterface;
+package com.example.se2_group4_project.backend.database.crudInterface;
 
-import com.example.se2_group4_project.database.entities.ChocolateItems;
-import com.example.se2_group4_project.database.entities.Furnishings;
+import com.example.se2_group4_project.backend.database.entities.Furnishings;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

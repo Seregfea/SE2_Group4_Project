@@ -1,13 +1,12 @@
 package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -21,8 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.se2_group4_project.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
+
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
+import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.cards.Item;
 import com.example.se2_group4_project.cards.RoommateDifficult;
 import com.example.se2_group4_project.client.Client;
@@ -38,7 +38,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gameboard extends AppCompatActivity implements ServerCallbacks {
+public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
 
     @Override
     public void onResume() {
@@ -214,6 +214,11 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
 
     @Override
     public void onMessageRecieve(String recieve) {
+
+    }
+
+    @Override
+    public void messageToAll(String message) {
 
     }
 }
