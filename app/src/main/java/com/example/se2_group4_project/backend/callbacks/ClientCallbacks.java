@@ -4,3 +4,4 @@ public interface ClientCallbacks {
     void onMessageSend(String send);
     void onMessageRecieve(String recieve);
 }
+
