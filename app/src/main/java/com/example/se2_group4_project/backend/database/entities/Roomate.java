@@ -1,13 +1,12 @@
-package com.example.se2_group4_project.database.entities;
+package com.example.se2_group4_project.backend.database.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "furnishings")
-public class Furnishings {
-
-    @ColumnInfo(name = "furnishingsID")
+@Entity
+public class Roomate {
+    @ColumnInfo(name = "roomMateID")
     @PrimaryKey(autoGenerate = true)
     int id;
     @ColumnInfo(name = "playerID")
@@ -16,20 +15,26 @@ public class Furnishings {
     int abilityID;
     @ColumnInfo(name = "name")
     String name;
-    @ColumnInfo(name = "clean")
-    int clean;
+    @ColumnInfo(name = "trouble")
+    int trouble;
+    @ColumnInfo(name = "awake")
+    int awake;
     @ColumnInfo(name = "dicePlace")
     int dicePlace;
     @ColumnInfo(name = "diceNeeded")
     int diceNeeded;
+    @ColumnInfo(name = "diceCount")
+    int diceCount;
 
-    public Furnishings(int playerID, int abilityID, String name, int clean, int dicePlace, int diceNeeded) {
+    public Roomate(int playerID, int abilityID, String name, int trouble, int awake, int dicePlace, int diceNeeded, int diceCount) {
         this.playerID = playerID;
         this.abilityID = abilityID;
         this.name = name;
-        this.clean = clean;
+        this.trouble = trouble;
+        this.awake = awake;
         this.dicePlace = dicePlace;
         this.diceNeeded = diceNeeded;
+        this.diceCount = diceCount;
     }
 
     public int getId() {
@@ -48,8 +53,12 @@ public class Furnishings {
         return name;
     }
 
-    public int getClean() {
-        return clean;
+    public int getTrouble() {
+        return trouble;
+    }
+
+    public int getAwake() {
+        return awake;
     }
 
     public int getDicePlace() {
@@ -60,8 +69,12 @@ public class Furnishings {
         return diceNeeded;
     }
 
-    public void setClean(int clean) {
-        this.clean = clean;
+    public int getDiceCount() {
+        return diceCount;
+    }
+
+    public void setAwake(int awake) {
+        this.awake = awake;
     }
 
     public void setDicePlace(int dicePlace) {
@@ -70,5 +83,9 @@ public class Furnishings {
 
     public void setDiceNeeded(int diceNeeded) {
         this.diceNeeded = diceNeeded;
+    }
+
+    public void setDiceCount(int diceCount) {
+        this.diceCount = diceCount;
     }
 }

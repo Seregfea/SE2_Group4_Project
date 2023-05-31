@@ -1,10 +1,10 @@
-package com.example.se2_group4_project.server;
+package com.example.se2_group4_project.backend.server;
 
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.database.WGDatabase;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.database.WGDatabase;
 
 import java.io.IOException;
 import java.io.PrintWriter;

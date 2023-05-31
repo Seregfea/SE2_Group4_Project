@@ -1,13 +1,9 @@
 package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -21,17 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.se2_group4_project.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.cards.Item;
-import com.example.se2_group4_project.cards.RoommateDifficult;
-import com.example.se2_group4_project.client.Client;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
-import com.example.se2_group4_project.gameboard_layouts.ItemCardsLayout;
-import com.example.se2_group4_project.gameboard_layouts.UserCardsLayout;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;

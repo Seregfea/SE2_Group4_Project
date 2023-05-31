@@ -7,13 +7,8 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.se2_group4_project.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.databinding.ActivityClientBinding;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 
 public class ClientActivity extends AppCompatActivity implements ClientCallbacks {

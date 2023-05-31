@@ -1,9 +1,9 @@
-package com.example.se2_group4_project.client;
+package com.example.se2_group4_project.backend.client;
 
 import android.util.Log;
 
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
-import com.example.se2_group4_project.database.entities.Player;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
