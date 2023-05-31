@@ -3,9 +3,9 @@ package com.example.se2_group4_project.backend.server;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.se2_group4_project.backend.CRUDoperations;
+import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,16 +20,18 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
     final private Socket client;
     final private Handler mainThread;
-    final private ServerCallbacks callbacks;
+    final private ServerUICallbacks callbacks;
     private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
     private WGDatabase wgDatabase;
+    private int playerNumber;
 
-    ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase){
+    ServerClientResponse(Socket client, Handler mainThread, ServerUICallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
         this.client = client;
         this.mainThread = mainThread;
         this.callbacks = callbacks;
         this.wgDatabase = wgDatabase;
+        this.playerNumber = playerNumber;
     }
 
     @Override
@@ -51,8 +53,12 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
         int count = 0;
         while (client.isConnected()){
             try {
+                Log.d("wait before test", count+"");
+                messageInput = clientInput.readUTF();
+                Log.d("wait test", count+"");
+                count++;
                 if(count == 0){
-                    messageInput = clientInput.readUTF();
+
                     Log.d("message",messageInput);
                     Player player = jsonToObject(messageInput);
                     Log.d("message name", player.getName());

@@ -1,4 +1,4 @@
-package com.example.se2_group4_project.backend;
+package com.example.se2_group4_project.backend.database;
 
 import android.util.Log;
 
