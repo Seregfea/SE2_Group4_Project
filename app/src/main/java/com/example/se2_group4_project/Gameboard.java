@@ -4,13 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,30 +16,20 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
-
-// Please have a look at this 
-// import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
-import com.example.se2_group4_project.cards.Item;
-import com.example.se2_group4_project.cards.RoommateDifficult;
 
-import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
-import com.example.se2_group4_project.gameboard_layouts.ItemCardsLayout;
-import com.example.se2_group4_project.gameboard_layouts.UserCardsLayout;
+
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
@@ -55,7 +41,6 @@ import java.util.Map;
 
 
 
-// Please have a look at this 
 public class Gameboard extends AppCompatActivity implements ServerUICallbacks, DiceCallbacks {
 
     @Override
