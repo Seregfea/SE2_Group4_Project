@@ -1,20 +1,17 @@
 package com.example.se2_group4_project.dices;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Notification;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -33,6 +30,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     private MediaPlayer mediaPlayer;
     private LinearLayout diceLayout;
     private Button submitClickedDices;
+    private EditText changeDiceValue;
     private final int diceSize = 80;
     private int numberOfDice = 0;
     private int delayTime = 20;
@@ -80,13 +78,44 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
         diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
+        changeDiceValue = dicePopUpView.findViewById(R.id.et_changeDiceValue);
 
         submitClickedDices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
-                testDice();
-                diceResults(selected, unselected);
+                int diceValueNew = 0;
+                boolean isDiceValueChanged = false;
+
+                if (changeDiceValue.getText().toString().length() != 0) {
+                    diceValueNew = Integer.parseInt(changeDiceValue.getText().toString());
+                    isDiceValueChanged = true;
+                }
+
+                // falls kein Würfel verändert wird direktes Schließen des pop ups
+                if (!isDiceValueChanged) {
+                    dismiss();
+                    testDice();
+                    diceResults(selected, unselected);
+                } else {
+                    if (diceValueNew < 1 || diceValueNew > 5) {
+                        Log.d("invalid new dice value", "" + diceValueNew);
+                        Toast.makeText(context, "Der neue Würfelwert muss zwischen 1 und 5 liegen!", Toast.LENGTH_LONG).show();
+                        changeDiceValue.setText("");
+                    } else {
+                        Log.d("valid new dice value", "" + diceValueNew);
+
+                        // Känguru aus selected dices entfernen und den neuen Wert adden
+                        selected.remove(Integer.valueOf(6));
+                        selected.add(diceValueNew);
+                        Log.d("selected dices", selected.toString());
+
+                        dismiss();
+                        testDice();
+                        diceResults(selected, unselected);
+                        changeDiceValue.setText("");
+                        changeDiceValue.setEnabled(false);
+                    }
+                }
             }
         });
     }
@@ -107,6 +136,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         if (mediaPlayer != null) {
             mediaPlayer.start();
         }
+
         Thread thread = new Thread() {
             public void run() {
                 List<Integer> diceValues = new ArrayList<>();
@@ -119,6 +149,7 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
                     for (int i = 0; i < diceValues.size(); i++) {
                         final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
                         final int diceValue = diceValues.get(i);
+
                         diceImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -153,6 +184,15 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
                                         unselected.remove(Integer.valueOf(diceValue));
                                     }
                                     selected.add(diceValue);
+                                }
+                                // überprüfen ob ein Känguru ausgewählt ist und das Textfeld entsprechend bearbeitbar machen
+                                if (diceValue == 6 && selected.contains(diceValue)) {
+                                    changeDiceValue.setEnabled(true);
+                                    Log.d("change dice value called", "enabled");
+                                }
+                                else if (diceValue == 6 && !selected.contains(diceValue)) {
+                                    changeDiceValue.setEnabled(false);
+                                    Log.d("change dice value called", "disabled");
                                 }
                             }
                         });

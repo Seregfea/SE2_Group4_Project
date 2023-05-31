@@ -16,6 +16,20 @@
             android:orientation="horizontal">
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/et_changeDiceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="new dice value"
+            android:hint="@string/change_dice_value"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:enabled="false">
+        </EditText>
+
         <Button
             android:id="@+id/btnSubmitClickedDices"
             android:layout_width="120dp"
@@ -25,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:enabled="false"
             android:text="@string/submit_clicked_btns"
-            android:textSize="10sp">
+            android:textSize="12sp">
         </Button>
 
 </LinearLayout>
