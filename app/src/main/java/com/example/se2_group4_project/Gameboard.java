@@ -27,10 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-
+import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
-import com.example.se2_group4_project.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
 
 // Please have a look at this 
 // import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
@@ -38,7 +37,7 @@ import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.cards.Item;
 import com.example.se2_group4_project.cards.RoommateDifficult;
 
-import com.example.se2_group4_project.client.Client;
+import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -54,10 +53,10 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Gameboard extends AppCompatActivity implements ServerCallbacks, DiceCallbacks {
+
 
 // Please have a look at this 
-//public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
+public class Gameboard extends AppCompatActivity implements ServerUICallbacks, DiceCallbacks {
 
     @Override
     public void onResume() {
