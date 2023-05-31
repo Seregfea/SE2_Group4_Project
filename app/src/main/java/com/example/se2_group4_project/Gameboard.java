@@ -368,6 +368,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
     }
 
     @Override
+    public void messageToAll(String message) {
+
+    }
+
+    @Override
 
     public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
         // anzeigen und selektieren der gespeicherten Würfel
@@ -445,9 +450,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
             case 6:
                 return R.drawable.d6;
         }
-
-    public void messageToAll(String message) {
-
     }
 }
 
