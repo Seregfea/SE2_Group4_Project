@@ -46,6 +46,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());
             messageHandler = new Handler(mainThread.getLooper());
+            serverMessage.writeUTF(Integer.toString(playerNumber));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

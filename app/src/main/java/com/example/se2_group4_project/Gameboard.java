@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
@@ -30,32 +32,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
+public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
-        SoundManager.keepMusicGoing = true;
-        SoundManager.start(this, musicChoice);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (!SoundManager.keepMusicGoing) {
-            SoundManager.stop();
-        }
-        SoundManager.keepMusicGoing = false;
-    }
-
+    private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
+    private int playerNumber = 50;
+    private HandlerThread handlerThread;
 
     private TextView pointView;
     private static List<ImageView> displayedCards = new ArrayList<>();
@@ -69,6 +56,8 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
 
         setContentView(R.layout.activity_gameboard);
 
+        handlerThread = new HandlerThread("boardHndler");
+        handlerThread.start();
 
         dicePopUpActivity = new DicePopUpActivity(this);
         btnRollDice = findViewById(R.id.btnRollDice);
@@ -92,31 +81,89 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
         // Client connects to server
         Bundle extra = getIntent().getExtras();
         String ip = extra.getString("ip");
-        Client client = new Client(ip, 1234, this);
+        Client client = new Client(ip, 1234, this, new Handler(handlerThread.getLooper()));
+        client.start();
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
+
         //client.start();
 
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
 
-        CardDrawer c = new CardDrawer(this.getApplicationContext());
+        this.c = new CardDrawer(this.getApplicationContext());
         try {
             c.generateInitialCards();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
-        addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
-        addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
-        addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
+        Log.d("player number gameboard", String.valueOf(client.getPlayerNumber()));
+
+        while (playerNumber == 50){
+            Log.d("playerloop", ""+playerNumber);
+        }
+        createPlayerBoard(this.playerNumber);
+
+        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int musicChoice = sharedPreferences.getInt("musicChoice", R.raw.mysterious); // default_music ist ein Platzhalter für die Standardmusik
+        SoundManager.keepMusicGoing = true;
+        SoundManager.start(this, musicChoice);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (!SoundManager.keepMusicGoing) {
+            SoundManager.stop();
+        }
+        SoundManager.keepMusicGoing = false;
+    }
+
+
+    public void createPlayerBoard(int player){
+
+        switch (player){
+            case 0:
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
+                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
+                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
+                break;
+            case 1:
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
+                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
+                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerBlueStack());
+                break;
+            case 2:
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
+                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
+                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerGreenStack());
+                break;
+            case 3:
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
+                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
+                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerOrangeStack());
+                break;
+            default:
+                Log.d("no player", "no player " + player);
+                break;
+        }
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
         addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
-        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
+
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -199,6 +246,8 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
         pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
 
+
+    ///////////////////// callbacks //////////////////////////////////
     @Override
     public void onMessageSend(String send) {
 
@@ -212,6 +261,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks {
     @Override
     public void messageToAll(String message) {
 
+    }
+
+    @Override
+    public void playerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
     }
 }
 

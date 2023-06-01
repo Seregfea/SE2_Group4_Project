@@ -128,10 +128,6 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
         new Thread(this.server).start();
         activityServerBinding.ServerportNumber.setText(Integer.toString(serverIP));
         Log.d("serverstart2", "server startet");
-
-        Client client = new Client("localhost", 1234, this);
-        Log.d("client start", "client startet");
-        new Thread(client).start();
     }
 
     ///////////////////////////////// callbacks ////////////////////////

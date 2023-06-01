@@ -1,7 +1,9 @@
 package com.example.se2_group4_project.backend.client;
 
+import android.os.Handler;
 import android.util.Log;
 
+import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Objects;
 
 public class Client extends Thread {
 
@@ -21,13 +24,16 @@ public class Client extends Thread {
     DataOutputStream serverMessage;
     DataInputStream clientInput;
     String messageInput;
-    ServerUICallbacks callbacks;
+    ClientCallbacks callbacks;
     ObjectMapper mapper;
+    Handler handler;
+    int playerNumber;
 
-    public Client(String ipAdresse, int port, ServerUICallbacks callbacks){
+    public Client(String ipAdresse, int port, ClientCallbacks callbacks, Handler handler){
         this.ipAdresse =  ipAdresse;
         this.port = port;
         this.callbacks = callbacks;
+        this.handler = handler;
     }
     @Override
     public void run() {
@@ -38,27 +44,18 @@ public class Client extends Thread {
             client = new Socket(ipAdresse,port);
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());
-            int count = 0;
-            Player player = new Player("test",1,1,1,1,1);
-            player.setChoice(10);
-            String message = objectToJson(player);
-            Log.d("player send", message);
+
             while (client.isConnected()){
 
                 messageInput = clientInput.readUTF();
 
-                if(count == 0){
-                    serverMessage.writeUTF(message);
-                    count++;
+                if(Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
+                    handler.post(() -> callbacks.playerNumber(Integer.parseInt(messageInput)));
+                    serverMessage.writeUTF(messageInput);
+                    playerNumber = Integer.parseInt(messageInput);
+                    Log.d("player number client", playerNumber +"");
+                    messageInput = null;
                 }
-
-                messageInput = clientInput.readUTF();
-
-                Log.d("message",messageInput);
-                String finalMessageInput = messageInput;
-                callbacks.onMessageRecieve(finalMessageInput);
-                String finalMessageOutput = "we recieved!!!";
-                serverMessage.writeUTF(finalMessageOutput);
 
             }
         } catch (IOException e) {
@@ -84,6 +81,7 @@ public class Client extends Thread {
             throw new RuntimeException(e);
         }
     }
-
-
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
 }
