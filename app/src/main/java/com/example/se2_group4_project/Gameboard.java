@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -385,7 +386,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
                                 v.setBackgroundColor(Color.TRANSPARENT);
                                 Log.d("unselected saved dice", "set to standard: " + diceIndex);
                             }
-
                             // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
                             v.post(new Runnable() {
                                 @Override

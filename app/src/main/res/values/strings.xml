@@ -58,4 +58,6 @@
     <string name="client_ip">Client IP</string>
     <string name="client_port">Client port</string>
     <string name="client">Client</string>
+    <string name="change_dice_value">change_dice_value</string>
+    <string name="submit_clicked_btns">submit_clicked_btns</string>
 </resources>
