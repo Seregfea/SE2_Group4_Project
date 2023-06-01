@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,7 +49,7 @@ public class Client extends Thread {
                 messageInput = clientInput.readUTF();
 
                 if(Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
-                    handler.post(() -> callbacks.playerNumber(Integer.parseInt(messageInput)));
+                    handler.post(() -> callbacks.createPlayer(Integer.parseInt(messageInput)));
                     serverMessage.writeUTF(messageInput);
                     playerNumber = Integer.parseInt(messageInput);
                     Log.d("player number client", playerNumber +"");

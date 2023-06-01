@@ -2,7 +2,6 @@ package com.example.se2_group4_project.player;
 
 import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.cards.Card;
-import com.example.se2_group4_project.cards.Couch;
 import com.example.se2_group4_project.cards.Geschirr;
 import com.example.se2_group4_project.cards.Item;
 import com.example.se2_group4_project.cards.RoommateDifficult;
@@ -10,29 +9,23 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
-import com.example.se2_group4_project.backend.database.entities.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayerController {
+    private final int playerID;
+    private final ArrayList<Card> playerInitialCards;
     private int diceCount = 4;
-
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
-
     private ArrayList<Arrays> cardTypes;
-
     private ArrayList<Item> itemCards;
 
-    Couch couch;
-    Geschirr geschirr;
-    Badewanne badewanne;
 
-    public PlayerController(Couch couch, Geschirr geschirr, Badewanne badewanne) {
-        this.couch = couch;
-        this.geschirr = geschirr;
-        this.badewanne = badewanne;
+    public PlayerController(int playerID, ArrayList<Card> playerInitialCards) {
+        this.playerID = playerID;
+        this.playerInitialCards = playerInitialCards;
     }
 
     // 2 Functions
@@ -88,6 +81,38 @@ public class PlayerController {
     }
 
     public void saveDiceValuesNotUsable(ArrayList<Integer> diceValuesNotUsable){
+        this.diceValuesNotUsable = diceValuesNotUsable;
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public ArrayList<Card> getPlayerInitialCards() {
+        return playerInitialCards;
+    }
+
+    public int getDiceCount() {
+        return diceCount;
+    }
+
+    public void setDiceCount(int diceCount) {
+        this.diceCount = diceCount;
+    }
+
+    public ArrayList<Integer> getDiceValuesUsable() {
+        return diceValuesUsable;
+    }
+
+    public void setDiceValuesUsable(ArrayList<Integer> diceValuesUsable) {
+        this.diceValuesUsable = diceValuesUsable;
+    }
+
+    public ArrayList<Integer> getDiceValuesNotUsable() {
+        return diceValuesNotUsable;
+    }
+
+    public void setDiceValuesNotUsable(ArrayList<Integer> diceValuesNotUsable) {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 }
