@@ -64,9 +64,6 @@ public class PlayerController {
 
         }
     }
-
-
-
     public void cardsRemove() {
 
     }

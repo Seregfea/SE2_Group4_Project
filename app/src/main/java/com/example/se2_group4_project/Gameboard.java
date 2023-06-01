@@ -112,31 +112,31 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         switch (player){
             case 0:
                 this.player = new PlayerController(player,c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, this.player.getPlayerInitialCards());
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack() );
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 1:
                 this.player = new PlayerController(player,c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, this.player.getPlayerInitialCards());
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerBlueStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 2:
                 this.player = new PlayerController(player,c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, this.player.getPlayerInitialCards());
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerGreenStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 3:
                 this.player = new PlayerController(player,c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, this.player.getPlayerInitialCards());
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerOrangeStack());
+                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             default:
                 Log.d("no player", "no player " + player);
