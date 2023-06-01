@@ -45,7 +45,24 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     private HandlerThread handlerThread;
 
     private TextView pointView;
+    private LinearLayout cardsStacks;
+
+    private LinearLayout itemCardsLayout;
+    private LinearLayout userCardsLayout;
+    private LinearLayout roommateEasyLayout;
+    private LinearLayout roommateDifficultLayout;
+    private LinearLayout witzigLayout;
+    private LinearLayout witzigWitzigLayout;
+    private LinearLayout troublemakerLayout;
+
+    private boolean diceIsRolled = false;
+
+    private boolean hasCheated = false;
+
+    private Card card;
     private static List<ImageView> displayedCards = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +77,21 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         handlerThread.start();
 
         dicePopUpActivity = new DicePopUpActivity(this);
+        dicePopUpActivity.setDiceCallbacks(this);
         btnRollDice = findViewById(R.id.btnRollDice);
         availableDiceLayout = findViewById(R.id.availableDiceContainer);
+        savedPlayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
+
+        cardsStacks = findViewById(R.id.cardStacks);
+        itemCardsLayout = findViewById(R.id.ItemCardsLayout);
+        userCardsLayout = findViewById(R.id.UserCardsLayout);
+        roommateEasyLayout = findViewById(R.id.roommateEasyLayout);
+        roommateDifficultLayout = findViewById(R.id.roommateDifficultLayout);
+        witzigLayout = findViewById(R.id.witzigLayout);
+        witzigWitzigLayout = findViewById(R.id.witzigWitzigLayout);
+        troublemakerLayout = findViewById(R.id.troublemakerLayout);
+
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -73,8 +102,9 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         btnRollDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-                dicePopUpActivity.rollDice();
+                startDiceRolling(view);
+                // testweise auf true setzen
+                hasCheated = true;
             }
         });
 
@@ -125,6 +155,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         SoundManager.keepMusicGoing = false;
     }
 
+    ///////////////////////////////////// card methods ////////////////////////
 
     public void createPlayerBoard(int player){
 
@@ -164,6 +195,63 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
 
+    }
+
+    public void addCardsToPlayer(){
+        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
+
+        try {
+            cardDrawer.generateInitialCards();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
+            final ImageView itemCardImage = (ImageView) itemCardsLayout.getChildAt(i);
+            itemCardImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemCardsLayout.removeView(itemCardImage);
+                    userCardsLayout.addView(itemCardImage);
+                }
+            });
+        }
+
+    }
+
+    public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
+        for (int i = 0; i < cards.size(); i++){
+            Card card = cards.get(i);
+            LinearLayout linearLayout = findViewById(linearLayoutId);
+            ImageView iView = new ImageView(linearLayout.getContext());
+
+            String currentCardFront = card.getCurrentCardFront();
+
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            linearLayout.addView(iView);
+            displayedCards.add(iView);
+            card.setImageViewID(iView.getId());
+
+            iView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    linearLayout.removeView(iView);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.weight = 5;
+                    iView.setLayoutParams(params);
+
+                    userCardsLayout.addView(iView);
+                }
+            });
+        }
     }
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -215,6 +303,17 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         }
     }
 
+    public void flipCurrentCardListener(){
+        // If card is available --> then we can flip
+        for (ImageView card : displayedCards){
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // flipCard(card);
+                }
+            });
+        }
+    }
 
     public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
@@ -237,6 +336,98 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     }
 
 
+    ///////////////////////// dice methods ////////////////////////
+
+    public void startDiceRolling(View view) {
+        dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+        try {
+            dicePopUpActivity.rollDice();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+
+    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
+        // anzeigen und selektieren der gespeicherten Würfel
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Map<ImageView, Boolean> diceSelect = new HashMap<>();
+                savedPlayerDices.removeAllViews();
+
+                for (int diceValue : playerDice) {
+                    ImageView imageView = new ImageView(Gameboard.this);
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                    imageView.setPadding(3, 3, 3, 3);
+                    imageView.setImageResource(getDiceImage(diceValue));
+                    savedPlayerDices.addView(imageView);
+                    diceSelect.put(imageView, false);
+
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int diceIndex = savedPlayerDices.indexOfChild(v);
+
+                            Log.d("index of clicked dice", "diceIndex: " + diceIndex);
+                            Log.d("clicked image view", imageView.toString());
+
+                            diceSelect.put((ImageView) v, !diceSelect.get(v));
+
+                            if (diceSelect.get(v)) {
+                                v.setBackgroundColor(Color.GREEN);
+                                Log.d("selected saved dice", "set to green: " + diceIndex);
+                            } else {
+                                v.setBackgroundColor(Color.TRANSPARENT);
+                                Log.d("unselected saved dice", "set to standard: " + diceIndex);
+                            }
+
+                            // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
+                            v.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    v.invalidate();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                Log.d("display selected dices","Image Views created " + playerDice.size());
+
+                savedPlayerDices.invalidate();
+                savedPlayerDices.requestLayout();
+
+                diceIsRolled = true;
+
+                if (diceIsRolled){
+                    addCardsToPlayer();
+                    // call function to flip current card
+                    // flipCurrentCardListener();
+                }
+            }
+        });
+    }
+
+    public int getDiceImage(int result) {
+        switch (result) {
+            default:
+                return R.drawable.d1;
+            case 2:
+                return R.drawable.d2;
+            case 3:
+                return R.drawable.d3;
+            case 4:
+                return R.drawable.d4;
+            case 5:
+                return R.drawable.d5;
+            case 6:
+                return R.drawable.d6;
+        }
+    }
+
+    ////////////////////// other methods //////////////////////////
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
@@ -245,7 +436,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     public void updatePointView(int point, PointDisplay pointDisplay){
         pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
-
 
     ///////////////////// callbacks //////////////////////////////////
     @Override
