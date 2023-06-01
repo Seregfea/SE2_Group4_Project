@@ -12,8 +12,11 @@ import android.widget.Button;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.SoundManager;
+import com.example.se2_group4_project.databinding.ActivityMusicBinding;
+import com.example.se2_group4_project.databinding.ActivityOptionsBinding;
 
 public class OptionsActivity extends AppCompatActivity {
+    ActivityOptionsBinding activityOptionsBinding;
 
     @Override
     public void onResume() {
@@ -35,19 +38,18 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options);
+        activityOptionsBinding =  ActivityOptionsBinding.inflate(getLayoutInflater());
+        View view = activityOptionsBinding.getRoot();
+        setContentView(view);
 
-        Button btnBack = findViewById(R.id.button_back);
-        Button btnMusic = findViewById(R.id.buttonMusic);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        activityOptionsBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
-        btnMusic.setOnClickListener(new View.OnClickListener() {
+        activityOptionsBinding.buttonMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MusicActivity.class);

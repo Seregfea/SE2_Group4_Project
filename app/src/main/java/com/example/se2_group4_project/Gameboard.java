@@ -24,6 +24,9 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
+import com.example.se2_group4_project.databinding.ActivityDiceBinding;
+import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
+import com.example.se2_group4_project.databinding.ActivityServerBinding;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -40,24 +43,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
-    private LinearLayout availableDiceLayout;
-    private Button btnRollDice;
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
-    private TextView pointView;
-    private LinearLayout savedPlayerDices;
     private int playerNumber = 50;
     private HandlerThread handlerThread;
-    private LinearLayout cardsStacks;
-
-    private LinearLayout itemCardsLayout;
-    private LinearLayout userCardsLayout;
-    private LinearLayout roommateEasyLayout;
-    private LinearLayout roommateDifficultLayout;
-    private LinearLayout witzigLayout;
-    private LinearLayout witzigWitzigLayout;
-    private LinearLayout troublemakerLayout;
 
     private boolean diceIsRolled = false;
 
@@ -66,11 +56,18 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     private Card card;
     private static List<ImageView> displayedCards = new ArrayList<>();
 
+    //////////////////////////// activity bindings /////////////////////////////////
+    private ActivityGameboardBinding activityGameboardBinding;
+    private ActivityDiceBinding activityDiceBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activityGameboardBinding =  ActivityGameboardBinding.inflate(getLayoutInflater());
+        View view = activityGameboardBinding.getRoot();
+        setContentView(view);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -82,28 +79,14 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
         dicePopUpActivity = new DicePopUpActivity(this);
         dicePopUpActivity.setDiceCallbacks(this);
-        btnRollDice = findViewById(R.id.btnRollDice);
-        availableDiceLayout = findViewById(R.id.availableDiceContainer);
-        savedPlayerDices = findViewById(R.id.savedDicesContainer);
-        pointView = findViewById(R.id.points);
-
-        cardsStacks = findViewById(R.id.cardStacks);
-        itemCardsLayout = findViewById(R.id.ItemCardsLayout);
-        userCardsLayout = findViewById(R.id.UserCardsLayout);
-        roommateEasyLayout = findViewById(R.id.roommateEasyLayout);
-        roommateDifficultLayout = findViewById(R.id.roommateDifficultLayout);
-        witzigLayout = findViewById(R.id.witzigLayout);
-        witzigWitzigLayout = findViewById(R.id.witzigWitzigLayout);
-        troublemakerLayout = findViewById(R.id.troublemakerLayout);
-
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.dice);
-            availableDiceLayout.addView(imageView);
+            activityDiceBinding.diceLayout.addView(imageView);
         }
 
-        btnRollDice.setOnClickListener(new View.OnClickListener() {
+        activityGameboardBinding.btnRollDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startDiceRolling(view);
@@ -159,6 +142,12 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         SoundManager.keepMusicGoing = false;
     }
 
+    @Override
+    protected void onDestroy() {
+        handlerThread.quit();
+        super.onDestroy();
+    }
+
     ///////////////////////////////////// card methods ////////////////////////
 
     public void createPlayerBoard(int player){
@@ -211,12 +200,13 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         }
 
         for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
-            final ImageView itemCardImage = (ImageView) itemCardsLayout.getChildAt(i);
+
+            final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             itemCardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemCardsLayout.removeView(itemCardImage);
-                    userCardsLayout.addView(itemCardImage);
+                    activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+                    activityGameboardBinding.UserCardsLayout.addView(itemCardImage);
                 }
             });
         }
@@ -251,8 +241,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
                             ViewGroup.LayoutParams.WRAP_CONTENT);
                     params.weight = 5;
                     iView.setLayoutParams(params);
-
-                    userCardsLayout.addView(iView);
+                    activityGameboardBinding.UserCardsLayout.addView(iView);
                 }
             });
         }
@@ -359,20 +348,20 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
             @Override
             public void run() {
                 final Map<ImageView, Boolean> diceSelect = new HashMap<>();
-                savedPlayerDices.removeAllViews();
+                activityGameboardBinding.savedDicesContainer.removeAllViews();
 
                 for (int diceValue : playerDice) {
                     ImageView imageView = new ImageView(Gameboard.this);
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
                     imageView.setPadding(3, 3, 3, 3);
                     imageView.setImageResource(getDiceImage(diceValue));
-                    savedPlayerDices.addView(imageView);
+                    activityGameboardBinding.savedDicesContainer.addView(imageView);
                     diceSelect.put(imageView, false);
 
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int diceIndex = savedPlayerDices.indexOfChild(v);
+                            int diceIndex = activityGameboardBinding.savedDicesContainer.indexOfChild(v);
 
                             Log.d("index of clicked dice", "diceIndex: " + diceIndex);
                             Log.d("clicked image view", imageView.toString());
@@ -399,8 +388,8 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
                 Log.d("display selected dices","Image Views created " + playerDice.size());
 
-                savedPlayerDices.invalidate();
-                savedPlayerDices.requestLayout();
+                activityGameboardBinding.savedDicesContainer.invalidate();
+                activityGameboardBinding.savedDicesContainer.requestLayout();
 
                 diceIsRolled = true;
 
@@ -433,11 +422,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     ////////////////////// other methods //////////////////////////
 
     public void startPointView(PointDisplay pointDisplay){
-        pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
+        activityGameboardBinding.points.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay){
-        pointView.setText(String.valueOf(pointDisplay.updatePoints(point)));
+        activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
 
     ///////////////////// callbacks //////////////////////////////////

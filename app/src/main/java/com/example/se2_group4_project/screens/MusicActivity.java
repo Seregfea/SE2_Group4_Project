@@ -18,11 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.SoundManager;
+import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
+import com.example.se2_group4_project.databinding.ActivityMusicBinding;
 
 import java.util.HashMap;
 
 public class MusicActivity extends AppCompatActivity {
 
+    ActivityMusicBinding activityMusicBinding;
     @Override
     public void onResume() {
         super.onResume();
@@ -43,12 +46,9 @@ public class MusicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music);
-
-        Button btnBack = findViewById(R.id.button_back);
-        Button btnBackMusic = findViewById(R.id.buttonBackgroundMusic);
-        SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);
-        Switch switchMute = findViewById(R.id.mute);
+        activityMusicBinding =  ActivityMusicBinding.inflate(getLayoutInflater());
+        View view = activityMusicBinding.getRoot();
+        setContentView(view);
 
         final String[] songTitles = {"Mysterious", "Slow and Childish", "Orchestra Epic", "Swing"};
         final HashMap<String, Integer> songMap = new HashMap<>();
@@ -58,7 +58,7 @@ public class MusicActivity extends AppCompatActivity {
         songMap.put("Swing", R.raw.swing);
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        activityMusicBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
@@ -66,7 +66,7 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-        btnBackMusic.setOnClickListener(new View.OnClickListener() {
+        activityMusicBinding.buttonBackgroundMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(MusicActivity.this)
@@ -90,7 +90,7 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-        seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        activityMusicBinding.seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float volume = progress / 100f;
@@ -106,7 +106,7 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-        switchMute.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        activityMusicBinding.mute.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if(SoundManager.gameMusic != null) {
