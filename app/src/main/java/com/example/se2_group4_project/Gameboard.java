@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -30,9 +31,11 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks {
+public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks, DiceCallbacks {
 
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
@@ -41,10 +44,10 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     // hardcoded
     // später: methode aus player-klasse
     private int availableDices = 4;
+    private TextView pointView;
+    private LinearLayout savedPlayerDices;
     private int playerNumber = 50;
     private HandlerThread handlerThread;
-
-    private TextView pointView;
     private LinearLayout cardsStacks;
 
     private LinearLayout itemCardsLayout;
