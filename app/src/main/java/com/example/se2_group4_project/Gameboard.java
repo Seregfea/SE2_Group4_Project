@@ -39,6 +39,7 @@ import java.util.Map;
 
 public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks, DiceCallbacks {
 
+    private Handler clientHandler;
     private PlayerController player;
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
@@ -292,7 +293,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     ///////////////////////// dice methods ////////////////////////
 
     public void setUpDice(){
-        dicePopUpActivity = new DicePopUpActivity(this);
+        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
         dicePopUpActivity.setDiceCallbacks(this);
 
         for (int i = 0; i < availableDices; i++) {
@@ -312,8 +313,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     }
 
     @Override
-
-    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
+    public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
         // anzeigen und selektieren der gespeicherten Würfel
         runOnUiThread(new Runnable() {
             @Override
@@ -413,6 +413,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         Bundle extra = getIntent().getExtras();
         String ip = extra.getString("ip");
         Client client = new Client(ip, 1234, this, new Handler(handlerThread.getLooper()));
+        this.clientHandler = client.getClientHandler();
         client.start();
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         Log.d("player number gameboard", String.valueOf(client.getPlayerNumber()));
@@ -457,5 +458,17 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     public void createPlayer(int playerNumber) {
         createPlayerBoard(playerNumber);
     }
+
+    @Override
+    public void diceToEnemy(ArrayList<Integer> enemyDice) {
+
+    }
+
+    @Override
+    public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
+        player.setDiceValuesUsable(playerDices);
+        player.setDiceValuesNotUsable(enemyDices);
+    }
+
 }
 

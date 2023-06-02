@@ -3,6 +3,7 @@ package com.example.se2_group4_project.backend.server;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
 import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
@@ -20,13 +21,13 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
     final private Socket client;
     final private Handler mainThread;
-    final private ServerUICallbacks callbacks;
+    final private ServerCallbacks callbacks;
     private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
     private WGDatabase wgDatabase;
     private int playerNumber;
 
-    ServerClientResponse(Socket client, Handler mainThread, ServerUICallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
+    ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
         this.client = client;
         this.mainThread = mainThread;
         this.callbacks = callbacks;
@@ -102,6 +103,15 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void enemyDice(String enemyDice) {
+        mainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                callbacks.messageCheat(enemyDice);
+            }
+        });
     }
 
     @Override

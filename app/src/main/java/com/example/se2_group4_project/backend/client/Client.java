@@ -1,10 +1,12 @@
 package com.example.se2_group4_project.backend.client;
 
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
+import com.example.se2_group4_project.callbacks.PlayerCallbacks;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,9 +14,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class Client extends Thread {
+public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
 
 
     Socket client;
@@ -25,14 +28,23 @@ public class Client extends Thread {
     String messageInput;
     ClientCallbacks callbacks;
     ObjectMapper mapper;
-    Handler handler;
+    Handler handlerUIGameboard;
+    Handler clientHandler;
+    HandlerThread clientHandlerThread;
     int playerNumber;
 
-    public Client(String ipAdresse, int port, ClientCallbacks callbacks, Handler handler){
+    public Handler getClientHandler() {
+        return clientHandler;
+    }
+
+    public Client(String ipAdresse, int port, ClientCallbacks callbacks, Handler handlerUIGameboard){
         this.ipAdresse =  ipAdresse;
         this.port = port;
         this.callbacks = callbacks;
-        this.handler = handler;
+        this.handlerUIGameboard = handlerUIGameboard;
+        this.clientHandlerThread = new HandlerThread("client-handler");
+        this.clientHandlerThread.start();
+        this.clientHandler = new Handler(this.clientHandler.getLooper());
     }
     @Override
     public void run() {
@@ -48,9 +60,9 @@ public class Client extends Thread {
 
                 messageInput = clientInput.readUTF();
 
-                if(Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
-                    handler.post(() -> callbacks.createPlayer(Integer.parseInt(messageInput)));
-                    serverMessage.writeUTF(messageInput);
+                if (Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
+                    handlerUIGameboard.post(() -> callbacks.createPlayer(Integer.parseInt(messageInput)));
+                    messageSend(messageInput);
                     playerNumber = Integer.parseInt(messageInput);
                     Log.d("player number client", playerNumber +"");
                     messageInput = null;
@@ -60,6 +72,10 @@ public class Client extends Thread {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void messageSend(String messageInput) throws IOException {
+        serverMessage.writeUTF(messageInput);
     }
 
     private Player jsonToObject(String object){
@@ -83,4 +99,20 @@ public class Client extends Thread {
     public int getPlayerNumber() {
         return playerNumber;
     }
+
+    @Override
+    public void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException {
+        messageSend(objectToJson(enemyDice));
+    }
+
+    @Override
+    public void createPlayer(int playerNumber) {
+
+    }
+
+    @Override
+    public void diceToEnemy(ArrayList<Integer> enemyDice) throws IOException {
+        messageSend(objectToJson(enemyDice));
+    }
+
 }

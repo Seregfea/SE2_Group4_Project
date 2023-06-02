@@ -1,5 +1,9 @@
 package com.example.se2_group4_project.player;
 
+import android.os.Handler;
+
+import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
+import com.example.se2_group4_project.callbacks.PlayerCallbacks;
 import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.Geschirr;
@@ -13,9 +17,11 @@ import com.example.se2_group4_project.cards.WitzigToDos;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlayerController {
+public class PlayerController implements PlayerCallbacks {
     private final int playerID;
     private final ArrayList<Card> playerInitialCards;
+    private ClientCallbacks clientCallbacks;
+    private Handler clientHandler;
     private int diceCount = 4;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
@@ -23,9 +29,11 @@ public class PlayerController {
     private ArrayList<Item> itemCards;
 
 
-    public PlayerController(int playerID, ArrayList<Card> playerInitialCards) {
+    public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
         this.playerID = playerID;
         this.playerInitialCards = playerInitialCards;
+        this.clientCallbacks = clientCallbacks;
+        this.clientHandler = clientHandler;
     }
 
     // 2 Functions
@@ -112,4 +120,19 @@ public class PlayerController {
     public void setDiceValuesNotUsable(ArrayList<Integer> diceValuesNotUsable) {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
+
+    public void diceToServer() {
+        clientHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                clientCallbacks.diceToEnemy(getDiceValuesNotUsable());
+            }
+        });
+    }
+
+    @Override
+    public void clientToPlayer(ArrayList<Integer> enemyDice) {
+
+    }
+
 }
