@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Dice {
-    public static List<Integer> rollDice(int numberOfDice) {
+    public static ArrayList<Integer> rollDice(int numberOfDice) {
         Random random = new Random();
-        List<Integer> results = new ArrayList<>();
+        ArrayList<Integer> results = new ArrayList<>();
 
         for (int i = 0; i < numberOfDice; i++) {
             int result = random.nextInt(6) + 1;
