@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
-import com.example.se2_group4_project.SoundManager;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 
 public class SelectRoomActivity extends AppCompatActivity {
 

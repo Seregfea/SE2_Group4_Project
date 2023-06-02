@@ -1,4 +1,4 @@
-package com.example.se2_group4_project;
+package com.example.se2_group4_project.gameboard_adjustments;
 
 import android.content.Context;
 import android.media.MediaPlayer;

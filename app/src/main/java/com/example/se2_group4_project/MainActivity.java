@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.se2_group4_project.databinding.ActivityMainBinding;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.screens.FindGameActivity;
 import com.example.se2_group4_project.screens.OptionsActivity;
 import com.example.se2_group4_project.screens.SelectRoomActivity;
