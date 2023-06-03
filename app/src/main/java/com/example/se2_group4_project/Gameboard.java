@@ -148,17 +148,6 @@ public class Gameboard extends AppCompatActivity implements ServerCallbacks {
             }
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
-
-            //gehört noch die isAvailable klasse? wie am Besten machen?
-               if (card.getCardType() == CardType.BATHTUB || card.getCardType() == CardType.ME
-                       || card.getCardType() == CardType.COUCH || card.getCardType() == CardType.TABLEWARE) {
-                   iView.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           flipCard(card);
-                       }
-                   });
-               }
             linearLayout.addView(iView);
         }
     }

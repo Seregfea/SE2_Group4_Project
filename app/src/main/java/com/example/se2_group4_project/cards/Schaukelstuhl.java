@@ -9,16 +9,14 @@ public class Schaukelstuhl {
     PointDisplay pointDisplay = new PointDisplay();
     private int points = pointDisplay.getPoints();
 
+    //punkte auch von anderen Spielern von Heinz
+
     public void checkSpecialCards(){
        //Liste vom aktuellen Player
 
         if(points >= 16){
-           enableSchaukelstuhl();
-       }
-    }
 
-    public void enableSchaukelstuhl(){
-       //playerList.add zu jetztigem Spieler
+       }
     }
 
 }
