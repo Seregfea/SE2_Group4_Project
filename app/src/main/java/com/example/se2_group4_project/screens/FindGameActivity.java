@@ -15,9 +15,12 @@ import com.example.se2_group4_project.Gameboard;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.SoundManager;
+import com.example.se2_group4_project.databinding.ActivityFindGameBinding;
+import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
 
 public class FindGameActivity extends AppCompatActivity {
 
+    ActivityFindGameBinding activityFindGameBinding;
     @Override
     public void onResume() {
         super.onResume();
@@ -38,26 +41,23 @@ public class FindGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_game);
-
-        Button btnBack = findViewById(R.id.button_back);
-        Button btnFindGame = findViewById(R.id.button_game);
-        EditText ip = findViewById(R.id.editTextTextPersonName);
-
-        btnFindGame.setOnClickListener(new View.OnClickListener() {
+        activityFindGameBinding =  ActivityFindGameBinding.inflate(getLayoutInflater());
+        View view = activityFindGameBinding.getRoot();
+        setContentView(view);
+        activityFindGameBinding.buttonGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ip.getText().toString().equals("")) {
+                if (activityFindGameBinding.editTextTextPersonName.getText().toString().equals("")) {
                     Toast.makeText(FindGameActivity.this, "Please enter IP-adress", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getApplicationContext(), Gameboard.class);
-                    intent.putExtra("ip", ip.getText().toString());
+                    intent.putExtra("ip", activityFindGameBinding.editTextTextPersonName.getText().toString());
                     startActivity(intent);
                 }
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        activityFindGameBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

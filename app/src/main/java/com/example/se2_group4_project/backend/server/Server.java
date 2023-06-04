@@ -54,7 +54,9 @@ public class Server extends Thread implements ServerCallbacks {
                 Socket client = server.accept();
                 clients.put(count,client);
                 Log.d("client respond", " client respond : " + client.getRemoteSocketAddress());
-                ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this.callbacks, wgDatabase, count);
+
+                ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this, wgDatabase, count);
+
                 socketListener.start();
                 count++;
             }

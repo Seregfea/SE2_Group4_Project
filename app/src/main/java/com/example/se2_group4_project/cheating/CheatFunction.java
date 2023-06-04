@@ -1,5 +1,6 @@
 package com.example.se2_group4_project.cheating;
 
+
 // Sensor specific imports
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.widget.PopupWindow;
 import android.content.Context;
 
+
 public class CheatFunction extends PopupWindow implements SensorEventListener {
     private final Context cheatContext;
     private float currentX, currentY, currentZ, lastX, lastY, lastZ;
@@ -20,6 +22,7 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     private Sensor accelerometerSensor;
     private SensorManager sensorManager;
     private boolean isSensorAvailable;
+
 
     /////////////////////////////////// Constructor and check availability ///////////////////////////////////
 
@@ -42,7 +45,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         }
     }
 
+
     /////////////////////////////////// Register/Unregister Sensor ///////////////////////////////////
+
     public void registerSensor(){
         if (isSensorAvailable){
             sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -55,7 +60,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         }
     }
 
+
     /////////////////////////////////// Check Sensor changes  ///////////////////////////////////
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Log.d("Sensor", "x-Sensor: "+sensorEvent.values[0]+"m/s2");
@@ -66,10 +73,10 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         currentY = sensorEvent.values[1];
         currentZ = sensorEvent.values[2];
 
+
         // If it is not the first time the phone got shook
         // Sensor compares old x,y and z values with new ones
         // If difference is greater than thresh hold, message gets send and sensor unregistered
-
         if(notFirstTime)
         {
             xDifference = Math.abs(lastX - currentX);

@@ -128,10 +128,6 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
         new Thread(this.server).start();
         activityServerBinding.ServerportNumber.setText(Integer.toString(serverIP));
         Log.d("serverstart2", "server startet");
-
-        Client client = new Client("localhost", 1234, this);
-        Log.d("client start", "client startet");
-        new Thread(client).start();
     }
 
     ///////////////////////////////// callbacks ////////////////////////
@@ -144,8 +140,13 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     @Override
     public void onMessageRecieve(String recieve) {
-       Log.d("Server got message", recieve);
-       //activityServerBinding.Servermessage.setText(recieve);
+        Log.d("Server got message", recieve);
+        //activityServerBinding.Servermessage.setText(recieve);
+    }
+
+    @Override
+    public void messageToAll(String message) {
+
     }
 
     @Override
@@ -184,10 +185,10 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     @Override
     public void getPlayer(){
-       List <Player> player = wgDatabase.getPlayer().getAllPlayers();
-       Player player1 = player.get(0);
-       String message = player1.getName();
-       activityServerBinding.Servermessage.setText(message);
+        List <Player> player = wgDatabase.getPlayer().getAllPlayers();
+        Player player1 = player.get(0);
+        String message = player1.getName();
+        activityServerBinding.Servermessage.setText(message);
 
     }
 

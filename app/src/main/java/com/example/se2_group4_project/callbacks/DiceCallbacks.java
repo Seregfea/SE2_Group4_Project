@@ -1,7 +1,10 @@
 package com.example.se2_group4_project.callbacks;
 
-import java.util.List;
+
+import java.util.ArrayList;
 
 public interface DiceCallbacks {
-    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice);
+    void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice);
+    void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices);
+
 }

@@ -23,7 +23,7 @@ import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
+public class DicePopUpActivity extends PopupWindow {
 
     private Handler handler;
     private View dicePopUpView;
@@ -36,36 +36,41 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
     private int delayTime = 20;
     private int rollAnimation = 40;
 
-    private List<Integer> playerDice;
-    private List<Integer> enemyDice;
-    private List<Integer> selected;
-    private List<Integer> unselected = new ArrayList<>();
+    private ArrayList<Integer> playerDice;
+    private ArrayList<Integer> enemyDice;
+    private ArrayList<Integer> selected;
+    private ArrayList<Integer> unselected = new ArrayList<>();
+
     private DiceCallbacks diceCallbacks;
 
     public void setDiceCallbacks(DiceCallbacks callbacks) {
         this.diceCallbacks = callbacks;
     }
 
-    public List<Integer> getPlayerDice() {
+    public ArrayList<Integer> getPlayerDice() {
         return playerDice;
     }
 
-    public void setPlayerDice(List<Integer> playerDice) {
+    public void setPlayerDice(ArrayList<Integer> playerDice) {
         this.playerDice = playerDice;
     }
 
-    public List<Integer> getEnemyDice() {
+    public ArrayList<Integer> getEnemyDice() {
         return enemyDice;
     }
 
-    public void setEnemyDice(List<Integer> enemyDice) {
+    public void setEnemyDice(ArrayList<Integer> enemyDice) {
+
         this.enemyDice = enemyDice;
     }
 
     @SuppressLint("InflateParams")
-    public DicePopUpActivity(Context context) {
+    public DicePopUpActivity(Context context, DiceCallbacks diceCallbacks, Handler handler) {
         super(context);
         dicePopUpView = LayoutInflater.from(context).inflate(R.layout.activity_dice, null);
+
+        this.diceCallbacks = diceCallbacks;
+        this.handler = handler;
 
         setContentView(dicePopUpView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -74,7 +79,8 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        handler = new Handler(context.getMainLooper());
+
+        // handler = new Handler(context.getMainLooper());
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
         diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
@@ -139,7 +145,8 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
 
         Thread thread = new Thread() {
             public void run() {
-                List<Integer> diceValues = new ArrayList<>();
+
+                ArrayList<Integer> diceValues = new ArrayList<>();
 
                 for (int j = 0; j < rollAnimation; j++) {
                     diceValues = Dice.rollDice(numberOfDice);
@@ -246,8 +253,19 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
         }
     }
 
-    @Override
-    public void diceResults(List<Integer> playerDice, List<Integer> enemyDice) {
+
+    private void finishDiceRolling() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                diceCallbacks.diceValues(playerDice, enemyDice);
+            }
+        });
+    }
+
+
+    public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
+
         this.playerDice = playerDice;
         this.enemyDice = enemyDice;
 
@@ -255,6 +273,8 @@ public class DicePopUpActivity extends PopupWindow implements DiceCallbacks {
             diceCallbacks.diceResults(playerDice, enemyDice);
         }
     }
+
+
 
     public void testDice() {
         Log.d("dice callback - playerDice", this.playerDice.toString());

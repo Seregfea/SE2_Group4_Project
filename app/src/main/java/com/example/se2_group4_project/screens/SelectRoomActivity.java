@@ -12,9 +12,11 @@ import android.widget.Button;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.SoundManager;
+import com.example.se2_group4_project.databinding.ActivityPlayGameBinding;
+import com.example.se2_group4_project.databinding.ActivitySelectRoomBinding;
 
 public class SelectRoomActivity extends AppCompatActivity {
-
+    ActivitySelectRoomBinding activitySelectRoomBinding;
     @Override
     public void onResume() {
         super.onResume();
@@ -35,11 +37,11 @@ public class SelectRoomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_room);
+        activitySelectRoomBinding = ActivitySelectRoomBinding.inflate(getLayoutInflater());
+        View view = activitySelectRoomBinding.getRoot();
+        setContentView(view);
 
-        Button btnBack = findViewById(R.id.button_back);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        activitySelectRoomBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
