@@ -8,3 +8,4 @@ public interface ServerUICallbacks {
     void onMessageRecieve(String recieve);
     void messageToAll(String message);
 }
+

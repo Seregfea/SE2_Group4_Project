@@ -1,11 +1,13 @@
 package com.example.se2_group4_project.player;
 
+
 import android.os.Handler;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.callbacks.PlayerCallbacks;
 import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.cards.Card;
+
 import com.example.se2_group4_project.cards.Geschirr;
 import com.example.se2_group4_project.cards.Item;
 import com.example.se2_group4_project.cards.RoommateDifficult;
@@ -13,6 +15,7 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +37,7 @@ public class PlayerController implements PlayerCallbacks {
         this.playerInitialCards = playerInitialCards;
         this.clientCallbacks = clientCallbacks;
         this.clientHandler = clientHandler;
+
     }
 
     // 2 Functions
@@ -72,6 +76,7 @@ public class PlayerController implements PlayerCallbacks {
 
         }
     }
+
     public void cardsRemove() {
 
     }
@@ -134,5 +139,4 @@ public class PlayerController implements PlayerCallbacks {
     public void clientToPlayer(ArrayList<Integer> enemyDice) {
 
     }
-
 }

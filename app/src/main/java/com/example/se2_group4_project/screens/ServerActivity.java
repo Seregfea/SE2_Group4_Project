@@ -149,6 +149,11 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     }
 
+    @Override
+    public void messageToAll(String message) {
+
+    }
+
     /////////////////////////////////////////////// DB ///////////////////////////////////
 
     private void createDB(){

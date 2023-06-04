@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
@@ -28,7 +29,9 @@ import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
+
 import com.example.se2_group4_project.player.PlayerController;
+
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks, DiceCallbacks {
 
@@ -208,6 +212,43 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         }
     }
 
+
+    public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
+        for (int i = 0; i < cards.size(); i++){
+            Card card = cards.get(i);
+            LinearLayout linearLayout = findViewById(linearLayoutId);
+            ImageView iView = new ImageView(linearLayout.getContext());
+
+            String currentCardFront = card.getCurrentCardFront();
+
+            final int imageRessourceID =
+                    this.getResources()
+                            .getIdentifier(
+                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
+
+            iView.setImageResource(imageRessourceID);
+            linearLayout.addView(iView);
+            displayedCards.add(iView);
+            card.setImageViewID(iView.getId());
+
+            iView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    linearLayout.removeView(iView);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.weight = 5;
+                    iView.setLayoutParams(params);
+
+                    userCardsLayout.addView(iView);
+                }
+            });
+        }
+    }
+
+
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
@@ -268,6 +309,20 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
             });
         }
     }
+
+    // TODO: Implement onClickListener on cards to flip them
+    public void flipCurrentCardListener(){
+        // If card is available --> then we can flip
+        for (ImageView card : displayedCards){
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // flipCard(card);
+                }
+            });
+        }
+    }
+
 
     public void flipCard(Card cardFlip){
         String currentBackImage = cardFlip.getCurrentCardBack();
@@ -469,6 +524,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         player.setDiceValuesUsable(playerDices);
         player.setDiceValuesNotUsable(enemyDices);
     }
+
 
 }
 

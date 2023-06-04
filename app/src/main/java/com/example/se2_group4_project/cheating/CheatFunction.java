@@ -1,23 +1,17 @@
 package com.example.se2_group4_project.cheating;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
+// Sensor specific imports
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.text.Layout;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
 
-import com.example.se2_group4_project.Gameboard;
-import com.example.se2_group4_project.R;
+// Game specific imports
+import android.util.Log;
+import android.widget.PopupWindow;
+import android.content.Context;
+
 
 public class CheatFunction extends PopupWindow implements SensorEventListener {
     private final Context cheatContext;
@@ -28,7 +22,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     private Sensor accelerometerSensor;
     private SensorManager sensorManager;
     private boolean isSensorAvailable;
-    private View cheatPopUpView;
+
+
+    /////////////////////////////////// Constructor and check availability ///////////////////////////////////
 
     public CheatFunction(Context context){
         this.cheatContext = context;
@@ -49,6 +45,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         }
     }
 
+
+    /////////////////////////////////// Register/Unregister Sensor ///////////////////////////////////
+
     public void registerSensor(){
         if (isSensorAvailable){
             sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -61,6 +60,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         }
     }
 
+
+    /////////////////////////////////// Check Sensor changes  ///////////////////////////////////
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Log.d("Sensor", "x-Sensor: "+sensorEvent.values[0]+"m/s2");
@@ -71,6 +73,10 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         currentY = sensorEvent.values[1];
         currentZ = sensorEvent.values[2];
 
+
+        // If it is not the first time the phone got shook
+        // Sensor compares old x,y and z values with new ones
+        // If difference is greater than thresh hold, message gets send and sensor unregistered
         if(notFirstTime)
         {
             xDifference = Math.abs(lastX - currentX);
@@ -100,6 +106,8 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
+    /////////////////////////////////// Getter/Setter ///////////////////////////////////
 
     public Context getCheatContext() {
         return cheatContext;

@@ -6,3 +6,4 @@ public interface DatabaseCallbacks {
     public void addPLayer(Player player);
     public void getPlayer();
 }
+

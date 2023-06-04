@@ -40,6 +40,7 @@ public class DicePopUpActivity extends PopupWindow {
     private ArrayList<Integer> enemyDice;
     private ArrayList<Integer> selected;
     private ArrayList<Integer> unselected = new ArrayList<>();
+
     private DiceCallbacks diceCallbacks;
 
     public void setDiceCallbacks(DiceCallbacks callbacks) {
@@ -59,6 +60,7 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     public void setEnemyDice(ArrayList<Integer> enemyDice) {
+
         this.enemyDice = enemyDice;
     }
 
@@ -76,6 +78,7 @@ public class DicePopUpActivity extends PopupWindow {
         setFocusable(true);
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
 
         // handler = new Handler(context.getMainLooper());
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
@@ -142,6 +145,7 @@ public class DicePopUpActivity extends PopupWindow {
 
         Thread thread = new Thread() {
             public void run() {
+
                 ArrayList<Integer> diceValues = new ArrayList<>();
 
                 for (int j = 0; j < rollAnimation; j++) {
@@ -249,6 +253,7 @@ public class DicePopUpActivity extends PopupWindow {
         }
     }
 
+
     private void finishDiceRolling() {
         handler.post(new Runnable() {
             @Override
@@ -260,6 +265,7 @@ public class DicePopUpActivity extends PopupWindow {
 
 
     public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
+
         this.playerDice = playerDice;
         this.enemyDice = enemyDice;
 
@@ -267,6 +273,7 @@ public class DicePopUpActivity extends PopupWindow {
             diceCallbacks.diceResults(playerDice, enemyDice);
         }
     }
+
 
 
     public void testDice() {

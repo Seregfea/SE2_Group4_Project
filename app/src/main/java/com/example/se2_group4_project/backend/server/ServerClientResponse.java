@@ -3,7 +3,9 @@ package com.example.se2_group4_project.backend.server;
 import android.os.Handler;
 import android.util.Log;
 
+
 import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+
 import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
@@ -21,13 +23,17 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
     final private Socket client;
     final private Handler mainThread;
+
     final private ServerCallbacks callbacks;
+
     private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
     private WGDatabase wgDatabase;
     private int playerNumber;
 
+
     ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
+
         this.client = client;
         this.mainThread = mainThread;
         this.callbacks = callbacks;
@@ -47,7 +53,9 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());
             messageHandler = new Handler(mainThread.getLooper());
+
             serverMessage.writeUTF(Integer.toString(playerNumber));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -105,6 +113,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
         }
     }
 
+
     private void enemyDice(String enemyDice) {
         mainThread.post(new Runnable() {
             @Override
@@ -113,6 +122,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
             }
         });
     }
+
 
     @Override
     public void addPLayer(Player player) {

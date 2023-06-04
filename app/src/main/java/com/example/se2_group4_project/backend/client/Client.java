@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.callbacks.PlayerCallbacks;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,10 +15,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
+
 
 
     Socket client;
@@ -26,6 +29,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     DataOutputStream serverMessage;
     DataInputStream clientInput;
     String messageInput;
+
     ClientCallbacks callbacks;
     ObjectMapper mapper;
     Handler handlerUIGameboard;
@@ -45,6 +49,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
         this.clientHandlerThread = new HandlerThread("client-handler");
         this.clientHandlerThread.start();
         this.clientHandler = new Handler(this.clientHandler.getLooper());
+
     }
     @Override
     public void run() {
@@ -60,6 +65,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
 
                 messageInput = clientInput.readUTF();
 
+
                 if (Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
                     handlerUIGameboard.post(() -> callbacks.createPlayer(Integer.parseInt(messageInput)));
                     messageSend(messageInput);
@@ -74,9 +80,11 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
         }
     }
 
+
     public void messageSend(String messageInput) throws IOException {
         serverMessage.writeUTF(messageInput);
     }
+
 
     private Player jsonToObject(String object){
 
@@ -96,6 +104,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
             throw new RuntimeException(e);
         }
     }
+
     public int getPlayerNumber() {
         return playerNumber;
     }
@@ -114,5 +123,6 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     public void diceToEnemy(ArrayList<Integer> enemyDice) throws IOException {
         messageSend(objectToJson(enemyDice));
     }
+
 
 }
