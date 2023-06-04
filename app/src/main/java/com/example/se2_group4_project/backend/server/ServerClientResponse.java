@@ -114,7 +114,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
     }
 
 
-    private void enemyDice(String enemyDice) {
+    private void messageToAll(String enemyDice) {
         mainThread.post(new Runnable() {
             @Override
             public void run() {

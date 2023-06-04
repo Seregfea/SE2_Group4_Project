@@ -8,6 +8,7 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.callbacks.PlayerCallbacks;
 
+import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -73,6 +74,10 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
                     Log.d("player number client", playerNumber +"");
                     messageInput = null;
                 }
+                int [] messageArray = messageDecode(messageInput);
+                assert messageArray != null;
+                chooseIdentifierFunction(messageArray[0]);
+
 
             }
         } catch (IOException e) {
@@ -83,6 +88,38 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
 
     public void messageSend(String messageInput) throws IOException {
         serverMessage.writeUTF(messageInput);
+    }
+
+    private String messageCode(String messageInput){
+        return null;
+    }
+
+    private int [] messageDecode(String messageInput){
+        return null;
+    }
+
+    private void chooseIdentifierFunction(int identifier){
+        switch (identifier){
+            case 0:
+                handlerUIGameboard.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            callbacks.cheatFunction(messageInput);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+                break;
+            case 1:
+                // TODO
+                // some dice functions
+
+            default:
+                Log.d("ChooseFunction", "Choose Function failed!");
+                break;
+        }
     }
 
 
@@ -109,6 +146,10 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
         return playerNumber;
     }
 
+    public ClientCallbacks getClientCallbacks(){
+        return this;
+    }
+
     @Override
     public void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException {
         messageSend(objectToJson(enemyDice));
@@ -120,8 +161,24 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     }
 
     @Override
-    public void diceToEnemy(ArrayList<Integer> enemyDice) throws IOException {
-        messageSend(objectToJson(enemyDice));
+    public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
+        messageSend(messageCode(objectToJson(enemyDice)));
+        messageSend(messageCode(cheatIdentifier));
+    }
+
+    @Override
+    public void cheatFunction(String cheatStart) throws IOException {
+        messageSend(messageCode(cheatStart));
+    }
+
+    @Override
+    public void cheatPopUpActivity() {
+        clientHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                callbacks.cheatPopUpActivity();
+            }
+        });
     }
 
 
