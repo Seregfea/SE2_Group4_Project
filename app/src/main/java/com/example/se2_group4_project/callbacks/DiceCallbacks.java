@@ -1,6 +1,8 @@
 package com.example.se2_group4_project.callbacks;
 
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public interface DiceCallbacks {

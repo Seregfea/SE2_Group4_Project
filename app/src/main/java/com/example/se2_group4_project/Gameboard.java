@@ -23,6 +23,8 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.callbacks.DiceCallbacks;
+import com.example.se2_group4_project.cheating.CheatFunction;
+import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
 import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
@@ -35,6 +37,7 @@ import com.example.se2_group4_project.player.PlayerController;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,7 @@ import java.util.Map;
 public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks, DiceCallbacks {
 
     private Handler clientHandler;
+    private ClientCallbacks clientCallbacks;
     private PlayerController player;
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
@@ -58,6 +62,8 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
+    private View view;
+
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;
@@ -68,7 +74,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         super.onCreate(savedInstanceState);
         activityDiceBinding = ActivityDiceBinding.inflate(getLayoutInflater());
         activityGameboardBinding =  ActivityGameboardBinding.inflate(getLayoutInflater());
-        View view = activityGameboardBinding.getRoot();
+        view = activityGameboardBinding.getRoot();
         setContentView(view);
 
         handlerThread = new HandlerThread("boardHndler");
@@ -469,6 +475,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         String ip = extra.getString("ip");
         Client client = new Client(ip, 1234, this, new Handler(handlerThread.getLooper()));
         this.clientHandler = client.getClientHandler();
+        this.clientCallbacks = client.getClientCallbacks();
         client.start();
         Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
         Log.d("player number gameboard", String.valueOf(client.getPlayerNumber()));
@@ -515,6 +522,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     }
 
     @Override
+    public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
+
+    }
+
+    @Override
     public void diceToEnemy(ArrayList<Integer> enemyDice) {
 
     }
@@ -525,6 +537,16 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         player.setDiceValuesNotUsable(enemyDices);
     }
 
+    @Override
+    public void cheatFunction(String cheatStart) {
+        CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
+        cheatFunction.registerSensor();
+    }
 
+    @Override
+    public void cheatPopUpActivity() {
+        CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
+        cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+    }
 }
 

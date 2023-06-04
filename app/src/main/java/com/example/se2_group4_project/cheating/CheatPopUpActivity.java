@@ -25,7 +25,7 @@ public class CheatPopUpActivity extends PopupWindow {
         setFocusable(true);
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
     }
+
+
 }

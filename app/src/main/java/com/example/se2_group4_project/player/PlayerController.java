@@ -17,6 +17,7 @@ import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -130,7 +131,11 @@ public class PlayerController implements PlayerCallbacks {
         clientHandler.post(new Runnable() {
             @Override
             public void run() {
-                clientCallbacks.diceToEnemy(getDiceValuesNotUsable());
+                try {
+                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "0");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

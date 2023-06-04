@@ -8,9 +8,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 // Game specific imports
+import android.os.Handler;
 import android.util.Log;
 import android.widget.PopupWindow;
 import android.content.Context;
+
+import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
+
+import java.io.IOException;
 
 
 public class CheatFunction extends PopupWindow implements SensorEventListener {
@@ -22,12 +27,16 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     private Sensor accelerometerSensor;
     private SensorManager sensorManager;
     private boolean isSensorAvailable;
+    private ClientCallbacks clientCallbacks;
+    private Handler clientHandler;
 
 
     /////////////////////////////////// Constructor and check availability ///////////////////////////////////
 
-    public CheatFunction(Context context){
+    public CheatFunction(Context context, Handler clientHandler, ClientCallbacks clientCallbacks){
         this.cheatContext = context;
+        this.clientHandler = clientHandler;
+        this.clientCallbacks = clientCallbacks;
         cheatShake();
     }
 
@@ -88,6 +97,16 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
                     (yDifference > shakeThreshhold && zDifference > shakeThreshhold))
             {
                 Log.d("Sensor", "You shook the phone");
+                clientHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            clientCallbacks.cheatFunction("1");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
                 unRegisterSensor();
             }
         }
