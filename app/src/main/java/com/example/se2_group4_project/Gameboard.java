@@ -3,13 +3,13 @@ package com.example.se2_group4_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +32,7 @@ import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 
 import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
+import com.example.se2_group4_project.player.PlayerUserCards;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
@@ -66,6 +67,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
     private DicePopUpActivity dicePopUpActivity;
     private LinearLayout availableDiceLayout;
     private Button btnRollDice;
+    private Button playerYou;
 
     // hardcoded
     // später: methode aus player-klasse
@@ -77,6 +79,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
 
     private LinearLayout itemCardsLayout;
     private LinearLayout userCardsLayout;
+    private LinearLayout playerYouLayout;
     private LinearLayout roommateEasyLayout;
     private LinearLayout roommateDifficultLayout;
     private LinearLayout witzigLayout;
@@ -108,9 +111,11 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
         savedPlayerDices = findViewById(R.id.savedDicesContainer);
         pointView = findViewById(R.id.points);
 
+        playerYou = findViewById(R.id.playerYou);
+
         cardsStacks = findViewById(R.id.cardStacks);
         itemCardsLayout = findViewById(R.id.ItemCardsLayout);
-        userCardsLayout = findViewById(R.id.UserCardsLayout);
+        // userCardsLayout = findViewById(R.id.UserCardsLayout);
         roommateEasyLayout = findViewById(R.id.roommateEasyLayout);
         roommateDifficultLayout = findViewById(R.id.roommateDifficultLayout);
         witzigLayout = findViewById(R.id.witzigLayout);
@@ -169,7 +174,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
         addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
         addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
         addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
-        addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
+        // addCardsToLinearLayout(R.id.UserCardsLayout, c.getPlayerTealStack());
 
         addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
@@ -180,6 +185,12 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
 
+        playerYou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Gameboard.this, PlayerUserCards.class));
+            }
+        });
     }
 
     public void addCardsToPlayer(){
@@ -265,12 +276,14 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
             if (linearLayoutId == R.id.ItemCardsLayout){
                 iView.setLayoutParams(params);
             }
+//
+//            if (linearLayoutId == R.id.UserCardsLayout) {
+//                iView.setRotation(0);
+//                iView.setLayoutParams(params);
+//
+//            } else
+                if (linearLayoutId == R.id.CardsLayoutLeft) {
 
-            if (linearLayoutId == R.id.UserCardsLayout) {
-                iView.setRotation(0);
-                iView.setLayoutParams(params);
-
-            } else if (linearLayoutId == R.id.CardsLayoutLeft) {
                 iView.setRotation(90);
                 iView.setLayoutParams(params);
 

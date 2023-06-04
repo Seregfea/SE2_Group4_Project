@@ -50,6 +50,10 @@
             android:name=".FlipCardsTest"
             android:exported="true"
             android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".player.PlayerUserCards"
+            android:theme="@style/PlayerYouTheme">
+        </activity>
     </application>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
