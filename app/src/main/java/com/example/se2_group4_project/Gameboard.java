@@ -240,7 +240,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
         }
     }
 
-
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
@@ -286,7 +285,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
-
         }
     }
 
@@ -334,7 +332,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
             throw new RuntimeException(e);
         }
     }
-
 
     public void startPointView(PointDisplay pointDisplay){
         pointView.setText(String.valueOf("Points: "+pointDisplay.startPoints()));

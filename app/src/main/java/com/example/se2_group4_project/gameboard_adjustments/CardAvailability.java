@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class CardAvailability {
 
-    ArrayList<ImageView> allCardsOnGameboard;
+    ArrayList<Card> allCardsOnGameboard;
 
-    public CardAvailability(ArrayList<ImageView> allCardsOnGameboard) {
+    public CardAvailability(ArrayList<Card> allCardsOnGameboard) {
         this.allCardsOnGameboard = allCardsOnGameboard;
     }
 
