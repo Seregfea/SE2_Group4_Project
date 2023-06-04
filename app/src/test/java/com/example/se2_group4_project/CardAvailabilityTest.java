@@ -1,12 +1,31 @@
 package com.example.se2_group4_project;
 
+import com.example.se2_group4_project.cards.Card;
+import com.example.se2_group4_project.cards.Item;
+import com.example.se2_group4_project.cards.RoommateDifficult;
+import com.example.se2_group4_project.cards.RoommateEasy;
+import com.example.se2_group4_project.cards.Troublemaker;
+import com.example.se2_group4_project.cards.WitzigToDos;
+import com.example.se2_group4_project.cards.WitzigWitzigToDos;
+import com.example.se2_group4_project.gameboard_adjustments.CardAvailability;
+
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 public class CardAvailabilityTest {
 
 
     @Test
     public void testCheckAvailability() {
+
+        CardAvailability cardAvailability;
+        ArrayList<Card> allCards;
+        Item itemCard;
+        RoommateEasy roommateEasyCard;
+        RoommateDifficult roommateDifficultCard;
+        WitzigToDos witzigToDosCard;
+        WitzigWitzigToDos witzigWitzigToDosCard;
 
         /*
 
@@ -19,13 +38,6 @@ public class CardAvailabilityTest {
         WitzigToDos mockWitzigToDos = Mockito.mock(WitzigToDos.class);
         WitzigWitzigToDos mockWitzigWitzigToDos = Mockito.mock(WitzigWitzigToDos.class);
 
-        // Mock the isAvailable method for each card
-        when(mockItem.isAvailable(any())).thenReturn(true);
-        when(mockRoommateDifficult.isAvailable(any())).thenReturn(true);
-        when(mockRoommateEasy.isAvailable(any())).thenReturn(true);
-        when(mockTroublemaker.isAvailable(any())).thenReturn(true);
-        when(mockWitzigToDos.isAvailable(any())).thenReturn(true);
-        when(mockWitzigWitzigToDos.isAvailable(any())).thenReturn(true);
 
         // Create a list with all mock cards
         ArrayList<Card> allCardsOnGameboard = new ArrayList<>(Arrays.asList(

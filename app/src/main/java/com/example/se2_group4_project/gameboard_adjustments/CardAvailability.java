@@ -14,6 +14,10 @@ import java.util.ArrayList;
 
 public class CardAvailability {
 
+    // ich brauche eine Liste aller aktuellen Karten am Gameboard
+    // die Liste der Karten soll durchlaufen werden und dann überprüft welche Karte es ist
+    // je nach Kartentyp wird dann die Kartenklasse mit der Methode isAvailable aufgerufen
+
     ArrayList<Card> allCardsOnGameboard;
 
     public CardAvailability(ArrayList<Card> allCardsOnGameboard) {
