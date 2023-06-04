@@ -17,6 +17,8 @@ public class CardAvailability {
     // ich brauche eine Liste aller aktuellen Karten am Gameboard
     // die Liste der Karten soll durchlaufen werden und dann überprüft welche Karte es ist
     // je nach Kartentyp wird dann die Kartenklasse mit der Methode isAvailable aufgerufen
+    // Gameboard in der addCardstoLinealayout: iView.setTag(card); - das weist dem Imageview die richtige Karte zu
+    // dann kann man die Karte und ihre Informationen erhalten mit: Card card = (Card) view.getTag();
 
     ArrayList<Card> allCardsOnGameboard;
 
