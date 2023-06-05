@@ -37,6 +37,7 @@ import com.example.se2_group4_project.player.PlayerController;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -414,7 +415,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("player number gameboard", "?");
         client.start();
         //Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-
     }
 
     private void setListeners(){
@@ -434,6 +434,18 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
 
+    public void endTurn(){
+        clientHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    clientCallbacks.endTurn(player.getPlayerUpdatedCards());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
     ///////////////////// callbacks //////////////////////////////////
     @Override
     public void createPlayer(int playerNumber) {

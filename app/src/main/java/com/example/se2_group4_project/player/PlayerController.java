@@ -14,6 +14,7 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
+import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
 
 import java.io.IOException;
@@ -28,8 +29,10 @@ public class PlayerController {
     private int diceCount = 4;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
-    private ArrayList<Arrays> cardTypes;
+
+    private ArrayList<Card> playerUpdatedCards;
     private ArrayList<Item> itemCards;
+
 
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
@@ -139,4 +142,11 @@ public class PlayerController {
         });
     }
 
+    public ArrayList<Card> getPlayerUpdatedCards() {
+        return playerUpdatedCards;
+    }
+
+    public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
+        this.playerUpdatedCards = playerUpdatedCards;
+    }
 }
