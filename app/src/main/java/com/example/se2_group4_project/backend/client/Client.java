@@ -6,9 +6,8 @@ import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
-import com.example.se2_group4_project.callbacks.PlayerCallbacks;
+import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 
-import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +19,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
+public class Client extends Thread implements ClientCallbacks {
 
 
 
@@ -31,44 +30,43 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     DataInputStream clientInput;
     String messageInput;
 
-    ClientCallbacks callbacks;
+    GameboardCallbacks gameboardCallbacks;
     ObjectMapper mapper;
     Handler handlerUIGameboard;
     Handler clientHandler;
     HandlerThread clientHandlerThread;
     int playerNumber;
 
-    public Handler getClientHandler() {
-        return clientHandler;
-    }
-
-    public Client(String ipAdresse, int port, ClientCallbacks callbacks, Handler handlerUIGameboard){
+    public Client(String ipAdresse, int port, GameboardCallbacks gameboardCallbacks, Handler handlerUIGameboard){
         this.ipAdresse =  ipAdresse;
         this.port = port;
-        this.callbacks = callbacks;
+        this.gameboardCallbacks = gameboardCallbacks;
         this.handlerUIGameboard = handlerUIGameboard;
-        this.clientHandlerThread = new HandlerThread("client-handler");
-        this.clientHandlerThread.start();
-        this.clientHandler = new Handler(this.clientHandler.getLooper());
-
     }
     @Override
     public void run() {
         mapper = new ObjectMapper();
+        this.clientHandlerThread = new HandlerThread("client-handler");
+        this.clientHandlerThread.start();
+
+        handlerUIGameboard.post(() -> {
+            gameboardCallbacks.getClientHändlerCallbacks(this, new Handler(this.clientHandlerThread.getLooper()));
+        });
 
         try {
-            Log.d("ip adresse", ipAdresse);
+            Log.d("ip adresse client new socket", ipAdresse);
             client = new Socket(ipAdresse,port);
+            Log.d("client connected", " "+client.isConnected());
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());
 
             while (client.isConnected()){
 
                 messageInput = clientInput.readUTF();
-
+                Log.d("input client", messageInput);
 
                 if (Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
-                    handlerUIGameboard.post(() -> callbacks.createPlayer(Integer.parseInt(messageInput)));
+                    handlerUIGameboard.post(() -> gameboardCallbacks.createPlayer(Integer.parseInt(messageInput)));
                     messageSend(messageInput);
                     playerNumber = Integer.parseInt(messageInput);
                     Log.d("player number client", playerNumber +"");
@@ -77,9 +75,9 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
                 int [] messageArray = messageDecode(messageInput);
                 assert messageArray != null;
                 chooseIdentifierFunction(messageArray[0]);
-
-
             }
+
+            clientHandlerThread.quit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -101,14 +99,11 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     private void chooseIdentifierFunction(int identifier){
         switch (identifier){
             case 0:
-                handlerUIGameboard.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            callbacks.cheatFunction(messageInput);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                handlerUIGameboard.post(() -> {
+                    try {
+                        gameboardCallbacks.cheatFunction(messageInput);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 });
                 break;
@@ -125,7 +120,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
 
     private Player jsonToObject(String object){
 
-        Player player = null;
+        Player player;
         try {
             player = mapper.readValue(object, Player.class);
         } catch (JsonProcessingException e) {
@@ -149,6 +144,8 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
     public ClientCallbacks getClientCallbacks(){
         return this;
     }
+
+    //////////////////////////////////// Callbacks ///////////////////////////////////
 
     @Override
     public void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException {
@@ -176,7 +173,7 @@ public class Client extends Thread implements PlayerCallbacks, ClientCallbacks {
         clientHandler.post(new Runnable() {
             @Override
             public void run() {
-                callbacks.cheatPopUpActivity();
+                gameboardCallbacks.cheatPopUpActivity();
             }
         });
     }

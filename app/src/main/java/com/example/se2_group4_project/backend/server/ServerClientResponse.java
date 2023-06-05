@@ -8,7 +8,6 @@ import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
 
 import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,12 +27,11 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
     private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
-    private WGDatabase wgDatabase;
-    private int playerNumber;
+    private final WGDatabase wgDatabase;
+    private final int playerNumber;
 
 
     ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
-
         this.client = client;
         this.mainThread = mainThread;
         this.callbacks = callbacks;
@@ -55,6 +53,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
             messageHandler = new Handler(mainThread.getLooper());
 
             serverMessage.writeUTF(Integer.toString(playerNumber));
+            Log.d("playerNumber sended", Integer.toString(playerNumber));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -76,7 +75,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
                     runCRUD(player);
 
                     String finalMessageInput = player.getName();
-                    messageHandler.post(() -> callbacks.onMessageRecieve(finalMessageInput));
                     String finalMessageOutput = "we recieved!!!";
                     serverMessage.writeUTF(finalMessageOutput);
                     count++;
@@ -96,7 +94,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
     private Player jsonToObject(String object){
 
-        Player player = null;
+        Player player;
         try {
             player = mapper.readValue(object, Player.class);
         } catch (JsonProcessingException e) {
@@ -115,12 +113,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
 
 
     private void messageToAll(String enemyDice) {
-        mainThread.post(new Runnable() {
-            @Override
-            public void run() {
-                callbacks.messageCheat(enemyDice);
-            }
-        });
+        mainThread.post(() -> callbacks.messageCheat(enemyDice));
     }
 
 

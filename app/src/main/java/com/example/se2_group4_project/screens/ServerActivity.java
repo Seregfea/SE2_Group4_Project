@@ -1,5 +1,6 @@
 package com.example.se2_group4_project.screens;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -8,7 +9,6 @@ import android.view.View;
 
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
-import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.databinding.ActivityServerBinding;
@@ -35,8 +35,6 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     private ActivityServerBinding activityServerBinding;
     private HandlerThread handlerThread;
-    private Handler handler;
-    private Handler handlerUI;
     private RoomDatabase.Callback myCallback;
     private WGDatabase wgDatabase;
 
@@ -50,8 +48,6 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
         handlerThread = new HandlerThread("Server Handler");
         handlerThread.start();
 
-        handler = new Handler(handlerThread.getLooper());
-
         serverIP = 1234;
         setListenerBit();
         createDB();
@@ -60,57 +56,56 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
     ///////////////////////////////////////////// server ///////////////////////////////////
 
     private void gettingIp(){
-        Thread thread = new Thread(){
-            public void run(){
-                try {
-                    Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces();
-                    ArrayList<IpAdresse> adresses = new ArrayList<>();
+        Thread thread = new Thread(() -> {
+            try {
+                Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces();
+                ArrayList<IpAdresse> adresses = new ArrayList<>();
 
-                    while( n.hasMoreElements()) {
-                        NetworkInterface e = n.nextElement();
+                while( n.hasMoreElements()) {
+                    NetworkInterface e = n.nextElement();
 
 
-                        Enumeration<InetAddress> a = e.getInetAddresses();
-                        while (a.hasMoreElements()) {
-                            InetAddress addr = a.nextElement();
-                            String add = addr.getHostAddress();
-                            if (add.length() < 17) {
-                                activityServerBinding.ServerIPnumber.setText(add);
-                                if(!e.getDisplayName().isBlank()){
-                                    IpAdresse address = new IpAdresse(add,e.getDisplayName()+"");
-                                    adresses.add(address);
-                                }
+                    Enumeration<InetAddress> a = e.getInetAddresses();
+                    while (a.hasMoreElements()) {
+                        InetAddress addr = a.nextElement();
+                        String add = addr.getHostAddress();
+                        assert add != null;
+                        if (add.length() < 17) {
+                            activityServerBinding.ServerIPnumber.setText(add);
+                            if(!e.getDisplayName().isBlank()){
+                                IpAdresse address = new IpAdresse(add,e.getDisplayName()+"");
+                                adresses.add(address);
                             }
                         }
                     }
-
-                    String ip = "";
-                    String name = "";
-
-                    for (int i=0; i < adresses.size();i++){
-
-                        if(adresses.get(i).getConnectionName().contains("rmnet4")){
-                            Log.d("check loop", "in loop rmnet4");
-                            ip = adresses.get(i).getIpAdresse();
-                            name = adresses.get(i).getConnectionName();
-                        }
-                        if(adresses.get(i).getConnectionName().contains("wlan")){
-                            Log.d("check loop", "in loop wlan");
-                            ip = adresses.get(i).getIpAdresse();
-                            name = adresses.get(i).getConnectionName();
-                            i = adresses.size();
-                        }
-                    }
-
-                    activityServerBinding.ServerIPnumber.setText(ip);
-                    activityServerBinding.ServerName.setText(name);
-                    Log.d("binding", "set text");
-
-                } catch ( SocketException e) {
-                    throw new RuntimeException(e);
                 }
+
+                String ip = "";
+                String name = "";
+
+                for (int i=0; i < adresses.size();i++){
+
+                    if(adresses.get(i).getConnectionName().contains("rmnet4")){
+                        Log.d("check loop", "in loop rmnet4");
+                        ip = adresses.get(i).getIpAdresse();
+                        name = adresses.get(i).getConnectionName();
+                    }
+                    if(adresses.get(i).getConnectionName().contains("wlan")){
+                        Log.d("check loop", "in loop wlan");
+                        ip = adresses.get(i).getIpAdresse();
+                        name = adresses.get(i).getConnectionName();
+                        i = adresses.size();
+                    }
+                }
+
+                activityServerBinding.ServerIPnumber.setText(ip);
+                activityServerBinding.ServerName.setText(name);
+                Log.d("binding", "set text");
+
+            } catch ( SocketException e) {
+                throw new RuntimeException(e);
             }
-        };
+        });
         thread.start();
 
     }
@@ -119,12 +114,13 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void startBitServer(){
         gettingIp();
 
         activityServerBinding.Servermessage.setText("start the server");
         Log.d("serverstart1", "server startet");
-        this.server = new Server( serverIP, this.handler, this, wgDatabase);
+        this.server = new Server( serverIP, new Handler(handlerThread.getLooper()), this, wgDatabase);
         new Thread(this.server).start();
         activityServerBinding.ServerportNumber.setText(Integer.toString(serverIP));
         Log.d("serverstart2", "server startet");
@@ -132,26 +128,11 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
 
     ///////////////////////////////// callbacks ////////////////////////
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onMessageSend(String send) {
-        Log.d("client connected", send);
+        Log.d("client connected serverActivity", send);
         activityServerBinding.Servermessage.setText("from database" + send);
-    }
-
-    @Override
-    public void onMessageRecieve(String recieve) {
-        Log.d("Server got message", recieve);
-        //activityServerBinding.Servermessage.setText(recieve);
-    }
-
-    @Override
-    public void messageToAll(String message) {
-
-    }
-
-    @Override
-    public void messageToAll(String message) {
-
     }
 
     /////////////////////////////////////////////// DB ///////////////////////////////////

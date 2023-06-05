@@ -68,5 +68,6 @@
     <string name="player1">Player1</string>
     <string name="player2">Player2</string>
     <string name="player3">Player3</string>
+    <string name="points_display">"Points: "</string>
 
 </resources>

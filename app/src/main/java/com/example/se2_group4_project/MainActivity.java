@@ -49,44 +49,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btnPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Gameboard.class);
-                startActivity(intent);
-            }
+        btnPlay.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getApplicationContext(), Gameboard.class);
+            startActivity(intent);
         });
 
-        btnFindGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FindGameActivity.class);
-                startActivity(intent);
-            }
+        btnFindGame.setOnClickListener(view12 -> {
+            Intent intent = new Intent(getApplicationContext(), FindGameActivity.class);
+            startActivity(intent);
         });
 
-        btnOptions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
-                startActivity(intent);
-            }
+        btnOptions.setOnClickListener(view13 -> {
+            Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
+            startActivity(intent);
         });
 
-        activityMainBinding.buttonServer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
-                startActivity(intent);
-            }
+        activityMainBinding.buttonServer.setOnClickListener(view14 -> {
+            Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
+            startActivity(intent);
         });
 
-        btnSelectRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SelectRoomActivity.class);
-                startActivity(intent);
-            }
+        btnSelectRoom.setOnClickListener(view15 -> {
+            Intent intent = new Intent(getApplicationContext(), SelectRoomActivity.class);
+            startActivity(intent);
         });
     }
 }

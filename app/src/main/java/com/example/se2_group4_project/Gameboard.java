@@ -2,6 +2,7 @@ package com.example.se2_group4_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,9 +21,8 @@ import android.widget.Toast;
 
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
+import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
-import com.example.se2_group4_project.callbacks.DiceCallbacks;
 import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
@@ -37,14 +37,13 @@ import com.example.se2_group4_project.player.PlayerController;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Gameboard extends AppCompatActivity implements ServerUICallbacks , ClientCallbacks, DiceCallbacks {
+public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private Handler clientHandler;
     private ClientCallbacks clientCallbacks;
@@ -75,19 +74,25 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         activityDiceBinding = ActivityDiceBinding.inflate(getLayoutInflater());
         activityGameboardBinding =  ActivityGameboardBinding.inflate(getLayoutInflater());
         view = activityGameboardBinding.getRoot();
+        startWindowFeature();
         setContentView(view);
 
-        handlerThread = new HandlerThread("boardHndler");
-        handlerThread.start();
 
+
+        handlerThread = new HandlerThread("boardHandler");
+        handlerThread.start();
+        Log.d("pointdisplay","start");
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
-
+        Log.d("carddrawer start","start");
         initCarddrawer();
-        startWindowFeature();
+        Log.d("client start", "start");
+        startClient();
+
+
         setUpDice();
         setListeners();
-        startClient();
+
 
         //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
     }
@@ -122,28 +127,28 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
         switch (player){
             case 0:
-                this.player = new PlayerController(player,c.getPlayerBlueStack());
+                this.player = new PlayerController(player,c.getPlayerBlueStack(),clientCallbacks,new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack() );
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 1:
-                this.player = new PlayerController(player,c.getPlayerGreenStack());
+                this.player = new PlayerController(player,c.getPlayerGreenStack(),clientCallbacks,new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 2:
-                this.player = new PlayerController(player,c.getPlayerOrangeStack());
+                this.player = new PlayerController(player,c.getPlayerOrangeStack(),clientCallbacks,new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 3:
-                this.player = new PlayerController(player,c.getPlayerTealStack());
+                this.player = new PlayerController(player,c.getPlayerTealStack(),clientCallbacks,new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
@@ -173,12 +178,9 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
 
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
-            itemCardImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
-                    activityGameboardBinding.UserCardsLayout.addView(itemCardImage);
-                }
+            itemCardImage.setOnClickListener(view -> {
+                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+                activityGameboardBinding.UserCardsLayout.addView(itemCardImage);
             });
         }
 
@@ -202,58 +204,18 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
 
-            iView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    linearLayout.removeView(iView);
+            iView.setOnClickListener(view -> {
+                linearLayout.removeView(iView);
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.weight = 5;
-                    iView.setLayoutParams(params);
-                    activityGameboardBinding.UserCardsLayout.addView(iView);
-                }
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.weight = 5;
+                iView.setLayoutParams(params);
+                activityGameboardBinding.UserCardsLayout.addView(iView);
             });
         }
     }
-
-
-    public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
-        for (int i = 0; i < cards.size(); i++){
-            Card card = cards.get(i);
-            LinearLayout linearLayout = findViewById(linearLayoutId);
-            ImageView iView = new ImageView(linearLayout.getContext());
-
-            String currentCardFront = card.getCurrentCardFront();
-
-            final int imageRessourceID =
-                    this.getResources()
-                            .getIdentifier(
-                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
-
-            iView.setImageResource(imageRessourceID);
-            linearLayout.addView(iView);
-            displayedCards.add(iView);
-            card.setImageViewID(iView.getId());
-
-            iView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    linearLayout.removeView(iView);
-
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.weight = 5;
-                    iView.setLayoutParams(params);
-
-                    userCardsLayout.addView(iView);
-                }
-            });
-        }
-    }
-
 
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
@@ -304,27 +266,12 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         }
     }
 
-    public void flipCurrentCardListener(){
-        // If card is available --> then we can flip
-        for (ImageView card : displayedCards){
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // flipCard(card);
-                }
-            });
-        }
-    }
-
     // TODO: Implement onClickListener on cards to flip them
     public void flipCurrentCardListener(){
         // If card is available --> then we can flip
         for (ImageView card : displayedCards){
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // flipCard(card);
-                }
+            card.setOnClickListener(view -> {
+                // flipCard(card);
             });
         }
     }
@@ -345,6 +292,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
                 .getIdentifier(
                         currentBackImage, "drawable",this.getApplicationContext().getPackageName());
 
+        assert currentCardSide != null;
         currentCardSide.setImageResource(flipedImageRessource);
 
         cardFlip.setFront(!cardFlip.isFront());
@@ -355,7 +303,6 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
     public void setUpDice(){
         dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
-        dicePopUpActivity.setDiceCallbacks(this);
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -376,60 +323,49 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
     @Override
     public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
         // anzeigen und selektieren der gespeicherten Würfel
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final Map<ImageView, Boolean> diceSelect = new HashMap<>();
-                activityGameboardBinding.savedDicesContainer.removeAllViews();
+        runOnUiThread(() -> {
+            final Map<ImageView, Boolean> diceSelect = new HashMap<>();
+            activityGameboardBinding.savedDicesContainer.removeAllViews();
 
-                for (int diceValue : playerDice) {
-                    ImageView imageView = new ImageView(Gameboard.this);
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
-                    imageView.setPadding(3, 3, 3, 3);
-                    imageView.setImageResource(getDiceImage(diceValue));
-                    activityGameboardBinding.savedDicesContainer.addView(imageView);
-                    diceSelect.put(imageView, false);
+            for (int diceValue : playerDice) {
+                ImageView imageView = new ImageView(Gameboard.this);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                imageView.setPadding(3, 3, 3, 3);
+                imageView.setImageResource(getDiceImage(diceValue));
+                activityGameboardBinding.savedDicesContainer.addView(imageView);
+                diceSelect.put(imageView, false);
 
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int diceIndex = activityGameboardBinding.savedDicesContainer.indexOfChild(v);
+                imageView.setOnClickListener(v -> {
+                    int diceIndex = activityGameboardBinding.savedDicesContainer.indexOfChild(v);
 
-                            Log.d("index of clicked dice", "diceIndex: " + diceIndex);
-                            Log.d("clicked image view", imageView.toString());
+                    Log.d("index of clicked dice", "diceIndex: " + diceIndex);
+                    Log.d("clicked image view", imageView.toString());
 
-                            diceSelect.put((ImageView) v, !diceSelect.get(v));
+                    diceSelect.put((ImageView) v, Boolean.FALSE.equals(diceSelect.get(v)));
 
-                            if (diceSelect.get(v)) {
-                                v.setBackgroundColor(Color.GREEN);
-                                Log.d("selected saved dice", "set to green: " + diceIndex);
-                            } else {
-                                v.setBackgroundColor(Color.TRANSPARENT);
-                                Log.d("unselected saved dice", "set to standard: " + diceIndex);
-                            }
-                            // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
-                            v.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    v.invalidate();
-                                }
-                            });
-                        }
-                    });
-                }
+                    if (Boolean.TRUE.equals(diceSelect.get(v))) {
+                        v.setBackgroundColor(Color.GREEN);
+                        Log.d("selected saved dice", "set to green: " + diceIndex);
+                    } else {
+                        v.setBackgroundColor(Color.TRANSPARENT);
+                        Log.d("unselected saved dice", "set to standard: " + diceIndex);
+                    }
+                    // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
+                    v.post(v::invalidate);
+                });
+            }
 
-                Log.d("display selected dices","Image Views created " + playerDice.size());
+            Log.d("display selected dices","Image Views created " + playerDice.size());
 
-                activityGameboardBinding.savedDicesContainer.invalidate();
-                activityGameboardBinding.savedDicesContainer.requestLayout();
+            activityGameboardBinding.savedDicesContainer.invalidate();
+            activityGameboardBinding.savedDicesContainer.requestLayout();
 
-                diceIsRolled = true;
+            diceIsRolled = true;
 
-                if (diceIsRolled){
-                    addCardsToPlayer();
-                    // call function to flip current card
-                    // flipCurrentCardListener();
-                }
+            if (diceIsRolled){
+                addCardsToPlayer();
+                // call function to flip current card
+                // flipCurrentCardListener();
             }
         });
     }
@@ -457,6 +393,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         this.c = new CardDrawer(this.getApplicationContext());
         try {
             c.generateInitialCards();
+            Log.d("carddrawer", "start");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -466,34 +403,31 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE); // requestWindowFeature ??
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_gameboard);
     }
 
     private void startClient(){
         Bundle extra = getIntent().getExtras();
+        Log.d("bundle client", extra.toString());
         String ip = extra.getString("ip");
+        Log.d("server ip (clientconnect)",ip);
         Client client = new Client(ip, 1234, this, new Handler(handlerThread.getLooper()));
-        this.clientHandler = client.getClientHandler();
-        this.clientCallbacks = client.getClientCallbacks();
+        Log.d("player number gameboard", "?");
         client.start();
-        Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-        Log.d("player number gameboard", String.valueOf(client.getPlayerNumber()));
+        //Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
+
     }
 
     private void setListeners(){
-        activityGameboardBinding.btnRollDice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startDiceRolling(view);
-                // testweise auf true setzen
-                hasCheated = true;
-            }
+        activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
+            startDiceRolling(view);
+            // testweise auf true setzen
+            hasCheated = true;
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void startPointView(PointDisplay pointDisplay){
-        activityGameboardBinding.points.setText(String.valueOf("Points: "+pointDisplay.startPoints()));
+        activityGameboardBinding.points.setText(getString(R.string.points_display) + pointDisplay.startPoints());
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay){
@@ -502,34 +436,17 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks , 
 
     ///////////////////// callbacks //////////////////////////////////
     @Override
-    public void onMessageSend(String send) {
-
-    }
-
-    @Override
-    public void onMessageRecieve(String recieve) {
-
-    }
-
-    @Override
-    public void messageToAll(String message) {
-
-    }
-
-    @Override
     public void createPlayer(int playerNumber) {
+        Log.d("create player oard", playerNumber+"");
         createPlayerBoard(playerNumber);
     }
 
     @Override
-    public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
-
+    public void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler) {
+        this.clientCallbacks = clientCallbacks;
+        this.clientHandler = clientHandler;
     }
 
-    @Override
-    public void diceToEnemy(ArrayList<Integer> enemyDice) {
-
-    }
 
     @Override
     public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {

@@ -103,6 +103,11 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
     @Override
+    public void onMessageSend(String send) {
+
+    }
+
+    @Override
     public void messageNextPlayer(String message, Integer player) {
         sendMessage(message,player);
     }

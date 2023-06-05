@@ -9,7 +9,9 @@ import java.util.ArrayList;
 public interface ClientCallbacks {
     void createPlayer(int playerNumber);
     void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException;
-    void cheatFunction(String cheatStart) throws IOException;
     void cheatPopUpActivity();
+    void cheatFunction(String cheatStart) throws IOException;
+
+    void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException;
 }
 

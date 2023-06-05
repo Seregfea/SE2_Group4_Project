@@ -4,7 +4,6 @@ package com.example.se2_group4_project.player;
 import android.os.Handler;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.callbacks.PlayerCallbacks;
 import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.cards.Card;
 
@@ -21,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlayerController implements PlayerCallbacks {
+public class PlayerController {
     private final int playerID;
     private final ArrayList<Card> playerInitialCards;
     private ClientCallbacks clientCallbacks;
@@ -140,8 +139,4 @@ public class PlayerController implements PlayerCallbacks {
         });
     }
 
-    @Override
-    public void clientToPlayer(ArrayList<Integer> enemyDice) {
-
-    }
 }
