@@ -36,6 +36,9 @@ public class Client extends Thread implements ClientCallbacks {
     Handler clientHandler;
     HandlerThread clientHandlerThread;
     int playerNumber;
+    int playerSendedNumber;
+    String messageIdentifier;
+    String SPACE = " ";
 
     public Client(String ipAdresse, int port, GameboardCallbacks gameboardCallbacks, Handler handlerUIGameboard){
         this.ipAdresse =  ipAdresse;
@@ -62,19 +65,11 @@ public class Client extends Thread implements ClientCallbacks {
 
             while (client.isConnected()){
 
-                messageInput = clientInput.readUTF();
+                this.messageInput = clientInput.readUTF();
                 Log.d("input client", messageInput);
 
-                if (Objects.equals(messageInput, "0") || Objects.equals(messageInput, "1") || Objects.equals(messageInput, "2") || Objects.equals(messageInput, "3")){
-                    handlerUIGameboard.post(() -> gameboardCallbacks.createPlayer(Integer.parseInt(messageInput)));
-                    messageSend(messageInput);
-                    playerNumber = Integer.parseInt(messageInput);
-                    Log.d("player number client", playerNumber +"");
-                    messageInput = null;
-                }
-                int [] messageArray = messageDecode(messageInput);
-                assert messageArray != null;
-                chooseIdentifierFunction(messageArray[0]);
+                messageDecode();
+                chooseIdentifierFunction(this.messageIdentifier);
             }
 
             clientHandlerThread.quit();
@@ -88,17 +83,27 @@ public class Client extends Thread implements ClientCallbacks {
         serverMessage.writeUTF(messageInput);
     }
 
-    private String messageCode(String messageInput){
-        return null;
+    private String messageCode(String messageInput){ return this.playerNumber + this.SPACE + messageInput;    }
+
+    private void messageDecode(){
+        Log.d("client before split", messageInput);
+        String [] commands = this.messageInput.split(this.SPACE);
+        Log.d("client command", commands.toString());
+        Log.d("client command0", commands[0]);
+        Log.d("client command1", commands[1]);
+        Log.d("client command2", commands[2]);
+
+        this.messageIdentifier = commands[1];
+        Log.d("client identifier", this.messageIdentifier);
+        this.messageInput = commands[2];
+        Log.d("client message", this.messageInput);
+        this.playerSendedNumber = Integer.parseInt(commands[0]);
+        Log.d("client player", this.playerSendedNumber+"");
     }
 
-    private int [] messageDecode(String messageInput){
-        return null;
-    }
-
-    private void chooseIdentifierFunction(int identifier){
+    private void chooseIdentifierFunction(String identifier) throws IOException {
         switch (identifier){
-            case 0:
+            case "0":
                 handlerUIGameboard.post(() -> {
                     try {
                         gameboardCallbacks.cheatFunction(messageInput);
@@ -107,9 +112,11 @@ public class Client extends Thread implements ClientCallbacks {
                     }
                 });
                 break;
-            case 1:
+            case "1":
                 // TODO
                 // some dice functions
+            case "3":
+                startPlayer();
 
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
@@ -137,8 +144,11 @@ public class Client extends Thread implements ClientCallbacks {
         }
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
+    public void startPlayer() throws IOException {
+            playerNumber = this.playerSendedNumber;
+            handlerUIGameboard.post(() -> gameboardCallbacks.createPlayer(playerNumber));
+            Log.d("player number client", playerNumber +"");
+            messageInput = "";
     }
 
     public ClientCallbacks getClientCallbacks(){

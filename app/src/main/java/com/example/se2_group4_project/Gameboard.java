@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -410,7 +411,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("bundle client", extra.toString());
         String ip = extra.getString("ip");
         Log.d("server ip (clientconnect)",ip);
-        Client client = new Client(ip, 1234, this, new Handler(handlerThread.getLooper()));
+        Handler mainHandler = new Handler(handlerThread.getLooper());
+        Client client = new Client(ip, 1234, this, new Handler(Looper.getMainLooper()));
         Log.d("player number gameboard", "?");
         client.start();
         //Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
@@ -437,7 +439,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     ///////////////////// callbacks //////////////////////////////////
     @Override
     public void createPlayer(int playerNumber) {
-        Log.d("create player oard", playerNumber+"");
+        Log.d("create player card", playerNumber+"");
         createPlayerBoard(playerNumber);
     }
 
