@@ -48,6 +48,7 @@ public class FindGameActivity extends AppCompatActivity {
             }else {
                 Intent intent = new Intent(getApplicationContext(), Gameboard.class);
                 intent.putExtra("ip", activityFindGameBinding.editTextTextPersonName.getText().toString());
+                intent.putExtra("testmodus",0);
                 Log.d("start gameboard", ""+activityFindGameBinding.editTextTextPersonName.getText());
                 startActivity(intent);
             }

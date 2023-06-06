@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnPlay.setOnClickListener(view1 -> {
             Intent intent = new Intent(getApplicationContext(), Gameboard.class);
+            intent.putExtra("testmodus", 1);
             startActivity(intent);
         });
 
