@@ -27,10 +27,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import io.socket.client.Socket;
+import io.socket.client.IO;
 
 public class ServerActivity extends AppCompatActivity implements ServerUICallbacks, DatabaseCallbacks {
 
-    private Server server;
+    private Socket server;
     private int serverIP;
 
     private ActivityServerBinding activityServerBinding;
