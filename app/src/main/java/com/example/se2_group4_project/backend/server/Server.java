@@ -25,7 +25,7 @@ public class Server extends Thread implements ServerCallbacks {
     private Map<Integer, Socket> clients = new HashMap<Integer, Socket>();
     private Boolean serverrun;
     private final Handler handlerServer;
-    private final ServerUICallbacks callbacks;
+    private ServerUICallbacks callbacks;
     private WGDatabase wgDatabase;
 
     public Server(int serverPort, Handler handlerServer, ServerUICallbacks callbacks, WGDatabase wgDatabase){
@@ -34,6 +34,12 @@ public class Server extends Thread implements ServerCallbacks {
         this.handlerServer = handlerServer;
         this.callbacks = callbacks;
         this.wgDatabase = wgDatabase;
+    }
+
+    public Server(int serverPort, Handler handlerServer){
+        this.serverPort = serverPort;
+        this.serverrun = true;
+        this.handlerServer = handlerServer;
     }
 
 
@@ -47,7 +53,7 @@ public class Server extends Thread implements ServerCallbacks {
             Log.d("server port",  server.getLocalPort()+ " server ");
 
             String message = "server started on port: " + serverPort;
-            handlerServer.post(() -> callbacks.onMessageSend(message));
+            //handlerServer.post(() -> callbacks.onMessageSend(message));
             int count = 0;
             while (serverrun){
                 Log.d("loop","in loop");

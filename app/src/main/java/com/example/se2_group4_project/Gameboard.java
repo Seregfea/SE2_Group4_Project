@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
+import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.cheating.CheatFunction;
@@ -62,12 +64,12 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
-    private View view;
+    private int testVariable = 0;
 
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;
-
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         startWindowFeature();
         setContentView(view);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String string = bundle.get("testmodus").toString();
+        Log.d("intent testmode", string);
+        this.testVariable = Integer.parseInt(string);
 
 
         handlerThread = new HandlerThread("boardHandler");
@@ -87,8 +94,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         startPointView(pointDisplay);
         Log.d("carddrawer start","start");
         initCarddrawer();
-        Log.d("client start", "start");
-        startClient();
+
+
+        if(testVariable == 1){
+            testmodus();
+        }else {
+            Log.d("client start", "start");
+            startClient();
+        }
 
 
         setUpDice();
@@ -411,7 +424,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("bundle client", extra.toString());
         String ip = extra.getString("ip");
         Log.d("server ip (clientconnect)",ip);
-        Handler mainHandler = new Handler(handlerThread.getLooper());
         Client client = new Client(ip, 1234, this, new Handler(Looper.getMainLooper()));
         Log.d("player number gameboard", "?");
         client.start();
@@ -434,6 +446,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void updatePointView(int point, PointDisplay pointDisplay){
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
+    }
+
+    private void testmodus(){
+        Server server = new Server( 1234, new Handler(handlerThread.getLooper()));
+        new Thread(server).start();
+        Client client = new Client("localhost", 1234, this, new Handler(Looper.getMainLooper()));
+        Log.d("player number gameboard", "?");
+        client.start();
     }
 
     ///////////////////// callbacks //////////////////////////////////
