@@ -6,13 +6,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.example.se2_group4_project.dices.Dice;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DiceMechanismUnitTest {
-    private List<Integer> results = new ArrayList<>();
+    private List<Integer> results;
+    private List<Integer> testValues;
+
+    @BeforeEach
+    void setUp() {
+        results = new ArrayList<>();
+        testValues = new ArrayList<>();
+    }
+
+    @AfterEach
+    void tearDown() {
+        results = null;
+        testValues = null;
+    }
 
     @Test
     public void rollDiceTest_checkCorrectSize() {
@@ -28,27 +43,27 @@ public class DiceMechanismUnitTest {
 
     @Test
     public void getTotalDiceResult_checkResult() {
-        List<Integer> testValues = List.of(1, 2, 3, 4, 5, 6);
+        testValues = List.of(1, 2, 3, 4, 5, 6);
         assertEquals(15, Dice.getTotalDiceResult(testValues));
     }
 
     @Test
     public void sortedCountDiceArrayTest() {
-        List<Integer> testValues = List.of(1, 1, 1, 2, 2, 3, 4, 5, 5);
+        testValues = List.of(1, 1, 1, 2, 2, 3, 4, 5, 5);
         int[] expectedResult = {3, 2, 1, 1, 2};
         assertArrayEquals(expectedResult, Dice.sortedCountDiceArray(testValues));
     }
 
     @Test
     public void checkSortedCountDiceArrayWithUnsortedValuesTest() {
-        List<Integer> testValues = List.of(3, 2, 5, 2);
+        testValues = List.of(3, 2, 5, 2);
         int[] expectedResult = {0, 2, 1, 0, 1};
         assertArrayEquals(expectedResult, Dice.sortedCountDiceArray(testValues));
     }
 
     @Test
     public void sortedCountDiceArrayWithKangarooTest() {
-        List<Integer> testValues = List.of(1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 6);
+        testValues = List.of(1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 6);
         int[] expectedResult = {3, 2, 1, 1, 2, 2};
         assertArrayEquals(expectedResult, Dice.sortedCountDiceArrayKangaroo(testValues));
     }
