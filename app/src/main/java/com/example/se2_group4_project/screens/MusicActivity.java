@@ -51,6 +51,7 @@ public class MusicActivity extends AppCompatActivity {
         songMap.put("Slow and Childish", R.raw.slowandchildish);
         songMap.put("Orchestra Epic", R.raw.orchestra_epic);
         songMap.put("Swing", R.raw.swing);
+        String currentMusic;
 
 
         activityMusicBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +80,7 @@ public class MusicActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 SoundManager.changeMusic(MusicActivity.this,resId);
+
                             }
                         })
                         .show();
