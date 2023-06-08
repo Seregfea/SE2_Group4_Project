@@ -80,7 +80,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityDiceBinding = ActivityDiceBinding.inflate(getLayoutInflater());
-        activityGameboardBinding =  ActivityGameboardBinding.inflate(getLayoutInflater());
+        activityGameboardBinding = ActivityGameboardBinding.inflate(getLayoutInflater());
         view = activityGameboardBinding.getRoot();
         startWindowFeature();
         setContentView(view);
@@ -93,16 +93,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         handlerThread = new HandlerThread("boardHandler");
         handlerThread.start();
-        Log.d("pointdisplay","start");
+        Log.d("pointdisplay", "start");
         PointDisplay pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
-        Log.d("carddrawer start","start");
+        Log.d("carddrawer start", "start");
         initCarddrawer();
 
 
-        if(testVariable == 1){
+        if (testVariable == 1) {
             testmodus();
-        }else {
+        } else {
             Log.d("client start", "start");
             startClient();
         }
@@ -111,8 +111,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         setUpDice();
         setListeners();
 
-
-        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
     }
 
     @Override
