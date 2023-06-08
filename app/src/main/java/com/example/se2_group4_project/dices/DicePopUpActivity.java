@@ -23,15 +23,15 @@ import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import java.util.ArrayList;
 
 public class DicePopUpActivity extends PopupWindow {
-    private Handler handler;
-    private View dicePopUpView;
-    private MediaPlayer mediaPlayer;
-    private LinearLayout diceLayout;
-    private Button submitClickedDices;
-    private EditText changeDiceValue;
+    private final Handler handler;
+    private final View dicePopUpView;
+    private final MediaPlayer mediaPlayer;
+    private final LinearLayout diceLayout;
+    private final Button submitClickedDices;
+    private final EditText changeDiceValue;
     private int numberOfDice = 0;
-    private int delayTime = 20;
-    private int rollAnimation = 40;
+    private final int delayTime = 20;
+    private final int rollAnimation = 40;
     private ArrayList<Integer> playerDice;
     private ArrayList<Integer> enemyDice;
     private ArrayList<Integer> selected;
@@ -75,41 +75,38 @@ public class DicePopUpActivity extends PopupWindow {
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
         changeDiceValue = dicePopUpView.findViewById(R.id.et_changeDiceValue);
 
-        submitClickedDices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int diceValueNew = 0;
-                boolean isDiceValueChanged = false;
+        submitClickedDices.setOnClickListener(view -> {
+            int diceValueNew = 0;
+            boolean isDiceValueChanged = false;
 
-                if (changeDiceValue.getText().toString().length() != 0) {
-                    diceValueNew = Integer.parseInt(changeDiceValue.getText().toString());
-                    isDiceValueChanged = true;
-                }
+            if (changeDiceValue.getText().toString().length() != 0) {
+                diceValueNew = Integer.parseInt(changeDiceValue.getText().toString());
+                isDiceValueChanged = true;
+            }
 
-                // falls kein Würfel verändert wird direktes Schließen des pop ups
-                if (!isDiceValueChanged) {
+            // falls kein Würfel verändert wird direktes Schließen des pop ups
+            if (!isDiceValueChanged) {
+                dismiss();
+                testDice();
+                diceResults(selected, unselected);
+            } else {
+                if (diceValueNew < 1 || diceValueNew > 5) {
+                    Log.d("invalid new dice value", "" + diceValueNew);
+                    Toast.makeText(context, "Der neue Würfelwert muss zwischen 1 und 5 liegen!", Toast.LENGTH_LONG).show();
+                    changeDiceValue.setText("");
+                } else {
+                    Log.d("valid new dice value", "" + diceValueNew);
+
+                    // Känguru aus selected dices entfernen und den neuen Wert adden
+                    selected.remove(Integer.valueOf(6));
+                    selected.add(diceValueNew);
+                    Log.d("selected dices", selected.toString());
+
                     dismiss();
                     testDice();
                     diceResults(selected, unselected);
-                } else {
-                    if (diceValueNew < 1 || diceValueNew > 5) {
-                        Log.d("invalid new dice value", "" + diceValueNew);
-                        Toast.makeText(context, "Der neue Würfelwert muss zwischen 1 und 5 liegen!", Toast.LENGTH_LONG).show();
-                        changeDiceValue.setText("");
-                    } else {
-                        Log.d("valid new dice value", "" + diceValueNew);
-
-                        // Känguru aus selected dices entfernen und den neuen Wert adden
-                        selected.remove(Integer.valueOf(6));
-                        selected.add(diceValueNew);
-                        Log.d("selected dices", selected.toString());
-
-                        dismiss();
-                        testDice();
-                        diceResults(selected, unselected);
-                        changeDiceValue.setText("");
-                        changeDiceValue.setEnabled(false);
-                    }
+                    changeDiceValue.setText("");
+                    changeDiceValue.setEnabled(false);
                 }
             }
         });
