@@ -17,7 +17,9 @@ public class Card {
     private String cardBack;
     private boolean isFront;
     private int neededSchnapspralinen;
-    private int imageViewID;
+    private int imageViewFrontID;
+
+    private int imageViewBackID;
 
     public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
                 ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
@@ -125,11 +127,11 @@ public class Card {
     }
 
     public int getImageViewID() {
-        return imageViewID;
+        return imageViewFrontID;
     }
 
     public void setImageViewID(int imageViewID) {
-        this.imageViewID = imageViewID;
+        this.imageViewFrontID = imageViewID;
     }
 
     public void setFront(boolean front) {
