@@ -147,10 +147,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 RecyclerView.LayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
                 activityGameboardBinding.userCardRecyclerView.setLayoutManager(manager);
                 Log.d("after recyclerview layout", " oh my");
-                this.myRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(),this.player.getPlayerInitialCards());
+                this.myRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(),this.player.getPlayerInitialCards(), R.layout.recycler_item_view);
                 activityGameboardBinding.userCardRecyclerView.setAdapter(this.myRecyclerviewAdabter);
                 Log.d("after recyclerview layout", " oh my 2");
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack() );
+
+                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
                 //addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());

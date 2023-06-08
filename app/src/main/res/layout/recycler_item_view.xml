@@ -6,7 +6,7 @@
 
 
     <ImageView
-        android:id="@+id/imageview1"
+        android:id="@+id/recycler_Imageview_Container"
         android:layout_width="70dp"
         android:layout_height="130dp"
         android:layout_centerVertical="true"
