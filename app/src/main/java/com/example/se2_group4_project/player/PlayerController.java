@@ -23,6 +23,7 @@ import java.util.Arrays;
 public class PlayerController {
     private final int playerID;
     private final ArrayList<Card> playerInitialCards;
+    private ArrayList<Card> playerExtraCards;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int diceCount = 4;

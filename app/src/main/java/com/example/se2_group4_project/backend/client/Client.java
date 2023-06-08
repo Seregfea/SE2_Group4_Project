@@ -117,7 +117,6 @@ public class Client extends Thread implements ClientCallbacks {
                 // some dice functions
             case "3":
                 startPlayer();
-
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
                 break;
