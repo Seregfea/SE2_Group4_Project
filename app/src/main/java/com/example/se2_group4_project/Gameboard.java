@@ -179,7 +179,26 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
     }
-    
+
+    public void addCardsToPlayer(){
+        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
+
+        try {
+            cardDrawer.generateInitialCards();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
+
+            final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
+            itemCardImage.setOnClickListener(view -> {
+                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+                activityGameboardBinding.UserCardsLayout.addView(itemCardImage);
+            });
+        }
+
+    }
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         for (int i = 0; i < cards.size(); i++){
