@@ -23,22 +23,19 @@ import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import java.util.ArrayList;
 
 public class DicePopUpActivity extends PopupWindow {
-
-    private final Handler handler;
-    private final View dicePopUpView;
-    private final MediaPlayer mediaPlayer;
-    private final LinearLayout diceLayout;
-    private final Button submitClickedDices;
-    private final EditText changeDiceValue;
+    private Handler handler;
+    private View dicePopUpView;
+    private MediaPlayer mediaPlayer;
+    private LinearLayout diceLayout;
+    private Button submitClickedDices;
+    private EditText changeDiceValue;
     private int numberOfDice = 0;
-    private final int delayTime = 20;
-    private final int rollAnimation = 40;
-
+    private int delayTime = 20;
+    private int rollAnimation = 40;
     private ArrayList<Integer> playerDice;
     private ArrayList<Integer> enemyDice;
     private ArrayList<Integer> selected;
     private ArrayList<Integer> unselected = new ArrayList<>();
-
     private final GameboardCallbacks gameboardCallbacks;
 
     public ArrayList<Integer> getPlayerDice() {
@@ -54,7 +51,6 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     public void setEnemyDice(ArrayList<Integer> enemyDice) {
-
         this.enemyDice = enemyDice;
     }
 
@@ -80,7 +76,7 @@ public class DicePopUpActivity extends PopupWindow {
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
         changeDiceValue = dicePopUpView.findViewById(R.id.et_changeDiceValue);
 
-        submitClickedDices.setOnClickListener(view -> {
+        submitClickedDices.setOnClickListener(v -> {
             int diceValueNew = 0;
             boolean isDiceValueChanged = false;
 
@@ -135,7 +131,6 @@ public class DicePopUpActivity extends PopupWindow {
         }
 
         Thread thread = new Thread(() -> {
-
             ArrayList<Integer> diceValues = new ArrayList<>();
 
             for (int j = 0; j < rollAnimation; j++) {
@@ -147,7 +142,7 @@ public class DicePopUpActivity extends PopupWindow {
                     final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
                     final int diceValue = diceValues.get(i);
 
-                    diceImage.setOnClickListener(v -> {
+                    diceImage.setOnClickListener(view -> {
                         submitClickedDices.setEnabled(true);
 
                         // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
@@ -240,14 +235,11 @@ public class DicePopUpActivity extends PopupWindow {
         }
     }
 
-
     private void finishDiceRolling() {
         handler.post(() -> gameboardCallbacks.diceValues(playerDice, enemyDice));
     }
 
-
     public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
-
         this.playerDice = playerDice;
         this.enemyDice = enemyDice;
 
@@ -255,8 +247,6 @@ public class DicePopUpActivity extends PopupWindow {
             gameboardCallbacks.diceResults(playerDice, enemyDice);
         }
     }
-
-
 
     public void testDice() {
         Log.d("dice callback - playerDice", this.playerDice.toString());
