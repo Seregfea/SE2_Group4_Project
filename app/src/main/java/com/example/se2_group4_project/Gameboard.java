@@ -178,7 +178,7 @@ public class Gameboard extends AppCompatActivity implements ServerUICallbacks, D
         addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
 
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
-        //addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhl); //Schaukelstuhl von Verena
+        addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
 
     }
 
