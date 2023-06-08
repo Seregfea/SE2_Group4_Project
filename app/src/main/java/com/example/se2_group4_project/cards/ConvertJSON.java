@@ -75,8 +75,6 @@ public class ConvertJSON {
         ArrayList<Card> cards = gson.fromJson(JSON,
                 new TypeToken<ArrayList<Card>>() {
                 }.getType());
-
-
         return cards;
     }
 
