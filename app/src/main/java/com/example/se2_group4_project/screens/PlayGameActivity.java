@@ -7,13 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.se2_group4_project.Gameboard;
 import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
-import com.example.se2_group4_project.SoundManager;
-import com.example.se2_group4_project.databinding.ActivityOptionsBinding;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.databinding.ActivityPlayGameBinding;
 
 public class PlayGameActivity extends AppCompatActivity {

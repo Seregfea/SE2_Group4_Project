@@ -4,21 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.se2_group4_project.MainActivity;
 import com.example.se2_group4_project.R;
-import com.example.se2_group4_project.SoundManager;
-import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.databinding.ActivityMusicBinding;
 
 import java.util.HashMap;

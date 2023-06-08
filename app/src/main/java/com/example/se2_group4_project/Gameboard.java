@@ -19,7 +19,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
@@ -35,6 +34,8 @@ import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 
+import com.example.se2_group4_project.gameboard_adjustments.CardAvailability;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.player.PlayerController;
 
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
@@ -172,11 +173,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("no player", "no player " + player);
                 break;
         }
-        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
-        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
-        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
-        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
-        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+        addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addTopCardToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
     }
 
@@ -195,9 +196,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             itemCardImage.setOnClickListener(view -> {
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
                 activityGameboardBinding.UserCardsLayout.addView(itemCardImage);
+                displayedCards.remove(itemCardImage);
             });
         }
-
     }
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -276,9 +277,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
-
         }
     }
+
+
 
     // TODO: Implement onClickListener on cards to flip them
     public void flipCurrentCardListener(){
