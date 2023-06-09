@@ -2,9 +2,6 @@ package com.example.se2_group4_project.cards;
 
 import android.content.Context;
 
-import com.example.se2_group4_project.dices.DicePopUpActivity;
-import com.example.se2_group4_project.player.PlayerController;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +24,6 @@ public class CardDrawer {
     private ArrayList<Card> troublemakerStack = new ArrayList<>();
     private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
-    private PlayerController playerController;
 
     public CardDrawer(Context context) {
         this.convertJSON = new ConvertJSON(context);
@@ -148,7 +144,7 @@ public class CardDrawer {
                 case "BATHTUB":
                     JSONObject badewanne1 = null;
                     Badewanne badewanne = new Badewanne(badewanne1);
-                    if(badewanne.isAvailable(playerController.getDiceValuesUsable())){
+                    if(badewanne.isAvailable(int[] dice){
                         highlightCards();
                     }
             }

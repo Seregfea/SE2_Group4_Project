@@ -137,5 +137,6 @@ public class Card {
     public void setFront(boolean front) {
         isFront = front;
     }
+
 }
 
