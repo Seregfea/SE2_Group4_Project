@@ -434,7 +434,22 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
 
+    public void checkSpecialCards(int pralinen){
+        if(pralinen >= 10){
+            //then add one Troublemaker to current player
+            //how do i know who the current player is
+            //add to which arraylist
+        }
+
+        if(pralinen >= 16){
+            //then add one Schaukelstuhl to current player
+            //how do i know who the current player is
+            //add to which arraylist
+            //how to check 1 round?
+        }
+    }
     public void endTurn(){
+        checkSpecialCards(10);
         clientHandler.post(new Runnable() {
             @Override
             public void run() {
