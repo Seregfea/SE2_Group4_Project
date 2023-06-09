@@ -439,7 +439,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             @Override
             public void run() {
                 try {
-                    clientCallbacks.endTurn(player.getPlayerUpdatedCards());
+                    clientCallbacks.endTurn(player.pralinen);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

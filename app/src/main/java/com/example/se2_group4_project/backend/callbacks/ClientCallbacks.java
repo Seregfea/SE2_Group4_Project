@@ -16,6 +16,6 @@ public interface ClientCallbacks {
 
     void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException;
 
-    void endTurn(ArrayList<Card> playerUpdatedCards) throws IOException;
+    void endTurn(int pralinen) throws IOException;
 }
 

@@ -31,6 +31,7 @@ public class PlayerController {
     private ArrayList<Integer> diceValuesNotUsable;
 
     private ArrayList<Card> playerUpdatedCards;
+    private int pralinen;
     private ArrayList<Item> itemCards;
 
 

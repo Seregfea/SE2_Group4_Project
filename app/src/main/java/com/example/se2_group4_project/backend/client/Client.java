@@ -158,8 +158,8 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     @Override
-    public void endTurn(ArrayList<Card> playerUpdatedCards) throws IOException {
-        messageSend(messageCode("2 " + objectToJson(playerUpdatedCards)));
+    public void endTurn(int pralinen) throws IOException {
+        messageSend(messageCode("2 " + objectToJson(pralinen)));
     }
 
     @Override
