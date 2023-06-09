@@ -299,8 +299,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-
-
     // TODO: Implement onClickListener on cards to flip them
     public void flipCurrentCardListener(){
         // If card is available --> then we can flip

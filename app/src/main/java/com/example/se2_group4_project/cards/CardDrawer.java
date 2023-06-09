@@ -2,6 +2,9 @@ package com.example.se2_group4_project.cards;
 
 import android.content.Context;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -127,5 +130,24 @@ public class CardDrawer {
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
+    }
+
+    public void highlightCards() {
+    }
+
+    public void checkIfHighlight() throws JSONException {
+        for(Card card : this.playerBlueStack){
+
+            String CardType = "";
+
+            switch(CardType){
+                case "BATHTUB":
+                    JSONObject badewanne1 = null;
+                    Badewanne badewanne = new Badewanne(badewanne1);
+                    if(badewanne.isAvailable(int[] dice){
+                        highlightCards();
+                    }
+            }
+        }
     }
 }
