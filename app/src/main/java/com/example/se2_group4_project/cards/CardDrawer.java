@@ -132,22 +132,26 @@ public class CardDrawer {
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
     }
 
+    /*
     public void highlightCards() {
     }
 
-    public void checkIfHighlight() throws JSONException {
-        for(Card card : this.playerBlueStack){
+    public void checkIfHighlight(ArrayListe<Card> cardStack) {
+        for(Card card : cardStack){
 
-            String CardType = "";
-
-            switch(CardType){
-                case "BATHTUB":
-                    JSONObject badewanne1 = null;
-                    Badewanne badewanne = new Badewanne(badewanne1);
-                    if(badewanne.isAvailable(int[] dice){
-                        highlightCards();
-                    }
-            }
+        switch(cardStack.getCardType()) {
+            case WITZIGTODOS:
+                WitzigToDos witzigToDos = new WitzigToDos(card);
+                if (witzigToDos.isAvailable()){
+                    // Karte highlighten
+                }
+                break;
+            case BADEWANNE:
+                Badewanne badewanne = new Badewanne(card);
+                if(badewanne.isAvailable()){
+                    // Karte highlighten
+                }
         }
-    }
+
+       */
 }
