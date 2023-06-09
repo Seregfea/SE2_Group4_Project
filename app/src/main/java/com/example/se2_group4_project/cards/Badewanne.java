@@ -7,6 +7,8 @@ import com.example.se2_group4_project.Gameboard;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Badewanne {
 
     boolean kanguru = false;
@@ -23,7 +25,7 @@ public class Badewanne {
         return isKanguru();
     }
 
-    public boolean isAvailable(int[] dice){
+    public boolean isAvailable(ArrayList<Integer> dice){
         for(int i=0; i < dice.length; i++){
             if(i+1 == number && dice[i] >= count){
                 return true;
