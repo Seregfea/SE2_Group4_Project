@@ -26,8 +26,8 @@ public class Badewanne {
     }
 
     public boolean isAvailable(ArrayList<Integer> dice){
-        for(int i=0; i < dice.length; i++){
-            if(i+1 == number && dice[i] >= count){
+        for(int i=0; i < dice.size(); i++){
+            if(i+1 == number && dice.get(i) >= count){
                 return true;
             }
         }
