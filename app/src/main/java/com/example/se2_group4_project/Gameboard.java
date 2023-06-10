@@ -228,6 +228,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             ImageView iView = new ImageView(linearLayout.getContext());
 
             String currentCardFront = card.getCurrentCardFront();
+            int cardId = card.getId();
 
             final int imageRessourceID =
                     this.getResources()
@@ -235,11 +236,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
+            iView.setId(cardId);
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
 
             iView.setOnClickListener(view -> {
+                Log.d("KartenID",  "" + iView.getId());
                 linearLayout.removeView(iView);
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -398,6 +401,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             if (diceIsRolled){
                 addCardsToPlayer();
                 // checkIfHighlight aufrufen
+                // CardDrawer.checkIfHighlight(c.getItemsStack());
+
                 // call function to flip current card
                 // flipCurrentCardListener();
             }
