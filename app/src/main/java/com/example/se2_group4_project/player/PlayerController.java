@@ -28,8 +28,12 @@ public class PlayerController {
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int diceCount = 4;
+
     // testweise auf 1
     private int parkDiceCount = 1;
+
+    // tesweise auf true
+    private boolean reRoll = true;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
 
@@ -123,6 +127,14 @@ public class PlayerController {
 
     public void setParkDiceCount(int parkDiceCount) {
         this.parkDiceCount = parkDiceCount;
+    }
+
+    public boolean isReRoll() {
+        return reRoll;
+    }
+
+    public void setReRoll(boolean reRoll) {
+        this.reRoll = reRoll;
     }
 
     public ArrayList<Integer> getDiceValuesUsable() {

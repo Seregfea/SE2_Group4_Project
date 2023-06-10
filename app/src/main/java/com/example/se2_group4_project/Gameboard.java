@@ -340,6 +340,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             imageView.setImageResource(R.drawable.dice);
             activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
+
+        activityGameboardBinding.btnRollDice.setEnabled(true);
     }
 
     public void startDiceRolling(View view) {
@@ -424,6 +426,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             diceIsRolled = true;
 
             if (diceIsRolled){
+                if (!player.isReRoll()) {
+                    activityGameboardBinding.btnRollDice.setEnabled(false);
+                }
+
                 addCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
