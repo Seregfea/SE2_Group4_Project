@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,19 +86,19 @@ public class WitzigToDos {
     }
 
 
-    public boolean isAvailable(int[] rolledDice) {
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
         boolean checkBoolean = false;
         Set<Integer> usedIndices = new HashSet<Integer>();
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
             int intNumber = Integer.parseInt(number);
-            if (rolledDice[intNumber - 1] >= count) {
+            if (rolledDice.get(intNumber - 1) >= count) {
                 checkBoolean = true;
                 usedIndices.add(intNumber - 1);
             }
         } else if (filledFields.contains("count")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
@@ -108,7 +109,7 @@ public class WitzigToDos {
             int intNumber = Integer.parseInt(number);
             int count = 0;
             for (int i = intNumber; i < intNumber + following; i++) {
-                if (rolledDice[i - 1] > 0 && !usedIndices.contains(i - 1)) {
+                if (rolledDice.get(i - 1) > 0 && !usedIndices.contains(i - 1)) {
                     count++;
                 } else {
                     break;
@@ -120,13 +121,13 @@ public class WitzigToDos {
         }
         if (filledFields.contains("number2") && filledFields.contains("count2")) {
             int intNumber2 = Integer.parseInt(number2);
-            if (rolledDice[intNumber2 - 1] >= count2 && !usedIndices.contains(intNumber2 - 1)) {
+            if (rolledDice.get(intNumber2 - 1) >= count2 && !usedIndices.contains(intNumber2 - 1)) {
                 checkBoolean = true;
                 usedIndices.add(intNumber2 - 1);
             }
         } else if (filledFields.contains("count2")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count2 && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count2 && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
@@ -135,8 +136,8 @@ public class WitzigToDos {
         }
         if (filledFields.contains("min_sum")) {
             int sum = 0;
-            for (int i = 0; i < rolledDice.length; i++) {
-                sum += (i + 1) * rolledDice[i];
+            for (int i = 0; i < rolledDice.size(); i++) {
+                sum += (i + 1) * rolledDice.get(i);
             }
             if (sum >= min_sum) {
                 checkBoolean = true;

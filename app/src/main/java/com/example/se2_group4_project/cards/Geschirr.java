@@ -1,13 +1,15 @@
 package com.example.se2_group4_project.cards;
 
+import java.util.ArrayList;
+
 public class Geschirr {
 
    private int countRoll = 1;
   private boolean rollAgain = false;
 
-    public boolean isAvailable(int[] dice){
+    public boolean isAvailable(ArrayList<Integer> rolledDice){
         for(int i=0; i < 3; i++){
-         if(dice[i] != 0 && dice[i+1] != 0 && dice[i+2] != 0){
+         if(rolledDice.get(i) != 0 && rolledDice.get(i + 1) != 0 && rolledDice.get(i + 2) != 0){
              return true;
          }
         }

@@ -397,6 +397,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             if (diceIsRolled){
                 addCardsToPlayer();
+                // checkIfHighlight aufrufen
                 // call function to flip current card
                 // flipCurrentCardListener();
             }
