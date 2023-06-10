@@ -144,26 +144,99 @@ public class CardDrawer {
 
         for (Card card : cardStack) {
 
-            String CardType = "";
+            CardType cardType = card.getCardType();
 
-            switch (CardType) {
-                case "BATHTUB":
-                    JSONObject badewanne1 = new JSONObject();
-                    badewanne1.put("number", card.getNumber());
-                    badewanne1.put("count", card.getCount());
-                    Badewanne badewanne = new Badewanne(badewanne1);
+            switch (cardType) {
+                case ITEM:
+                    JSONObject itemObjekt = new JSONObject();
+                    itemObjekt.put("number", card.getNumber());
+                    itemObjekt.put("count", card.getCount());
+                    itemObjekt.put("stealCard", card.getStealCard());
+                    Item item = new Item(itemObjekt);
+
+                    if (item.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    break;
+
+                case ROOMMATE:
+                    JSONObject roommateObjektEasy = new JSONObject();
+                    roommateObjektEasy.put("number", card.getNumber());
+                    roommateObjektEasy.put("count", card.getCount());
+                    RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
+
+                    if (roommateEasy.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    JSONObject roommateObjektDifficult = new JSONObject();
+                    roommateObjektDifficult.put("following", card.getFollowing());
+                    roommateObjektDifficult.put("count", card.getCount());
+                    RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
+
+                    if (roommateDifficult.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    break;
+
+                case ME:
+                    JSONObject meObjekt = new JSONObject();
+                    meObjekt.put("number", card.getNumber());
+                    meObjekt.put("count", card.getCount());
+                    Me me = new Me(meObjekt);
+
+                    if (me.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    break;
+
+                case BATHTUB:
+                    JSONObject badewanneObjekt = new JSONObject();
+                    badewanneObjekt.put("number", card.getNumber());
+                    badewanneObjekt.put("count", card.getCount());
+                    Badewanne badewanne = new Badewanne(badewanneObjekt);
                     if (badewanne.isAvailable(playerController.getDiceValuesUsable())) {
                         highlightCards();
                     }
                     break;
-            }
-            switch (cardStack.getCardType()) {
-                case WITZIGTODOS:
-                    WitzigToDos witzigToDos = new WitzigToDos(card);
-                    if (witzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
-                        // Karte highlighten
+
+                case COUCH:
+                    JSONObject couchObjekt = new JSONObject();
+                    couchObjekt.put("number", card.getNumber());
+                    couchObjekt.put("count", card.getCount());
+                    Couch couch = new Couch(couchObjekt);
+                    if (couch.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
                     }
                     break;
+                case TABLEWARE:
+                    JSONObject geschirrObjekt = new JSONObject();
+                    geschirrObjekt.put("number", card.getNumber());
+                    geschirrObjekt.put("count", card.getCount());
+                    Geschirr geschirr = new Geschirr(geschirrObjekt);
+                    if (geschirr.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    break;
+
+                case WITZIG:
+                    JSONObject witzigObjekt = new JSONObject();
+                    witzigObjekt.put("number", card.getNumber());
+                    witzigObjekt.put("count", card.getCount());
+                    WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
+                    if (witzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                    }
+                    break;
+
+                case WITZIGWITZIG:
+                    JSONObject witzigwitzigObjekt = new JSONObject();
+                    witzigwitzigObjekt.put("number", card.getNumber());
+                    witzigwitzigObjekt.put("count", card.getCount());
+                    WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
+                    if (witzigWitzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
+                        highlightCards();
+                        break;
+                    }
             }
         }
     }

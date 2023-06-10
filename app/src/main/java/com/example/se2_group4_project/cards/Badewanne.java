@@ -25,9 +25,9 @@ public class Badewanne {
         return isKanguru();
     }
 
-    public boolean isAvailable(ArrayList<Integer> dice){
-        for(int i=0; i < dice.size(); i++){
-            if(i+1 == number && dice.get(i) >= count){
+    public boolean isAvailable(ArrayList<Integer> rolledDice){
+        for(int i=0; i < rolledDice.size(); i++){
+            if(i+1 == number && rolledDice.get(i) >= count){
                 return true;
             }
         }

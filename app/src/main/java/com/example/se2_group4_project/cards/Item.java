@@ -3,6 +3,8 @@ package com.example.se2_group4_project.cards;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Item {
     private int number;
     private int count;
@@ -33,9 +35,9 @@ public class Item {
     }
 
     // Methods
-    public boolean isAvailable(int[] rolledDice){
-        for (int i = 0; i < rolledDice.length; i++){
-            if (rolledDice[i] >= count && i+1 == number) {
+    public boolean isAvailable(ArrayList<Integer> rolledDice){
+        for (int i = 0; i < rolledDice.size(); i++){
+            if (rolledDice.get(i) >= count && i+1 == number) {
                 return true;
             }
         }

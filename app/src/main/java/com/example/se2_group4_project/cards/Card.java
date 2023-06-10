@@ -12,7 +12,10 @@ public class Card {
     //private ArrayList<NeededDice> neededDice;
     private int count;
     private int number;
-    private ArrayList<CardType> toDo;
+    private int stealCard;
+    private int following;
+
+   // private ArrayList<CardType> toDo;
     private int schnapspralinen;
     private CardType cardType;
     private String cardFront;
@@ -23,13 +26,15 @@ public class Card {
 
     private int imageViewBackID;
 
-    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
+    public Card(CardType cardType, int id, String name, int number, int count, int stealCard,
                 ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
-        this.neededDice = neededDice;
-        this.toDo = toDo;
+        this.number = number;
+        this.count = count;
+        this.stealCard = stealCard;
+       // this.toDo = toDo;
         this.schnapspralinen = schnapspralinen;
         this.cardFront = cardFront;
         this.cardBack = cardBack;
@@ -60,13 +65,13 @@ public class Card {
         this.name = name;
     }
 
-    public ArrayList<CardType> getToDo() {
-        return toDo;
-    }
-
-    public void setToDo(ArrayList<CardType> toDo) {
-        this.toDo = toDo;
-    }
+//    public ArrayList<CardType> getToDo() {
+//        return toDo;
+//    }
+//
+//    public void setToDo(ArrayList<CardType> toDo) {
+//        this.toDo = toDo;
+//    }
 
     public int getSchnapspralinen() {
         return schnapspralinen;
@@ -138,6 +143,14 @@ public class Card {
 
     public int getNumber() {
         return number;
+    }
+
+    public int getStealCard() {
+        return stealCard;
+    }
+
+    public int getFollowing() {
+        return following;
     }
 }
 
