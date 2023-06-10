@@ -335,9 +335,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     ///////////////////////// dice methods ////////////////////////
 
     public void setUpDice(){
+        Log.d("setUpDice", "called");
         dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
 
         for (int i = 0; i < availableDices; i++) {
+
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.dice);
             activityDiceBinding.diceLayout.addView(imageView);
