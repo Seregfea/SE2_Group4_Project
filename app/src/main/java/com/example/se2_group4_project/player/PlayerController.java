@@ -28,6 +28,8 @@ public class PlayerController {
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int diceCount = 4;
+    // testweise auf 1
+    private int parkDiceCount = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
 
@@ -113,6 +115,14 @@ public class PlayerController {
 
     public void setDiceCount(int diceCount) {
         this.diceCount = diceCount;
+    }
+
+    public int getParkDiceCount() {
+        return parkDiceCount;
+    }
+
+    public void setParkDiceCount(int parkDiceCount) {
+        this.parkDiceCount = parkDiceCount;
     }
 
     public ArrayList<Integer> getDiceValuesUsable() {

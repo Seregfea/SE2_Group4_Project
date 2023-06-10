@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
@@ -51,7 +52,6 @@ import java.util.Map;
 
 
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
-
     private Handler clientHandler;
     private ClientCallbacks clientCallbacks;
     MyRecyclerviewAdabter myRecyclerviewAdabter;
@@ -336,6 +336,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     ///////////////////////// dice methods ////////////////////////
 
     public void setUpDice(){
+        Log.d("setUpDice", "called");
         dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
 
         for (int i = 0; i < availableDices; i++) {
@@ -359,6 +360,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         // anzeigen und selektieren der gespeicherten Würfel
         runOnUiThread(() -> {
             final Map<ImageView, Boolean> diceSelect = new HashMap<>();
+            ArrayList<Integer> selectedDices = new ArrayList<>();
             activityGameboardBinding.savedDicesContainer.removeAllViews();
 
             for (int diceValue : playerDice) {
@@ -379,9 +381,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                     if (Boolean.TRUE.equals(diceSelect.get(v))) {
                         v.setBackgroundColor(Color.GREEN);
+                        selectedDices.add(diceValue);
                         Log.d("selected saved dice", "set to green: " + diceIndex);
                     } else {
                         v.setBackgroundColor(Color.TRANSPARENT);
+                        if (selectedDices.size() != 0) {
+                            selectedDices.remove(Integer.valueOf(diceValue));
+                        }
                         Log.d("unselected saved dice", "set to standard: " + diceIndex);
                     }
                     // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
@@ -394,6 +400,31 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             activityGameboardBinding.savedDicesContainer.invalidate();
             activityGameboardBinding.savedDicesContainer.requestLayout();
 
+            if (player.getParkDiceCount() > 0) {
+                activityGameboardBinding.btnParkDice.setEnabled(true);
+            }
+
+            activityGameboardBinding.btnParkDice.setOnClickListener(view -> {
+                boolean hasParked = false;
+                if (checkDiceParking(diceSelect, player.getParkDiceCount())) {
+                    Log.d("selected saved dices: ", selectedDices.toString());
+
+                    for (int diceValue : selectedDices) {
+                        ImageView imageView = new ImageView(Gameboard.this);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                        imageView.setPadding(3, 3, 3, 3);
+                        imageView.setImageResource(getDiceImage(diceValue));
+                        activityGameboardBinding.parkedDicesContainer.addView(imageView);
+                        hasParked = true;
+                    }
+                } else {
+                    Toast.makeText(Gameboard.this, "Du willst eine zu hohe Anzahl an Würfeln parken!", Toast.LENGTH_LONG).show();
+                }
+                if (hasParked) {
+                    activityGameboardBinding.btnParkDice.setEnabled(false);
+                }
+            });
+
             diceIsRolled = true;
 
             if (diceIsRolled){
@@ -402,6 +433,23 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 // flipCurrentCardListener();
             }
         });
+    }
+
+    public boolean checkDiceParking(Map<ImageView, Boolean> diceSelect, int parkDiceCount) {
+        boolean result = false;
+        int counter = 0;
+
+        for (ImageView imageView : diceSelect.keySet()) {
+            if (diceSelect.get(imageView)) {
+                counter++;
+            }
+        }
+
+        if (counter <= parkDiceCount) {
+            result = true;
+        }
+
+        return result;
     }
 
     public int getDiceImage(int result) {
