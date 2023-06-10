@@ -117,7 +117,7 @@ public class Client extends Thread implements ClientCallbacks {
                 // TODO
                 // some dice functions
 
-            case 2:
+            case "2":
                 //TODO
                 //cards update
             

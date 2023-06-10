@@ -100,7 +100,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("carddrawer start", "start");
         initCarddrawer();
 
-
         if (testVariable == 1) {
             testmodus();
         } else {
@@ -108,10 +107,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-
         setUpDice();
         setListeners();
-
     }
 
     @Override
@@ -342,7 +339,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.dice);
-            activityDiceBinding.diceLayout.addView(imageView);
+            activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
     }
 
