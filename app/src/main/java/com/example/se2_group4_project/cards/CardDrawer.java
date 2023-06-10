@@ -3,6 +3,7 @@ package com.example.se2_group4_project.cards;
 import android.content.Context;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class CardDrawer {
@@ -18,6 +19,7 @@ public class CardDrawer {
     private ArrayList<Card> roommateEasyStack = new ArrayList<>();
     private ArrayList<Card> roommateDifficultStack = new ArrayList<>();
     private ArrayList<Card> troublemakerStack = new ArrayList<>();
+    private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
 
     public CardDrawer(Context context) {
@@ -104,6 +106,14 @@ public class CardDrawer {
         this.roommateDifficultStack = roommateDifficultStack;
     }
 
+    public ArrayList<Card> getSchaukelstuhlStack() {
+        return schaukelstuhlStack;
+    }
+
+    public void setSchaukelstuhlStack(ArrayList<Card> schaukelstuhlStack) {
+        this.schaukelstuhlStack = schaukelstuhlStack;
+    }
+
     //Karten holen und speichern
     public void generateInitialCards() throws FileNotFoundException {
         this.playerBlueStack = this.convertJSON.getCards("playerBlue");
@@ -116,5 +126,6 @@ public class CardDrawer {
         this.troublemakerStack = this.convertJSON.getCards("troublemaker");
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
+        this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
     }
 }

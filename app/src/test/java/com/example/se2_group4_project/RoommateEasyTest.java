@@ -4,6 +4,7 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,12 @@ public class RoommateEasyTest {
     void setUp() throws JSONException {
         jsonObject = new JSONObject("{" + "number: 1," + "count: 2" + "}");
         roommateEasy = new RoommateEasy(jsonObject);
+    }
+
+    @AfterEach
+    void tearDown() {
+        jsonObject = null;
+        roommateEasy = null;
     }
 
     @Test

@@ -23,47 +23,44 @@ import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import java.util.ArrayList;
 
 public class DicePopUpActivity extends PopupWindow {
-
     private final Handler handler;
     private final View dicePopUpView;
     private final MediaPlayer mediaPlayer;
     private final LinearLayout diceLayout;
     private final Button submitClickedDices;
     private final EditText changeDiceValue;
+    private final GameboardCallbacks gbCallbacks;
     private int numberOfDice = 0;
     private final int delayTime = 20;
     private final int rollAnimation = 40;
+    private ArrayList<Integer> playerDices;
+    private ArrayList<Integer> enemyDices;
+    private ArrayList<Integer> selectedDices;
+    private ArrayList<Integer> unselectedDices = new ArrayList<>();
 
-    private ArrayList<Integer> playerDice;
-    private ArrayList<Integer> enemyDice;
-    private ArrayList<Integer> selected;
-    private ArrayList<Integer> unselected = new ArrayList<>();
-
-    private final GameboardCallbacks gameboardCallbacks;
-
-    public ArrayList<Integer> getPlayerDice() {
-        return playerDice;
+    public ArrayList<Integer> getPlayerDices() {
+        return playerDices;
     }
 
-    public void setPlayerDice(ArrayList<Integer> playerDice) {
-        this.playerDice = playerDice;
+    public void setPlayerDices(ArrayList<Integer> playerDices) {
+        this.playerDices = playerDices;
     }
 
-    public ArrayList<Integer> getEnemyDice() {
-        return enemyDice;
+    public ArrayList<Integer> getEnemyDices() {
+        return enemyDices;
     }
 
-    public void setEnemyDice(ArrayList<Integer> enemyDice) {
-
-        this.enemyDice = enemyDice;
+    public void setEnemyDices(ArrayList<Integer> enemyDices) {
+        this.enemyDices = enemyDices;
     }
+
 
     @SuppressLint("InflateParams")
     public DicePopUpActivity(Context context, GameboardCallbacks gameboardCallbacks, Handler handler) {
         super(context);
         dicePopUpView = LayoutInflater.from(context).inflate(R.layout.activity_dice, null);
 
-        this.gameboardCallbacks = gameboardCallbacks;
+        this.gbCallbacks = gameboardCallbacks;
         this.handler = handler;
 
         setContentView(dicePopUpView);
@@ -73,8 +70,6 @@ public class DicePopUpActivity extends PopupWindow {
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-
-        // handler = new Handler(context.getMainLooper());
         mediaPlayer = MediaPlayer.create(context, R.raw.roll);
         diceLayout = dicePopUpView.findViewById(R.id.diceLayout);
         submitClickedDices = dicePopUpView.findViewById(R.id.btnSubmitClickedDices);
@@ -93,7 +88,7 @@ public class DicePopUpActivity extends PopupWindow {
             if (!isDiceValueChanged) {
                 dismiss();
                 testDice();
-                diceResults(selected, unselected);
+                diceResults(selectedDices, unselectedDices);
             } else {
                 if (diceValueNew < 1 || diceValueNew > 5) {
                     Log.d("invalid new dice value", "" + diceValueNew);
@@ -103,13 +98,13 @@ public class DicePopUpActivity extends PopupWindow {
                     Log.d("valid new dice value", "" + diceValueNew);
 
                     // Känguru aus selected dices entfernen und den neuen Wert adden
-                    selected.remove(Integer.valueOf(6));
-                    selected.add(diceValueNew);
-                    Log.d("selected dices", selected.toString());
+                    selectedDices.remove(Integer.valueOf(6));
+                    selectedDices.add(diceValueNew);
+                    Log.d("selected dices", selectedDices.toString());
 
                     dismiss();
                     testDice();
-                    diceResults(selected, unselected);
+                    diceResults(selectedDices, unselectedDices);
                     changeDiceValue.setText("");
                     changeDiceValue.setEnabled(false);
                 }
@@ -135,19 +130,18 @@ public class DicePopUpActivity extends PopupWindow {
         }
 
         Thread thread = new Thread(() -> {
-
             ArrayList<Integer> diceValues = new ArrayList<>();
 
             for (int j = 0; j < rollAnimation; j++) {
                 diceValues = Dice.rollDice(numberOfDice);
-                unselected = diceValues;
-                selected = new ArrayList<>();
+                unselectedDices = diceValues;
+                selectedDices = new ArrayList<>();
 
                 for (int i = 0; i < diceValues.size(); i++) {
                     final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
                     final int diceValue = diceValues.get(i);
 
-                    diceImage.setOnClickListener(v -> {
+                    diceImage.setOnClickListener(view -> {
                         submitClickedDices.setEnabled(true);
 
                         // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
@@ -159,33 +153,33 @@ public class DicePopUpActivity extends PopupWindow {
                             if (drawable.getColor() == Color.GREEN) {
                                 diceImage.setBackgroundColor(Color.TRANSPARENT);
 
-                                if (selected.size() != 0) {
-                                    selected.remove(Integer.valueOf(diceValue));
+                                if (selectedDices.size() != 0) {
+                                    selectedDices.remove(Integer.valueOf(diceValue));
                                 }
-                                unselected.add(diceValue);
+                                unselectedDices.add(diceValue);
                             } else {
                                 diceImage.setBackgroundColor(Color.GREEN);
 
-                                if (unselected.size() != 0) {
-                                    unselected.remove(Integer.valueOf(diceValue));
+                                if (unselectedDices.size() != 0) {
+                                    unselectedDices.remove(Integer.valueOf(diceValue));
                                 }
-                                selected.add(diceValue);
+                                selectedDices.add(diceValue);
                             }
 
                         } else {
                             diceImage.setBackgroundColor(Color.GREEN);
 
-                            if (unselected.size() != 0) {
-                                unselected.remove(Integer.valueOf(diceValue));
+                            if (unselectedDices.size() != 0) {
+                                unselectedDices.remove(Integer.valueOf(diceValue));
                             }
-                            selected.add(diceValue);
+                            selectedDices.add(diceValue);
                         }
                         // überprüfen ob ein Känguru ausgewählt ist und das Textfeld entsprechend bearbeitbar machen
-                        if (diceValue == 6 && selected.contains(diceValue)) {
+                        if (diceValue == 6 && selectedDices.contains(diceValue)) {
                             changeDiceValue.setEnabled(true);
                             Log.d("change dice value called", "enabled");
                         }
-                        else if (diceValue == 6 && !selected.contains(diceValue)) {
+                        else if (diceValue == 6 && !selectedDices.contains(diceValue)) {
                             changeDiceValue.setEnabled(false);
                             Log.d("change dice value called", "disabled");
                         }
@@ -200,8 +194,8 @@ public class DicePopUpActivity extends PopupWindow {
             }
 
             Log.d("thread dice", diceValues.toString());
-            Log.d("unselected dices", unselected.toString());
-            diceResults(selected, unselected);
+            Log.d("unselected dices", unselectedDices.toString());
+            diceResults(selectedDices, unselectedDices);
         });
 
         thread.start();
@@ -240,27 +234,22 @@ public class DicePopUpActivity extends PopupWindow {
         }
     }
 
-
     private void finishDiceRolling() {
-        handler.post(() -> gameboardCallbacks.diceValues(playerDice, enemyDice));
+        handler.post(() -> gbCallbacks.diceValues(playerDices, enemyDices));
     }
 
+    public void diceResults(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
+        this.playerDices = playerDices;
+        this.enemyDices = enemyDices;
 
-    public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
-
-        this.playerDice = playerDice;
-        this.enemyDice = enemyDice;
-
-        if (gameboardCallbacks != null) {
-            gameboardCallbacks.diceResults(playerDice, enemyDice);
+        if (gbCallbacks != null) {
+            gbCallbacks.diceResults(playerDices, enemyDices);
         }
     }
 
-
-
     public void testDice() {
-        Log.d("dice callback - playerDice", this.playerDice.toString());
-        Log.d("dice callback - enemyDice", this.enemyDice.toString());
+        Log.d("dice callback - playerDice", this.playerDices.toString());
+        Log.d("dice callback - enemyDice", this.enemyDices.toString());
     }
 
 }
