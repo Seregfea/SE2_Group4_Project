@@ -44,7 +44,6 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -374,9 +373,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     Log.d("index of clicked dice", "diceIndex: " + diceIndex);
                     Log.d("clicked image view", imageView.toString());
 
-                    diceSelect.put((ImageView) v, Boolean.FALSE.equals(diceSelect.get(v)));
+                    diceSelect.put((ImageView) v, !diceSelect.get(v));
 
-                    if (Boolean.TRUE.equals(diceSelect.get(v))) {
+                    if (diceSelect.get(v)) {
                         v.setBackgroundColor(Color.GREEN);
                         selectedDices.add(diceValue);
                         Log.d("selected saved dice", "set to green: " + diceIndex);
@@ -388,7 +387,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                         Log.d("unselected saved dice", "set to standard: " + diceIndex);
                     }
                     // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
-                    v.post(v::invalidate);
+                    v.post(() -> v.invalidate());
                 });
             }
 
