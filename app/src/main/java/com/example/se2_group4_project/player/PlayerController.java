@@ -27,7 +27,8 @@ public class PlayerController {
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int diceCount = 4;
-    private int parkDiceCount = 0;
+    // testweise auf 1
+    private int parkDiceCount = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
     private ArrayList<Arrays> cardTypes;
