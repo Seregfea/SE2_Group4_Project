@@ -8,6 +8,7 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 
+import com.example.se2_group4_project.cards.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -115,8 +116,14 @@ public class Client extends Thread implements ClientCallbacks {
             case "1":
                 // TODO
                 // some dice functions
+
+            case 2:
+                //TODO
+                //cards update
+            
             case "3":
                 startPlayer();
+            
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
                 break;
@@ -159,6 +166,11 @@ public class Client extends Thread implements ClientCallbacks {
     @Override
     public void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException {
         messageSend(objectToJson(enemyDice));
+    }
+
+    @Override
+    public void endTurn(int pralinen) throws IOException {
+        messageSend(messageCode("2 " + objectToJson(pralinen)));
     }
 
     @Override

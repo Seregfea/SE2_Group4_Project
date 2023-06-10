@@ -43,6 +43,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -447,7 +448,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("player number gameboard", "?");
         client.start();
         //Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-
     }
 
     private void setListeners(){
@@ -466,6 +466,35 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void updatePointView(int point, PointDisplay pointDisplay){
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
+
+
+    public void checkSpecialCards(int pralinen){
+        if(pralinen >= 10){
+            //then add one Troublemaker to current player
+            //how do i know who the current player is
+            //add to which arraylist
+        }
+
+        if(pralinen >= 16){
+            //then add one Schaukelstuhl to current player
+            //how do i know who the current player is
+            //add to which arraylist
+            //how to check 1 round?
+        }
+    }
+//    public void endTurn(){
+//        checkSpecialCards(10);
+//        clientHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    clientCallbacks.endTurn(player.pralinen);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//    }
 
     private void testmodus(){
         Server server = new Server( 1234, new Handler(handlerThread.getLooper()));
