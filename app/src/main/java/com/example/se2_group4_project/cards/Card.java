@@ -9,7 +9,9 @@ public class Card {
     //Attribute der Karten
     private int id;
     private String name;
-    private ArrayList<NeededDice> neededDice;
+    //private ArrayList<NeededDice> neededDice;
+    private int count;
+    private int number;
     private ArrayList<CardType> toDo;
     private int schnapspralinen;
     private CardType cardType;
@@ -138,5 +140,12 @@ public class Card {
         isFront = front;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public int getNumber() {
+        return number;
+    }
 }
 
