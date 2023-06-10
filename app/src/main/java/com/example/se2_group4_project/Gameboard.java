@@ -448,19 +448,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             //how to check 1 round?
         }
     }
-    public void endTurn(){
-        checkSpecialCards(10);
-        clientHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    clientCallbacks.endTurn(player.pralinen);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
+//    public void endTurn(){
+//        checkSpecialCards(10);
+//        clientHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    clientCallbacks.endTurn(player.pralinen);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//    }
     ///////////////////// callbacks //////////////////////////////////
     @Override
     public void createPlayer(int playerNumber) {
