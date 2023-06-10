@@ -60,14 +60,6 @@ public class Card {
         this.name = name;
     }
 
-    public ArrayList<NeededDice> getNeededDice() {
-        return neededDice;
-    }
-
-    public void setNeededDice(ArrayList<NeededDice> neededDice) {
-        this.neededDice = neededDice;
-    }
-
     public ArrayList<CardType> getToDo() {
         return toDo;
     }
