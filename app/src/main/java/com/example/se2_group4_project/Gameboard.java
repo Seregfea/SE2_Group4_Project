@@ -191,32 +191,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
     }
 
-    public void addCardsToPlayer(){
-        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
-
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        for(int i = 0; i < cardDrawer.getItemsStack().size(); i++){
-
-            final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
-            final Card card = cardDrawer.getItemsStack().get(i);
-            itemCardImage.setOnClickListener(view -> {
-                Log.d("get item card", " click 1");
-                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
-
-                this.myRecyclerviewAdabter.addItem(card);
-                int integry = this.myRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.myRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", ""+integry);
-            });
-        }
-
-    }
+    
     private void createItem(View view){
 
     }
