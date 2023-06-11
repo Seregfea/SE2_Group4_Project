@@ -23,6 +23,7 @@ import com.example.se2_group4_project.player.PlayerController;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -32,10 +33,11 @@ import java.util.Arrays;
 class CardDrawerTest {
 
     CardDrawer cardDrawer = new CardDrawer(null);
-    ArrayList<Card> cardArray = generateCards();
+    ArrayList<Card> cardArray = new ArrayList<Card>();
 
-    public ArrayList<Card> generateCards() {
 
+    @BeforeEach
+    public void initialCardArray(){
         ArrayList<Card> itemStack = cardDrawer.getItemsStack();
         Card itemCard = itemStack.get(0);
         cardArray.add(itemCard);
@@ -65,13 +67,13 @@ class CardDrawerTest {
                 break;
             }
         }
-        return cardArray;
     }
     @Test
-    public void testCards(){
+    public void testAvailability(){
         testCheckIfHighlight(cardArray);
     }
 
+    @Test
     public static void testCheckIfHighlight(ArrayList<Card> cardArray) {
 
         ArrayList<Integer> rolledDice = new ArrayList<>();
@@ -81,6 +83,7 @@ class CardDrawerTest {
         rolledDice.add(2);
         rolledDice.add(1);
         rolledDice.add(0);
+
 
         try {
 
@@ -185,45 +188,15 @@ class CardDrawerTest {
                 }
             }
         } catch (JSONException ex) {
-                System.out.println("CardDrawer.checkIfHighlight not available");
-            }
+            System.out.println("CardDrawer.checkIfHighlight not available");
         }
-
-
+    }
     @Test
-    public static void testAttributes() {
-        CardDrawer cardDrawer = new CardDrawer(null);
-        ArrayList<Card> cardArray = new ArrayList<>();
+    public void testCardAttributes(){
+        testAttributes(cardArray);
+    }
 
-        ArrayList<Card> itemStack = cardDrawer.getItemsStack();
-        Card itemCard = itemStack.get(0);
-        cardArray.add(itemCard);
-
-        ArrayList<Card> roommateDifficultStack = cardDrawer.getRoommateDifficultStack();
-        Card roomateDiffCard = roommateDifficultStack.get(2);
-        cardArray.add(roomateDiffCard);
-
-        ArrayList<Card> roommateEasyStack = cardDrawer.getRoommateEasyStack();
-        Card roomateEasyCard = roommateEasyStack.get(1);
-        cardArray.add(roomateEasyCard);
-
-        ArrayList<Card> witzigStack = cardDrawer.getWitzigStack();
-        Card witzigCard = witzigStack.get(2);
-        cardArray.add(witzigCard);
-
-        ArrayList<Card> witzigWitzigStack = cardDrawer.getWitzigWitzigStack();
-        Card witzigwitzigCard = witzigWitzigStack.get(5);
-        cardArray.add(witzigwitzigCard);
-
-        ArrayList<Card> playerBlueStack = cardDrawer.getPlayerBlueStack();
-        Card badewanneCard;
-        for (Card card : playerBlueStack) {
-            if (card.getCardType() == CardType.BATHTUB) {
-                badewanneCard = card;
-                cardArray.add(badewanneCard);
-                break;
-            }
-        }
+    public static void testAttributes(ArrayList<Card> cardArray) {
 
         try{
             for (Card card : cardArray) {
