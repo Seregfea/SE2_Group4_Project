@@ -240,6 +240,7 @@ public class DicePopUpActivity extends PopupWindow {
     public void diceResults(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
         this.playerDices = playerDices;
         this.enemyDices = enemyDices;
+
         if (gbCallbacks != null) {
             gbCallbacks.diceResults(playerDices, enemyDices);
         }

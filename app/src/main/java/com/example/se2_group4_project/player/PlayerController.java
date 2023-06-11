@@ -36,6 +36,8 @@ public class PlayerController {
     private boolean reRoll = true;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
+    private ArrayList<Integer> parkedDices = new ArrayList<>();
+
 
     private ArrayList<Card> playerUpdatedCards;
     private int pralinen;
@@ -105,6 +107,10 @@ public class PlayerController {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 
+    public void saveParkedDices(ArrayList<Integer> parkedDices){
+        this.parkedDices = parkedDices;
+    }
+
     public int getPlayerID() {
         return playerID;
     }
@@ -151,6 +157,14 @@ public class PlayerController {
 
     public void setDiceValuesNotUsable(ArrayList<Integer> diceValuesNotUsable) {
         this.diceValuesNotUsable = diceValuesNotUsable;
+    }
+
+    public ArrayList<Integer> getParkedDices() {
+        return parkedDices;
+    }
+
+    public void setParkedDices(ArrayList<Integer> parkedDices) {
+        this.parkedDices = parkedDices;
     }
 
     public void diceToServer() {
