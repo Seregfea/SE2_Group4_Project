@@ -16,7 +16,8 @@ import java.util.Arrays;
 public class WitzigToDosTest {
 
     WitzigToDos witzigToDos;
-    int [] rolledDice = {1,1,1,1,1};
+    ArrayList<Integer> rolledDice = new ArrayList<Integer>();
+
 
     @Test
     public void witzigToDosTesting() throws JSONException {
@@ -45,9 +46,15 @@ public class WitzigToDosTest {
 
     @Test
     public void testIsAvailable () {
+        rolledDice.add(1);
+        rolledDice.add(1);
+        rolledDice.add(1);
+        rolledDice.add(1);
+        rolledDice.add(1);
+
         assertFalse(witzigToDos.isAvailable(rolledDice));
 
-        rolledDice[0] = 2;
+        rolledDice.set(0,2);
         assertTrue(witzigToDos.isAvailable(rolledDice));
 
     }
