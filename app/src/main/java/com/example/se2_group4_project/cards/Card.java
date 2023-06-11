@@ -1,6 +1,7 @@
 package com.example.se2_group4_project.cards;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Card {
 
@@ -20,6 +21,8 @@ public class Card {
     private int imageViewFrontID;
 
     private int imageViewBackID;
+
+    List<Card> cards;
 
     public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
                 ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
@@ -136,6 +139,11 @@ public class Card {
 
     public void setFront(boolean front) {
         isFront = front;
+    }
+
+    // add cards to list
+    public void addCards(Card card){
+        this.cards.add(card);
     }
 }
 

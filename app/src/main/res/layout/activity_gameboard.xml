@@ -36,8 +36,46 @@
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft" />
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutTop"
+    <!--    <LinearLayout-->
+<!--        android:id="@+id/CardsLayoutTop"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginStart="70dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="220dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView"-->
+<!--        app:layout_constraintTop_toTopOf="parent"></LinearLayout>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CardsLayout"
+        android:layout_width="108dp"
+        android:layout_height="117dp"
+        android:layout_marginEnd="144dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightUserCardRecyclerView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ItemCardsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/topUserCardRecyclerView"
+        app:layout_constraintVertical_bias="0.144" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ItemCardsLayout"
+        android:layout_width="108dp"
+        android:layout_height="117dp"
+        android:layout_marginEnd="292dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightUserCardRecyclerView"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@+id/topUserCardRecyclerView"
+        app:layout_constraintVertical_bias="0.144" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/topUserCardRecyclerView"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="70dp"
@@ -46,10 +84,10 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutRight"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rightUserCardRecyclerView"
         android:layout_width="80dp"
         android:layout_height="207dp"
         android:layout_marginTop="88dp"
@@ -58,34 +96,35 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutLeft"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
+    <!--    <LinearLayout-->
+<!--        android:id="@+id/ItemCardsLayout"-->
+<!--        android:layout_width="324dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="128dp"-->
+<!--        android:layout_marginBottom="19dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/cardStacks"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"-->
+<!--        app:layout_constraintVertical_bias="1.0"></LinearLayout>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leftUserCardRecyclerView"
+        android:layout_width="79dp"
+        android:layout_height="210dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="71dp"
         android:layout_marginBottom="88dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ItemCardsLayout"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ItemCardsLayout"
-        android:layout_width="324dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="19dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/cardStacks"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.447" />
 
     <Button
         android:id="@+id/btnRollDice"
@@ -149,55 +188,55 @@
         app:layout_constraintTop_toBottomOf="@+id/CardsLayoutLeft"
         app:layout_constraintVertical_bias="0.638" />
 
-    <LinearLayout
-        android:id="@+id/cardStacks"
-        android:layout_width="324dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="113dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="115dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/cardStacks"-->
+<!--        android:layout_width="324dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginStart="113dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="115dp"-->
+<!--        android:gravity="center"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout">-->
 
-        <LinearLayout
-            android:id="@+id/roommateDifficultLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/roommateDifficultLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal" />-->
 
-        <LinearLayout
-            android:id="@+id/roommateEasyLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/roommateEasyLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal" />-->
 
-        <LinearLayout
-            android:id="@+id/witzigLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/witzigLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal" />-->
 
-        <LinearLayout
-            android:id="@+id/witzigWitzigLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/witzigWitzigLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal" />-->
 
-        <LinearLayout
-            android:id="@+id/troublemakerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/troublemakerLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/points"
