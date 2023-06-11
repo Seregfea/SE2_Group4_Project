@@ -222,10 +222,10 @@ public class CardDrawer {
                     JSONObject witzigObjekt = new JSONObject();
                     witzigObjekt.put("number", card.getNumber());
                     witzigObjekt.put("count", card.getCount());
-                    //witzigObjekt.put("number2", card.getNumber2());
-                    //witzigObjekt.put("count2", card.getCount2());
+                    witzigObjekt.put("number2", card.getNumber2());
+                    witzigObjekt.put("count2", card.getCount2());
                     witzigObjekt.put("following", card.getFollowing());
-                    //witzigObjekt.put("min_sum", card.getMinSum());
+                    witzigObjekt.put("min_sum", card.getMinSum());
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
                     if (witzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
                         highlightCards();
@@ -236,12 +236,12 @@ public class CardDrawer {
                     JSONObject witzigwitzigObjekt = new JSONObject();
                     witzigwitzigObjekt.put("number", card.getNumber());
                     witzigwitzigObjekt.put("count", card.getCount());
-                    //witzigwitzigObjekt.put("number2", card.getNumber2());
-                    //witzigwitzigObjekt.put("count2", card.getCount2());
-                    //witzigwitzigObjekt.put("number3", card.getNumber3());
-                    //witzigwitzigObjekt.put("count3", card.getCount3());
-                    //witzigwitzigObjekt.put("number4", card.getNumber4());
-                    //witzigwitzigObjekt.put("count4", card.getCount4());
+                    witzigwitzigObjekt.put("number2", card.getNumber2());
+                    witzigwitzigObjekt.put("count2", card.getCount2());
+                    witzigwitzigObjekt.put("number3", card.getNumber3());
+                    witzigwitzigObjekt.put("count3", card.getCount3());
+                    witzigwitzigObjekt.put("number4", card.getNumber4());
+                    witzigwitzigObjekt.put("count4", card.getCount4());
                     WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
                     if (witzigWitzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
                         highlightCards();

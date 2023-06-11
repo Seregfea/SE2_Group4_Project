@@ -18,7 +18,7 @@ class CheckCardStackTest {
 
         Assertions.assertFalse(itemStack.isEmpty());
 
-        int expected = itemStack.size();
+        int expected = 4;
         Assertions.assertEquals(expected, itemStack.size(), "Anzahl Items");
 
     }
