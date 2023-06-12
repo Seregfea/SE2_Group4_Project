@@ -34,13 +34,21 @@ public class Card {
 
     private int imageViewBackID;
 
-    public Card(CardType cardType, int id, String name, int number, int count, int stealCard,
-                ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
+    public Card(CardType cardType, int id, String name, int number, int count, int number2, int count2, int number3, int count3,
+                int number4, int count4, int minSum, int stealCard, ArrayList<CardType> toDo,
+                int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
         this.number = number;
         this.count = count;
+        this.number2 = number2;
+        this.count2 = count2;
+        this.number3 = number3;
+        this.count3 = count3;
+        this.number4 = number4;
+        this.count4 = count4;
+        this.minSum = minSum;
         this.stealCard = stealCard;
        // this.toDo = toDo;
         this.schnapspralinen = schnapspralinen;
