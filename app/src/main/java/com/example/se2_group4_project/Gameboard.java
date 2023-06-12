@@ -210,7 +210,20 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         activityGameboardBinding.ItemCardsLayout.setAdapter(this.myRecyclerviewAdabter);
 
 
-        // this.card.addCards(c.getItemsStack());
+        // add cards on layout
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(c.getRoommateDifficultStack());
+        cards.addAll(c.getRoommateEasyStack());
+        cards.addAll(c.getWitzigStack());
+        cards.addAll(c.getWitzigWitzigStack());
+        cards.addAll(c.getTroublemakerStack());
+
+        RecyclerView.LayoutManager managerExtraCards = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        activityGameboardBinding.extraCardsLayout.setLayoutManager(managerExtraCards);
+        this.myRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), cards, R.layout.recycler_item_view);
+        activityGameboardBinding.extraCardsLayout.setAdapter(this.myRecyclerviewAdabter);
+
+
 //        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
 //        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
 //        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());

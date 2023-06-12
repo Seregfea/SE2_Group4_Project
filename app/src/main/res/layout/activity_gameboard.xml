@@ -62,6 +62,18 @@
         app:layout_constraintVertical_bias="0.144" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/extraCardsLayout"
+        android:layout_width="108dp"
+        android:layout_height="117dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/availableDiceContainer"
+        app:layout_constraintEnd_toStartOf="@+id/rightUserCardRecyclerView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/CardsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/topUserCardRecyclerView"
+        app:layout_constraintVertical_bias="0.161" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ItemCardsLayout"
         android:layout_width="108dp"
         android:layout_height="117dp"
