@@ -40,6 +40,7 @@ public class Client extends Thread implements ClientCallbacks {
     int playerSendedNumber;
     String messageIdentifier;
     String SPACE = " ";
+    HandlerThread handlerThread;
 
     public Client(String ipAdresse, int port, GameboardCallbacks gameboardCallbacks, Handler handlerUIGameboard){
         this.ipAdresse =  ipAdresse;
@@ -160,6 +161,7 @@ public class Client extends Thread implements ClientCallbacks {
     public ClientCallbacks getClientCallbacks(){
         return this;
     }
+
 
     //////////////////////////////////// Callbacks ///////////////////////////////////
 
