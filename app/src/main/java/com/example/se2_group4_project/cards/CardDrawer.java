@@ -1,6 +1,8 @@
 package com.example.se2_group4_project.cards;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.widget.ImageView;
 
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.player.PlayerController;
@@ -141,7 +143,12 @@ public class CardDrawer {
     }
 
 
-    public void highlightCards() {
+    public void highlightCards(Card card) {
+        for (ImageView iView = displayedCards) {
+            if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+                iView.setBackgroundColor(Color.YELLOW);
+            }
+        }
     }
 
     public void checkIfHighlight(ArrayList<Card> cardStack) throws JSONException {
@@ -156,7 +163,7 @@ public class CardDrawer {
                     itemObjekt.put("number", card.getNumber());
                     itemObjekt.put("count", card.getCount());
                     itemObjekt.put("stealCard", card.getStealCard());
-                    Item item = new Item(itemObjekt);
+                    Item item = new Item();
 
                     if (item.isAvailable(playerController.getDiceValuesUsable())) {
                         highlightCards();
