@@ -68,6 +68,8 @@ class CardDrawerTest {
             }
         }
     }
+
+    //Liste ist leer, weil sie nie initalisiert wird - CardDrawer generateInitialCards() muss auch aufgerufen werden
     @Test
     public void testAvailability(){
         testCheckIfHighlight(cardArray);

@@ -318,7 +318,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         ImageView currentCardSide = null;
         for (ImageView iView: displayedCards
              ) {
-            if(iView.getId() == cardFlip.getImageViewID()) {
+            if(iView.getId() == cardFlip.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
                 currentCardSide = iView;
             }
         }

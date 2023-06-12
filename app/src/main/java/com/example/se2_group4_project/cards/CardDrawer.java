@@ -28,6 +28,9 @@ public class CardDrawer {
     private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
     private PlayerController playerController;
+    private ArrayList<Card> allCards = new ArrayList<>();
+
+
 
     public CardDrawer(Context context) {
         this.convertJSON = new ConvertJSON(context);
@@ -134,6 +137,7 @@ public class CardDrawer {
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
+       // allCards.addAll(schaukelstuhlStack);
     }
 
 

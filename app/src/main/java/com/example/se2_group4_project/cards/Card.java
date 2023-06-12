@@ -1,5 +1,7 @@
 package com.example.se2_group4_project.cards;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 public class Card {
