@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.ImageView;
 
+import com.example.se2_group4_project.Gameboard;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.player.PlayerController;
 
@@ -143,15 +144,9 @@ public class CardDrawer {
     }
 
 
-    public void highlightCards(Card card) {
-        for (ImageView iView = displayedCards) {
-            if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
-                iView.setBackgroundColor(Color.YELLOW);
-            }
-        }
-    }
-
     public void checkIfHighlight(ArrayList<Card> cardStack) throws JSONException {
+
+        Gameboard gameboard = new Gameboard();
 
         for (Card card : cardStack) {
 
@@ -163,10 +158,10 @@ public class CardDrawer {
                     itemObjekt.put("number", card.getNumber());
                     itemObjekt.put("count", card.getCount());
                     itemObjekt.put("stealCard", card.getStealCard());
-                    Item item = new Item();
+                    Item item = new Item(itemObjekt);
 
                     if (item.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -177,7 +172,7 @@ public class CardDrawer {
                     RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
 
                     if (roommateEasy.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     JSONObject roommateObjektDifficult = new JSONObject();
                     roommateObjektDifficult.put("following", card.getFollowing());
@@ -185,7 +180,7 @@ public class CardDrawer {
                     RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
 
                     if (roommateDifficult.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -196,7 +191,7 @@ public class CardDrawer {
                     Me me = new Me(meObjekt);
 
                     if (me.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -206,7 +201,7 @@ public class CardDrawer {
                     badewanneObjekt.put("count", card.getCount());
                     Badewanne badewanne = new Badewanne(badewanneObjekt);
                     if (badewanne.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -216,7 +211,7 @@ public class CardDrawer {
                     couchObjekt.put("count", card.getCount());
                     Couch couch = new Couch(couchObjekt);
                     if (couch.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
                 case TABLEWARE:
@@ -225,7 +220,7 @@ public class CardDrawer {
                     geschirrObjekt.put("count", card.getCount());
                     Geschirr geschirr = new Geschirr(geschirrObjekt);
                     if (geschirr.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -239,7 +234,7 @@ public class CardDrawer {
                     witzigObjekt.put("min_sum", card.getMinSum());
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
                     if (witzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                     }
                     break;
 
@@ -255,7 +250,7 @@ public class CardDrawer {
                     witzigwitzigObjekt.put("count4", card.getCount4());
                     WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
                     if (witzigWitzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
-                        highlightCards();
+                        gameboard.highlightCards(card);
                         break;
                     }
             }

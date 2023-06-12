@@ -332,6 +332,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         cardFlip.setFront(!cardFlip.isFront());
     }
 
+    public void highlightCards(Card card) {
+        for (ImageView iView : displayedCards) {
+            if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+                iView.setBackgroundColor(Color.YELLOW);
+            }
+        }
+    }
+
 
     ///////////////////////// dice methods ////////////////////////
 
