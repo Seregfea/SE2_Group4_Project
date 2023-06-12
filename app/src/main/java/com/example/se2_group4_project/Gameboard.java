@@ -54,7 +54,7 @@ import java.util.Map;
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private Handler clientHandler;
     private ClientCallbacks clientCallbacks;
-    private MyRecyclerviewAdabter myRecyclerviewAdabter;
+    private MyRecyclerviewAdabter playerRecyclerviewAdabter;
     private PlayerController player;
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
@@ -170,7 +170,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("no player", "no player " + player);
                 break;
         }
-        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.myRecyclerviewAdabter,this.player.getPlayerInitialCards(),R.layout.recycler_item_view);
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.player.getPlayerInitialCards(),R.layout.recycler_item_view);
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
@@ -197,10 +197,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.myRecyclerviewAdabter.addItem(card);
-                int integry = this.myRecyclerviewAdabter.getItemCount();
+                this.playerRecyclerviewAdabter.addItem(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
                 Log.d("get item card", " click 2");
-                this.myRecyclerviewAdabter.notifyDataSetChanged();
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
                 Log.d("get item card", "" + integry);
             });
         }
@@ -510,11 +510,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
-    private void createRecyclerviewPlayer(RecyclerView recyclerview,int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter,ArrayList<Card> playercards, int recyclerItem){
+    private void createRecyclerviewPlayer(RecyclerView recyclerview,int orientation,ArrayList<Card> playercards, int recyclerItem){
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
-        myRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
-        activityGameboardBinding.userCardRecyclerView.setAdapter(myRecyclerviewAdabter);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
+        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
     }
 
     private void initCarddrawer() {
