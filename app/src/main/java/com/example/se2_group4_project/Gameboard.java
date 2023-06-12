@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -72,6 +73,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private static List<ImageView> displayedCards = new ArrayList<>();
 
     private int testVariable = 0;
+
+    private final Drawable borderDrawable = getResources().getDrawable(R.drawable.cardborder);
 
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
@@ -297,6 +300,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+            highlightCards(card);
         }
     }
 
@@ -335,7 +339,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void highlightCards(Card card) {
         for (ImageView iView : displayedCards) {
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
-                iView.setBackgroundColor(Color.YELLOW);
+                iView.setForeground(borderDrawable);
             }
         }
     }
