@@ -72,6 +72,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private int testVariable = 0;
 
+    PointDisplay pointDisplay = new PointDisplay();
+    private int pralinen = pointDisplay.getPoints();
+
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;

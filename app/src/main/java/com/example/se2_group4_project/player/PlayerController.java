@@ -15,6 +15,7 @@ import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
 import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
+import com.example.se2_group4_project.pointDisplay.PointDisplay;
 
 
 import java.io.IOException;
@@ -32,7 +33,9 @@ public class PlayerController {
     private ArrayList<Integer> diceValuesNotUsable;
 
     private ArrayList<Card> playerUpdatedCards;
-    private int pralinen;
+    PointDisplay pointDisplay = new PointDisplay();
+    private int pralinen = pointDisplay.getPoints();
+
     private ArrayList<Item> itemCards;
 
 
