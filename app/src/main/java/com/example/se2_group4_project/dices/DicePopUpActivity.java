@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
+import com.example.se2_group4_project.player.PlayerController;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,8 @@ public class DicePopUpActivity extends PopupWindow {
     private final Button submitClickedDices;
     private final EditText changeDiceValue;
     private final GameboardCallbacks gbCallbacks;
-    private int numberOfDice = 0;
+    private int numberOfDice;
+    private int isEnemyDice = 0;
     private final int delayTime = 20;
     private final int rollAnimation = 40;
     private ArrayList<Integer> playerDices;
@@ -87,6 +89,8 @@ public class DicePopUpActivity extends PopupWindow {
             if (!isDiceValueChanged) {
                 dismiss();
                 testDice();
+
+                isEnemyDice();
                 diceResults(selectedDices, unselectedDices);
             } else {
                 if (diceValueNew < 1 || diceValueNew > 5) {
@@ -103,7 +107,10 @@ public class DicePopUpActivity extends PopupWindow {
 
                     dismiss();
                     testDice();
+
+                    isEnemyDice();
                     diceResults(selectedDices, unselectedDices);
+
                     changeDiceValue.setText("");
                     changeDiceValue.setEnabled(false);
                 }
@@ -111,9 +118,8 @@ public class DicePopUpActivity extends PopupWindow {
         });
     }
 
-    public void rollDice() throws InterruptedException {
-        // hardcoded
-        numberOfDice = 4;
+    public void rollDice(int diceNumber) throws InterruptedException {
+        numberOfDice = diceNumber;
         diceLayout.removeAllViews();
 
         for (int i = 0; i < numberOfDice; i++) {
@@ -136,55 +142,8 @@ public class DicePopUpActivity extends PopupWindow {
                 unselectedDices = diceValues;
                 selectedDices = new ArrayList<>();
 
-                for (int i = 0; i < diceValues.size(); i++) {
-                    final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
-                    final int diceValue = diceValues.get(i);
+                visualizeDice(diceValues);
 
-                    diceImage.setOnClickListener(view -> {
-                        submitClickedDices.setEnabled(true);
-
-                        // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
-                        if (diceImage.getBackground() instanceof ColorDrawable) {
-                            ColorDrawable drawable = (ColorDrawable) diceImage.getBackground();
-
-                            // bereits ausgewählt -> wieder abwählen und aus selected entfernen
-                            // falls nicht wird es ausgewählt und der Wert wird aus unselected entfernt
-                            if (drawable.getColor() == Color.GREEN) {
-                                diceImage.setBackgroundColor(Color.TRANSPARENT);
-
-                                if (selectedDices.size() != 0) {
-                                    selectedDices.remove(Integer.valueOf(diceValue));
-                                }
-                                unselectedDices.add(diceValue);
-                            } else {
-                                diceImage.setBackgroundColor(Color.GREEN);
-
-                                if (unselectedDices.size() != 0) {
-                                    unselectedDices.remove(Integer.valueOf(diceValue));
-                                }
-                                selectedDices.add(diceValue);
-                            }
-
-                        } else {
-                            diceImage.setBackgroundColor(Color.GREEN);
-
-                            if (unselectedDices.size() != 0) {
-                                unselectedDices.remove(Integer.valueOf(diceValue));
-                            }
-                            selectedDices.add(diceValue);
-                        }
-                        // überprüfen ob ein Känguru ausgewählt ist und das Textfeld entsprechend bearbeitbar machen
-                        if (diceValue == 6 && selectedDices.contains(diceValue)) {
-                            changeDiceValue.setEnabled(true);
-                            Log.d("change dice value called", "enabled");
-                        }
-                        else if (diceValue == 6 && !selectedDices.contains(diceValue)) {
-                            changeDiceValue.setEnabled(false);
-                            Log.d("change dice value called", "disabled");
-                        }
-                    });
-                    refreshDiceOutput(diceImage, diceValues.get(i));
-                }
                 try {
                     Thread.sleep(delayTime);
                 } catch (InterruptedException e) {
@@ -201,6 +160,67 @@ public class DicePopUpActivity extends PopupWindow {
         // wartet bis zum Ende des Threads
         thread.join();
         testDice();
+    }
+
+    public void isEnemyDice() {
+        if (isEnemyDice == 1) {
+            handler.post(() -> {
+                gbCallbacks.sendDiceEnemyAccept(this.isEnemyDice);
+            });
+            this.isEnemyDice = 0;
+        }
+    }
+
+    public void visualizeDice(ArrayList<Integer> diceValues) {
+        for (int i = 0; i < diceValues.size(); i++) {
+            final ImageView diceImage = (ImageView) diceLayout.getChildAt(i);
+            final int diceValue = diceValues.get(i);
+
+            diceImage.setOnClickListener(view -> {
+                submitClickedDices.setEnabled(true);
+
+                // überprüfen ob imageView ausgewählt, falls nicht wird es auf ausgewählt gesetzt
+                if (diceImage.getBackground() instanceof ColorDrawable) {
+                    ColorDrawable drawable = (ColorDrawable) diceImage.getBackground();
+
+                    // bereits ausgewählt -> wieder abwählen und aus selected entfernen
+                    // falls nicht wird es ausgewählt und der Wert wird aus unselected entfernt
+                    if (drawable.getColor() == Color.GREEN) {
+                        diceImage.setBackgroundColor(Color.TRANSPARENT);
+
+                        if (selectedDices.size() != 0) {
+                            selectedDices.remove(Integer.valueOf(diceValue));
+                        }
+                        unselectedDices.add(diceValue);
+                    } else {
+                        diceImage.setBackgroundColor(Color.GREEN);
+
+                        if (unselectedDices.size() != 0) {
+                            unselectedDices.remove(Integer.valueOf(diceValue));
+                        }
+                        selectedDices.add(diceValue);
+                    }
+
+                } else {
+                    diceImage.setBackgroundColor(Color.GREEN);
+
+                    if (unselectedDices.size() != 0) {
+                        unselectedDices.remove(Integer.valueOf(diceValue));
+                    }
+                    selectedDices.add(diceValue);
+                }
+                // überprüfen ob ein Känguru ausgewählt ist und das Textfeld entsprechend bearbeitbar machen
+                if (diceValue == 6 && selectedDices.contains(diceValue)) {
+                    changeDiceValue.setEnabled(true);
+                    Log.d("change dice value called", "enabled");
+                }
+                else if (diceValue == 6 && !selectedDices.contains(diceValue)) {
+                    changeDiceValue.setEnabled(false);
+                    Log.d("change dice value called", "disabled");
+                }
+            });
+            refreshDiceOutput(diceImage, diceValues.get(i));
+        }
     }
 
     public void createDiceLayout(int diceValue) {

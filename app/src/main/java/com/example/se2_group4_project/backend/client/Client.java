@@ -23,7 +23,6 @@ import java.util.Objects;
 public class Client extends Thread implements ClientCallbacks {
 
 
-
     Socket client;
     int port;
     String ipAdresse;
@@ -40,14 +39,16 @@ public class Client extends Thread implements ClientCallbacks {
     int playerSendedNumber;
     String messageIdentifier;
     String SPACE = " ";
+    String ENEMY = "4";
     HandlerThread handlerThread;
 
-    public Client(String ipAdresse, int port, GameboardCallbacks gameboardCallbacks, Handler handlerUIGameboard){
-        this.ipAdresse =  ipAdresse;
+    public Client(String ipAdresse, int port, GameboardCallbacks gameboardCallbacks, Handler handlerUIGameboard) {
+        this.ipAdresse = ipAdresse;
         this.port = port;
         this.gameboardCallbacks = gameboardCallbacks;
         this.handlerUIGameboard = handlerUIGameboard;
     }
+
     @Override
     public void run() {
         mapper = new ObjectMapper();
@@ -60,12 +61,12 @@ public class Client extends Thread implements ClientCallbacks {
 
         try {
             Log.d("ip adresse client new socket", ipAdresse);
-            client = new Socket(ipAdresse,port);
-            Log.d("client connected", " "+client.isConnected());
+            client = new Socket(ipAdresse, port);
+            Log.d("client connected", " " + client.isConnected());
             clientInput = new DataInputStream(client.getInputStream());
             serverMessage = new DataOutputStream(client.getOutputStream());
 
-            while (client.isConnected()){
+            while (client.isConnected()) {
 
                 this.messageInput = clientInput.readUTF();
                 Log.d("input client", messageInput);
@@ -85,11 +86,13 @@ public class Client extends Thread implements ClientCallbacks {
         serverMessage.writeUTF(messageInput);
     }
 
-    private String messageCode(String messageInput){ return this.playerNumber + this.SPACE + messageInput;    }
+    private String messageCode(String messageInput) {
+        return this.playerNumber + this.SPACE + messageInput;
+    }
 
-    private void messageDecode(){
+    private void messageDecode() {
         Log.d("client before split", messageInput);
-        String [] commands = this.messageInput.split(this.SPACE);
+        String[] commands = this.messageInput.split(this.SPACE);
         Log.d("client command", commands.toString());
         Log.d("client command0", commands[0]);
         Log.d("client command1", commands[1]);
@@ -100,11 +103,11 @@ public class Client extends Thread implements ClientCallbacks {
         this.messageInput = commands[2];
         Log.d("client message", this.messageInput);
         this.playerSendedNumber = Integer.parseInt(commands[0]);
-        Log.d("client player", this.playerSendedNumber+"");
+        Log.d("client player", this.playerSendedNumber + "");
     }
 
     private void chooseIdentifierFunction(String identifier) throws IOException {
-        switch (identifier){
+        switch (identifier) {
             case "0":
                 handlerUIGameboard.post(() -> {
                     try {
@@ -115,16 +118,17 @@ public class Client extends Thread implements ClientCallbacks {
                 });
                 break;
             case "1":
-                // TODO
-                // some dice functions
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.sendedEnemyDice(jsonToObject(this.messageInput));
+                });
 
             case "2":
                 //TODO
                 //cards update
-            
+
             case "3":
                 startPlayer();
-            
+
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
                 break;
@@ -132,18 +136,17 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
 
-    private Player jsonToObject(String object){
-
-        Player player;
+    private ArrayList<Integer> jsonToObject(String object) {
+        ArrayList<Integer> player;
         try {
-            player = mapper.readValue(object, Player.class);
+            player = mapper.readValue(object, ArrayList.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
         return player;
     }
 
-    private String objectToJson(Object object){
+    private String objectToJson(Object object) {
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
@@ -152,13 +155,13 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     public void startPlayer() throws IOException {
-            playerNumber = this.playerSendedNumber;
-            handlerUIGameboard.post(() -> gameboardCallbacks.createPlayer(playerNumber));
-            Log.d("player number client", playerNumber +"");
-            messageInput = "";
+        playerNumber = this.playerSendedNumber;
+        handlerUIGameboard.post(() -> gameboardCallbacks.createPlayer(playerNumber));
+        Log.d("player number client", playerNumber + "");
+        messageInput = "";
     }
 
-    public ClientCallbacks getClientCallbacks(){
+    public ClientCallbacks getClientCallbacks() {
         return this;
     }
 
@@ -182,8 +185,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
-        messageSend(messageCode(objectToJson(enemyDice)));
-        messageSend(messageCode(cheatIdentifier));
+        messageSend(messageCode(cheatIdentifier + SPACE + objectToJson(enemyDice)) + SPACE + ENEMY);
     }
 
     @Override

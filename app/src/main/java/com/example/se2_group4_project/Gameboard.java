@@ -170,7 +170,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("no player", "no player " + player);
                 break;
         }
-        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.player.getPlayerInitialCards(),R.layout.recycler_item_view);
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player.getPlayerInitialCards(), R.layout.recycler_item_view);
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
@@ -343,7 +343,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-            dicePopUpActivity.rollDice();
+            dicePopUpActivity.rollDice(player.getDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -510,7 +510,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
-    private void createRecyclerviewPlayer(RecyclerView recyclerview,int orientation,ArrayList<Card> playercards, int recyclerItem){
+    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
         this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
@@ -620,7 +620,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         this.clientHandler = clientHandler;
     }
 
-
     @Override
     public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
         player.setDiceValuesUsable(playerDices);
@@ -630,8 +629,23 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     @Override
     public void parkedDiceValues(ArrayList<Integer> parkedDices) {
         this.parkedDice = parkedDices;
-
         player.setParkedDices(parkedDices);
+    }
+
+    @Override
+    public void diceEnemy(ArrayList<Integer> diceEnemy) {
+        player.setDiceValuesNotUsable(diceEnemy);
+        dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
+    }
+
+    @Override
+    public void sendDiceEnemyAccept(int accept) {
+
+    }
+
+    @Override
+    public void sendedEnemyDice(ArrayList<Integer> enemyDice) {
+
     }
 
     @Override
@@ -645,5 +659,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
+
 }
 

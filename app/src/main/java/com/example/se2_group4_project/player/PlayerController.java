@@ -14,12 +14,10 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
-import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerController {
     private final int playerID;
@@ -172,7 +170,7 @@ public class PlayerController {
             @Override
             public void run() {
                 try {
-                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "0");
+                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

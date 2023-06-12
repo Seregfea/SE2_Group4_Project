@@ -9,10 +9,22 @@ import java.util.ArrayList;
 
 public interface GameboardCallbacks {
     void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice);
+
     void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices);
+
     void parkedDiceValues(ArrayList<Integer> parkedDices);
+
+    void diceEnemy(ArrayList<Integer> diceEnemy);
+
+    void sendDiceEnemyAccept(int accept);
+
+    void sendedEnemyDice(ArrayList<Integer> enemyDice);
+
     void cheatPopUpActivity();
+
     void cheatFunction(String cheatStart) throws IOException;
+
     void createPlayer(int playerNumber);
+
     void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler);
 }
