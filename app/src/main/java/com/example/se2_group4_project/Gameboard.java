@@ -472,10 +472,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
 
     public void checkSpecialCards(int pralinen){
+
         if(pralinen >= 10){
             //then add one Troublemaker to current player
-            //how do i know who the current player is
-            //add to which arraylist
+            //how do i know who the current player is - heinz
+            //add to which arraylist - eugen
         }
 
         if(pralinen >= 16){
