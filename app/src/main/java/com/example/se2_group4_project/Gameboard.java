@@ -144,7 +144,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         switch (player) {
             case 0:
                 this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
+                // addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
                 break;
@@ -171,6 +171,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 break;
         }
         createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.player.getPlayerInitialCards(),R.layout.recycler_item_view);
+
+        // create Recycle View for other players
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeft,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view);
+
+
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
