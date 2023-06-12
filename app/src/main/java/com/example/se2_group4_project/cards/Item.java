@@ -44,9 +44,9 @@ public class Item {
         return false;
     }
 
-    public boolean isStealable(int[] rolledDice){
-        for(int i = 0; i < rolledDice.length; i++){
-            if (rolledDice[i] >= stealCard && i+1 == number) {
+    public boolean isStealable(ArrayList<Integer> rolledDice){
+        for(int i = 0; i < rolledDice.size(); i++){
+            if (rolledDice.get(i) >= stealCard && i+1 == number) {
                 return true;
             }
         }

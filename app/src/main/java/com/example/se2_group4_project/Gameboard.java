@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -38,14 +37,11 @@ import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 
-import com.example.se2_group4_project.gameboard_adjustments.CardAvailability;
 import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.player.PlayerController;
 
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
-
-import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
