@@ -173,7 +173,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.player.getPlayerInitialCards(),R.layout.recycler_item_view);
 
         // create Recycle View for other players
-        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeft,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.VERTICAL,c.getPlayerTealStack(),R.layout.recycler_item_view);
 
 
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
