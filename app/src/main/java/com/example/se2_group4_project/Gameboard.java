@@ -45,6 +45,8 @@ import com.example.se2_group4_project.player.PlayerController;
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
+import org.json.JSONException;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +60,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ClientCallbacks clientCallbacks;
     MyRecyclerviewAdabter myRecyclerviewAdabter;
     private PlayerController player;
+
+    public PlayerController getPlayer() {
+        return player;
+    }
+
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
     // hardcoded
@@ -73,8 +80,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private static List<ImageView> displayedCards = new ArrayList<>();
 
     private int testVariable = 0;
-
-    private final Drawable borderDrawable = getResources().getDrawable(R.drawable.cardborder);
 
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
@@ -300,7 +305,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
-            highlightCards(card);
         }
     }
 
@@ -337,9 +341,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void highlightCards(Card card) {
+        final int imageRessourceID =
+                this.getResources()
+                        .getIdentifier(
+                                "cardborder", "drawable", this.getApplicationContext().getPackageName());
+
         for (ImageView iView : displayedCards) {
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
-                iView.setForeground(borderDrawable);
+                iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
             }
         }
     }
@@ -410,6 +419,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             if (diceIsRolled){
                 addCardsToPlayer();
+//                try {
+//                    c.checkIfHighlight(c.getItemsStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
                 // checkIfHighlight aufrufen
                 // CardDrawer.checkIfHighlight(c.getItemsStack());
 

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.widget.ImageView;
 
 import com.example.se2_group4_project.Gameboard;
+import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.player.PlayerController;
 
@@ -144,13 +145,12 @@ public class CardDrawer {
     }
 
 
-    public void checkIfHighlight(ArrayList<Card> cardStack) throws JSONException {
-
-        Gameboard gameboard = new Gameboard();
+    public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
 
         for (Card card : cardStack) {
 
             CardType cardType = card.getCardType();
+            this.playerController = gameboard.getPlayer();
 
             switch (cardType) {
                 case ITEM:
@@ -158,6 +158,7 @@ public class CardDrawer {
                     itemObjekt.put("number", card.getNumber());
                     itemObjekt.put("count", card.getCount());
                     itemObjekt.put("stealCard", card.getStealCard());
+                    itemObjekt.put("itemBenefit","");
                     Item item = new Item(itemObjekt);
 
                     if (item.isAvailable(playerController.getDiceValuesUsable())) {
