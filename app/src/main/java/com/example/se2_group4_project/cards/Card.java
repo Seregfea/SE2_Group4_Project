@@ -12,6 +12,14 @@ public class Card {
     //private ArrayList<NeededDice> neededDice;
     private int count;
     private int number;
+    private int count2;
+    private int number2;
+    private int count3;
+    private int number3;
+    private int count4;
+    private int number4;
+    private int minSum;
+
     private int stealCard;
     private int following;
 
@@ -151,6 +159,34 @@ public class Card {
 
     public int getFollowing() {
         return following;
+    }
+
+    public int getCount2() {
+        return count2;
+    }
+
+    public int getNumber2() {
+        return number2;
+    }
+
+    public int getCount3() {
+        return count3;
+    }
+
+    public int getNumber3() {
+        return number3;
+    }
+
+    public int getCount4() {
+        return count4;
+    }
+
+    public int getNumber4() {
+        return number4;
+    }
+
+    public int getMinSum() {
+        return minSum;
     }
 }
 
