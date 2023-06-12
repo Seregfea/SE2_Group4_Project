@@ -235,7 +235,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
-            // iView.setTag((card.getImageViewID()));
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
@@ -257,7 +256,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-            iView.setId(View.generateViewId());
+
             String currentCardFront = card.getCurrentCardFront();
           
             final int imageRessourceID =
@@ -295,6 +294,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 iView.setLayoutParams(params);
 
             }
+            linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
         }
