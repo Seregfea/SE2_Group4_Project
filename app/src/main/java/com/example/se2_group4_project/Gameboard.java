@@ -453,17 +453,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 }
             });
 
-            diceIsRolled = true;
-
-            if (diceIsRolled) {
-                if (!player.isReRoll()) {
-                    activityGameboardBinding.btnRollDice.setEnabled(false);
-                }
-
-                addCardsToPlayer();
-                // call function to flip current card
-                // flipCurrentCardListener();
-            }
+            
 
             testDice();
         });
