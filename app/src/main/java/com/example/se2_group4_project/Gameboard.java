@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -151,7 +152,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
                 createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
                 createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
@@ -198,27 +199,59 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
 
         for (int i = 0; i < cardDrawer.getItemsStack().size(); i++) {
-
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
             itemCardImage.setOnClickListener(view -> {
-                System.out.println("Clicked Item Card");
                 Log.d("get item card", " click 1");
-
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
-                activityGameboardBinding.userCardRecyclerView.addView(itemCardImage);
 
-
-                // this.playerRecyclerviewAdabter.addItem(card);
-//
-//                int integry = this.playerRecyclerviewAdabter.getItemCount();
-//                Log.d("get item card", " click 2");
-//
-//                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-//                Log.d("get item card", "" + integry);
+                this.playerRecyclerviewAdabter.addItem(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
+                Log.d("get item card", " click 2");
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                Log.d("get item card", "" + integry);
             });
         }
+    }
 
+    public void addTroublemakerCards(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getTroublemakerStack().size(); i++){
+            final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
+            final Card card = c.getTroublemakerStack().get(i);
+
+            troubleMakerImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
+
+                // add cards to arraylist, RV, Player
+            });
+        }
+    }
+
+    public void addSchaukestuhlCards(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getSchaukelstuhlStack().size(); i++){
+            final ImageView schaukelStuhlImage = (ImageView) activityGameboardBinding.SchaukelstuhlLayout.getChildAt(i);
+            final Card card = c.getSchaukelstuhlStack().get(i);
+
+            schaukelStuhlImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.troublemakerLayout.removeView(schaukelStuhlImage);
+
+                // add cards to arraylist, RV, Player
+            });
+        }
     }
 
     private void createItem(View view) {
@@ -587,6 +620,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             //then add one Troublemaker to current player
             //how do i know who the current player is
             //add to which arraylist
+
+            addTroublemakerCards();
         }
 
         if (pralinen >= 16) {
@@ -594,6 +629,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             //how do i know who the current player is
             //add to which arraylist
             //how to check 1 round?
+
+            addSchaukestuhlCards();
         }
     }
 //    public void endTurn(){
