@@ -9,6 +9,7 @@ import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.player.PlayerController;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,8 +33,6 @@ public class CardDrawer {
     private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
     private PlayerController playerController;
-    private ArrayList<Card> allCards = new ArrayList<>();
-
 
 
     public CardDrawer(Context context) {
@@ -147,6 +146,7 @@ public class CardDrawer {
 
     public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
 
+        ArrayList<Integer> rolledDices = gameboard.getDicePopUpActivity().getPlayerDices();
         for (Card card : cardStack) {
 
             CardType cardType = card.getCardType();
@@ -161,7 +161,7 @@ public class CardDrawer {
                     itemObjekt.put("itemBenefit","");
                     Item item = new Item(itemObjekt);
 
-                    if (item.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (item.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -172,15 +172,16 @@ public class CardDrawer {
                     roommateObjektEasy.put("count", card.getCount());
                     RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
 
-                    if (roommateEasy.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (roommateEasy.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     JSONObject roommateObjektDifficult = new JSONObject();
                     roommateObjektDifficult.put("following", card.getFollowing());
                     roommateObjektDifficult.put("count", card.getCount());
+                    roommateObjektDifficult.put("roommateBenefit","");
                     RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
 
-                    if (roommateDifficult.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (roommateDifficult.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -191,7 +192,7 @@ public class CardDrawer {
                     meObjekt.put("count", card.getCount());
                     Me me = new Me(meObjekt);
 
-                    if (me.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (me.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -201,7 +202,7 @@ public class CardDrawer {
                     badewanneObjekt.put("number", card.getNumber());
                     badewanneObjekt.put("count", card.getCount());
                     Badewanne badewanne = new Badewanne(badewanneObjekt);
-                    if (badewanne.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (badewanne.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -211,7 +212,7 @@ public class CardDrawer {
                     couchObjekt.put("number", card.getNumber());
                     couchObjekt.put("count", card.getCount());
                     Couch couch = new Couch(couchObjekt);
-                    if (couch.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (couch.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -220,7 +221,7 @@ public class CardDrawer {
                     geschirrObjekt.put("number", card.getNumber());
                     geschirrObjekt.put("count", card.getCount());
                     Geschirr geschirr = new Geschirr(geschirrObjekt);
-                    if (geschirr.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (geschirr.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -233,8 +234,11 @@ public class CardDrawer {
                     witzigObjekt.put("count2", card.getCount2());
                     witzigObjekt.put("following", card.getFollowing());
                     witzigObjekt.put("min_sum", card.getMinSum());
+                    witzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
+                    JSONArray toDoswitzig = new JSONArray(card.getToDo());
+                    witzigObjekt.put("toDoPenalty", toDoswitzig);
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
-                    if (witzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (witzigToDos.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
@@ -249,8 +253,11 @@ public class CardDrawer {
                     witzigwitzigObjekt.put("count3", card.getCount3());
                     witzigwitzigObjekt.put("number4", card.getNumber4());
                     witzigwitzigObjekt.put("count4", card.getCount4());
+                    witzigwitzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
+                    JSONArray toDoswitzigwitzig = new JSONArray(card.getToDo());
+                    witzigwitzigObjekt.put("toDoPenalty", toDoswitzigwitzig);
                     WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
-                    if (witzigWitzigToDos.isAvailable(playerController.getDiceValuesUsable())) {
+                    if (witzigWitzigToDos.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                         break;
                     }

@@ -25,7 +25,7 @@ public class Card {
     private int stealCard;
     private int following;
 
-   // private ArrayList<CardType> toDo;
+    private ArrayList<CardType> toDoPenalty;
     private int schnapspralinen;
     private CardType cardType;
     private String cardFront;
@@ -83,13 +83,13 @@ public class Card {
         this.name = name;
     }
 
-//    public ArrayList<CardType> getToDo() {
-//        return toDo;
-//    }
-//
-//    public void setToDo(ArrayList<CardType> toDo) {
-//        this.toDo = toDo;
-//    }
+    public ArrayList<CardType> getToDo() {
+        return toDoPenalty;
+    }
+
+    public void setToDo(ArrayList<CardType> toDo) {
+        this.toDoPenalty = toDo;
+    }
 
     public int getSchnapspralinen() {
         return schnapspralinen;

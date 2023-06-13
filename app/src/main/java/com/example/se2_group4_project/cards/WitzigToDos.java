@@ -60,28 +60,34 @@ public class WitzigToDos {
 
 
         JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
+        try {
+            Integer k = (Integer) toDoPenaltyArray.get(0);
 
-        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-            switch (toDoPenaltyArray.getString(i)) {
-                case "BATHTUB":
-                    this.bathtub = true;
-                    break;
-                case "COUCH":
-                    this.couch = true;
-                    break;
-                case "TABLEWARE":
-                    this.tableware = true;
-                    break;
-                case "SLEEP":
-                    this.sleep = true;
-                    break;
-                case "AWAKE":
-                    this.awake = true;
-                    break;
-                default:
-                    System.out.println("No to-do penalty assignments to do");
-                    break;
+            for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+                switch (toDoPenaltyArray.getString(i)) {
+                    case "BATHTUB":
+                        this.bathtub = true;
+                        break;
+                    case "COUCH":
+                        this.couch = true;
+                        break;
+                    case "TABLEWARE":
+                        this.tableware = true;
+                        break;
+                    case "SLEEP":
+                        this.sleep = true;
+                        break;
+                    case "AWAKE":
+                        this.awake = true;
+                        break;
+                    default:
+                        System.out.println("No to-do penalty assignments to do");
+                        break;
+                }
             }
+
+        } catch (JSONException e) {
+
         }
     }
 

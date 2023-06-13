@@ -35,13 +35,28 @@ public class Item {
     }
 
     // Methods
+//    public boolean isAvailable(ArrayList<Integer> rolledDice){
+//        for (int i = 0; i < rolledDice.size(); i++){
+//            if (rolledDice.get(i) >= count && i+1 == number) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
     public boolean isAvailable(ArrayList<Integer> rolledDice){
+        boolean isAvailable = false;
+        int usedCount = count;
+
         for (int i = 0; i < rolledDice.size(); i++){
-            if (rolledDice.get(i) >= count && i+1 == number) {
-                return true;
+            if (rolledDice.get(i) == number) {
+                usedCount--;
             }
         }
-        return false;
+        if(usedCount <= 0){
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
     public boolean isStealable(ArrayList<Integer> rolledDice){

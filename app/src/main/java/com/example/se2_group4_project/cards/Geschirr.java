@@ -18,12 +18,16 @@ public class Geschirr {
 
 
     public boolean isAvailable(ArrayList<Integer> rolledDice){
-        for(int i=0; i < 3; i++){
-         if(rolledDice.get(i) != 0 && rolledDice.get(i + 1) != 0 && rolledDice.get(i + 2) != 0){
-             return true;
-         }
-        }
         return false;
+//        if(rolledDice.size() == 0){
+//            return false;
+//        }
+//        for(int i=0; i < 3; i++){
+//         if(rolledDice.get(i) != 0 && rolledDice.get(i + 1) != 0 && rolledDice.get(i + 2) != 0){
+//             return true;
+//         }
+//        }
+//        return false;
     }
 
     public boolean checkRollAgain(){

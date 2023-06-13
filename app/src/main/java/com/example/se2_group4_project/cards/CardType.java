@@ -8,6 +8,8 @@ public enum CardType {
     BATHTUB,
     COUCH,
     TABLEWARE,
+    SLEEP,
+    AWAKE,
     WITZIG,
     WITZIGWITZIG
 }

@@ -272,6 +272,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
+            iView.setId(imageRessourceID);
 
             float aspectRatio = 5;
 
@@ -411,9 +412,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             Log.d("display selected dices", "Image Views created " + playerDice.size());
 
-            //checkIfHiglight aufrufen
-
-
             activityGameboardBinding.savedDicesContainer.invalidate();
             activityGameboardBinding.savedDicesContainer.requestLayout();
 
@@ -421,60 +419,54 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             if (diceIsRolled) {
                 addCardsToPlayer();
-
                 // call function to flip current card
                 // flipCurrentCardListener();
+                try {
+                    c.checkIfHighlight(c.getItemsStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getRoommateEasyStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getRoommateDifficultStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+//                try {
+//                    c.checkIfHighlight(c.getWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                try {
+//                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+                try {
+                    c.checkIfHighlight(c.getPlayerBlueStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerGreenStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerTealStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerOrangeStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
-
-            /*
-
-            try {
-                c.checkIfHighlight(c.getItemsStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getRoommateEasyStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getRoommateDifficultStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getWitzigStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getWitzigWitzigStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getPlayerBlueStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getPlayerGreenStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getPlayerTealStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                c.checkIfHighlight(c.getPlayerOrangeStack(), this);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-             */
         });
     }
 
@@ -581,6 +573,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void cheatPopUpActivity() {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+    }
+
+    public DicePopUpActivity getDicePopUpActivity() {
+        return dicePopUpActivity;
     }
 }
 

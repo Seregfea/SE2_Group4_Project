@@ -26,12 +26,18 @@ public class Badewanne {
     }
 
     public boolean isAvailable(ArrayList<Integer> rolledDice){
-        for(int i=0; i < rolledDice.size(); i++){
-            if(i+1 == number && rolledDice.get(i) >= count){
-                return true;
+        boolean isAvailable = false;
+        int usedCount = count;
+
+        for (int i = 0; i < rolledDice.size(); i++){
+            if (rolledDice.get(i) == number) {
+                usedCount--;
             }
         }
-        return false;
+        if(usedCount <= 0){
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
     public boolean isKanguru() {
