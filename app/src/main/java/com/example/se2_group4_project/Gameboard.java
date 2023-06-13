@@ -156,24 +156,28 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
                 break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
                 break;
             default:
                 Log.d("no player", "no player " + player);
                 break;
         }
         createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView,LinearLayoutManager.HORIZONTAL,this.player.getPlayerInitialCards(),R.layout.recycler_item_view, this.playerRecyclerviewAdabter);
-
-        // create Recycle View for other players
-
+        
         addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
