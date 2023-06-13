@@ -180,11 +180,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         // create Recycle View for other players
 
-        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
-        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
-        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
-        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
-        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+        addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addTopCardToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
     }
