@@ -149,10 +149,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         switch (player) {
             case 0:
                 this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.VERTICAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-                // addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
@@ -203,14 +202,20 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
             itemCardImage.setOnClickListener(view -> {
+                System.out.println("Clicked Item Card");
                 Log.d("get item card", " click 1");
-                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.playerRecyclerviewAdabter.addItem(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+                activityGameboardBinding.userCardRecyclerView.addView(itemCardImage);
+
+
+                // this.playerRecyclerviewAdabter.addItem(card);
+//
+//                int integry = this.playerRecyclerviewAdabter.getItemCount();
+//                Log.d("get item card", " click 2");
+//
+//                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+//                Log.d("get item card", "" + integry);
             });
         }
 
