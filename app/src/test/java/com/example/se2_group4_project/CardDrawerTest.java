@@ -37,7 +37,9 @@ class CardDrawerTest {
 
 
     @BeforeEach
-    public void initialCardArray(){
+    public void initialCardArray() throws FileNotFoundException {
+        cardDrawer.generateInitialCards();
+
         ArrayList<Card> itemStack = cardDrawer.getItemsStack();
         Card itemCard = itemStack.get(0);
         cardArray.add(itemCard);
@@ -72,6 +74,7 @@ class CardDrawerTest {
     //Liste ist leer, weil sie nie initalisiert wird - CardDrawer generateInitialCards() muss auch aufgerufen werden
     @Test
     public void testAvailability(){
+
         testCheckIfHighlight(cardArray);
     }
 
