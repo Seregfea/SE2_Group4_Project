@@ -411,69 +411,73 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             Log.d("display selected dices", "Image Views created " + playerDice.size());
 
+            //checkIfHiglight aufrufen
+
+
             activityGameboardBinding.savedDicesContainer.invalidate();
             activityGameboardBinding.savedDicesContainer.requestLayout();
 
             diceIsRolled = true;
-            boolean cardsAreAdded = false;
 
             if (diceIsRolled) {
                 addCardsToPlayer();
-                cardsAreAdded = true;
 
                 // call function to flip current card
                 // flipCurrentCardListener();
             }
 
-            if (cardsAreAdded) {
-                try {
-                    c.checkIfHighlight(c.getItemsStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateEasyStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateDifficultStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerBlueStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerGreenStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerTealStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerOrangeStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+            /*
+
+            try {
+                c.checkIfHighlight(c.getItemsStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
+            try {
+                c.checkIfHighlight(c.getRoommateEasyStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getRoommateDifficultStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getWitzigStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getPlayerBlueStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getPlayerGreenStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getPlayerTealStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                c.checkIfHighlight(c.getPlayerOrangeStack(), this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+             */
         });
     }
+
 
     public int getDiceImage(int result) {
         switch (result) {
