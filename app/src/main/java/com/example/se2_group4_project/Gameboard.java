@@ -211,37 +211,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     }
 
-    public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
-        for (int i = 0; i < cards.size(); i++) {
-            Card card = cards.get(i);
-            LinearLayout linearLayout = findViewById(linearLayoutId);
-            ImageView iView = new ImageView(linearLayout.getContext());
-
-            String currentCardFront = card.getCurrentCardFront();
-
-            final int imageRessourceID =
-                    this.getResources()
-                            .getIdentifier(
-                                    currentCardFront, "drawable", this.getApplicationContext().getPackageName());
-
-            iView.setImageResource(imageRessourceID);
-            linearLayout.addView(iView);
-            displayedCards.add(iView);
-            card.setImageViewID(iView.getId());
-
-            iView.setOnClickListener(view -> {
-                linearLayout.removeView(iView);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = 5;
-                iView.setLayoutParams(params);
-                // activityGameboardBinding.UserCardsLayout.addView(iView);
-            });
-        }
-    }
-
+    
     public void addCardsToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
