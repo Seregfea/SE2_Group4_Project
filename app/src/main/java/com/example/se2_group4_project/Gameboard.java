@@ -156,21 +156,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
+
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
+
                 break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
+                
                 break;
             default:
                 Log.d("no player", "no player " + player);
@@ -189,7 +183,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
     }
 
-    public void addCardsToPlayer() {
+    public void addItemCardsToPlayer() {
         CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
 
         try {
@@ -507,7 +501,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnRollDice.setEnabled(false);
                 }
 
-                addCardsToPlayer();
+                addItemCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
             }
