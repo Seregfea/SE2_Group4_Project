@@ -12,7 +12,6 @@ import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.DataInputStream;
@@ -24,10 +23,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     final private Socket client;
     final private Handler serverThreadHandler;
-
     final private ServerCallbacks serverCallbacks;
-
-    private ObjectMapper mapper;
     private CRUDoperations cruDoperations;
     private final WGDatabase wgDatabase;
     private final int playerNumber;
@@ -51,13 +47,12 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     @Override
     public void run() {
-        mapper = new ObjectMapper();
 
         try {
             this.clientInput = new DataInputStream(client.getInputStream());
             this.serverMessage = new DataOutputStream(client.getOutputStream());
 
-            this.serverMessage.writeUTF((playerNumber)+" "+"3 "+"player");
+            this.serverMessage.writeUTF(playerNumber+ " " + "3" + " " + "player" + " " + "5");
             Log.d("playerNumber sended", Integer.toString(playerNumber));
             this.serverMessage.flush();
 
@@ -72,7 +67,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
                 this.messageInput = clientInput.readUTF();
                 chooseIdentifierFunction(messageDecode(messageInput));
 
-                    Log.d("message",messageInput);
+                Log.d("message achieved",messageInput);
 
 
                    // runCRUD(player);
@@ -88,26 +83,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
         new Thread(this.cruDoperations).start();
     }
 
-
-    private Player jsonToObject(String object){
-
-        Player player;
-        try {
-            player = mapper.readValue(object, Player.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        return player;
-    }
-
-    private String objectToString(Object object){
-        try {
-            return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private String messageDecode(String messageInput){
         String [] commands = messageInput.split(" ");
         Log.d("client player", commands[0]);
@@ -120,17 +95,28 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
     private void chooseIdentifierFunction(String identifier) throws IOException {
         switch (identifier){
             case "0":
+            case "1":
                serverThreadHandler.post(() -> {
                    serverCallbacks.messageToALL(this.messageInput);
                });
                break;
-            case "1":
+            case "4":
+                serverThreadHandler.post(() -> {
+                    serverCallbacks.messageAcceptDice(this.playerNumber);
+                });
+                Log.d("Server Client dice", messageInput);
+                break;
+
+            case "5":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
                 });
-
-
-
+                break;
+            case "10":
+                serverThreadHandler.post(() -> {
+                    serverCallbacks.onMessageSend(this.enemy);
+                });
+                break;
             default:
                 Log.d("ChooseFunction", "Choose Function Server failed!");
                 break;
@@ -161,5 +147,10 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
     public void getMessage(String messageInput) throws IOException {
         this.serverMessage.writeUTF(messageInput);
         this.serverMessage.flush();
+    }
+
+    @Override
+    public void acceptDice(String message) throws IOException {
+        this.serverMessage.writeUTF(this.playerNumber + " " + "6" + " " + message + " " + "5");
     }
 }
