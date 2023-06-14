@@ -45,7 +45,6 @@ import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
