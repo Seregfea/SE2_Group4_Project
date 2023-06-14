@@ -140,7 +140,6 @@ public class CardDrawer {
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
-       // allCards.addAll(schaukelstuhlStack);
     }
 
     // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte

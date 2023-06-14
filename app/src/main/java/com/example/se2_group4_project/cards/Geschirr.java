@@ -19,10 +19,8 @@ public class Geschirr {
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
         if (rolledDice.size() < 3) {
-            return false; // Cannot form a consecutive row with less than 3 numbers
+            return false;
         }
-
-        // Collections.sort(rolledDice); // Sort the array in ascending order
 
         for (int i = 2; i < rolledDice.size(); i++) {
             int current = rolledDice.get(i);
@@ -30,11 +28,11 @@ public class Geschirr {
             int prev2 = rolledDice.get(i - 2);
 
             if (current == prev1 + 1 && current == prev2 + 2) {
-                return true; // Found a consecutive row
+                return true;
             }
         }
 
-        return false; // No consecutive row found
+        return false;
     }
 
 
