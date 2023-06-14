@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 
+import com.example.se2_group4_project.cards.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -208,6 +209,7 @@ public class Client extends Thread implements ClientCallbacks {
     @Override
     public void acceptDice(int yes) throws IOException {
         messageSend(messageCode("4" + this.SPACE + yes + this.SPACE + this.ENEMY));
+    }
 
     public void endTurnPralinen(int pralinen) throws IOException {
         messageSend(messageCode("2 " + objectToJson(pralinen)));
