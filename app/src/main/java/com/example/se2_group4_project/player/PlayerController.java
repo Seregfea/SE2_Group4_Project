@@ -28,6 +28,10 @@ public class PlayerController {
     private int playerTurn = 0;
     private int diceCount = 4;
 
+
+
+    private int myTurn = 0;
+
     // testweise auf 1
     private int parkDiceCount = 1;
 
@@ -193,5 +197,13 @@ public class PlayerController {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
+      
+    public int getMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(int myTurn) {
+        this.myTurn = myTurn;
+
     }
 }

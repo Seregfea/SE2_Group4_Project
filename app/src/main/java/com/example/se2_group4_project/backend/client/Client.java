@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.Socket;
 
 import java.util.ArrayList;
@@ -130,6 +131,11 @@ public class Client extends Thread implements ClientCallbacks {
                 });
                 break;
 
+            case "4":
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.playerTurn(this.playerSendedNumber,jsonToCard(this.messageInput));
+                });
+
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
                 break;
@@ -148,6 +154,15 @@ public class Client extends Thread implements ClientCallbacks {
         Log.d("JSON to array", listArray.size()+"");
         return listArray;
     }
+    private ArrayList<Card> jsonToCard(String object) {
+        ArrayList<Card> player;
+        try {
+            player = mapper.readValue(object, ArrayList.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return player;
+    }
 
     private String objectToJson(Object object) {
         try {
@@ -164,6 +179,14 @@ public class Client extends Thread implements ClientCallbacks {
         messageInput = "";
     }
 
+    public int nextPlayer(){
+        if(this.playerNumber == 3){
+            return 0;
+        } else{
+            return this.playerNumber;
+        }
+    }
+
     public ClientCallbacks getClientCallbacks() {
         return this;
     }
@@ -177,6 +200,7 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     @Override
+
     public void endTurn(int pralinen) throws IOException {
         messageSend(messageCode("2" + this.SPACE + objectToJson(pralinen)));
     }
@@ -184,6 +208,15 @@ public class Client extends Thread implements ClientCallbacks {
     @Override
     public void acceptDice(int yes) throws IOException {
         messageSend(messageCode("4" + this.SPACE + yes + this.SPACE + this.ENEMY));
+
+    public void endTurnPralinen(int pralinen) throws IOException {
+        messageSend(messageCode("2 " + objectToJson(pralinen)));
+
+    }
+
+    @Override
+    public void endTurnPlayer(ArrayList<Card> cards) throws IOException {
+        messageSend(messageCode("4" + this.SPACE + objectToJson(cards)) + nextPlayer());
     }
 
     @Override
