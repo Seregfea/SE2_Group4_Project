@@ -25,6 +25,7 @@ public class PlayerController {
     private ArrayList<Card> playerExtraCards;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
+    private int playerTurn = 0;
     private int diceCount = 4;
 
 
@@ -189,11 +190,20 @@ public class PlayerController {
     public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
         this.playerUpdatedCards = playerUpdatedCards;
     }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+      
     public int getMyTurn() {
         return myTurn;
     }
 
     public void setMyTurn(int myTurn) {
         this.myTurn = myTurn;
+
     }
 }

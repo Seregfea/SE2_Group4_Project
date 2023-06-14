@@ -5,10 +5,8 @@ import android.os.HandlerThread;
 import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
-import com.example.se2_group4_project.backend.database.entities.Player;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 
-import com.example.se2_group4_project.cards.Card;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,7 +17,6 @@ import java.lang.reflect.Array;
 import java.net.Socket;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Client extends Thread implements ClientCallbacks {
 
@@ -88,23 +85,20 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     private String messageCode(String messageInput) {
-        return this.playerNumber + this.SPACE + messageInput;
+        return this.playerNumber + this.SPACE + messageInput + this.SPACE;
     }
 
     private void messageDecode() {
         Log.d("client before split", messageInput);
         String[] commands = this.messageInput.split(this.SPACE);
-        Log.d("client command", commands.toString());
-        Log.d("client command0", commands[0]);
-        Log.d("client command1", commands[1]);
-        Log.d("client command2", commands[2]);
+        Log.d("client player", commands[0]);
+        Log.d("client identifier", commands[1]);
+        Log.d("client message", commands[2]);
+        Log.d("client to who", commands[3]);
 
         this.messageIdentifier = commands[1];
-        Log.d("client identifier", this.messageIdentifier);
         this.messageInput = commands[2];
-        Log.d("client message", this.messageInput);
         this.playerSendedNumber = Integer.parseInt(commands[0]);
-        Log.d("client player", this.playerSendedNumber + "");
     }
 
     private void chooseIdentifierFunction(String identifier) throws IOException {
@@ -120,8 +114,9 @@ public class Client extends Thread implements ClientCallbacks {
                 break;
             case "1":
                 handlerUIGameboard.post(() -> {
-                    gameboardCallbacks.sendedEnemyDice(jsonToObject(this.messageInput));
+                    gameboardCallbacks.sendedEnemyDice(jsonToArraylist(this.messageInput));
                 });
+                break;
 
             case "2":
                 //TODO
@@ -129,6 +124,12 @@ public class Client extends Thread implements ClientCallbacks {
 
             case "3":
                 startPlayer();
+                break;
+            case "6":
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.diceFirstAccept(Integer.parseInt(messageInput));
+                });
+                break;
 
             case "4":
                 handlerUIGameboard.post(() -> {
@@ -142,14 +143,16 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
 
-    private ArrayList<Integer> jsonToObject(String object) {
-        ArrayList<Integer> player;
+    private ArrayList<Integer> jsonToArraylist(String object) {
+        ArrayList<Integer> listArray;
         try {
-            player = mapper.readValue(object, ArrayList.class);
+            listArray = mapper.readValue(object, ArrayList.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return player;
+        Log.d("JSON to array", listArray.toString());
+        Log.d("JSON to array", listArray.size()+"");
+        return listArray;
     }
     private ArrayList<Card> jsonToCard(String object) {
         ArrayList<Card> player;
@@ -197,8 +200,18 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     @Override
+
+    public void endTurn(int pralinen) throws IOException {
+        messageSend(messageCode("2" + this.SPACE + objectToJson(pralinen)));
+    }
+
+    @Override
+    public void acceptDice(int yes) throws IOException {
+        messageSend(messageCode("4" + this.SPACE + yes + this.SPACE + this.ENEMY));
+
     public void endTurnPralinen(int pralinen) throws IOException {
         messageSend(messageCode("2 " + objectToJson(pralinen)));
+
     }
 
     @Override

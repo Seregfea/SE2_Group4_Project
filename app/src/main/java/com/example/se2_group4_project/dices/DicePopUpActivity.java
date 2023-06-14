@@ -253,6 +253,14 @@ public class DicePopUpActivity extends PopupWindow {
         }
     }
 
+    public int getIsEnemyDice() {
+        return isEnemyDice;
+    }
+
+    public void setIsEnemyDice(int isEnemyDice) {
+        this.isEnemyDice = isEnemyDice;
+    }
+
     private void finishDiceRolling() {
         handler.post(() -> gbCallbacks.diceValues(playerDices, enemyDices));
     }

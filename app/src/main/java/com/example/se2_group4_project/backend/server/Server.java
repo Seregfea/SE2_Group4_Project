@@ -30,7 +30,7 @@ public class Server extends Thread implements ServerCallbacks {
     private final Handler handlerServer;
     private ServerUICallbacks callbacks;
     private WGDatabase wgDatabase;
-    private int playingPlayer = 0;
+    private int enemydiceAccepted = 0;
 
     public Server(int serverPort, Handler handlerServer, ServerUICallbacks callbacks, WGDatabase wgDatabase){
         this.serverPort = serverPort;
@@ -120,6 +120,28 @@ public class Server extends Thread implements ServerCallbacks {
     @Override
     public void messageToOne(String message, Integer player) {
         sendMessage(message,player);
+    }
+
+    @Override
+    public void messageAcceptDice(Integer player) {
+        if (this.enemydiceAccepted == 0){
+            this.enemydiceAccepted = 1;
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("1");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }else {
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("0");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
     }
 
     private void sendMessage(String message, Integer player){

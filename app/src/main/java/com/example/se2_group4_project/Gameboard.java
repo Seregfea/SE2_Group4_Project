@@ -44,6 +44,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -649,13 +650,28 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void sendDiceEnemyAccept(int accept) {
+    public void diceFirstAccept(int message) {
+        if(message == 1){
+            this.player.setPlayerTurn(message);
+        }
+    }
 
+    @Override
+    public void sendDiceEnemyAccept(int accept) {
+        clientHandler.post(() -> {
+            try {
+                clientCallbacks.acceptDice(accept);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Log.d("senddice enemy",  ""+accept);
     }
 
     @Override
     public void sendedEnemyDice(ArrayList<Integer> enemyDice) {
-
+        dicePopUpActivity.setIsEnemyDice(1);
+        dicePopUpActivity.visualizeDice(enemyDice);
     }
 
     @Override

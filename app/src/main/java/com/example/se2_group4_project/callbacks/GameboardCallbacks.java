@@ -17,6 +17,8 @@ public interface GameboardCallbacks {
 
     void diceEnemy(ArrayList<Integer> diceEnemy);
 
+    void diceFirstAccept(int message);
+
     void sendDiceEnemyAccept(int accept);
 
     void sendedEnemyDice(ArrayList<Integer> enemyDice);
