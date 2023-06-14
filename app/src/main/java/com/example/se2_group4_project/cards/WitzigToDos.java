@@ -104,17 +104,13 @@ public class WitzigToDos {
         int numberCount = 0;
         int number2Count = 0;
 
-
-
-
         ArrayList<Integer> usedIndices = new ArrayList<>();
-
-
 
         for (int i = 0; i < rolledDice.size(); i++) {
             int diceValue = rolledDice.get(i);
             if(diceValue == num){
                 numberCount++;
+                usedIndices.add(diceValue);
                 if(numberCount == count){
                     return true;
                 }
@@ -127,8 +123,6 @@ public class WitzigToDos {
             }
 
             }
-
-
 
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
