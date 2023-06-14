@@ -162,6 +162,7 @@ public class Client extends Thread implements ClientCallbacks {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+        Log.d("Array list converted", player.size()+"");
         return player;
     }
 
@@ -213,7 +214,6 @@ public class Client extends Thread implements ClientCallbacks {
 
     public void endTurnPralinen(int pralinen) throws IOException {
         messageSend(messageCode("2 " + objectToJson(pralinen)));
-
     }
 
     @Override
