@@ -328,9 +328,33 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ///////////////////////// dice methods ////////////////////////
 
+    public void setUpDice() {
+        Log.d("setUpDice", "called");
+        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
+
+        for (int i = 0; i < availableDices; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.dice);
+            activityGameboardBinding.availableDiceContainer.addView(imageView);
+        }
+
+        activityGameboardBinding.btnRollDice.setEnabled(true);
+        activityGameboardBinding.savedDicesContainer.removeAllViews();
+        activityGameboardBinding.parkedDicesContainer.removeAllViews();
+    }
+
+    public void startDiceRolling(View view) {
+        dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+        try {
+            dicePopUpActivity.rollDice(player.getDiceCount());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
-        // anzeigen und selektieren der gespeicherten Würfel
+        // Anzeigen und Selektieren der gespeicherten Würfel
         runOnUiThread(() -> {
             final Map<ImageView, Boolean> diceSelect = new HashMap<>();
             ArrayList<Integer> selectedDices = new ArrayList<>();
@@ -345,7 +369,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 activityGameboardBinding.parkedDicesContainer.addView(imageView);
             }
  */
-
             for (int diceValue : playerDice) {
                 ImageView imageView = new ImageView(Gameboard.this);
                 imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
@@ -383,6 +406,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             activityGameboardBinding.savedDicesContainer.invalidate();
             activityGameboardBinding.savedDicesContainer.requestLayout();
+
             if (player.getParkDiceCount() > 0) {
                 activityGameboardBinding.btnParkDice.setText("parken");
                 isParkBtn = 1;
