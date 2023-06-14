@@ -243,6 +243,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
+            iView.setId(imageRessourceID);
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
