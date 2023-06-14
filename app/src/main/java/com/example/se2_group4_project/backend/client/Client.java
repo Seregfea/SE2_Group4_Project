@@ -137,6 +137,11 @@ public class Client extends Thread implements ClientCallbacks {
                     gameboardCallbacks.playerTurn(this.playerSendedNumber,jsonToCard(this.messageInput));
                 });
 
+            case "7":
+                handlerUIGameboard.post(() -> {
+                   gameboardCallbacks.updateCards(this.playerSendedNumber, jsonToCard(this.messageInput));
+                });
+
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
                 break;
@@ -219,6 +224,11 @@ public class Client extends Thread implements ClientCallbacks {
     @Override
     public void endTurnPlayer(ArrayList<Card> cards) throws IOException {
         messageSend(messageCode("4" + this.SPACE + objectToJson(cards)) + nextPlayer());
+    }
+
+    @Override
+    public void updateCards(ArrayList<Card> cards) throws IOException {
+        messageSend(messageCode("7" + this.SPACE + objectToJson(cards) + nextPlayer()));
     }
 
     @Override

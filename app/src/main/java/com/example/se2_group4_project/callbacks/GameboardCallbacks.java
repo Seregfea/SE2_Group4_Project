@@ -31,4 +31,5 @@ public interface GameboardCallbacks {
 
     void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler);
     void playerTurn(int playerNumber, ArrayList<Card> cards);
+    void updateCards(int playerNumber, ArrayList<Card> cards);
 }

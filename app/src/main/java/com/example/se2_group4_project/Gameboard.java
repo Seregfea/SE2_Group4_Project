@@ -632,6 +632,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
+    public void updateCards(int playerNumber, ArrayList<Card> cards) {
+
+    }
+
+    @Override
     public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
         player.setDiceValuesUsable(playerDices);
         player.setDiceValuesNotUsable(enemyDices);

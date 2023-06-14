@@ -96,6 +96,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
         switch (identifier){
             case "0":
             case "1":
+            case "7":
                serverThreadHandler.post(() -> {
                    serverCallbacks.messageToALL(this.messageInput);
                });
