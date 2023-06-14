@@ -1,5 +1,7 @@
 package com.example.se2_group4_project.cards;
 
+import android.util.ArraySet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,38 +26,39 @@ public class WitzigToDos {
     private int count2;
     private int min_sum;
     private int following;
-    private Set<String> filledFields;
+
+    private ArrayList<String> filledFields;
 
 
     public WitzigToDos(JSONObject witzigCard) throws JSONException {
 
         this.schnapspralinen = witzigCard.getInt("schnapspralinen");
 
-        this.filledFields = new HashSet<String>();
+        this.filledFields = new ArrayList<String>();
 
         if (witzigCard.has("number")) {
             this.number = witzigCard.getString("number");
-            this.filledFields.add("number");
+            filledFields.add("number");
         }
         if (witzigCard.has("number2")) {
             this.number2 = witzigCard.getString("number2");
-            this.filledFields.add("number2");
+            filledFields.add("number2");
         }
         if (witzigCard.has("count")) {
             this.count = witzigCard.getInt("count");
-            this.filledFields.add("count");
+            filledFields.add("count");
         }
         if (witzigCard.has("count2")) {
             this.count2 = witzigCard.getInt("count2");
-            this.filledFields.add("count2");
+            filledFields.add("count2");
         }
         if (witzigCard.has("min_sum")) {
             this.min_sum = witzigCard.getInt("min_sum");
-            this.filledFields.add("min_sum");
+            filledFields.add("min_sum");
         }
         if (witzigCard.has("following")) {
             this.following = witzigCard.getInt("following");
-            this.filledFields.add("following");
+            filledFields.add("following");
         }
 
 
@@ -92,20 +95,52 @@ public class WitzigToDos {
     }
 
 
-    public boolean isAvailable(ArrayList<Integer> rolledDice) {
+    public boolean isAvailable(WitzigToDos witzigToDos, ArrayList<Integer> rolledDice) {
         boolean checkBoolean = false;
-        Set<Integer> usedIndices = new HashSet<Integer>();
 
-        if (filledFields.contains("number") && filledFields.contains("count")) {
-            int intNumber = Integer.parseInt(number);
-            if (rolledDice.get(intNumber - 1) >= count) {
-                checkBoolean = true;
-                usedIndices.add(intNumber - 1);
+        int num = Integer.parseInt(witzigToDos.number);
+        int num2 = Integer.parseInt(witzigToDos.number2);
+
+        int numberCount = 0;
+        int number2Count = 0;
+
+
+
+
+        ArrayList<Integer> usedIndices = new ArrayList<>();
+
+
+
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if(diceValue == num){
+                numberCount++;
+                if(numberCount == count){
+                    return true;
+                }
+            }
+            if(diceValue == num2) {
+                number2Count++;
+                if(number2Count == count2){
+                    return true;
+                }
+            }
+
             }
 
 
 
 
+        if (filledFields.contains("number") && filledFields.contains("count")) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                int diceValue = rolledDice.get(i);
+                if (diceValue == num) {
+                    numberCount++;
+                    if (numberCount == count) {
+                        return true;
+                    }
+                }
+            }
 
         } else if (filledFields.contains("count")) {
             for (int i = 0; i < rolledDice.size(); i++) {
@@ -174,6 +209,9 @@ public class WitzigToDos {
     public int getCount2() { return count2; }
     public int getMin_sum() { return min_sum; }
     public int getFollowing() { return following; }
+    public ArrayList<String> getFilledFields() {
+        return filledFields;
+    }
 
 
     public void setSchnapspralinen(int schnapspralinen) { this.schnapspralinen = schnapspralinen; }
@@ -189,6 +227,9 @@ public class WitzigToDos {
     public void setCount2(int count2) { this.count2 = count2; }
     public void setMin_sum(int min_sum) { this.min_sum = min_sum;}
     public void setFollowing(int following) { this.following = following; }
+    public void setFilledFields(ArrayList<String> filledFields) {
+        this.filledFields = filledFields;
+    }
 
 
 }
