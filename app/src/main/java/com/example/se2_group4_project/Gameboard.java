@@ -196,6 +196,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
+
     }
 
     public void addCardsToPlayer() {
@@ -436,16 +437,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-//                try {
-//                    c.checkIfHighlight(c.getWitzigStack(), this);
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                try {
-//                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
+                /*
+                try {
+                    c.checkIfHighlight(c.getWitzigStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                 */
                 try {
                     c.checkIfHighlight(c.getPlayerBlueStack(), this);
                 } catch (JSONException e) {

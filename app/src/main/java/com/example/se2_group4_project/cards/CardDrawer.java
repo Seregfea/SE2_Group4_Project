@@ -143,6 +143,8 @@ public class CardDrawer {
        // allCards.addAll(schaukelstuhlStack);
     }
 
+    // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte
+    // checkIfHighlight überpfrüft dann nur mehr die ifs
 
     public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
 
@@ -238,6 +240,7 @@ public class CardDrawer {
                     JSONArray toDoswitzig = new JSONArray(card.getToDo());
                     witzigObjekt.put("toDoPenalty", toDoswitzig);
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
+
                     if (witzigToDos.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
