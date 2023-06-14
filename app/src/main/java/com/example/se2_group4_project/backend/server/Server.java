@@ -68,6 +68,7 @@ public class Server extends Thread implements ServerCallbacks {
                 clientCallbacks.put(count,socketListener.getCallbacks());
                 clientHandlers.put(count,socketListener.getServerClientHandler());
                 socketListener.start();
+                updateServerUI(clients.get(count).getInetAddress().toString());
                 count++;
             }
         } catch (IOException e) {
@@ -77,6 +78,11 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
 
+    private void updateServerUI(String message){
+    //    handlerServer.post(() -> {
+      //      callbacks.onMessageSend(message);
+        //});
+    }
     public String returnPlayer(int count){
         switch (count){
             case 0:
@@ -145,6 +151,7 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
     private void sendMessage(String message, Integer player){
+        updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
                 this.clientCallbacks.get(player).getMessage(message);
