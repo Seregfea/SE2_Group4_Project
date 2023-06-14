@@ -197,6 +197,7 @@ public class PlayerController {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
+    }
       
     public int getMyTurn() {
         return myTurn;
