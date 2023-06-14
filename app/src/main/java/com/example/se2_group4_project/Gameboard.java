@@ -370,44 +370,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             }
  */
 
-            for (int diceValue : playerDice) {
-                ImageView imageView = new ImageView(Gameboard.this);
-                imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
-                imageView.setPadding(3, 3, 3, 3);
-                imageView.setTag(diceValue);
-                imageView.setImageResource(getDiceImage(diceValue));
-                activityGameboardBinding.savedDicesContainer.addView(imageView);
-                diceSelect.put(imageView, false);
-
-                imageView.setOnClickListener(v -> {
-                    int diceIndex = activityGameboardBinding.savedDicesContainer.indexOfChild(v);
-
-                    Log.d("index of clicked dice", "diceIndex: " + diceIndex);
-                    Log.d("clicked image view", imageView.toString());
-
-                    diceSelect.put((ImageView) v, !diceSelect.get(v));
-
-                    if (diceSelect.get(v)) {
-                        v.setBackgroundColor(Color.GREEN);
-                        selectedDices.add(diceValue);
-                        Log.d("selected saved dice", "set to green: " + diceIndex);
-                    } else {
-                        v.setBackgroundColor(Color.TRANSPARENT);
-                        if (selectedDices.size() != 0) {
-                            selectedDices.remove(Integer.valueOf(diceValue));
-                        }
-                        Log.d("unselected saved dice", "set to standard: " + diceIndex);
-                    }
-                    // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
-                    v.post(() -> v.invalidate());
-                });
-            }
-
-            Log.d("display selected dices", "Image Views created " + playerDice.size());
-
-            activityGameboardBinding.savedDicesContainer.invalidate();
-            activityGameboardBinding.savedDicesContainer.requestLayout();
-
             if (player.getParkDiceCount() > 0) {
                 activityGameboardBinding.btnParkDice.setText("parken");
                 isParkBtn = 1;
@@ -496,6 +458,22 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         return result;
     }
 
+    public int getDiceImage(int result) {
+        switch (result) {
+            default:
+                return R.drawable.d1;
+            case 2:
+                return R.drawable.d2;
+            case 3:
+                return R.drawable.d3;
+            case 4:
+                return R.drawable.d4;
+            case 5:
+                return R.drawable.d5;
+            case 6:
+                return R.drawable.d6;
+        }
+    }
 
     public void testDice() {
         Log.d("dice callback - parked dices", this.parkedDice.toString());
