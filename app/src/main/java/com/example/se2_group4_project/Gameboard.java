@@ -496,22 +496,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         return result;
     }
 
-    public int getDiceImage(int result) {
-        switch (result) {
-            default:
-                return R.drawable.d1;
-            case 2:
-                return R.drawable.d2;
-            case 3:
-                return R.drawable.d3;
-            case 4:
-                return R.drawable.d4;
-            case 5:
-                return R.drawable.d5;
-            case 6:
-                return R.drawable.d6;
-        }
-    }
 
     public void testDice() {
         Log.d("dice callback - parked dices", this.parkedDice.toString());
