@@ -240,7 +240,7 @@ public class CardDrawer {
                     witzigObjekt.put("toDoPenalty", toDoswitzig);
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
 
-                    if (witzigToDos.isAvailable(rolledDices)) {
+                    if (witzigToDos.isAvailable(witzigToDos, rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
