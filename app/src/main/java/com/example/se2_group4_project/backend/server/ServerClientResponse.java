@@ -125,6 +125,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
                });
                break;
             case "1":
+            case "4":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
                 });

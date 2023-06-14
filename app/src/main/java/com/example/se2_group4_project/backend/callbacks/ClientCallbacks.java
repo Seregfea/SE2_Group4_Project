@@ -1,8 +1,6 @@
 package com.example.se2_group4_project.backend.callbacks;
 
 
-import android.content.Context;
-
 import com.example.se2_group4_project.cards.Card;
 
 import java.io.IOException;
@@ -16,6 +14,7 @@ public interface ClientCallbacks {
 
     void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException;
 
-    void endTurn(int pralinen) throws IOException;
+    void endTurnPralinen(int pralinen) throws IOException;
+    void endTurnPlayer(ArrayList<Card> cards) throws IOException;
 }
 

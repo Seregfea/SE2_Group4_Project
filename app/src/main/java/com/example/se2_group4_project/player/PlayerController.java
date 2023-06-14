@@ -27,6 +27,10 @@ public class PlayerController {
     private Handler clientHandler;
     private int diceCount = 4;
 
+
+
+    private int myTurn = 0;
+
     // testweise auf 1
     private int parkDiceCount = 1;
 
@@ -184,5 +188,12 @@ public class PlayerController {
 
     public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
         this.playerUpdatedCards = playerUpdatedCards;
+    }
+    public int getMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(int myTurn) {
+        this.myTurn = myTurn;
     }
 }

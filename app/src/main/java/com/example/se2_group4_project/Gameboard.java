@@ -546,9 +546,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private void setListeners() {
         activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
-            startDiceRolling(view);
-            // testweise auf true setzen
-            hasCheated = true;
+            if(activityGameboardBinding.btnRollDice.getText().equals("würfeln")){
+                startDiceRolling(view);
+                // testweise auf true setzen
+                hasCheated = true;
+            }else {
+                activityGameboardBinding.btnRollDice.setText("end turn");
+            }
+
         });
     }
 
@@ -618,6 +623,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler) {
         this.clientCallbacks = clientCallbacks;
         this.clientHandler = clientHandler;
+    }
+
+    @Override
+    public void playerTurn(int playerNumber, ArrayList<Card> cards) {
+        player.setMyTurn(1);
     }
 
     @Override
