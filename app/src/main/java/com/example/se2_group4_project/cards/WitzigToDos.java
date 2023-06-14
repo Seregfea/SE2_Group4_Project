@@ -102,6 +102,11 @@ public class WitzigToDos {
                 checkBoolean = true;
                 usedIndices.add(intNumber - 1);
             }
+
+
+
+
+
         } else if (filledFields.contains("count")) {
             for (int i = 0; i < rolledDice.size(); i++) {
                 if (rolledDice.get(i) >= count && !usedIndices.contains(i)) {
