@@ -2,6 +2,7 @@ package com.example.se2_group4_project.player;
 
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.cards.Badewanne;
@@ -21,14 +22,10 @@ import java.util.ArrayList;
 
 public class PlayerController {
     private final int playerID;
-    private final ArrayList<Card> playerInitialCards;
-    private ArrayList<Card> playerExtraCards;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int playerTurn = 0;
     private int diceCount = 4;
-
-
 
     private int myTurn = 0;
 
@@ -50,9 +47,10 @@ public class PlayerController {
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
         this.playerID = playerID;
-        this.playerInitialCards = playerInitialCards;
+        this.playerUpdatedCards = playerInitialCards;
         this.clientCallbacks = clientCallbacks;
         this.clientHandler = clientHandler;
+        Log.d("player constructor", playerInitialCards.size()+"");
 
     }
 
@@ -118,10 +116,6 @@ public class PlayerController {
         return playerID;
     }
 
-    public ArrayList<Card> getPlayerInitialCards() {
-        return playerInitialCards;
-    }
-
     public int getDiceCount() {
         return diceCount;
     }
@@ -184,12 +178,11 @@ public class PlayerController {
     }
 
     public ArrayList<Card> getPlayerUpdatedCards() {
-        return playerUpdatedCards;
+        return this.playerUpdatedCards;
     }
-
-    public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
-        this.playerUpdatedCards = playerUpdatedCards;
-    }
+    public void setPlayerUpdatedCards(ArrayList<Card> cards){this.playerUpdatedCards = cards;}
+    public void addPlayerUpdatedCard(Card card){this.playerUpdatedCards.add(card);}
+    public void removePlayerUpdatedCard(Card card){this.playerUpdatedCards.remove(card);}
 
     public int getPlayerTurn() {
         return playerTurn;

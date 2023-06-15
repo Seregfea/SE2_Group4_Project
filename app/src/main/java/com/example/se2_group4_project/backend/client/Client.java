@@ -218,6 +218,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void endTurnPlayer(ArrayList<Card> cards) throws IOException {
+        Log.d("end turn json", objectToJson(cards));
         messageSend(messageCode("4" + this.SPACE + objectToJson(cards)) + nextPlayer());
     }
 
@@ -229,7 +230,7 @@ public class Client extends Thread implements ClientCallbacks {
     @Override
     public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
         Log.d("dice to enemy", enemyDice.toString());
-        messageSend(messageCode(cheatIdentifier + SPACE + objectToJson(enemyDice)) + SPACE + ENEMY);
+        messageSend(messageCode(cheatIdentifier + SPACE + objectToJson(enemyDice)) + ENEMY);
     }
 
     @Override

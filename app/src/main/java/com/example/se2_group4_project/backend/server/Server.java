@@ -68,7 +68,7 @@ public class Server extends Thread implements ServerCallbacks {
                 clientCallbacks.put(count,socketListener.getCallbacks());
                 clientHandlers.put(count,socketListener.getServerClientHandler());
                 socketListener.start();
-                updateServerUI(clients.get(count).getInetAddress().toString());
+                //updateServerUI(clients.get(count).getInetAddress().toString());
                 count++;
             }
         } catch (IOException e) {
@@ -112,10 +112,11 @@ public class Server extends Thread implements ServerCallbacks {
 
     ///////////////////////// callbacks ///////////////////////
     @Override
-    public void messageToALL(String message)  {
+    public void messageToALL(String message, Integer player)  {
         for (int key : clients.keySet()) {
+            //if(player != key)
             sendMessage(message,key);
-        }
+       }
     }
 
     @Override
@@ -125,6 +126,7 @@ public class Server extends Thread implements ServerCallbacks {
 
     @Override
     public void messageToOne(String message, Integer player) {
+        Log.d("message to one", message);
         sendMessage(message,player);
     }
 
@@ -152,7 +154,7 @@ public class Server extends Thread implements ServerCallbacks {
 
     private void sendMessage(String message, Integer player){
         Log.d("server message get", message);
-        updateServerUI(message);
+        //updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
                 this.clientCallbacks.get(player).getMessage(message);

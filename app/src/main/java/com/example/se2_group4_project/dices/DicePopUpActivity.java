@@ -268,6 +268,11 @@ public class DicePopUpActivity extends PopupWindow {
         Log.d("update dice result", playerDices.toString());
         this.playerDices = playerDices;
         this.enemyDices = enemyDices;
+
+        if (gbCallbacks != null) {
+            gbCallbacks.diceResults(playerDices, enemyDices);
+        }
+
         finishDiceRolling();
     }
 

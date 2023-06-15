@@ -9,7 +9,9 @@ import android.widget.ImageView;
 
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.cards.Card;
+import com.example.se2_group4_project.player.PlayerController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -17,11 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
     Context context;
-    List<Card> items;
+    ArrayList<Card> items;
+    PlayerController playerController;
     int LayoutID;
 
+    public MyRecyclerviewAdabter(Context context, PlayerController playerController, int layoutID) {
+        this.context = context;
+        this.items = playerController.getPlayerUpdatedCards();
+        this.LayoutID = layoutID;
+        this.playerController = playerController;
+        Log.d("player recycler", playerController.getPlayerUpdatedCards().toString());
+        Log.d("player recycler2", this.items.toString());
+    }
 
-    public MyRecyclerviewAdabter(Context context, List<Card> items, int layoutID) {
+    public MyRecyclerviewAdabter(Context context, ArrayList<Card> items, int layoutID) {
         this.context = context;
         this.items = items;
         this.LayoutID = layoutID;
@@ -30,6 +41,7 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("viewholder", parent.toString());
         return new MyViewHolder(LayoutInflater.from(context).inflate(this.LayoutID,parent,false));
     }
 
@@ -45,14 +57,21 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return 0;
     }
-
-    public void addItem(Card card){
+    public Integer getItemCardsCount(){return this.items.size();}
+    public Integer getItemPlayerCardsCount(){return this.playerController.getPlayerUpdatedCards().size();}
+    public void addItemCard(Card card){
         this.items.add(card);
     }
-    public void removeItem(){
-
+    public void addPlayerCard(Card card) {
+        this.playerController.addPlayerUpdatedCard(card);
+        this.items = this.playerController.getPlayerUpdatedCards();
+    }
+    public void removeItemCard(Card card){ this.items.remove(card);}
+    public void removePlayerCard(Card card){
+        this.playerController.removePlayerUpdatedCard(card);
+        this.items = this.playerController.getPlayerUpdatedCards();
     }
 
 }
