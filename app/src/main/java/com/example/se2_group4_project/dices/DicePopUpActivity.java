@@ -261,16 +261,14 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     private void finishDiceRolling() {
-        handler.post(() -> gbCallbacks.diceValues(playerDices, enemyDices));
+        handler.post(() -> gbCallbacks.diceValues(getPlayerDices(), getEnemyDices()));
     }
 
     public void diceResults(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
+        Log.d("update dice result", playerDices.toString());
         this.playerDices = playerDices;
         this.enemyDices = enemyDices;
-
-        if (gbCallbacks != null) {
-            gbCallbacks.diceResults(playerDices, enemyDices);
-        }
+        finishDiceRolling();
     }
 
     public void testDice() {

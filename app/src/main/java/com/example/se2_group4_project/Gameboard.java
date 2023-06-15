@@ -456,6 +456,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 }
                 if (hasParked) {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
+                    player.diceToServer();
                     isParkBtn = 0;
                 }
             });
@@ -645,8 +646,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
+        Log.d("update dice result 2", enemyDices.toString());
         player.setDiceValuesUsable(playerDices);
         player.setDiceValuesNotUsable(enemyDices);
+        Log.d("update dice result 3", player.getDiceValuesNotUsable().toString());
     }
 
     @Override
@@ -670,6 +673,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void sendDiceEnemyAccept(int accept) {
+        Log.d("senddice enemy", "" + accept);
         clientHandler.post(() -> {
             try {
                 clientCallbacks.acceptDice(accept);
@@ -677,7 +681,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 throw new RuntimeException(e);
             }
         });
-        Log.d("senddice enemy", "" + accept);
     }
 
     @Override

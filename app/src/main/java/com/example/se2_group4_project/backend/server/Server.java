@@ -79,9 +79,9 @@ public class Server extends Thread implements ServerCallbacks {
 
 
     private void updateServerUI(String message){
-    //    handlerServer.post(() -> {
-      //      callbacks.onMessageSend(message);
-        //});
+        handlerServer.post(() -> {
+            callbacks.onMessageSend(message);
+        });
     }
     public String returnPlayer(int count){
         switch (count){
@@ -151,6 +151,7 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
     private void sendMessage(String message, Integer player){
+        Log.d("server message get", message);
         updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
