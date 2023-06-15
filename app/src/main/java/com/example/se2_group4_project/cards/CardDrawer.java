@@ -176,16 +176,19 @@ public class CardDrawer {
                     if (roommateEasy.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
-                    JSONObject roommateObjektDifficult = new JSONObject();
-                    roommateObjektDifficult.put("following", card.getFollowing());
-                    roommateObjektDifficult.put("count", card.getCount());
-                    roommateObjektDifficult.put("roommateBenefit","");
-                    RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
-
-                    if (roommateDifficult.isAvailable(rolledDices)) {
-                        gameboard.highlightCards(card);
-                    }
                     break;
+
+                case ROOMMATEDIFF:
+                JSONObject roommateObjektDifficult = new JSONObject();
+                roommateObjektDifficult.put("following", card.getFollowing());
+                roommateObjektDifficult.put("count", card.getCount());
+                roommateObjektDifficult.put("roommateBenefit","");
+                RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
+
+                if (roommateDifficult.isAvailable(rolledDices)) {
+                    gameboard.highlightCards(card);
+                }
+                break;
 
                 case ME:
                     JSONObject meObjekt = new JSONObject();
