@@ -172,7 +172,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("no player", "no player " + player);
                 break;
         }
-        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player.getPlayerInitialCards(), R.layout.recycler_item_view);
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player, R.layout.recycler_item_view);
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
@@ -195,11 +195,12 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
+            Log.d("card gameboard", card.toString());
             itemCardImage.setOnClickListener(view -> {
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.playerRecyclerviewAdabter.addItem(card);
+                this.playerRecyclerviewAdabter.addPlayerItem(card);
                 int integry = this.playerRecyclerviewAdabter.getItemCount();
                 Log.d("get item card", " click 2");
                 this.playerRecyclerviewAdabter.notifyDataSetChanged();
@@ -518,10 +519,17 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
-    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
+    private void createRecyclerviewCards(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
         this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
+        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+    }
+
+    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, PlayerController playerController, int recyclerItem) {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
+        recyclerview.setLayoutManager(manager);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playerController, recyclerItem);
         activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
     }
 
@@ -561,7 +569,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             } else {
                 clientHandler.post(() -> {
                     try {
-                        clientCallbacks.endTurnPlayer(this.player.getPlayerUpdatedCards());
+                        clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

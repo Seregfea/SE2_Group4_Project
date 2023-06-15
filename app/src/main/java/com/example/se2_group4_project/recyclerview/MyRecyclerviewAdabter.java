@@ -3,12 +3,10 @@ package com.example.se2_group4_project.recyclerview;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.cards.Card;
+import com.example.se2_group4_project.player.PlayerController;
 
 import java.util.List;
 
@@ -18,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
     Context context;
     List<Card> items;
+    PlayerController playerController;
     int LayoutID;
 
 
@@ -25,6 +24,13 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
         this.context = context;
         this.items = items;
         this.LayoutID = layoutID;
+    }
+
+    public MyRecyclerviewAdabter(Context context, PlayerController playerController, int layoutID) {
+        this.context = context;
+        this.items = playerController.getPlayerInitialCards();
+        this.LayoutID = layoutID;
+        this.playerController = playerController;
     }
 
     @NonNull
@@ -48,11 +54,22 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
         return items.size();
     }
 
-    public void addItem(Card card){
+    public void addPlayerItem(Card card){
+        Log.d("add card recycler", card+"");
+        Log.d("add card recycler", this.playerController.getPlayerInitialCards()+"");
+        this.playerController.addPlayerInitialCard(card);
+        this.items = this.playerController.getPlayerInitialCards();
+    }
+
+    public void removePlayerItemItem(Card card){
+        this.playerController.removePlayerInitialCard(card);
+        this.items = this.playerController.getPlayerInitialCards();
+    }
+    public void addCardItem(Card card){
         this.items.add(card);
     }
-    public void removeItem(){
-
+    public void removeCardItem(Card card){
+        this.items.remove(card);
     }
 
 }
