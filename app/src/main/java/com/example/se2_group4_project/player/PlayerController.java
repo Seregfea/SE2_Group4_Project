@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class PlayerController {
     private final int playerID;
-    private final ArrayList<Card> playerInitialCards;
-    private ArrayList<Card> playerExtraCards;
+    private ArrayList<Card> playerInitialCards;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int playerTurn = 0;
@@ -41,10 +40,7 @@ public class PlayerController {
     private ArrayList<Integer> diceValuesNotUsable;
     private ArrayList<Integer> parkedDices = new ArrayList<>();
 
-
-    private ArrayList<Card> playerUpdatedCards;
     private int pralinen;
-    private ArrayList<Item> itemCards;
 
 
 
@@ -121,6 +117,12 @@ public class PlayerController {
     public ArrayList<Card> getPlayerInitialCards() {
         return playerInitialCards;
     }
+    public void addPlayerInitialCard(Card card){
+        this.playerInitialCards.add(card);
+    }
+    public void removePlayerInitialCard(Card card){
+        this.playerInitialCards.remove(card);
+    }
 
     public int getDiceCount() {
         return diceCount;
@@ -181,14 +183,6 @@ public class PlayerController {
                 }
             }
         });
-    }
-
-    public ArrayList<Card> getPlayerUpdatedCards() {
-        return playerUpdatedCards;
-    }
-
-    public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
-        this.playerUpdatedCards = playerUpdatedCards;
     }
 
     public int getPlayerTurn() {
