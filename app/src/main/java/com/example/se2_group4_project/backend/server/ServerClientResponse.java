@@ -97,7 +97,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
             case "0":
             case "1":
                serverThreadHandler.post(() -> {
-                   serverCallbacks.messageToALL(this.messageInput);
+                   serverCallbacks.messageToALL(this.messageInput, this.playerNumber);
                });
                break;
             case "4":
