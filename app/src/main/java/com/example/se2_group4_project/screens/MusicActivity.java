@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se2_group4_project.R;
 import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
-import com.example.se2_group4_project.SoundManager;
 import com.example.se2_group4_project.databinding.ActivityMusicBinding;
 
 import java.util.HashMap;

@@ -153,7 +153,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         switch (player) {
             case 0:
-                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));1
+                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
