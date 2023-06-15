@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
@@ -46,6 +47,7 @@ import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 import org.json.JSONException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,10 +55,9 @@ import java.util.Map;
 
 
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
-
     private Handler clientHandler;
     private ClientCallbacks clientCallbacks;
-    MyRecyclerviewAdabter myRecyclerviewAdabter;
+    private MyRecyclerviewAdabter playerRecyclerviewAdabter;
     private PlayerController player;
 
     public PlayerController getPlayer() {
@@ -72,10 +73,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private boolean diceIsRolled = false;
 
+    private int isParkBtn = 0;
+
     private boolean hasCheated = false;
     private Badewanne badewanne;
 
     private static List<ImageView> displayedCards = new ArrayList<>();
+
+    private List<Integer> parkedDice = new ArrayList<>();
 
     private int testVariable = 0;
 
@@ -107,7 +112,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("carddrawer start", "start");
         initCarddrawer();
 
-
         if (testVariable == 1) {
             testmodus();
         } else {
@@ -115,10 +119,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-
         setUpDice();
         setListeners();
-
     }
 
     @Override
@@ -151,49 +153,39 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         switch (player) {
             case 0:
-                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                activityGameboardBinding.userCardRecyclerView.setLayoutManager(manager);
-                Log.d("after recyclerview layout", " oh my");
-                this.myRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), this.player.getPlayerInitialCards(), R.layout.recycler_item_view);
-                activityGameboardBinding.userCardRecyclerView.setAdapter(this.myRecyclerviewAdabter);
-                Log.d("after recyclerview layout", " oh my 2");
-
+                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));1
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
-                //addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.UserCardsLayout, this.player.getPlayerInitialCards());
                 break;
             default:
                 Log.d("no player", "no player " + player);
                 break;
         }
-        addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
-        addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
-        addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
-        addTopCardToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
-        addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player, R.layout.recycler_item_view);
+        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
 
@@ -212,14 +204,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
+            Log.d("card gameboard", card.toString());
             itemCardImage.setOnClickListener(view -> {
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.myRecyclerviewAdabter.addItem(card);
-                int integry = this.myRecyclerviewAdabter.getItemCount();
+                this.playerRecyclerviewAdabter.addPlayerItem(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
                 Log.d("get item card", " click 2");
-                this.myRecyclerviewAdabter.notifyDataSetChanged();
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
                 Log.d("get item card", "" + integry);
             });
         }
@@ -359,19 +352,24 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     ///////////////////////// dice methods ////////////////////////
 
     public void setUpDice() {
+        Log.d("setUpDice", "called");
         dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.dice);
-            activityDiceBinding.diceLayout.addView(imageView);
+            activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
+
+        activityGameboardBinding.btnRollDice.setEnabled(true);
+        activityGameboardBinding.savedDicesContainer.removeAllViews();
+        activityGameboardBinding.parkedDicesContainer.removeAllViews();
     }
 
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-            dicePopUpActivity.rollDice();
+            dicePopUpActivity.rollDice(player.getDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -379,15 +377,26 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void diceResults(ArrayList<Integer> playerDice, ArrayList<Integer> enemyDice) {
-        // anzeigen und selektieren der gespeicherten Würfel
+        // Anzeigen und Selektieren der gespeicherten Würfel
         runOnUiThread(() -> {
             final Map<ImageView, Boolean> diceSelect = new HashMap<>();
-            activityGameboardBinding.savedDicesContainer.removeAllViews();
+            ArrayList<Integer> selectedDices = new ArrayList<>();
 
+            activityGameboardBinding.savedDicesContainer.removeAllViews();
+/*
+            for (int diceValue : player.getParkedDices()) {
+                ImageView imageView = new ImageView(Gameboard.this);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                imageView.setPadding(3, 3, 3, 3);
+                imageView.setImageResource(getDiceImage(diceValue));
+                activityGameboardBinding.parkedDicesContainer.addView(imageView);
+            }
+ */
             for (int diceValue : playerDice) {
                 ImageView imageView = new ImageView(Gameboard.this);
                 imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
                 imageView.setPadding(3, 3, 3, 3);
+                imageView.setTag(diceValue);
                 imageView.setImageResource(getDiceImage(diceValue));
                 activityGameboardBinding.savedDicesContainer.addView(imageView);
                 diceSelect.put(imageView, false);
@@ -398,17 +407,21 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     Log.d("index of clicked dice", "diceIndex: " + diceIndex);
                     Log.d("clicked image view", imageView.toString());
 
-                    diceSelect.put((ImageView) v, Boolean.FALSE.equals(diceSelect.get(v)));
+                    diceSelect.put((ImageView) v, !diceSelect.get(v));
 
-                    if (Boolean.TRUE.equals(diceSelect.get(v))) {
+                    if (diceSelect.get(v)) {
                         v.setBackgroundColor(Color.GREEN);
+                        selectedDices.add(diceValue);
                         Log.d("selected saved dice", "set to green: " + diceIndex);
                     } else {
                         v.setBackgroundColor(Color.TRANSPARENT);
+                        if (selectedDices.size() != 0) {
+                            selectedDices.remove(Integer.valueOf(diceValue));
+                        }
                         Log.d("unselected saved dice", "set to standard: " + diceIndex);
                     }
                     // Aktualisierung im UI Thread - zur korrekten Anzeige der Hintergrundfarbe
-                    v.post(v::invalidate);
+                    v.post(() -> v.invalidate());
                 });
             }
 
@@ -417,9 +430,67 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             activityGameboardBinding.savedDicesContainer.invalidate();
             activityGameboardBinding.savedDicesContainer.requestLayout();
 
+            if (player.getParkDiceCount() > 0) {
+                activityGameboardBinding.btnParkDice.setText("parken");
+                isParkBtn = 1;
+            }
+
+            activityGameboardBinding.btnParkDice.setOnClickListener(view -> {
+                boolean hasParked = false;
+                ArrayList<Integer> parkedDices = new ArrayList<>();
+
+                if (isParkBtn == 1) {
+                    if (checkDiceParking(diceSelect, player.getParkDiceCount())) {
+                        Log.d("selected saved dices", selectedDices.toString());
+
+                        for (int diceValue : selectedDices) {
+                            ImageView imageView = new ImageView(Gameboard.this);
+                            imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                            imageView.setPadding(3, 3, 3, 3);
+                            imageView.setImageResource(getDiceImage(diceValue));
+                            activityGameboardBinding.parkedDicesContainer.addView(imageView);
+                            parkedDices.add(diceValue);
+                            playerDice.remove(Integer.valueOf(diceValue));
+
+                            for (int i = 0; i < activityGameboardBinding.savedDicesContainer.getChildCount(); i++) {
+                                ImageView imageViewToDelete = (ImageView) activityGameboardBinding.savedDicesContainer.getChildAt(i);
+                                int value = (int) imageViewToDelete.getTag();
+
+                                if (value == diceValue) {
+                                    activityGameboardBinding.savedDicesContainer.removeView(imageViewToDelete);
+                                }
+                            }
+
+                            hasParked = true;
+                        }
+
+                        activityGameboardBinding.savedDicesContainer.invalidate();
+                        activityGameboardBinding.savedDicesContainer.requestLayout();
+                        activityGameboardBinding.parkedDicesContainer.invalidate();
+                        activityGameboardBinding.parkedDicesContainer.requestLayout();
+
+                        Log.d("dices parked", parkedDices.toString());
+                        Log.d("player dices", playerDice.toString());
+                        parkedDiceValues(parkedDices);
+                    } else {
+                        Toast.makeText(Gameboard.this, "Du willst eine zu hohe Anzahl an Würfeln parken!", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    activityGameboardBinding.btnRollDice.setText("end turn");
+                }
+                if (hasParked) {
+                    activityGameboardBinding.btnParkDice.setText("end rolling");
+                    isParkBtn = 0;
+                }
+            });
+
             diceIsRolled = true;
 
             if (diceIsRolled) {
+                if (!player.isReRoll()) {
+                    activityGameboardBinding.btnParkDice.setText("end rolling");
+                    isParkBtn = 0;
+                }
                 addCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
@@ -472,9 +543,27 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     throw new RuntimeException(e);
                 }
             }
+
+            testDice();
         });
     }
 
+    public boolean checkDiceParking(Map<ImageView, Boolean> diceSelect, int parkDiceCount) {
+        boolean result = false;
+        int counter = 0;
+
+        for (ImageView imageView : diceSelect.keySet()) {
+            if (diceSelect.get(imageView)) {
+                counter++;
+            }
+        }
+
+        if (counter <= parkDiceCount) {
+            result = true;
+        }
+
+        return result;
+    }
 
     public int getDiceImage(int result) {
         switch (result) {
@@ -493,7 +582,26 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
+    public void testDice() {
+        Log.d("dice callback - parked dices", this.parkedDice.toString());
+    }
+
+
     ////////////////////// other methods //////////////////////////
+
+    private void createRecyclerviewCards(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
+        recyclerview.setLayoutManager(manager);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
+        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+    }
+
+    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, PlayerController playerController, int recyclerItem) {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
+        recyclerview.setLayoutManager(manager);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playerController, recyclerItem);
+        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+    }
 
     private void initCarddrawer() {
         this.c = new CardDrawer(this.getApplicationContext());
@@ -520,14 +628,23 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("player number gameboard", "?");
         client.start();
         //Toast.makeText(this, "Connected with" + ip, Toast.LENGTH_SHORT).show();
-
     }
 
     private void setListeners() {
         activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
-            startDiceRolling(view);
-            // testweise auf true setzen
-            hasCheated = true;
+            if (activityGameboardBinding.btnRollDice.getText().equals("würfeln")) {
+                startDiceRolling(view);
+                // vorerst testweise auf true setzen
+                hasCheated = true;
+            } else {
+                clientHandler.post(() -> {
+                    try {
+                        clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
         });
     }
 
@@ -539,6 +656,34 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void updatePointView(int point, PointDisplay pointDisplay) {
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
+
+    public void checkSpecialCards(int pralinen) {
+        if (pralinen >= 10) {
+            //then add one Troublemaker to current player
+            //how do i know who the current player is
+            //add to which arraylist
+        }
+
+        if (pralinen >= 16) {
+            //then add one Schaukelstuhl to current player
+            //how do i know who the current player is
+            //add to which arraylist
+            //how to check 1 round?
+        }
+    }
+//    public void endTurn(){
+//        checkSpecialCards(10);
+//        clientHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    clientCallbacks.endTurn(player.pralinen);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//    }
 
     private void testmodus() {
         Server server = new Server(1234, new Handler(handlerThread.getLooper()));
@@ -553,6 +698,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void createPlayer(int playerNumber) {
         Log.d("create player card", playerNumber + "");
         createPlayerBoard(playerNumber);
+
+        // anzeigen der geparkten Würfel
+        for (int diceValue : player.getParkedDices()) {
+            ImageView imageView = new ImageView(Gameboard.this);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+            imageView.setPadding(3, 3, 3, 3);
+            imageView.setImageResource(getDiceImage(diceValue));
+            activityGameboardBinding.parkedDicesContainer.addView(imageView);
+        }
     }
 
     @Override
@@ -561,11 +715,52 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         this.clientHandler = clientHandler;
     }
 
+    @Override
+    public void playerTurn(int playerNumber, ArrayList<Card> cards) {
+        player.setMyTurn(1);
+    }
 
     @Override
     public void diceValues(ArrayList<Integer> playerDices, ArrayList<Integer> enemyDices) {
         player.setDiceValuesUsable(playerDices);
         player.setDiceValuesNotUsable(enemyDices);
+    }
+
+    @Override
+    public void parkedDiceValues(ArrayList<Integer> parkedDices) {
+        this.parkedDice = parkedDices;
+        player.setParkedDices(parkedDices);
+    }
+
+    @Override
+    public void diceEnemy(ArrayList<Integer> diceEnemy) {
+        player.setDiceValuesNotUsable(diceEnemy);
+        dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
+    }
+
+    @Override
+    public void diceFirstAccept(int message) {
+        if (message == 1) {
+            this.player.setPlayerTurn(message);
+        }
+    }
+
+    @Override
+    public void sendDiceEnemyAccept(int accept) {
+        clientHandler.post(() -> {
+            try {
+                clientCallbacks.acceptDice(accept);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Log.d("senddice enemy", "" + accept);
+    }
+
+    @Override
+    public void sendedEnemyDice(ArrayList<Integer> enemyDice) {
+        dicePopUpActivity.setIsEnemyDice(1);
+        dicePopUpActivity.visualizeDice(enemyDice);
     }
 
     @Override
@@ -579,7 +774,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
-
+  
     public DicePopUpActivity getDicePopUpActivity() {
         return dicePopUpActivity;
     }

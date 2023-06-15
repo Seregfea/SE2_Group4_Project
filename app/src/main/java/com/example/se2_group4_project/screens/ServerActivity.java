@@ -131,8 +131,14 @@ public class ServerActivity extends AppCompatActivity implements ServerUICallbac
     @SuppressLint("SetTextI18n")
     @Override
     public void onMessageSend(String send) {
-        Log.d("client connected serverActivity", send);
-        activityServerBinding.Servermessage.setText("from database" + send);
+        String text = (String) activityServerBinding.Servermessage.getText();
+        if(text.length() > 40){
+            activityServerBinding.Servermessage.setText("");
+        }else {
+            Log.d("client connected serverActivity", send);
+            activityServerBinding.Servermessage.setText(text + send);
+        }
+
     }
 
     /////////////////////////////////////////////// DB ///////////////////////////////////

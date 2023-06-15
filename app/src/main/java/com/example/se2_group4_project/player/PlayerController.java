@@ -18,19 +18,30 @@ import com.example.se2_group4_project.cards.WitzigToDos;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerController {
     private final int playerID;
-    private final ArrayList<Card> playerInitialCards;
-    private ArrayList<Card> playerExtraCards;
+    private ArrayList<Card> playerInitialCards;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
+    private int playerTurn = 0;
     private int diceCount = 4;
+
+
+
+    private int myTurn = 0;
+
+    // testweise auf 1
+    private int parkDiceCount = 1;
+
+    // tesweise auf true
+    private boolean reRoll = true;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
-    private ArrayList<Arrays> cardTypes;
-    private ArrayList<Item> itemCards;
+    private ArrayList<Integer> parkedDices = new ArrayList<>();
+
+    private int pralinen;
+
 
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
@@ -95,12 +106,22 @@ public class PlayerController {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 
+    public void saveParkedDices(ArrayList<Integer> parkedDices){
+        this.parkedDices = parkedDices;
+    }
+
     public int getPlayerID() {
         return playerID;
     }
 
     public ArrayList<Card> getPlayerInitialCards() {
         return playerInitialCards;
+    }
+    public void addPlayerInitialCard(Card card){
+        this.playerInitialCards.add(card);
+    }
+    public void removePlayerInitialCard(Card card){
+        this.playerInitialCards.remove(card);
     }
 
     public int getDiceCount() {
@@ -109,6 +130,22 @@ public class PlayerController {
 
     public void setDiceCount(int diceCount) {
         this.diceCount = diceCount;
+    }
+
+    public int getParkDiceCount() {
+        return parkDiceCount;
+    }
+
+    public void setParkDiceCount(int parkDiceCount) {
+        this.parkDiceCount = parkDiceCount;
+    }
+
+    public boolean isReRoll() {
+        return reRoll;
+    }
+
+    public void setReRoll(boolean reRoll) {
+        this.reRoll = reRoll;
     }
 
     public ArrayList<Integer> getDiceValuesUsable() {
@@ -127,12 +164,20 @@ public class PlayerController {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 
+    public ArrayList<Integer> getParkedDices() {
+        return parkedDices;
+    }
+
+    public void setParkedDices(ArrayList<Integer> parkedDices) {
+        this.parkedDices = parkedDices;
+    }
+
     public void diceToServer() {
         clientHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "0");
+                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -140,4 +185,20 @@ public class PlayerController {
         });
     }
 
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+      
+    public int getMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(int myTurn) {
+        this.myTurn = myTurn;
+
+    }
 }
