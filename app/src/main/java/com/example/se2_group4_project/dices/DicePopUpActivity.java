@@ -271,6 +271,7 @@ public class DicePopUpActivity extends PopupWindow {
         if (gbCallbacks != null) {
             gbCallbacks.diceResults(playerDices, enemyDices);
         }
+        finishDiceRolling();
     }
 
     public void testDice() {

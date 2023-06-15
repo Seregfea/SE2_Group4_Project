@@ -112,8 +112,9 @@ public class Server extends Thread implements ServerCallbacks {
 
     ///////////////////////// callbacks ///////////////////////
     @Override
-    public void messageToALL(String message)  {
+    public void messageToALL(String message, Integer player)  {
         for (int key : clients.keySet()) {
+            //if(player != key)
             sendMessage(message,key);
         }
     }
@@ -125,6 +126,7 @@ public class Server extends Thread implements ServerCallbacks {
 
     @Override
     public void messageToOne(String message, Integer player) {
+        Log.d("message to one", message);
         sendMessage(message,player);
     }
 
@@ -151,7 +153,8 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
     private void sendMessage(String message, Integer player){
-        updateServerUI(message);
+        Log.d("server message get", message);
+        //updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
                 this.clientCallbacks.get(player).getMessage(message);

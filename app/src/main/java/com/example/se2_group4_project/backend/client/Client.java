@@ -144,6 +144,7 @@ public class Client extends Thread implements ClientCallbacks {
 
 
     private ArrayList<Integer> jsonToArraylist(String object) {
+        Log.d("JSON to array", object);
         ArrayList<Integer> listArray;
         try {
             listArray = mapper.readValue(object, ArrayList.class);
@@ -184,7 +185,7 @@ public class Client extends Thread implements ClientCallbacks {
         if(this.playerNumber == 3){
             return 0;
         } else{
-            return this.playerNumber;
+            return this.playerNumber+1;
         }
     }
 
@@ -217,6 +218,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void endTurnPlayer(ArrayList<Card> cards) throws IOException {
+        Log.d("end turn json", objectToJson(cards));
         messageSend(messageCode("4" + this.SPACE + objectToJson(cards)) + nextPlayer());
     }
 
@@ -227,7 +229,8 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException {
-        messageSend(messageCode(cheatIdentifier + SPACE + objectToJson(enemyDice)) + SPACE + ENEMY);
+        Log.d("dice to enemy", enemyDice.toString());
+        messageSend(messageCode(cheatIdentifier + SPACE + objectToJson(enemyDice)) + ENEMY);
     }
 
     @Override
