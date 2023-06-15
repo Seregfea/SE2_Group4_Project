@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.SoundManager;
 import com.example.se2_group4_project.databinding.ActivityMusicBinding;
 
@@ -51,6 +52,7 @@ public class MusicActivity extends AppCompatActivity {
         songMap.put("Slow and Childish", R.raw.slowandchildish);
         songMap.put("Orchestra Epic", R.raw.orchestra_epic);
         songMap.put("Swing", R.raw.swing);
+        String currentMusic;
 
 
         activityMusicBinding.buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,7 @@ public class MusicActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 SoundManager.changeMusic(MusicActivity.this,resId);
+
                             }
                         })
                         .show();

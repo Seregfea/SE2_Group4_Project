@@ -38,10 +38,13 @@ import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.cards.CardDrawer;
 
+import com.example.se2_group4_project.gameboard_adjustments.SoundManager;
 import com.example.se2_group4_project.player.PlayerController;
 
 import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
+
+import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,6 +59,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ClientCallbacks clientCallbacks;
     private MyRecyclerviewAdabter playerRecyclerviewAdabter;
     private PlayerController player;
+
+    public PlayerController getPlayer() {
+        return player;
+    }
+
     private CardDrawer c;
     private DicePopUpActivity dicePopUpActivity;
     // hardcoded
@@ -145,7 +153,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         switch (player) {
             case 0:
-                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
+                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));1
                 addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
                 addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
                 addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
@@ -180,6 +188,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
+
     }
 
     public void addCardsToPlayer() {
@@ -207,7 +216,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("get item card", "" + integry);
             });
         }
-
     }
 
     private void createItem(View view) {
@@ -228,6 +236,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
+            iView.setId(imageRessourceID);
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
@@ -249,7 +258,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         LinearLayout linearLayout = findViewById(linearLayoutId);
         for (Card card : cards) {
             ImageView iView = new ImageView(linearLayout.getContext());
-            iView.setId(View.generateViewId());
+
             String currentCardFront = card.getCurrentCardFront();
 
             final int imageRessourceID =
@@ -258,6 +267,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
             iView.setImageResource(imageRessourceID);
+            iView.setId(imageRessourceID);
 
             float aspectRatio = 5;
 
@@ -287,9 +297,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 iView.setLayoutParams(params);
 
             }
+            linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
-            linearLayout.addView(iView);
         }
     }
 
@@ -309,7 +319,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         ImageView currentCardSide = null;
         for (ImageView iView : displayedCards
         ) {
-            if (iView.getId() == cardFlip.getImageViewID()) {
+            if (iView.getId() == cardFlip.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
                 currentCardSide = iView;
             }
         }
@@ -323,6 +333,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         currentCardSide.setImageResource(flipedImageRessource);
 
         cardFlip.setFront(!cardFlip.isFront());
+    }
+
+    public void highlightCards(Card card) {
+        final int imageRessourceID =
+                this.getResources()
+                        .getIdentifier(
+                                "cardborder", "drawable", this.getApplicationContext().getPackageName());
+
+        for (ImageView iView : displayedCards) {
+            if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+                iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
+            }
+        }
     }
 
 
@@ -468,10 +491,57 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
-
                 addCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
+                try {
+                    c.checkIfHighlight(c.getItemsStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getRoommateEasyStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getRoommateDifficultStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                /*
+                try {
+                    c.checkIfHighlight(c.getWitzigStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                 */
+                try {
+                    c.checkIfHighlight(c.getPlayerBlueStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerGreenStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerTealStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    c.checkIfHighlight(c.getPlayerOrangeStack(), this);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             testDice();
@@ -586,7 +656,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void updatePointView(int point, PointDisplay pointDisplay) {
         activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
     }
-
 
     public void checkSpecialCards(int pralinen) {
         if (pralinen >= 10) {
@@ -705,6 +774,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
-
+  
+    public DicePopUpActivity getDicePopUpActivity() {
+        return dicePopUpActivity;
+    }
 }
 

@@ -3,6 +3,7 @@ package com.example.se2_group4_project.cards;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RoommateDifficult {
@@ -121,13 +122,13 @@ public class RoommateDifficult {
         return awake;
     }
 
-    public boolean isAvailable(int[] dice) {
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
          if (count > 0) {
-            for (int i = 0; i < dice.length; i++) {
+            for (int i = 0; i < rolledDice.size(); i++) {
                 int counter = 1;
 
-                for (int j = i + 1; j < dice.length; j++) {
-                    if (dice[j] == dice[i]) {
+                for (int j = i + 1; j < rolledDice.size(); j++) {
+                    if (rolledDice.get(j) == rolledDice.get(i)) {
                         counter++;
                     }
                     if (counter == count) {
@@ -140,10 +141,10 @@ public class RoommateDifficult {
 
         if (following > 0) {
             int counter = 1;
-            Arrays.sort(dice);
+           // Arrays.sort(rolledDice);
 
-            for (int i = 0; i < dice.length - 1; i++) {
-                if (dice[i] + 1 == dice[i + 1]) {
+            for (int i = 0; i < rolledDice.size() - 1; i++) {
+                if (rolledDice.get(i) + 1 == rolledDice.get(i + 1)) {
                     counter++;
 
                     if (counter == following) {

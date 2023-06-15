@@ -1,23 +1,19 @@
 package com.example.se2_group4_project.cards;
 
-import android.widget.ImageView;
+import java.util.ArrayList;
 
 public class CardController {
 
-    //Klasse wo das Spielfeld erzeugt wird, da muss ich meine Klassen aufrufen
-
-    //wie soll meine Karte aussehen
-
-//    private CardUI createCardUI(Card card) {
-//        ImageView imageView = new ImageView(getApplicationContext());
-//        cardUIManager.setCardImage(cards, imageView);
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(35, 120, 1);
-//        imageView.setLayoutParams(params);
-//        imageView.setTag("c" + cards.getID());
-//        imageView.setVisibility(View.INVISIBLE);
-//        imageView.setClickable(true);
-//        imageView.setFocusable(true);
-//        return new CardUI(imageView);
+//    //Klasse für die isAvailable Methode
+//
+//    ArrayList<Card> playerBlueCards = CardDrawer.getPlayerBlueStack();
+//
+//    public void highlightCards() {
 //    }
-
+//
+//    public void checkIfHighlight(){
+//        for(Card card : cardArrayList){
+//
+//        }
+//    }
 }

@@ -16,10 +16,17 @@ import java.util.ArrayList;
 public class WitzigWitzigToDosTest {
 
     WitzigWitzigToDos witzigWitzigToDos;
-    int [] rolledDice = {2,1,2,1,0};
+    ArrayList<Integer> rolledDice = new ArrayList<Integer>();
+
 
     @Test
     public void witzigWitzigToDosTesting() throws JSONException {
+
+        rolledDice.add(2);
+        rolledDice.add(1);
+        rolledDice.add(2);
+        rolledDice.add(1);
+        rolledDice.add(0);
 
         JSONObject witzigWitzig = new JSONObject("{" + "count: 2" + "number2: 3" + "count2: 1" + "number3: 4" + "count3: 1" +"toDoPenalty: COUCH, TABLEWARE" + "schnapspralinen: 7" + "}");
         witzigWitzigToDos = new WitzigWitzigToDos(witzigWitzig);
@@ -60,7 +67,7 @@ public class WitzigWitzigToDosTest {
     public void testIsAvailable () {
         assertTrue(witzigWitzigToDos.isAvailable(rolledDice));
 
-        rolledDice[3] = 0;
+        rolledDice.set(3,0);
         assertFalse(witzigWitzigToDos.isAvailable(rolledDice));
 
     }

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -70,48 +71,52 @@ public class WitzigWitzigToDos {
 
         JSONArray toDoPenalty = witzigWitzigCards.getJSONArray("toDoPenalty");
 
-        for (int i = 0; i < toDoPenalty.length(); i++) {
-            switch (toDoPenalty.getString(i)) {
-                case "BATHTUB":
-                    this.bathtub = true;
-                    break;
-                case "COUCH":
-                    this.couch = true;
-                    break;
-                case "TABLEWARE":
-                    this.tableware = true;
-                    break;
-                case "SLEEP":
-                    this.sleep = true;
-                    break;
-                case "AWAKE":
-                    this.awake = true;
-                    break;
-                case "TABLEWAREALL":
-                    this.tablewareAll = true;
-                    break;
-                default:
-                    System.out.println("No to-do penalty assignments to do");
-                    break;
+        try {
+            Integer k = (Integer) toDoPenalty.get(0);
+
+            for (int i = 0; i < toDoPenalty.length(); i++) {
+                switch (toDoPenalty.getString(i)) {
+                    case "BATHTUB":
+                        this.bathtub = true;
+                        break;
+                    case "COUCH":
+                        this.couch = true;
+                        break;
+                    case "TABLEWARE":
+                        this.tableware = true;
+                        break;
+                    case "SLEEP":
+                        this.sleep = true;
+                        break;
+                    case "AWAKE":
+                        this.awake = true;
+                        break;
+                    default:
+                        System.out.println("No to-do penalty assignments to do");
+                        break;
+                }
             }
+
+        } catch (JSONException e) {
+
         }
     }
 
 
 
-    public boolean isAvailable(int[] rolledDice) {
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
         boolean checkBoolean = false;
         Set<Integer> usedIndices = new HashSet<Integer>();
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
             int intNumber = Integer.parseInt(number);
-            if (rolledDice[intNumber - 1] >= count) {
+            if (rolledDice.get(intNumber - 1) >= count) {
                 checkBoolean = true;
                 usedIndices.add(intNumber - 1);
             }
         } else if (filledFields.contains("count")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
@@ -120,13 +125,13 @@ public class WitzigWitzigToDos {
         }
         if(filledFields.contains("number2") && filledFields.contains("count2")) {
             int intNumber2 = Integer.parseInt(number2);
-            if(rolledDice[intNumber2 - 1] >= count2 && !usedIndices.contains(intNumber2-1)) {
+            if(rolledDice.get(intNumber2 - 1) >= count2 && !usedIndices.contains(intNumber2-1)) {
                 checkBoolean = true;
                 usedIndices.add(intNumber2 - 1);
             }
         } else if (filledFields.contains("count2")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count2 && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count2 && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
@@ -135,13 +140,13 @@ public class WitzigWitzigToDos {
         }
         if(filledFields.contains("number3") && filledFields.contains("count3")) {
             int intNumber3 = Integer.parseInt(number3);
-            if(rolledDice[intNumber3 - 1] >= count3 && !usedIndices.contains(intNumber3-1)) {
+            if(rolledDice.get(intNumber3 - 1) >= count3 && !usedIndices.contains(intNumber3-1)) {
                 checkBoolean = true;
                 usedIndices.add(intNumber3 - 1);
             }
         } else if (filledFields.contains("count3")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count3 && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count3 && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
@@ -150,13 +155,13 @@ public class WitzigWitzigToDos {
         }
         if(filledFields.contains("number4") && filledFields.contains("count4")) {
             int intNumber4 = Integer.parseInt(number4);
-            if(rolledDice[intNumber4 - 1] >= count4 && !usedIndices.contains(intNumber4-1)) {
+            if(rolledDice.get(intNumber4 - 1) >= count4 && !usedIndices.contains(intNumber4-1)) {
                 checkBoolean = true;
                 usedIndices.add(intNumber4 - 1);
             }
         } else if (filledFields.contains("count4")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count4 && !usedIndices.contains(i)) {
+            for (int i = 0; i < rolledDice.size(); i++) {
+                if (rolledDice.get(i) >= count4 && !usedIndices.contains(i)) {
                     checkBoolean = true;
                     usedIndices.add(i);
                     break;
