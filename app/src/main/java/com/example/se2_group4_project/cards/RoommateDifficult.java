@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class RoommateDifficult {
     private int additionalDice = 0;
@@ -78,43 +79,43 @@ public class RoommateDifficult {
         this.count = count;
     }
 
-    public boolean isDoes_not_sleep () {
+    public boolean isDoes_not_sleep() {
         return does_not_sleep;
     }
 
-    public void setDoes_not_sleep ( boolean does_not_sleep){
+    public void setDoes_not_sleep(boolean does_not_sleep) {
         this.does_not_sleep = does_not_sleep;
     }
 
-    public boolean isClean_dishes () {
+    public boolean isClean_dishes() {
         return clean_dishes;
     }
 
-    public void setClean_dishes ( boolean clean_dishes){
+    public void setClean_dishes(boolean clean_dishes) {
         this.clean_dishes = clean_dishes;
     }
 
-    public boolean isClean_couch () {
+    public boolean isClean_couch() {
         return clean_couch;
     }
 
-    public void setClean_couch ( boolean clean_couch){
+    public void setClean_couch(boolean clean_couch) {
         this.clean_couch = clean_couch;
     }
 
-    public boolean isReroll () {
+    public boolean isReroll() {
         return reroll;
     }
 
-    public void setReroll ( boolean reroll){
+    public void setReroll(boolean reroll) {
         this.reroll = reroll;
     }
 
-    public boolean isClean_bathtub () {
+    public boolean isClean_bathtub() {
         return clean_bathtub;
     }
 
-    public void setClean_bathtub ( boolean clean_bathtub){
+    public void setClean_bathtub(boolean clean_bathtub) {
         this.clean_bathtub = clean_bathtub;
     }
 
@@ -123,7 +124,7 @@ public class RoommateDifficult {
     }
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
-         if (count > 0) {
+        if (count > 0) {
             for (int i = 0; i < rolledDice.size(); i++) {
                 int counter = 1;
 
@@ -141,7 +142,7 @@ public class RoommateDifficult {
 
         if (following > 0) {
             int counter = 1;
-           // Arrays.sort(rolledDice);
+            Collections.sort(rolledDice);
 
             for (int i = 0; i < rolledDice.size() - 1; i++) {
                 if (rolledDice.get(i) + 1 == rolledDice.get(i + 1)) {
