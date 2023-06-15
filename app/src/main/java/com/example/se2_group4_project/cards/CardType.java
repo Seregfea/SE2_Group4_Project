@@ -1,6 +1,7 @@
 package com.example.se2_group4_project.cards;
 
 public enum CardType {
+    ROOMMATEEASY,
     ROOMMATE,
     TROUBLEMAKER,
     ITEM,
@@ -8,6 +9,8 @@ public enum CardType {
     BATHTUB,
     COUCH,
     TABLEWARE,
+    SLEEP,
+    AWAKE,
     WITZIG,
     WITZIGWITZIG
 }

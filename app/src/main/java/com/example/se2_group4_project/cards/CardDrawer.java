@@ -1,8 +1,20 @@
 package com.example.se2_group4_project.cards;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.widget.ImageView;
+
+import com.example.se2_group4_project.Gameboard;
+import com.example.se2_group4_project.backend.database.entities.Player;
+import com.example.se2_group4_project.dices.DicePopUpActivity;
+import com.example.se2_group4_project.player.PlayerController;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class CardDrawer {
@@ -18,7 +30,10 @@ public class CardDrawer {
     private ArrayList<Card> roommateEasyStack = new ArrayList<>();
     private ArrayList<Card> roommateDifficultStack = new ArrayList<>();
     private ArrayList<Card> troublemakerStack = new ArrayList<>();
+    private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
+    private PlayerController playerController;
+
 
     public CardDrawer(Context context) {
         this.convertJSON = new ConvertJSON(context);
@@ -104,6 +119,14 @@ public class CardDrawer {
         this.roommateDifficultStack = roommateDifficultStack;
     }
 
+    public ArrayList<Card> getSchaukelstuhlStack() {
+        return schaukelstuhlStack;
+    }
+
+    public void setSchaukelstuhlStack(ArrayList<Card> schaukelstuhlStack) {
+        this.schaukelstuhlStack = schaukelstuhlStack;
+    }
+
     //Karten holen und speichern
     public void generateInitialCards() throws FileNotFoundException {
         this.playerBlueStack = this.convertJSON.getCards("playerBlue");
@@ -116,5 +139,131 @@ public class CardDrawer {
         this.troublemakerStack = this.convertJSON.getCards("troublemaker");
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
+        this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
+    }
+
+    // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte
+    // checkIfHighlight überpfrüft dann nur mehr die ifs
+
+    public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
+
+        ArrayList<Integer> rolledDices = gameboard.getDicePopUpActivity().getPlayerDices();
+        for (Card card : cardStack) {
+
+            CardType cardType = card.getCardType();
+            this.playerController = gameboard.getPlayer();
+
+            switch (cardType) {
+                case ITEM:
+                    JSONObject itemObjekt = new JSONObject();
+                    itemObjekt.put("number", card.getNumber());
+                    itemObjekt.put("count", card.getCount());
+                    itemObjekt.put("stealCard", card.getStealCard());
+                    itemObjekt.put("itemBenefit","");
+                    Item item = new Item(itemObjekt);
+
+                    if (item.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case ROOMMATE:
+                    JSONObject roommateObjektEasy = new JSONObject();
+                    roommateObjektEasy.put("number", card.getNumber());
+                    roommateObjektEasy.put("count", card.getCount());
+                    RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
+
+                    if (roommateEasy.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    JSONObject roommateObjektDifficult = new JSONObject();
+                    roommateObjektDifficult.put("following", card.getFollowing());
+                    roommateObjektDifficult.put("count", card.getCount());
+                    roommateObjektDifficult.put("roommateBenefit","");
+                    RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
+
+                    if (roommateDifficult.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case ME:
+                    JSONObject meObjekt = new JSONObject();
+                    meObjekt.put("number", card.getNumber());
+                    meObjekt.put("count", card.getCount());
+                    Me me = new Me(meObjekt);
+
+                    if (me.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case BATHTUB:
+                    JSONObject badewanneObjekt = new JSONObject();
+                    badewanneObjekt.put("number", card.getNumber());
+                    badewanneObjekt.put("count", card.getCount());
+                    Badewanne badewanne = new Badewanne(badewanneObjekt);
+                    if (badewanne.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case COUCH:
+                    JSONObject couchObjekt = new JSONObject();
+                    couchObjekt.put("number", card.getNumber());
+                    couchObjekt.put("count", card.getCount());
+                    Couch couch = new Couch(couchObjekt);
+                    if (couch.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+                case TABLEWARE:
+                    JSONObject geschirrObjekt = new JSONObject();
+                    geschirrObjekt.put("number", card.getNumber());
+                    geschirrObjekt.put("count", card.getCount());
+                    Geschirr geschirr = new Geschirr(geschirrObjekt);
+                    if (geschirr.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case WITZIG:
+                    JSONObject witzigObjekt = new JSONObject();
+                    witzigObjekt.put("number", card.getNumber());
+                    witzigObjekt.put("count", card.getCount());
+                    witzigObjekt.put("number2", card.getNumber2());
+                    witzigObjekt.put("count2", card.getCount2());
+                    witzigObjekt.put("following", card.getFollowing());
+                    witzigObjekt.put("min_sum", card.getMinSum());
+                    witzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
+                    JSONArray toDoswitzig = new JSONArray(card.getToDo());
+                    witzigObjekt.put("toDoPenalty", toDoswitzig);
+                    WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
+
+                    if (witzigToDos.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case WITZIGWITZIG:
+                    JSONObject witzigwitzigObjekt = new JSONObject();
+                    witzigwitzigObjekt.put("number", card.getNumber());
+                    witzigwitzigObjekt.put("count", card.getCount());
+                    witzigwitzigObjekt.put("number2", card.getNumber2());
+                    witzigwitzigObjekt.put("count2", card.getCount2());
+                    witzigwitzigObjekt.put("number3", card.getNumber3());
+                    witzigwitzigObjekt.put("count3", card.getCount3());
+                    witzigwitzigObjekt.put("number4", card.getNumber4());
+                    witzigwitzigObjekt.put("count4", card.getCount4());
+                    witzigwitzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
+                    JSONArray toDoswitzigwitzig = new JSONArray(card.getToDo());
+                    witzigwitzigObjekt.put("toDoPenalty", toDoswitzigwitzig);
+                    WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
+                    if (witzigWitzigToDos.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                        break;
+                    }
+            }
+        }
     }
 }

@@ -1,18 +1,41 @@
 package com.example.se2_group4_project.cards;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class Geschirr {
 
-   private int countRoll = 1;
-  private boolean rollAgain = false;
+    private int countRoll = 1;
+    private boolean rollAgain = false;
+    int number;
+    int count;
 
-    public boolean isAvailable(int[] dice){
-        for(int i=0; i < 3; i++){
-         if(dice[i] != 0 && dice[i+1] != 0 && dice[i+2] != 0){
-             return true;
-         }
+    public Geschirr(JSONObject geschirr) throws JSONException {
+        this.number = geschirr.getInt("number");
+        this.count = geschirr.getInt("count");
+    }
+
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
+        if (rolledDice.size() < 3) {
+            return false;
         }
+
+        for (int i = 2; i < rolledDice.size(); i++) {
+            int current = rolledDice.get(i);
+            int prev1 = rolledDice.get(i - 1);
+            int prev2 = rolledDice.get(i - 2);
+
+            if (current == prev1 + 1 && current == prev2 + 2) {
+                return true;
+            }
+        }
+
         return false;
     }
+
+
 
     public boolean checkRollAgain(){
         return rollAgain;

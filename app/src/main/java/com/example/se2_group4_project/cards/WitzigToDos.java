@@ -1,9 +1,12 @@
 package com.example.se2_group4_project.cards;
 
+import android.util.ArraySet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,127 +26,205 @@ public class WitzigToDos {
     private int count2;
     private int min_sum;
     private int following;
-    private Set<String> filledFields;
+
+    private ArrayList<String> filledFields;
 
 
     public WitzigToDos(JSONObject witzigCard) throws JSONException {
 
         this.schnapspralinen = witzigCard.getInt("schnapspralinen");
 
-        this.filledFields = new HashSet<String>();
+        this.filledFields = new ArrayList<String>();
 
         if (witzigCard.has("number")) {
             this.number = witzigCard.getString("number");
-            this.filledFields.add("number");
+            filledFields.add("number");
         }
         if (witzigCard.has("number2")) {
             this.number2 = witzigCard.getString("number2");
-            this.filledFields.add("number2");
+            filledFields.add("number2");
         }
         if (witzigCard.has("count")) {
             this.count = witzigCard.getInt("count");
-            this.filledFields.add("count");
+            filledFields.add("count");
         }
         if (witzigCard.has("count2")) {
             this.count2 = witzigCard.getInt("count2");
-            this.filledFields.add("count2");
+            filledFields.add("count2");
         }
         if (witzigCard.has("min_sum")) {
             this.min_sum = witzigCard.getInt("min_sum");
-            this.filledFields.add("min_sum");
+            filledFields.add("min_sum");
         }
         if (witzigCard.has("following")) {
             this.following = witzigCard.getInt("following");
-            this.filledFields.add("following");
+            filledFields.add("following");
         }
 
 
         JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
+        try {
+            Integer k = (Integer) toDoPenaltyArray.get(0);
 
-        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-            switch (toDoPenaltyArray.getString(i)) {
-                case "BATHTUB":
-                    this.bathtub = true;
-                    break;
-                case "COUCH":
-                    this.couch = true;
-                    break;
-                case "TABLEWARE":
-                    this.tableware = true;
-                    break;
-                case "SLEEP":
-                    this.sleep = true;
-                    break;
-                case "AWAKE":
-                    this.awake = true;
-                    break;
-                default:
-                    System.out.println("No to-do penalty assignments to do");
-                    break;
+            for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+                switch (toDoPenaltyArray.getString(i)) {
+                    case "BATHTUB":
+                        this.bathtub = true;
+                        break;
+                    case "COUCH":
+                        this.couch = true;
+                        break;
+                    case "TABLEWARE":
+                        this.tableware = true;
+                        break;
+                    case "SLEEP":
+                        this.sleep = true;
+                        break;
+                    case "AWAKE":
+                        this.awake = true;
+                        break;
+                    default:
+                        System.out.println("No to-do penalty assignments to do");
+                        break;
+                }
             }
+
+        } catch (JSONException e) {
+
         }
     }
 
 
-    public boolean isAvailable(int[] rolledDice) {
-        boolean checkBoolean = false;
-        Set<Integer> usedIndices = new HashSet<Integer>();
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
-            int intNumber = Integer.parseInt(number);
-            if (rolledDice[intNumber - 1] >= count) {
-                checkBoolean = true;
-                usedIndices.add(intNumber - 1);
+            if (checkNumberCount(rolledDice)) {
+                return true;
             }
+
         } else if (filledFields.contains("count")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
+            if (checkCount(rolledDice)) {
+                return true;
             }
         }
         if (filledFields.contains("number") && filledFields.contains("following")) {
-            int intNumber = Integer.parseInt(number);
-            int count = 0;
-            for (int i = intNumber; i < intNumber + following; i++) {
-                if (rolledDice[i - 1] > 0 && !usedIndices.contains(i - 1)) {
-                    count++;
-                } else {
-                    break;
-                }
-            }
-            if (count == following) {
-                checkBoolean = true;
+            if (checkFollowing(rolledDice)) {
+                return true;
             }
         }
         if (filledFields.contains("number2") && filledFields.contains("count2")) {
-            int intNumber2 = Integer.parseInt(number2);
-            if (rolledDice[intNumber2 - 1] >= count2 && !usedIndices.contains(intNumber2 - 1)) {
-                checkBoolean = true;
-                usedIndices.add(intNumber2 - 1);
+            if (checkNumber2Count2(rolledDice)) {
+                return true;
             }
         } else if (filledFields.contains("count2")) {
-            for (int i = 0; i < rolledDice.length; i++) {
-                if (rolledDice[i] >= count2 && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
+            if (checkCount2(rolledDice)) {
+                return true;
             }
         }
         if (filledFields.contains("min_sum")) {
-            int sum = 0;
-            for (int i = 0; i < rolledDice.length; i++) {
-                sum += (i + 1) * rolledDice[i];
-            }
-            if (sum >= min_sum) {
-                checkBoolean = true;
+            if (checkMinSum(rolledDice)) {
+                return true;
             }
         }
-        return checkBoolean;
+        return false;
     }
+
+    public boolean checkNumberCount(ArrayList<Integer> rolledDice) {
+        int num = Integer.parseInt(number);
+        int numberCount = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == num) {
+                numberCount++;
+                if (numberCount == count) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkCount(ArrayList<Integer> rolledDice){
+        int[] numberArray = new int[5];
+        for(int i = 0; i<rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if(diceValue >= 1 && diceValue <= 5){
+                numberArray[diceValue-1]++;
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if(numberArray[i] == count){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkFollowing(ArrayList<Integer> rolledDice) {
+        int intNumber = Integer.parseInt(number);
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == intNumber) {
+                int countOfFollowingNumbers = 1;
+                for (int j = 0; j < rolledDice.size(); j++) {
+                    if (rolledDice.get(j) == intNumber + countOfFollowingNumbers) {
+                        countOfFollowingNumbers++;
+                        if (countOfFollowingNumbers == following) {
+                            return true;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkNumber2Count2(ArrayList<Integer> rolledDice){
+        int num2 = Integer.parseInt(number2);
+        int number2Count = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == num2) {
+                number2Count++;
+                if (number2Count == count2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean checkCount2(ArrayList<Integer> rolledDice){
+        int[] numberArray = new int[5];
+        for(int i = 0; i<rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if(diceValue >= 1 && diceValue <= 5){
+                numberArray[diceValue-1]++;
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if(numberArray[i] == count2){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkMinSum(ArrayList<Integer>rolledDice) {
+        int sum = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            sum = sum + diceValue;
+        }
+        if (sum >= min_sum) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 
@@ -162,6 +243,9 @@ public class WitzigToDos {
     public int getCount2() { return count2; }
     public int getMin_sum() { return min_sum; }
     public int getFollowing() { return following; }
+    public ArrayList<String> getFilledFields() {
+        return filledFields;
+    }
 
 
     public void setSchnapspralinen(int schnapspralinen) { this.schnapspralinen = schnapspralinen; }
@@ -177,6 +261,9 @@ public class WitzigToDos {
     public void setCount2(int count2) { this.count2 = count2; }
     public void setMin_sum(int min_sum) { this.min_sum = min_sum;}
     public void setFollowing(int following) { this.following = following; }
+    public void setFilledFields(ArrayList<String> filledFields) {
+        this.filledFields = filledFields;
+    }
 
 
 }
