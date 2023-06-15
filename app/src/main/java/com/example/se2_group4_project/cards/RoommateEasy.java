@@ -50,14 +50,6 @@ public class RoommateEasy {
             }
         }
         return false;
-        /*
-        for (int i = 0; i < dice.length; i++) {
-            if (dice[i] >= count && i+1 == number) {
-                return true;
-            }
-        }
-        return false;
-         */
     }
 
 }
