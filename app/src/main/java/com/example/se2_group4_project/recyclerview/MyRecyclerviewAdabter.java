@@ -38,15 +38,15 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
         this.LayoutID = layoutID;
     }
 
-    @NonNull
+
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         Log.d("viewholder", parent.toString());
         return new MyViewHolder(LayoutInflater.from(context).inflate(this.LayoutID,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  MyViewHolder holder, int position) {
+    public void onBindViewHolder( MyViewHolder holder, int position) {
         String drawable = "@drawable/"+items.get(position).getCardFront();
         Log.d("drawable holder", drawable);
         int drawableid = context.getResources().getIdentifier(drawable,null, context.getPackageName());

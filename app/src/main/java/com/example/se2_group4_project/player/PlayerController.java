@@ -57,61 +57,12 @@ public class PlayerController {
     // 2 Functions
 
     // 1 Fun - in die Liste einsetzt
-    public void cardsAdd(Object object){
-        if(object.getClass().isAssignableFrom(Item.class)){
-            
-        }
-
-        if (object.getClass().isAssignableFrom(Badewanne.class)) {
-
-        }
-
-        if(object.getClass().isAssignableFrom(Geschirr.class)) {
-
-        }
-
-        if(object.getClass().isAssignableFrom(RoommateDifficult.class)) {
-
-        }
-
-        if(object.getClass().isAssignableFrom(RoommateEasy.class)){
-
-        }
-
-        if(object.getClass().isAssignableFrom(Schaukelstuhl.class)){
-
-        }
-
-        if(object.getClass().isAssignableFrom(Troublemaker.class)){
-
-        }
-
-        if(object.getClass().isAssignableFrom(WitzigToDos.class)){
-
-        }
-    }
-
-    public void cardsRemove() {
-
-    }
 
     // Listen mit Würfeln den Client weiterschickt
     // Array Listen von Interger
     // Array Listen mit Wuerfeln speichernp
 
     // Max gibt die Werte von Dices.
-    public void saveDiceValuesUsable(ArrayList<Integer> diceValuesUsable){
-        this.diceValuesUsable = diceValuesUsable;
-    }
-
-    public void saveDiceValuesNotUsable(ArrayList<Integer> diceValuesNotUsable){
-        this.diceValuesNotUsable = diceValuesNotUsable;
-    }
-
-    public void saveParkedDices(ArrayList<Integer> parkedDices){
-        this.parkedDices = parkedDices;
-    }
-
     public int getPlayerID() {
         return playerID;
     }
@@ -134,14 +85,6 @@ public class PlayerController {
 
     public boolean isReRoll() {
         return reRoll;
-    }
-
-    public void setReRoll(boolean reRoll) {
-        this.reRoll = reRoll;
-    }
-
-    public ArrayList<Integer> getDiceValuesUsable() {
-        return diceValuesUsable;
     }
 
     public void setDiceValuesUsable(ArrayList<Integer> diceValuesUsable) {
