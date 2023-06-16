@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -88,6 +89,12 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;
     private View view;
+
+    /////////////////////////// cheat popup buttons ///////////////////////////////
+
+    TextView player1btn = findViewById(R.id.player1btn);
+    TextView player2btn = findViewById(R.id.player2btn);
+    TextView player3btn = findViewById(R.id.player3btn);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -773,6 +780,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void cheatPopUpActivity() {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+        cheatPopUpActivity.setCheatingPlayer(1);
+        player1btn.setOnClickListener(view -> {
+            cheatPopUpActivity.cheatingPlayer(1);
+        });
+        player2btn.setOnClickListener(view -> {
+            cheatPopUpActivity.cheatingPlayer(2);
+        });
+        player3btn.setOnClickListener(view -> {
+            cheatPopUpActivity.cheatingPlayer(3);
+        });
     }
   
     public DicePopUpActivity getDicePopUpActivity() {
