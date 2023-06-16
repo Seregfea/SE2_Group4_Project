@@ -91,13 +91,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ActivityDiceBinding activityDiceBinding;
     private View view;
 
-    /////////////////////////// cheat popup buttons ///////////////////////////////
-    Button player1btn;
-    Button player2btn;
-    Button player3btn;
+    /////////////////////////// cheat buttons/variables ///////////////////////////////
+    private Button player1btn;
+    private Button player2btn;
+    private Button player3btn;
 
-    int cheatCounter;
+    private int cheatCounter;
+    private boolean cheated;
 
+    /////////////////////////// player disable variables ///////////////////////////////
+    private boolean myTurn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,10 +131,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-        setUpDice();
-        setUpCheatButtons();
-        setListeners();
+        myTurn = true; //until player states are implemented test it by switching this boolean
+        if(myTurn) {
+            setUpDice();
+            setUpCheatButtons();
+            setListeners();
+        }
         cheatCounter = 0;
+        cheated = false;
     }
 
     @Override
@@ -251,17 +258,18 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+            if(this.player.getMyTurn() == 1) { // disabled if not your turn
+                iView.setOnClickListener(view -> {
+                    linearLayout.removeView(iView);
 
-            iView.setOnClickListener(view -> {
-                linearLayout.removeView(iView);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = 5;
-                iView.setLayoutParams(params);
-                // activityGameboardBinding.UserCardsLayout.addView(iView);
-            });
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.weight = 5;
+                    iView.setLayoutParams(params);
+                    // activityGameboardBinding.UserCardsLayout.addView(iView);
+                });
+            }
         }
     }
 
@@ -372,9 +380,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
 
-        activityGameboardBinding.btnRollDice.setEnabled(true);
-        activityGameboardBinding.savedDicesContainer.removeAllViews();
-        activityGameboardBinding.parkedDicesContainer.removeAllViews();
+            activityGameboardBinding.btnRollDice.setEnabled(true);
+            activityGameboardBinding.savedDicesContainer.removeAllViews();
+            activityGameboardBinding.parkedDicesContainer.removeAllViews();
+
     }
 
     public void startDiceRolling(View view) {
@@ -753,7 +762,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
-        cheatFunction();
+        if (!cheated){
+            cheatFunction();
+        }
     }
 
     @Override
