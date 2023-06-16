@@ -94,7 +94,8 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
     }
     private void chooseIdentifierFunction(String identifier) throws IOException {
         switch (identifier){
-            case "0":
+
+
             case "1":
             case "6":
                serverThreadHandler.post(() -> {
@@ -113,7 +114,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
                 });
                 Log.d("Server Client dice", messageInput);
                 break;
-
+            case "0":
             case "5":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));

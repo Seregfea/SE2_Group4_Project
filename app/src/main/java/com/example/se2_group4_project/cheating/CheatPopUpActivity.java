@@ -29,7 +29,10 @@ public class CheatPopUpActivity extends PopupWindow {
     }
 
     public boolean cheatingPlayer(int cheatingPlayer){
-        return cheatingPlayer == getCheatingPlayer();
+        if(cheatingPlayer == getCheatingPlayer()){
+            return true;
+        }
+        return false;
     }
 
     public int getCheatingPlayer() {

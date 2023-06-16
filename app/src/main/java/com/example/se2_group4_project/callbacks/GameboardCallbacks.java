@@ -23,7 +23,7 @@ public interface GameboardCallbacks {
 
     void sendedEnemyDice(ArrayList<Integer> enemyDice);
 
-    void cheatPopUpActivity();
+    void cheatPopUpActivity(int cheatedPlayer);
 
     void cheatFunction(String cheatStart) throws IOException;
 

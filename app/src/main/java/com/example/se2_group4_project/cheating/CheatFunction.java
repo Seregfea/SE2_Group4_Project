@@ -101,7 +101,7 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
                     @Override
                     public void run() {
                         try {
-                            clientCallbacks.cheatFunction("1");
+                            clientCallbacks.cheatFunction("0");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

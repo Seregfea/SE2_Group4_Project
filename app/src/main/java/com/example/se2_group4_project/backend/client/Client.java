@@ -105,11 +105,7 @@ public class Client extends Thread implements ClientCallbacks {
         switch (identifier) {
             case "0":
                 handlerUIGameboard.post(() -> {
-                    try {
-                        gameboardCallbacks.cheatFunction(messageInput);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    gameboardCallbacks.cheatPopUpActivity(this.playerSendedNumber);
                 });
                 break;
             case "1":
@@ -235,17 +231,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void cheatFunction(String cheatStart) throws IOException {
-        messageSend(messageCode(cheatStart));
-    }
-
-    @Override
-    public void cheatPopUpActivity() {
-        clientHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                gameboardCallbacks.cheatPopUpActivity();
-            }
-        });
+        messageSend(messageCode(cheatStart + SPACE + " " + ENEMY));
     }
 
 

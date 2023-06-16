@@ -19,9 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
@@ -91,10 +92,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private View view;
 
     /////////////////////////// cheat popup buttons ///////////////////////////////
-
-    TextView player1btn = findViewById(R.id.player1btn);
-    TextView player2btn = findViewById(R.id.player2btn);
-    TextView player3btn = findViewById(R.id.player3btn);
+    Button player1btn;
+    Button player2btn;
+    Button player3btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +127,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
 
         setUpDice();
+        setUpCheatButtons();
         setListeners();
     }
 
@@ -655,6 +656,12 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         });
     }
 
+    public void setUpCheatButtons(){
+        player1btn = findViewById(R.id.player1btn);
+        player2btn = findViewById(R.id.player2btn);
+        player3btn = findViewById(R.id.player3btn);
+    }
+
     @SuppressLint("SetTextI18n")
     public void startPointView(PointDisplay pointDisplay) {
         activityGameboardBinding.points.setText(getString(R.string.points_display) + pointDisplay.startPoints());
@@ -743,6 +750,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void diceEnemy(ArrayList<Integer> diceEnemy) {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
+        cheatFunction("");
     }
 
     @Override
@@ -777,18 +785,39 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void cheatPopUpActivity() {
+    public void cheatPopUpActivity(int cheatedPlayer) {
         CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
         cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-        cheatPopUpActivity.setCheatingPlayer(1);
+        cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
         player1btn.setOnClickListener(view -> {
-            cheatPopUpActivity.cheatingPlayer(1);
+            if(cheatPopUpActivity.cheatingPlayer(1)){
+                cheatPopUpActivity.dismiss();
+                startDiceRolling(view);
+            }else {
+                cheatPopUpActivity.dismiss();
+                this.player.setDiceCount(-1);
+                startDiceRolling(view);
+            }
         });
         player2btn.setOnClickListener(view -> {
-            cheatPopUpActivity.cheatingPlayer(2);
+            if(cheatPopUpActivity.cheatingPlayer(2)){
+                cheatPopUpActivity.dismiss();
+                startDiceRolling(view);
+            }else {
+                cheatPopUpActivity.dismiss();
+                this.player.setDiceCount(-1);
+                startDiceRolling(view);
+            }
         });
         player3btn.setOnClickListener(view -> {
-            cheatPopUpActivity.cheatingPlayer(3);
+            if(cheatPopUpActivity.cheatingPlayer(3)){
+                cheatPopUpActivity.dismiss();
+                startDiceRolling(view);
+            }else{
+                cheatPopUpActivity.dismiss();
+                this.player.setDiceCount(-1);
+                startDiceRolling(view);
+            }
         });
     }
   
