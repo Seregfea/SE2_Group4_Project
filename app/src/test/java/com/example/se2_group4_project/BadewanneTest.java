@@ -71,5 +71,8 @@ public class BadewanneTest {
     public void negativeTest(){
         ArrayList<Integer> emptyRolledDice = new ArrayList<>();
         assertFalse(badewanne.isAvailable(emptyRolledDice));
+        assertThrows(NullPointerException.class, ()->{
+           badewanne.isAvailable(null);
+        });
     }
 }

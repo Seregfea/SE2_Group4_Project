@@ -3,6 +3,7 @@ package com.example.se2_group4_project;
 import com.example.se2_group4_project.cards.Couch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.json.JSONException;
@@ -111,6 +112,15 @@ public class CouchTest {
         badRolledDice.add(5);
         badRolledDice.add(5);
         assertFalse(couch.isAvailable(badRolledDice));
+    }
+
+    @Test
+    public void negativeTest(){
+        ArrayList<Integer> emptyDiceRolled = new ArrayList<>();
+        assertFalse(couch.isAvailable(emptyDiceRolled));
+        assertThrows(NullPointerException.class, ()->{
+           couch.isAvailable(null);
+        });
     }
 
 }

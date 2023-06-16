@@ -104,5 +104,11 @@ public class GeschirrTest {
         badRolledDice1.add(0);
         badRolledDice1.add(1);
         assertFalse(geschirr.isAvailable(badRolledDice1));
+
+        ArrayList<Integer> emptyRolledDice = new ArrayList<>();
+        assertFalse(geschirr.isAvailable(emptyRolledDice));
+        assertThrows(NullPointerException.class, ()-> {
+           geschirr.isAvailable(null);
+        });
     }
 }
