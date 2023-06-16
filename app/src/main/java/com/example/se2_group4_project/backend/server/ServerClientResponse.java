@@ -95,7 +95,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
     private void chooseIdentifierFunction(String identifier) throws IOException {
         switch (identifier){
 
-
             case "1":
             case "6":
                serverThreadHandler.post(() -> {

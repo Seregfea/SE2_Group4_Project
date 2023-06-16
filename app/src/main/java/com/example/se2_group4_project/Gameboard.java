@@ -96,6 +96,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     Button player2btn;
     Button player3btn;
 
+    int cheatCounter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +131,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         setUpDice();
         setUpCheatButtons();
         setListeners();
+        cheatCounter = 0;
     }
 
     @Override
@@ -747,10 +750,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void diceEnemy(ArrayList<Integer> diceEnemy) {
+    public void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
-        cheatFunction("");
+        cheatFunction();
     }
 
     @Override
@@ -779,50 +782,79 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void cheatFunction(String cheatStart) {
+    public void cheatFunction() {
         CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
         cheatFunction.registerSensor();
     }
 
     @Override
     public void cheatPopUpActivity(int cheatedPlayer) {
-        CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
-        cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
-        cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
-        player1btn.setOnClickListener(view -> {
-            if(cheatPopUpActivity.cheatingPlayer(1)){
-                cheatPopUpActivity.dismiss();
-                startDiceRolling(view);
-            }else {
-                cheatPopUpActivity.dismiss();
-                this.player.setDiceCount(-1);
-                startDiceRolling(view);
-            }
-        });
-        player2btn.setOnClickListener(view -> {
-            if(cheatPopUpActivity.cheatingPlayer(2)){
-                cheatPopUpActivity.dismiss();
-                startDiceRolling(view);
-            }else {
-                cheatPopUpActivity.dismiss();
-                this.player.setDiceCount(-1);
-                startDiceRolling(view);
-            }
-        });
-        player3btn.setOnClickListener(view -> {
-            if(cheatPopUpActivity.cheatingPlayer(3)){
-                cheatPopUpActivity.dismiss();
-                startDiceRolling(view);
-            }else{
-                cheatPopUpActivity.dismiss();
-                this.player.setDiceCount(-1);
-                startDiceRolling(view);
-            }
-        });
+        if (cheatCounter < 1) {
+            cheatCounter ++;
+            CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
+            cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+            cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
+            player1btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(1)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            player2btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(2)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            player3btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(3)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+        }
     }
-  
+
     public DicePopUpActivity getDicePopUpActivity() {
         return dicePopUpActivity;
+    }
+
+    @Override
+    public void reduceDiceCheatingPlayer() {
+        this.player.setDiceCount(this.player.getDiceCount()-1);
     }
 }
 
