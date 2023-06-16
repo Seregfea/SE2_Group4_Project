@@ -1,6 +1,8 @@
 package com.example.se2_group4_project.cards;
 
-import android.widget.ImageView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -52,13 +54,14 @@ public class Card {
         this.count4 = count4;
         this.minSum = minSum;
         this.stealCard = stealCard;
-       // this.toDo = toDo;
+        // this.toDo = toDo;
         this.schnapspralinen = schnapspralinen;
         this.cardFront = cardFront;
         this.cardBack = cardBack;
         this.neededSchnapspralinen = neededSchnapspralinen;
         this.isFront = isFront;
     }
+
     public CardType getCardType() {
         return cardType;
     }
@@ -128,7 +131,7 @@ public class Card {
     }
 
     public String getCurrentCardFront() {
-        if(isFront) {
+        if (isFront) {
             return cardFront;
         } else {
             return cardBack;
@@ -136,7 +139,7 @@ public class Card {
     }
 
     public String getCurrentCardBack() {
-        if(isFront) {
+        if (isFront) {
             return cardBack;
         } else {
             return cardFront;
@@ -197,6 +200,73 @@ public class Card {
 
     public int getMinSum() {
         return minSum;
+    }
+
+    //Methode für JSON Objekte, halten die Daten
+    public JSONObject jsonObject() throws JSONException {
+        JSONObject card = new JSONObject();
+        switch (this.cardType) {
+            case ITEM:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("stealCard", this.getStealCard());
+                card.put("itemBenefit", "");
+                 break;
+            case ROOMMATE:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+
+            case ROOMMATEDIFF:
+                card.put("following", this.getFollowing());
+                card.put("count", this.getCount());
+                card.put("roommateBenefit","");
+                break;
+
+            case ME:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+
+            case BATHTUB:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+            case COUCH:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+            case TABLEWARE:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+            case WITZIG:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("number2", this.getNumber2());
+                card.put("count2", this.getCount2());
+                card.put("following", this.getFollowing());
+                card.put("min_sum", this.getMinSum());
+                card.put("schnapspralinen", this.getSchnapspralinen());
+                JSONArray toDoswitzig = new JSONArray(this.getToDo());
+                card.put("toDoPenalty", toDoswitzig);
+                break;
+            case WITZIGWITZIG:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("number2", this.getNumber2());
+                card.put("count2", this.getCount2());
+                card.put("number3", this.getNumber3());
+                card.put("count3", this.getCount3());
+                card.put("number4", this.getNumber4());
+                card.put("count4", this.getCount4());
+                card.put("schnapspralinen", this.getSchnapspralinen());
+                JSONArray toDoswitzigwitzig = new JSONArray(this.getToDo());
+                card.put("toDoPenalty", toDoswitzigwitzig);
+        }
+
+
+        return card;
     }
 }
 
