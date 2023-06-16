@@ -32,10 +32,6 @@ public class Couch {
         return isAvailable;
     }
 
-    public boolean checkDiceSpace() {
-        return increaseDiceSpace;
-    }
-
     public int getDiceSpace() {
         return diceSpace;
     }
