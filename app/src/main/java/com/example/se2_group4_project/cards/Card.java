@@ -232,6 +232,7 @@ public class Card {
                 card.put("number", this.getNumber());
                 card.put("count", this.getCount());
                 break;
+
             case COUCH:
                 card.put("number", this.getNumber());
                 card.put("count", this.getCount());

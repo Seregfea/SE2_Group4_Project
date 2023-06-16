@@ -191,7 +191,7 @@ public class CardDrawer {
                     break;
 
                 case BATHTUB:
-                    JSONObject badewanneObjekt = new JSONObject();
+                    JSONObject badewanneObjekt = card.jsonObject();
                     Badewanne badewanne = new Badewanne(badewanneObjekt);
 
                     if (badewanne.isAvailable(rolledDices)) {
@@ -200,7 +200,7 @@ public class CardDrawer {
                     break;
 
                 case COUCH:
-                    JSONObject couchObjekt = new JSONObject();
+                    JSONObject couchObjekt = card.jsonObject();
                     Couch couch = new Couch(couchObjekt);
 
                     if (couch.isAvailable(rolledDices)) {
@@ -208,7 +208,7 @@ public class CardDrawer {
                     }
                     break;
                 case TABLEWARE:
-                    JSONObject geschirrObjekt = new JSONObject();
+                    JSONObject geschirrObjekt = card.jsonObject();
                     Geschirr geschirr = new Geschirr(geschirrObjekt);
 
                     if (geschirr.isAvailable(rolledDices)) {
@@ -217,7 +217,7 @@ public class CardDrawer {
                     break;
 
                 case WITZIG:
-                    JSONObject witzigObjekt = new JSONObject();
+                    JSONObject witzigObjekt = card.jsonObject();
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
 
                     if (witzigToDos.isAvailable(rolledDices)) {
@@ -226,7 +226,7 @@ public class CardDrawer {
                     break;
 
                 case WITZIGWITZIG:
-                    JSONObject witzigwitzigObjekt = new JSONObject();
+                    JSONObject witzigwitzigObjekt = card.jsonObject();
                     WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
 
                     if (witzigWitzigToDos.isAvailable(rolledDices)) {
