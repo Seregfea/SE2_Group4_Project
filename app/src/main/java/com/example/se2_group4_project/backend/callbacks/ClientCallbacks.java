@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public interface ClientCallbacks {
     void createPlayer(int playerNumber);
     void diceToEnemy(ArrayList<Integer> enemyDice, String cheatIdentifier) throws IOException;
-    void cheatPopUpActivity();
     void cheatFunction(String cheatStart) throws IOException;
     void clientToPlayer(ArrayList<Integer> enemyDice) throws IOException;
     void endTurn(int pralinen) throws IOException;
     void acceptDice(int yes) throws IOException;
     void endTurnPralinen(int pralinen) throws IOException;
     void endTurnPlayer(ArrayList<Card> cards) throws IOException;
+    void reduceDiceOfCheater(int cheatingPlayer) throws IOException;
 }
 

@@ -15,7 +15,7 @@ public interface GameboardCallbacks {
 
     void parkedDiceValues(ArrayList<Integer> parkedDices);
 
-    void diceEnemy(ArrayList<Integer> diceEnemy);
+    void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException;
 
     void diceFirstAccept(int message);
 
@@ -23,12 +23,13 @@ public interface GameboardCallbacks {
 
     void sendedEnemyDice(ArrayList<Integer> enemyDice);
 
-    void cheatPopUpActivity();
+    void cheatPopUpActivity(int cheatedPlayer);
 
-    void cheatFunction(String cheatStart) throws IOException;
+    void cheatFunction() throws IOException;
 
     void createPlayer(int playerNumber);
 
     void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler);
     void playerTurn(int playerNumber, ArrayList<Card> cards);
+    void reduceDiceCheatingPlayer();
 }

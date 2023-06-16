@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
@@ -89,6 +91,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ActivityDiceBinding activityDiceBinding;
     private View view;
 
+    /////////////////////////// cheat popup buttons ///////////////////////////////
+    Button player1btn;
+    Button player2btn;
+    Button player3btn;
+
+    int cheatCounter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +129,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
 
         setUpDice();
+        setUpCheatButtons();
         setListeners();
+        cheatCounter = 0;
     }
 
     @Override
@@ -648,6 +659,12 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         });
     }
 
+    public void setUpCheatButtons(){
+        player1btn = findViewById(R.id.player1btn);
+        player2btn = findViewById(R.id.player2btn);
+        player3btn = findViewById(R.id.player3btn);
+    }
+
     @SuppressLint("SetTextI18n")
     public void startPointView(PointDisplay pointDisplay) {
         activityGameboardBinding.points.setText(getString(R.string.points_display) + pointDisplay.startPoints());
@@ -733,9 +750,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void diceEnemy(ArrayList<Integer> diceEnemy) {
+    public void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
+        cheatFunction();
     }
 
     @Override
@@ -764,19 +782,79 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void cheatFunction(String cheatStart) {
+    public void cheatFunction() {
         CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
         cheatFunction.registerSensor();
     }
 
     @Override
-    public void cheatPopUpActivity() {
-        CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
-        cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+    public void cheatPopUpActivity(int cheatedPlayer) {
+        if (cheatCounter < 1) {
+            cheatCounter ++;
+            CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
+            cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+            cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
+            player1btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(1)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            player2btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(2)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            player3btn.setOnClickListener(view -> {
+                if (cheatPopUpActivity.cheatingPlayer(3)) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+        }
     }
-  
+
     public DicePopUpActivity getDicePopUpActivity() {
         return dicePopUpActivity;
+    }
+
+    @Override
+    public void reduceDiceCheatingPlayer() {
+        this.player.setDiceCount(this.player.getDiceCount()-1);
     }
 }
 

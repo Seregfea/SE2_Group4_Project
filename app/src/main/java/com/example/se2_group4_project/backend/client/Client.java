@@ -105,11 +105,7 @@ public class Client extends Thread implements ClientCallbacks {
         switch (identifier) {
             case "0":
                 handlerUIGameboard.post(() -> {
-                    try {
-                        gameboardCallbacks.cheatFunction(messageInput);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    gameboardCallbacks.cheatPopUpActivity(this.playerSendedNumber);
                 });
                 break;
             case "1":
@@ -135,6 +131,12 @@ public class Client extends Thread implements ClientCallbacks {
                 handlerUIGameboard.post(() -> {
                     gameboardCallbacks.playerTurn(this.playerSendedNumber,jsonToCard(this.messageInput));
                 });
+                break;
+            case "5":
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.reduceDiceCheatingPlayer();
+                });
+                break;
 
             default:
                 Log.d("ChooseFunction", "Choose Function failed!");
@@ -223,6 +225,11 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     @Override
+    public void reduceDiceOfCheater(int cheatingPlayer) throws IOException {
+        messageSend(messageCode("5" + SPACE + " " + cheatingPlayer));
+    }
+
+    @Override
     public void createPlayer(int playerNumber) {
 
     }
@@ -235,17 +242,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void cheatFunction(String cheatStart) throws IOException {
-        messageSend(messageCode(cheatStart));
-    }
-
-    @Override
-    public void cheatPopUpActivity() {
-        clientHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                gameboardCallbacks.cheatPopUpActivity();
-            }
-        });
+        messageSend(messageCode(cheatStart + SPACE + " " + ENEMY));
     }
 
 
