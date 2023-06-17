@@ -30,7 +30,7 @@ public class Server extends Thread implements ServerCallbacks {
     private final Handler handlerServer;
     private ServerUICallbacks callbacks;
     private WGDatabase wgDatabase;
-    private int playingPlayer = 0;
+    private int enemydiceAccepted = 0;
 
     public Server(int serverPort, Handler handlerServer, ServerUICallbacks callbacks, WGDatabase wgDatabase){
         this.serverPort = serverPort;
@@ -68,6 +68,7 @@ public class Server extends Thread implements ServerCallbacks {
                 clientCallbacks.put(count,socketListener.getCallbacks());
                 clientHandlers.put(count,socketListener.getServerClientHandler());
                 socketListener.start();
+                updateServerUI(clients.get(count).getInetAddress().toString());
                 count++;
             }
         } catch (IOException e) {
@@ -77,6 +78,11 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
 
+    private void updateServerUI(String message){
+    //    handlerServer.post(() -> {
+      //      callbacks.onMessageSend(message);
+        //});
+    }
     public String returnPlayer(int count){
         switch (count){
             case 0:
@@ -106,8 +112,9 @@ public class Server extends Thread implements ServerCallbacks {
 
     ///////////////////////// callbacks ///////////////////////
     @Override
-    public void messageToALL(String message)  {
+    public void messageToALL(String message, Integer player)  {
         for (int key : clients.keySet()) {
+            //if(player != key)
             sendMessage(message,key);
         }
     }
@@ -119,10 +126,35 @@ public class Server extends Thread implements ServerCallbacks {
 
     @Override
     public void messageToOne(String message, Integer player) {
+        Log.d("message to one", message);
         sendMessage(message,player);
     }
 
+    @Override
+    public void messageAcceptDice(Integer player) {
+        if (this.enemydiceAccepted == 0){
+            this.enemydiceAccepted = 1;
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("1");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }else {
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("0");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
+
     private void sendMessage(String message, Integer player){
+        Log.d("server message get", message);
+        //updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
                 this.clientCallbacks.get(player).getMessage(message);

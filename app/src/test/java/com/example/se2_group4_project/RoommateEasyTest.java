@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class RoommateEasyTest {
     private RoommateEasy roommateEasy;
     private JSONObject jsonObject;
@@ -49,13 +51,21 @@ public class RoommateEasyTest {
 
     @Test
     public void checkIfRoommateIsAvailable() {
-        int[] diceResult = {4, 1, 5, 1};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(2);
+        diceResult.add(1);
+        diceResult.add(3);
+        diceResult.add(1);
         Assertions.assertTrue(roommateEasy.isAvailable(diceResult));
     }
 
     @Test
     public void checkIfRoommateIsNotAvailable() {
-        int[] diceResult = {2, 3, 5, 2};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(2);
+        diceResult.add(5);
+        diceResult.add(3);
+        diceResult.add(2);
         Assertions.assertFalse(roommateEasy.isAvailable(diceResult));
     }
 

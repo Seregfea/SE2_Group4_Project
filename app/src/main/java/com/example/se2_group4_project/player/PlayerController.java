@@ -14,12 +14,10 @@ import com.example.se2_group4_project.cards.RoommateEasy;
 import com.example.se2_group4_project.cards.Schaukelstuhl;
 import com.example.se2_group4_project.cards.Troublemaker;
 import com.example.se2_group4_project.cards.WitzigToDos;
-import com.example.se2_group4_project.gameboard_layouts.CardsLayoutLeft;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerController {
     private final int playerID;
@@ -31,7 +29,12 @@ public class PlayerController {
 
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
+    private int playerTurn = 0;
     private int diceCount = 4;
+
+
+
+    private int myTurn = 0;
 
     // testweise auf 1
     private int parkDiceCount = 1;
@@ -42,10 +45,7 @@ public class PlayerController {
     private ArrayList<Integer> diceValuesNotUsable;
     private ArrayList<Integer> parkedDices = new ArrayList<>();
 
-
-    private ArrayList<Card> playerUpdatedCards;
     private int pralinen;
-    private ArrayList<Item> itemCards;
 
 
 
@@ -122,6 +122,12 @@ public class PlayerController {
     public ArrayList<Card> getPlayerInitialCards() {
         return playerInitialCards;
     }
+    public void addPlayerInitialCard(Card card){
+        this.playerInitialCards.add(card);
+    }
+    public void removePlayerInitialCard(Card card){
+        this.playerInitialCards.remove(card);
+    }
 
     public int getDiceCount() {
         return diceCount;
@@ -176,7 +182,7 @@ public class PlayerController {
             @Override
             public void run() {
                 try {
-                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "0");
+                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -184,12 +190,21 @@ public class PlayerController {
         });
     }
 
-    public ArrayList<Card> getPlayerUpdatedCards() {
-        return playerUpdatedCards;
+    public int getPlayerTurn() {
+        return playerTurn;
     }
 
-    public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
-        this.playerUpdatedCards = playerUpdatedCards;
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+      
+    public int getMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(int myTurn) {
+        this.myTurn = myTurn;
+
     }
 
     public void setPlayerInitialCards(ArrayList<Card> playerInitialCards) {

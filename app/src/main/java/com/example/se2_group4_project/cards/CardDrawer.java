@@ -1,6 +1,17 @@
 package com.example.se2_group4_project.cards;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.widget.ImageView;
+
+import com.example.se2_group4_project.Gameboard;
+import com.example.se2_group4_project.backend.database.entities.Player;
+import com.example.se2_group4_project.dices.DicePopUpActivity;
+import com.example.se2_group4_project.player.PlayerController;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
@@ -21,6 +32,8 @@ public class CardDrawer {
     private ArrayList<Card> troublemakerStack = new ArrayList<>();
     private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
+    private PlayerController playerController;
+
 
     public CardDrawer(Context context) {
         this.convertJSON = new ConvertJSON(context);
@@ -127,5 +140,100 @@ public class CardDrawer {
         this.roommateEasyStack = this.convertJSON.getCards("roommateEasy");
         this.roommateDifficultStack = this.convertJSON.getCards("roommateDifficult");
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
+    }
+
+    // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte
+    // checkIfHighlight überpfrüft dann nur mehr die ifs
+
+    public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
+
+        ArrayList<Integer> rolledDices = gameboard.getDicePopUpActivity().getPlayerDices();
+        for (Card card : cardStack) {
+
+            CardType cardType = card.getCardType();
+            this.playerController = gameboard.getPlayer();
+
+            switch (cardType) {
+                case ITEM:
+                    JSONObject itemObjekt = card.jsonObject();
+                    Item item = new Item(itemObjekt);
+
+                    if (item.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case ROOMMATE:
+                    JSONObject roommateObjektEasy =  card.jsonObject();
+                    RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
+
+                    if (roommateEasy.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case ROOMMATEDIFF:
+                JSONObject roommateObjektDifficult = card.jsonObject();
+                RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
+
+                if (roommateDifficult.isAvailable(rolledDices)) {
+                    gameboard.highlightCards(card);
+                }
+                break;
+
+                case ME:
+                    JSONObject meObjekt = card.jsonObject();
+                    Me me = new Me(meObjekt);
+
+                    if (me.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case BATHTUB:
+                    JSONObject badewanneObjekt = card.jsonObject();
+                    Badewanne badewanne = new Badewanne(badewanneObjekt);
+
+                    if (badewanne.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case COUCH:
+                    JSONObject couchObjekt = card.jsonObject();
+                    Couch couch = new Couch(couchObjekt);
+
+                    if (couch.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+                case TABLEWARE:
+                    JSONObject geschirrObjekt = card.jsonObject();
+                    Geschirr geschirr = new Geschirr(geschirrObjekt);
+
+                    if (geschirr.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case WITZIG:
+                    JSONObject witzigObjekt = card.jsonObject();
+                    WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
+
+                    if (witzigToDos.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+
+                case WITZIGWITZIG:
+                    JSONObject witzigwitzigObjekt = card.jsonObject();
+                    WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
+
+                    if (witzigWitzigToDos.isAvailable(rolledDices)) {
+                        gameboard.highlightCards(card);
+                    }
+                    break;
+            }
+        }
     }
 }

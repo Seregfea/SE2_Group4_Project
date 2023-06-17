@@ -14,6 +14,7 @@ import com.example.se2_group4_project.R;
 
 public class CheatPopUpActivity extends PopupWindow {
     private View cheatPopUpView;
+    private int cheatingPlayer;
     @SuppressLint("InflateParams")
     public CheatPopUpActivity(Context context){
         super(context);
@@ -27,5 +28,18 @@ public class CheatPopUpActivity extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
+    public boolean cheatingPlayer(int cheatingPlayer){
+        if(cheatingPlayer == getCheatingPlayer()){
+            return true;
+        }
+        return false;
+    }
 
+    public int getCheatingPlayer() {
+        return cheatingPlayer;
+    }
+
+    public void setCheatingPlayer(int cheatingPlayer) {
+        this.cheatingPlayer = cheatingPlayer;
+    }
 }

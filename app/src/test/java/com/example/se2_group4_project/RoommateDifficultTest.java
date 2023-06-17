@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class RoommateDifficultTest {
     private RoommateDifficult roommateHerta;
     private RoommateDifficult roommateBukowski;
@@ -160,31 +162,55 @@ public class RoommateDifficultTest {
 
     @Test
     public void checkIfRoommateIsAvailableWithCount() {
-        int[] diceResult = {1, 5, 4, 2, 5, 5};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(1);
+        diceResult.add(5);
+        diceResult.add(4);
+        diceResult.add(2);
+        diceResult.add(5);
+        diceResult.add(5);
         Assertions.assertTrue(roommateHerta.isAvailable(diceResult));
     }
 
     @Test
     public void checkIfRoommateIsNotAvailableWithCount() {
-        int[] diceResult = {1, 5, 4, 2, 5};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(1);
+        diceResult.add(5);
+        diceResult.add(4);
+        diceResult.add(2);
+        diceResult.add(5);
         Assertions.assertFalse(roommateHerta.isAvailable(diceResult));
     }
 
     @Test
     public void checkIfRoommateIsAvailableWithFollowing() {
-        int[] diceResult = {2, 3, 4, 5};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(2);
+        diceResult.add(3);
+        diceResult.add(4);
+        diceResult.add(5);
         Assertions.assertTrue(roommateBukowski.isAvailable(diceResult));
     }
 
     @Test
     public void checkIfRoommateIsAvailableWithFollowingUnsorted() {
-        int[] diceResult = {3, 4, 2, 1};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(3);
+        diceResult.add(4);
+        diceResult.add(2);
+        diceResult.add(1);
         Assertions.assertTrue(roommateBukowski.isAvailable(diceResult));
     }
 
     @Test
     public void checkIfRoommateIsNotAvailableWithFollowing() {
-        int[] diceResult = {2, 5, 4, 2, 5};
+        ArrayList<Integer> diceResult = new ArrayList<>();
+        diceResult.add(2);
+        diceResult.add(5);
+        diceResult.add(4);
+        diceResult.add(2);
+        diceResult.add(5);
         Assertions.assertFalse(roommateBukowski.isAvailable(diceResult));
     }
 

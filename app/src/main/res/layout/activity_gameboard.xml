@@ -108,7 +108,7 @@
 
     <Button
         android:id="@+id/btnRollDice"
-        android:layout_width="110dp"
+        android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_row="0"
         android:layout_column="0"
@@ -124,8 +124,7 @@
 
     <Button
         android:id="@+id/btnParkDice"
-        android:enabled="false"
-        android:layout_width="110dp"
+        android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_row="0"
         android:layout_column="0"
@@ -133,7 +132,7 @@
         android:layout_marginTop="52dp"
         android:layout_marginBottom="16dp"
         android:scaleType="fitXY"
-        android:text="@string/park_dices"
+        android:text="end rolling"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnRollDice"
@@ -334,5 +333,14 @@
         app:layout_constraintVertical_bias="1.0">
 
     </LinearLayout>
-
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cardStacks"
+        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintStart_toEndOf="@+id/ItemCardsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/availableDiceContainer"></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

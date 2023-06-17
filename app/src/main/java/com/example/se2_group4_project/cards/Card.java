@@ -1,5 +1,9 @@
 package com.example.se2_group4_project.cards;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Card {
@@ -9,8 +13,21 @@ public class Card {
     //Attribute der Karten
     private int id;
     private String name;
-    private ArrayList<NeededDice> neededDice;
-    private ArrayList<CardType> toDo;
+    //private ArrayList<NeededDice> neededDice;
+    private int count;
+    private int number;
+    private int count2;
+    private int number2;
+    private int count3;
+    private int number3;
+    private int count4;
+    private int number4;
+    private int minSum;
+
+    private int stealCard;
+    private int following;
+
+    private ArrayList<CardType> toDoPenalty;
     private int schnapspralinen;
     private CardType cardType;
     private String cardFront;
@@ -21,19 +38,31 @@ public class Card {
 
     private int imageViewBackID;
 
-    public Card(CardType cardType, int id, String name, ArrayList<NeededDice> neededDice,
-                ArrayList<CardType> toDo, int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
+    public Card(CardType cardType, int id, String name, int number, int count, int number2, int count2, int number3, int count3,
+                int number4, int count4, int following, int minSum, int stealCard, ArrayList<CardType> toDo,
+                int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
         this.name = name;
-        this.neededDice = neededDice;
-        this.toDo = toDo;
+        this.number = number;
+        this.count = count;
+        this.number2 = number2;
+        this.count2 = count2;
+        this.number3 = number3;
+        this.count3 = count3;
+        this.number4 = number4;
+        this.count4 = count4;
+        this.following = following;
+        this.minSum = minSum;
+        this.stealCard = stealCard;
+        // this.toDo = toDo;
         this.schnapspralinen = schnapspralinen;
         this.cardFront = cardFront;
         this.cardBack = cardBack;
         this.neededSchnapspralinen = neededSchnapspralinen;
         this.isFront = isFront;
     }
+
     public CardType getCardType() {
         return cardType;
     }
@@ -58,20 +87,12 @@ public class Card {
         this.name = name;
     }
 
-    public ArrayList<NeededDice> getNeededDice() {
-        return neededDice;
-    }
-
-    public void setNeededDice(ArrayList<NeededDice> neededDice) {
-        this.neededDice = neededDice;
-    }
-
     public ArrayList<CardType> getToDo() {
-        return toDo;
+        return toDoPenalty;
     }
 
     public void setToDo(ArrayList<CardType> toDo) {
-        this.toDo = toDo;
+        this.toDoPenalty = toDo;
     }
 
     public int getSchnapspralinen() {
@@ -111,7 +132,7 @@ public class Card {
     }
 
     public String getCurrentCardFront() {
-        if(isFront) {
+        if (isFront) {
             return cardFront;
         } else {
             return cardBack;
@@ -119,7 +140,7 @@ public class Card {
     }
 
     public String getCurrentCardBack() {
-        if(isFront) {
+        if (isFront) {
             return cardBack;
         } else {
             return cardFront;
@@ -136,6 +157,108 @@ public class Card {
 
     public void setFront(boolean front) {
         isFront = front;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getStealCard() {
+        return stealCard;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public int getCount2() {
+        return count2;
+    }
+
+    public int getNumber2() {
+        return number2;
+    }
+
+    public int getCount3() {
+        return count3;
+    }
+
+    public int getNumber3() {
+        return number3;
+    }
+
+    public int getCount4() {
+        return count4;
+    }
+
+    public int getNumber4() {
+        return number4;
+    }
+
+    public int getMinSum() {
+        return minSum;
+    }
+
+    //Methode für JSON Objekte, halten die Daten
+    public JSONObject jsonObject() throws JSONException {
+        JSONObject card = new JSONObject();
+        switch (this.cardType) {
+            case ITEM:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("stealCard", this.getStealCard());
+                card.put("itemBenefit", "");
+                 break;
+            case ROOMMATE:
+
+            case ME:
+
+            case BATHTUB:
+
+            case COUCH:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                break;
+
+            case ROOMMATEDIFF:
+                card.put("following", this.getFollowing());
+                card.put("count", this.getCount());
+                card.put("roommateBenefit","");
+                break;
+            case TABLEWARE:
+                card.put("following", this.getFollowing());
+                break;
+            case WITZIG:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("number2", this.getNumber2());
+                card.put("count2", this.getCount2());
+                card.put("following", this.getFollowing());
+                card.put("min_sum", this.getMinSum());
+                card.put("schnapspralinen", this.getSchnapspralinen());
+                JSONArray toDoswitzig = new JSONArray(this.getToDo());
+                card.put("toDoPenalty", toDoswitzig);
+                break;
+            case WITZIGWITZIG:
+                card.put("number", this.getNumber());
+                card.put("count", this.getCount());
+                card.put("number2", this.getNumber2());
+                card.put("count2", this.getCount2());
+                card.put("number3", this.getNumber3());
+                card.put("count3", this.getCount3());
+                card.put("number4", this.getNumber4());
+                card.put("count4", this.getCount4());
+                card.put("schnapspralinen", this.getSchnapspralinen());
+                JSONArray toDoswitzigwitzig = new JSONArray(this.getToDo());
+                card.put("toDoPenalty", toDoswitzigwitzig);
+        }
+
+
+        return card;
     }
 }
 

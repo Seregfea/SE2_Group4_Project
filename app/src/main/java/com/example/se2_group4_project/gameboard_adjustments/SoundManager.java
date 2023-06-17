@@ -1,4 +1,4 @@
-package com.example.se2_group4_project;
+package com.example.se2_group4_project.gameboard_adjustments;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -7,8 +7,10 @@ public class SoundManager {
     public static MediaPlayer gameMusic;
     static float volume = 1.0f;
     public static boolean keepMusicGoing = false;
+    static int currentMusicId = 0;
 
     public static void start(Context context, int musicId) {
+        currentMusicId = musicId;
         if (gameMusic == null || !gameMusic.isPlaying()) {
             gameMusic = MediaPlayer.create(context, musicId);
             gameMusic.setLooping(true);
@@ -35,5 +37,8 @@ public class SoundManager {
         if(gameMusic != null) {
             gameMusic.setVolume(volume,volume);
         }
+    }
+    public static int getCurrentMusicId() {
+        return currentMusicId;
     }
 }

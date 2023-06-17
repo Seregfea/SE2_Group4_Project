@@ -4,4 +4,5 @@ import java.io.IOException;
 
 public interface ServerClientCallbacks {
     void getMessage(String message) throws IOException;
+    void acceptDice(String message) throws IOException;
 }

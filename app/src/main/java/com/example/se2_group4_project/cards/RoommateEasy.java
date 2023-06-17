@@ -3,6 +3,8 @@ package com.example.se2_group4_project.cards;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class RoommateEasy {
     private int additionalDice = 0;
     private int number;
@@ -36,11 +38,11 @@ public class RoommateEasy {
         }
     }
 
-    public boolean isAvailable(int[] dice) {
+    public boolean isAvailable(ArrayList<Integer> rolledDice) {
         int counter = 0;
 
-        for (int i = 0; i < dice.length; i++) {
-            if (dice[i] == number) {
+        for (int i = 0; i < rolledDice.size(); i++) {
+            if (rolledDice.get(i) == number) {
                 counter++;
             }
             if (counter == count) {
@@ -48,14 +50,6 @@ public class RoommateEasy {
             }
         }
         return false;
-        /*
-        for (int i = 0; i < dice.length; i++) {
-            if (dice[i] >= count && i+1 == number) {
-                return true;
-            }
-        }
-        return false;
-         */
     }
 
 }
