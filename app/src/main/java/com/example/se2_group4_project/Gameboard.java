@@ -560,23 +560,31 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     isParkBtn = 0;
                 }
                 addItemCardsToPlayer();
+                testDice();
+                Log.d("player dice usable rolled", this.player.getDiceValuesUsable().toString());
+            }
+        });
+    }
+
                 // call function to flip current card
                 // flipCurrentCardListener();
-                try {
-                    c.checkIfHighlight(c.getItemsStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateEasyStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateDifficultStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+
+                public void highlightBoardCards(ArrayList<Integer> dices) {
+                    try {
+                        c.checkIfHighlight(c.getItemsStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getRoommateEasyStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getRoommateDifficultStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
 //                try {
 //                    c.checkIfHighlight(c.getWitzigStack(), this);
 //                } catch (JSONException e) {
@@ -587,31 +595,28 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 //                } catch (JSONException e) {
 //                    throw new RuntimeException(e);
 //                }
-                try {
-                    c.checkIfHighlight(c.getPlayerBlueStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        c.checkIfHighlight(c.getPlayerBlueStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerGreenStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerTealStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerOrangeStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-                try {
-                    c.checkIfHighlight(c.getPlayerGreenStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerTealStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerOrangeStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
 
-            testDice();
-        });
-    }
 
     //Methodenaufruf Beispiel, Übergabe muss current player sein
     //setDiceAmoutforCardList(c.getPlayerBlueStack);
