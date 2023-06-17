@@ -68,6 +68,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     private PlayerController player;
 
+    private final int pralinen = new PointDisplay().getPoints();
+
     public PlayerController getPlayer() {
         return player;
     }
@@ -209,15 +211,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,3);
         createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV, LinearLayoutManager.HORIZONTAL,this.myRecyclerviewAdabterRight);
 
-        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
-        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
-        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
-        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
-        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+        addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addTopCardToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
        // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
-
 
     }
 
@@ -248,7 +249,107 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addTroublemakerCards(){
+    public void addRoommateEasyCardsToPlayer(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getRoommateEasyStack().size(); i++){
+            final ImageView roommateEasyImage = (ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(i);
+            final Card card = c.getRoommateEasyStack().get(i);
+
+            roommateEasyImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.roommateEasyLayout.removeView(roommateEasyImage);
+
+                // add cards to arraylist, RV, Player
+                this.playerRecyclerviewAdabter.addCardsArray(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
+                Log.d("get item card", " click 2");
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                Log.d("get item card", "" + integry);
+            });
+        }
+    }
+
+    public void addRoommateDifficultCardsToPlayer(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getRoommateDifficultStack().size(); i++){
+            final ImageView roommateDifficultImage = (ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(i);
+            final Card card = c.getRoommateDifficultStack().get(i);
+
+            roommateDifficultImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.roommateDifficultLayout.removeView(roommateDifficultImage);
+
+                // add cards to arraylist, RV, Player
+                this.playerRecyclerviewAdabter.addCardsArray(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
+                Log.d("get item card", " click 2");
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                Log.d("get item card", "" + integry);
+            });
+        }
+    }
+
+    public void addWitzigCardsToPlayer(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getWitzigStack().size(); i++){
+            final ImageView witzigImage = (ImageView) activityGameboardBinding.witzigLayout.getChildAt(i);
+            final Card card = c.getWitzigStack().get(i);
+
+            witzigImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.witzigLayout.removeView(witzigImage);
+
+                // add cards to arraylist, RV, Player
+                this.playerRecyclerviewAdabter.addCardsArray(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
+                Log.d("get item card", " click 2");
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                Log.d("get item card", "" + integry);
+            });
+        }
+    }
+
+    public void addWitzigWitzigCardsToPlayer(){
+        try {
+            c.generateInitialCards();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < c.getWitzigWitzigStack().size(); i++){
+            final ImageView witzigWitzigImage = (ImageView) activityGameboardBinding.witzigWitzigLayout.getChildAt(i);
+            final Card card = c.getWitzigWitzigStack().get(i);
+
+            witzigWitzigImage.setOnClickListener(view -> {
+                System.out.println("Clicked troublemaker card");
+                activityGameboardBinding.witzigWitzigLayout.removeView(witzigWitzigImage);
+
+                // add cards to arraylist, RV, Player
+                this.playerRecyclerviewAdabter.addCardsArray(card);
+                int integry = this.playerRecyclerviewAdabter.getItemCount();
+                Log.d("get item card", " click 2");
+                this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                Log.d("get item card", "" + integry);
+            });
+        }
+    }
+
+    public void addTroublemakerCardsToPlayer(){
         try {
             c.generateInitialCards();
         }catch (FileNotFoundException e) {
@@ -259,16 +360,20 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
             final Card card = c.getTroublemakerStack().get(i);
 
-            troubleMakerImage.setOnClickListener(view -> {
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
+            System.out.println("Clicked troublemaker card");
+            activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
 
-                // add cards to arraylist, RV, Player
-            });
+            // add cards to arraylist, RV, Player
+            this.playerRecyclerviewAdabter.addCardsArray(card);
+            int integry = this.playerRecyclerviewAdabter.getItemCount();
+            Log.d("get item card", " click 2");
+            this.playerRecyclerviewAdabter.notifyDataSetChanged();
+            Log.d("get item card", "" + integry);
+            break;
         }
     }
 
-    public void addSchaukestuhlCards(){
+    public void addSchaukestuhlCardsToPlayer(){
         try {
             c.generateInitialCards();
         }catch (FileNotFoundException e) {
@@ -279,12 +384,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final ImageView schaukelStuhlImage = (ImageView) activityGameboardBinding.SchaukelstuhlLayout.getChildAt(i);
             final Card card = c.getSchaukelstuhlStack().get(i);
 
-            schaukelStuhlImage.setOnClickListener(view -> {
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.troublemakerLayout.removeView(schaukelStuhlImage);
+            System.out.println("Clicked troublemaker card");
+            activityGameboardBinding.troublemakerLayout.removeView(schaukelStuhlImage);
 
-                // add cards to arraylist, RV, Player
-            });
+            // add cards to arraylist, RV, Player
+            this.playerRecyclerviewAdabter.addCardsArray(card);
+            int integry = this.playerRecyclerviewAdabter.getItemCount();
+            Log.d("get item card", " click 2");
+            this.playerRecyclerviewAdabter.notifyDataSetChanged();
+            Log.d("get item card", "" + integry);
+            break;
         }
     }
 
@@ -559,9 +668,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
+                // Add Cards to player methods
                 addItemCardsToPlayer();
+                addRoommateEasyCardsToPlayer();
+                addRoommateDifficultCardsToPlayer();
+                addWitzigCardsToPlayer();
+                addWitzigWitzigCardsToPlayer();
+
+                // checking pralinen and other cards methods
+                checkSpecialCards(pralinen);
+
                 // call function to flip current card
                 // flipCurrentCardListener();
+
                 try {
                     c.checkIfHighlight(c.getItemsStack(), this);
                 } catch (JSONException e) {
@@ -736,20 +855,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void checkSpecialCards(int pralinen) {
         if (pralinen >= 10) {
-            //then add one Troublemaker to current player
-            //how do i know who the current player is
-            //add to which arraylist
-
-            addTroublemakerCards();
+            addTroublemakerCardsToPlayer();
         }
 
         if (pralinen >= 16) {
-            //then add one Schaukelstuhl to current player
-            //how do i know who the current player is
-            //add to which arraylist
-            //how to check 1 round?
-
-            addSchaukestuhlCards();
+            addSchaukestuhlCardsToPlayer();
         }
     }
 //    public void endTurn(){
