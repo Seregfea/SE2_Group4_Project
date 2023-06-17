@@ -16,6 +16,7 @@ public class Badewanne {
     int number;
     int count;
 
+
     public Badewanne(JSONObject badewanne) throws JSONException {
         this.number = badewanne.getInt("number");
         this.count = badewanne.getInt("count");

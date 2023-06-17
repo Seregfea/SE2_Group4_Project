@@ -13,6 +13,8 @@ public class Item {
     private boolean badewanneDreckig = false;
     private boolean geschirrDreckig = false;
 
+    private int schnapspralinen;
+
 
     public Item(JSONObject item) throws JSONException {
         this.number = item.getInt("number");
@@ -114,5 +116,13 @@ public class Item {
 
     public void setGeschirrDreckig(boolean geschirrDreckig) {
         this.geschirrDreckig = geschirrDreckig;
+    }
+
+    public int getSchnapspralinen() {
+        return schnapspralinen;
+    }
+
+    public void setSchnapspralinen(int schnapspralinen) {
+        this.schnapspralinen = schnapspralinen;
     }
 }

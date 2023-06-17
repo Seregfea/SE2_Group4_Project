@@ -6,7 +6,7 @@ public class PointDisplay {
     private int points;
 
     public PointDisplay(){
-        this.points = 0;
+        this.points = 17;
     }
 
     //start with 0 points

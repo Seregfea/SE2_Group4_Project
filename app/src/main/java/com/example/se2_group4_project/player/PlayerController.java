@@ -235,4 +235,12 @@ public class PlayerController {
     public void setPlayerThreeCards(ArrayList<Card> playerThreeCards) {
         this.playerThreeCards = playerThreeCards;
     }
+
+    public int getPralinen() {
+        return pralinen;
+    }
+
+    public void setPralinen(int pralinen) {
+        this.pralinen = pralinen;
+    }
 }

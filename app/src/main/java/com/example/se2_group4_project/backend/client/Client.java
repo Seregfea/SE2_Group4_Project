@@ -115,8 +115,9 @@ public class Client extends Thread implements ClientCallbacks {
                 break;
 
             case "2":
-                //TODO
-                //cards update
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.endTurnPralinen(Integer.parseInt(this.messageInput));
+                });
 
             case "3":
                 startPlayer();
@@ -204,18 +205,12 @@ public class Client extends Thread implements ClientCallbacks {
     }
 
     @Override
-
-    public void endTurn(int pralinen) throws IOException {
-        messageSend(messageCode("2" + this.SPACE + objectToJson(pralinen)));
-    }
-
-    @Override
     public void acceptDice(int yes) throws IOException {
         messageSend(messageCode("4" + this.SPACE + yes + this.SPACE + this.ENEMY));
     }
 
     public void endTurnPralinen(int pralinen) throws IOException {
-        messageSend(messageCode("2 " + objectToJson(pralinen)));
+        messageSend(messageCode("2" + objectToJson(pralinen)) + nextPlayer());
     }
 
     @Override
