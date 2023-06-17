@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PlayerController {
-    private final int playerID;
+    private int playerID;
     private ArrayList<Card> playerInitialCards;
 
     private ArrayList<Card> playerOneCards;
@@ -47,6 +47,7 @@ public class PlayerController {
 
     private int pralinen;
 
+    public PlayerController(){}
 
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
