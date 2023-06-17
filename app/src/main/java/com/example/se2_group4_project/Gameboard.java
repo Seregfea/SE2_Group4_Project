@@ -710,6 +710,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 clientHandler.post(() -> {
                     try {
                         clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
+                        clientCallbacks.endTurnPralinen(this.player.getPralinen());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -752,19 +753,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             addSchaukestuhlCards();
         }
     }
-//    public void endTurn(){
-//        checkSpecialCards(10);
-//        clientHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    clientCallbacks.endTurn(player.pralinen);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-//    }
 
     private void testmodus() {
         Server server = new Server(1234, new Handler(handlerThread.getLooper()));
@@ -932,6 +920,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     @Override
     public void enablePlayer() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    @Override
+    public void endTurnPralinen(int pralinen){
+
     }
 }
 
