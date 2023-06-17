@@ -34,20 +34,13 @@ public class Item {
         }
     }
 
-    // Methods
-//    public boolean isAvailable(ArrayList<Integer> rolledDice){
-//        for (int i = 0; i < rolledDice.size(); i++){
-//            if (rolledDice.get(i) >= count && i+1 == number) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
     public boolean isAvailable(ArrayList<Integer> rolledDice){
         boolean isAvailable = false;
         int usedCount = count;
 
+        if(rolledDice.size()<2){
+            return false;
+        }
         for (int i = 0; i < rolledDice.size(); i++){
             if (rolledDice.get(i) == number) {
                 usedCount--;
@@ -60,12 +53,17 @@ public class Item {
     }
 
     public boolean isStealable(ArrayList<Integer> rolledDice){
-        for(int i = 0; i < rolledDice.size(); i++){
-            if (rolledDice.get(i) >= stealCard && i+1 == number) {
-                return true;
+        int usedCount = stealCard;
+        if(rolledDice.size()<3){
+            return false;
+        }
+
+        for (int i = 0; i < rolledDice.size(); i++){
+            if (rolledDice.get(i) == number) {
+                usedCount--;
             }
         }
-        return false;
+        return usedCount <= 0;
     }
 
 
@@ -92,5 +90,29 @@ public class Item {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public boolean isCouchMatschig() {
+        return couchMatschig;
+    }
+
+    public void setCouchMatschig(boolean couchMatschig) {
+        this.couchMatschig = couchMatschig;
+    }
+
+    public boolean isBadewanneDreckig() {
+        return badewanneDreckig;
+    }
+
+    public void setBadewanneDreckig(boolean badewanneDreckig) {
+        this.badewanneDreckig = badewanneDreckig;
+    }
+
+    public boolean isGeschirrDreckig() {
+        return geschirrDreckig;
+    }
+
+    public void setGeschirrDreckig(boolean geschirrDreckig) {
+        this.geschirrDreckig = geschirrDreckig;
     }
 }
