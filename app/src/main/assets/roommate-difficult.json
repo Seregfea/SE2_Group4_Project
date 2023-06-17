@@ -4,7 +4,7 @@
     "name": "Bukowksi",
     "cardType": "ROOMMATEDIFF",
     "roommateBenefit": "does_not_sleep",
-    "following": 3,
+    "following": 4,
     "cardFront": "spezial_bukowski_vs",
     "cardBack": "spezial_bukowski_rs",
     "isFront": false
@@ -14,7 +14,7 @@
     "name": "Friedrich-Wilhelm",
     "cardType": "ROOMMATEDIFF",
     "roommateBenefit": "clean_dishes",
-    "following": 3,
+    "following": 4,
     "cardFront": "spezial_friedrichwilhelm_vs",
     "cardBack": "spezial_friedrichwilhelm_rs",
     "isFront": false
@@ -44,7 +44,7 @@
     "name": "Marc-Uwe",
     "cardType": "ROOMMATEDIFF",
     "roommateBenefit": "reroll",
-    "following": 3,
+    "following": 4,
     "cardFront": "spezial_marcuwe_vs",
     "cardBack": "spezial_marcuwe_rs",
     "isFront": false
@@ -54,7 +54,7 @@
     "name": "Maria",
     "cardType": "ROOMMATEDIFF",
     "roommateBenefit": "reroll",
-    "following": 3,
+    "following": 4,
     "cardFront": "spezial_maria_vs",
     "cardBack": "spezial_maria_rs",
     "isFront": false
@@ -64,7 +64,7 @@
     "name": "Otto-Von",
     "cardType": "ROOMMATEDIFF",
     "roommateBenefit": "clean_bathtub",
-    "following": 3,
+    "following": 4,
     "cardFront": "spezial_ottovon_vs",
     "cardBack": "spezial_ottovon_rs",
     "isFront": false
