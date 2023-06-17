@@ -18,7 +18,7 @@ public class CheatPopUpActivity extends PopupWindow {
     @SuppressLint("InflateParams")
     public CheatPopUpActivity(Context context){
         super(context);
-        Log.d("Sensor", "I am your Popup!");
+        Log.d("Cheating", "I am your Popup!");
         cheatPopUpView = LayoutInflater.from(context).inflate(R.layout.cheat_popup, null);
         setContentView(cheatPopUpView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -30,8 +30,10 @@ public class CheatPopUpActivity extends PopupWindow {
 
     public boolean cheatingPlayer(int cheatingPlayer){
         if(cheatingPlayer == getCheatingPlayer()){
+            Log.d("Cheating", "You found the Cheater!");
             return true;
         }
+        Log.d("Cheating", "Wrong choice!");
         return false;
     }
 
