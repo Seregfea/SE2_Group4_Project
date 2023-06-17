@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -35,7 +34,6 @@ import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
 import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
-import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -221,7 +219,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     }
 
-    public void addItemCardsToPlayer() {
+    public void addCardsToPlayerListener() {
         CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
 
         try {
@@ -247,6 +245,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             });
         }
     }
+
 
     public void addTroublemakerCards(){
         try {
@@ -335,6 +334,17 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
+            iView.setOnClickListener(v -> {
+                        Log.d("get item card", ""+iView.getId());
+                        linearLayout.removeView(iView);
+                        Log.d("get item card before", ""+this.playerRecyclerviewAdabter.getItemCount());
+                        this.playerRecyclerviewAdabter.addCardsArray(card);
+                        Log.d("get item card after", ""+this.playerRecyclerviewAdabter.getItemCount());
+                        this.playerRecyclerviewAdabter.notifyDataSetChanged();
+
+                    });
+
+
 
             float aspectRatio = 5;
 
@@ -559,9 +569,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
-                addItemCardsToPlayer();
+                addCardsToPlayerListener();
                 testDice();
-                Log.d("player dice usable rolled", this.player.getDiceValuesUsable().toString());
+                Log.d("player dice usable rolled", playerDice.toString());
+                Log.d("player dice usable rolled", enemyDice.toString());
+                highlightBoardCards(playerDice);
             }
         });
     }
@@ -780,6 +792,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     ///////////////////// callbacks //////////////////////////////////
+
+
     @Override
     public void createPlayer(int playerNumber) {
         Log.d("create player card", playerNumber + "");
