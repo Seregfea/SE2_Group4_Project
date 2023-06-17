@@ -84,7 +84,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private int isParkBtn = 0;
 
     private boolean hasCheated = false;
-    private Badewanne badewanne;
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
@@ -113,7 +112,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         view = activityGameboardBinding.getRoot();
         startWindowFeature();
         setContentView(view);
-        initRecycleView();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -175,58 +173,42 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         switch (player) {
             case 0:
                 this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
                 this.player.setPlayerOneCards(c.getPlayerTealStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-
                 this.player.setPlayerTwoCards(c.getPlayerOrangeStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
-
                 this.player.setPlayerThreeCards(c.getPlayerGreenStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
                 this.player.setPlayerOneCards(c.getPlayerBlueStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-
                 this.player.setPlayerTwoCards(c.getPlayerTealStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
-
                 this.player.setPlayerThreeCards(c.getPlayerOrangeStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
                 this.player.setPlayerOneCards(c.getPlayerGreenStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-
                 this.player.setPlayerTwoCards(c.getPlayerBlueStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
-
                 this.player.setPlayerThreeCards(c.getPlayerTealStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                break;
+               break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-
                 this.player.setPlayerOneCards(c.getPlayerOrangeStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-
                 this.player.setPlayerTwoCards(c.getPlayerGreenStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
-
                 this.player.setPlayerThreeCards(c.getPlayerBlueStack());
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             default:
                 Log.d("no player", "no player " + player);
                 break;
         }
 
-        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player, R.layout.recycler_item_view);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,0);
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.playerRecyclerviewAdabter);
+        this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,1);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterLeft);
+        this.myRecyclerviewAdabterTop = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,2);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterTop);
+        this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,3);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV, LinearLayoutManager.HORIZONTAL,this.myRecyclerviewAdabterRight);
+
         addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
         addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
@@ -234,6 +216,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
+       // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
+
 
     }
 
@@ -254,7 +238,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.playerRecyclerviewAdabter.addPlayerItem(card);
+                this.playerRecyclerviewAdabter.addCardsArray(card);
                 int integry = this.playerRecyclerviewAdabter.getItemCount();
                 Log.d("get item card", " click 2");
                 this.playerRecyclerviewAdabter.notifyDataSetChanged();
@@ -301,10 +285,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 // add cards to arraylist, RV, Player
             });
         }
-    }
-
-    private void createItem(View view) {
-
     }
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
@@ -579,7 +559,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     isParkBtn = 0;
                 }
 
-                addCardsToPlayer();
+                // addCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
                 try {
@@ -686,26 +666,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
 
     ////////////////////// other methods //////////////////////////
-    private void initRecycleView(){
-        this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter();
-        this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter();
-        this.myRecyclerviewAdabterTop = new MyRecyclerviewAdabter();
-        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter();
-    }
 
-
-    private void createRecyclerviewCards(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
+    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
-        myRecyclerviewAdabterExtra = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
-        recyclerview.setAdapter(myRecyclerviewAdabterExtra);
-    }
-
-    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, PlayerController playerController, int recyclerItem) {
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
-        recyclerview.setLayoutManager(manager);
-        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playerController, recyclerItem);
-        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+        recyclerview.setAdapter(myRecyclerviewAdabter);
     }
 
     private void initCarddrawer() {
@@ -751,6 +716,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 });
             }
         });
+        addItemCardsToPlayer();
     }
 
     public void setUpCheatButtons(){
