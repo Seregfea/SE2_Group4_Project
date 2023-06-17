@@ -39,7 +39,7 @@ public class Card {
     private int imageViewBackID;
 
     public Card(CardType cardType, int id, String name, int number, int count, int number2, int count2, int number3, int count3,
-                int number4, int count4, int minSum, int stealCard, ArrayList<CardType> toDo,
+                int number4, int count4, int following, int minSum, int stealCard, ArrayList<CardType> toDo,
                 int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
@@ -52,6 +52,7 @@ public class Card {
         this.count3 = count3;
         this.number4 = number4;
         this.count4 = count4;
+        this.following = following;
         this.minSum = minSum;
         this.stealCard = stealCard;
         // this.toDo = toDo;
@@ -213,6 +214,12 @@ public class Card {
                 card.put("itemBenefit", "");
                  break;
             case ROOMMATE:
+
+            case ME:
+
+            case BATHTUB:
+
+            case COUCH:
                 card.put("number", this.getNumber());
                 card.put("count", this.getCount());
                 break;
@@ -222,24 +229,8 @@ public class Card {
                 card.put("count", this.getCount());
                 card.put("roommateBenefit","");
                 break;
-
-            case ME:
-                card.put("number", this.getNumber());
-                card.put("count", this.getCount());
-                break;
-
-            case BATHTUB:
-                card.put("number", this.getNumber());
-                card.put("count", this.getCount());
-                break;
-
-            case COUCH:
-                card.put("number", this.getNumber());
-                card.put("count", this.getCount());
-                break;
             case TABLEWARE:
-                card.put("number", this.getNumber());
-                card.put("count", this.getCount());
+                card.put("following", this.getFollowing());
                 break;
             case WITZIG:
                 card.put("number", this.getNumber());
