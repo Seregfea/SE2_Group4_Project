@@ -36,4 +36,5 @@ public interface GameboardCallbacks {
     void disablePlayer();
 
     void enablePlayer();
+    void endTurnPralinen(int pralinen);
 }
