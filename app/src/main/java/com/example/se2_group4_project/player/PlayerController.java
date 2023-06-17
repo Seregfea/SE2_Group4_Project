@@ -23,8 +23,12 @@ import java.util.Arrays;
 
 public class PlayerController {
     private final int playerID;
-    private final ArrayList<Card> playerInitialCards;
-    private ArrayList<Card> playerExtraCards;
+    private ArrayList<Card> playerInitialCards;
+
+    private ArrayList<Card> playerOneCards;
+    private ArrayList<Card> playerTwoCards;
+    private ArrayList<Card> playerThreeCards;
+
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int diceCount = 4;
@@ -186,5 +190,33 @@ public class PlayerController {
 
     public void setPlayerUpdatedCards(ArrayList<Card> playerUpdatedCards) {
         this.playerUpdatedCards = playerUpdatedCards;
+    }
+
+    public void setPlayerInitialCards(ArrayList<Card> playerInitialCards) {
+        this.playerInitialCards = playerInitialCards;
+    }
+
+    public ArrayList<Card> getPlayerOneCards() {
+        return playerOneCards;
+    }
+
+    public void setPlayerOneCards(ArrayList<Card> playerOneCards) {
+        this.playerOneCards = playerOneCards;
+    }
+
+    public ArrayList<Card> getPlayerTwoCards() {
+        return playerTwoCards;
+    }
+
+    public void setPlayerTwoCards(ArrayList<Card> playerTwoCards) {
+        this.playerTwoCards = playerTwoCards;
+    }
+
+    public ArrayList<Card> getPlayerThreeCards() {
+        return playerThreeCards;
+    }
+
+    public void setPlayerThreeCards(ArrayList<Card> playerThreeCards) {
+        this.playerThreeCards = playerThreeCards;
     }
 }

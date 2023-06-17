@@ -150,27 +150,51 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         switch (player) {
             case 0:
                 this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerOneCards(c.getPlayerTealStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+
+                this.player.setPlayerTwoCards(c.getPlayerOrangeStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerThreeCards(c.getPlayerGreenStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerOneCards(c.getPlayerBlueStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+
+                this.player.setPlayerTwoCards(c.getPlayerTealStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerThreeCards(c.getPlayerOrangeStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerTealStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerOneCards(c.getPlayerGreenStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+
+                this.player.setPlayerTwoCards(c.getPlayerBlueStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerThreeCards(c.getPlayerTealStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,c.getPlayerOrangeStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,c.getPlayerBlueStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
-                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,c.getPlayerGreenStack(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerOneCards(c.getPlayerOrangeStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerOneCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterLeft);
+
+                this.player.setPlayerTwoCards(c.getPlayerGreenStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerTwoCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterTop);
+
+                this.player.setPlayerThreeCards(c.getPlayerBlueStack());
+                createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV,LinearLayoutManager.HORIZONTAL,this.player.getPlayerThreeCards(),R.layout.recycler_item_view, this.myRecyclerviewAdabterRight);
                 break;
             default:
                 Log.d("no player", "no player " + player);
