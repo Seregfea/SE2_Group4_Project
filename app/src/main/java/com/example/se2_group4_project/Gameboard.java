@@ -234,6 +234,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
             Log.d("card gameboard", card.toString());
+            Log.d("card gameboard image", itemCardImage.toString());
             itemCardImage.setOnClickListener(view -> {
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
@@ -558,8 +559,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
-
-                // addCardsToPlayer();
+                addItemCardsToPlayer();
                 // call function to flip current card
                 // flipCurrentCardListener();
                 try {
@@ -716,7 +716,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 });
             }
         });
-        addItemCardsToPlayer();
+        //addItemCardsToPlayer();
     }
 
     public void setUpCheatButtons(){
