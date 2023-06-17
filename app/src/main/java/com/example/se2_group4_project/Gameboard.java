@@ -29,6 +29,7 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.cards.Couch;
 import com.example.se2_group4_project.cards.Geschirr;
 import com.example.se2_group4_project.cards.Me;
@@ -258,8 +259,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
 
     public void addTroublemakerCards(){
-
-    public void addRoommateEasyCardsToPlayer(){
 
         try {
             c.generateInitialCards();
@@ -692,16 +691,18 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 highlightBoardCards(playerDice);
             }
         });
+
+            //addItemCardsToPlayer();
+            //addRoommateEasyCardsToPlayer();
+           //addRoommateDifficultCardsToPlayer();
+            //addWitzigCardsToPlayer();
+            //addWitzigWitzigCardsToPlayer();
+
+            // checking pralinen and other cards methods
+            checkSpecialCards(pralinen);
     }
 
-                addItemCardsToPlayer();
-                addRoommateEasyCardsToPlayer();
-                addRoommateDifficultCardsToPlayer();
-                addWitzigCardsToPlayer();
-                addWitzigWitzigCardsToPlayer();
 
-                // checking pralinen and other cards methods
-                checkSpecialCards(pralinen);
 
 
                 // call function to flip current card
