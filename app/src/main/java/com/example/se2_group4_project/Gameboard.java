@@ -30,7 +30,14 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Couch;
+import com.example.se2_group4_project.cards.Geschirr;
 import com.example.se2_group4_project.cards.Me;
+import com.example.se2_group4_project.cards.RoommateDifficult;
+import com.example.se2_group4_project.cards.RoommateEasy;
+import com.example.se2_group4_project.cards.Troublemaker;
+import com.example.se2_group4_project.cards.WitzigToDos;
+import com.example.se2_group4_project.cards.WitzigWitzigToDos;
 import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
@@ -741,6 +748,74 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     JSONObject me = card.jsonObject();
                     Me meObjekt = new Me(me);
                     meObjekt.setDiceSpaceMe(true);
+                    break;
+                case COUCH:
+                    JSONObject couch = card.jsonObject();
+                    Couch couchObject = new Couch(couch);
+                    couchObject.setIncreaseDiceSpace(true);
+                    break;
+            }
+        }
+    }
+
+    public void setKanguruTrue(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case BATHTUB:
+                    JSONObject bathtub = card.jsonObject();
+                    Badewanne badewanneObject = new Badewanne(bathtub);
+                    badewanneObject.setKanguru(true);
+                    break;
+            }
+        }
+    }
+
+    public void setDiceRollAgain(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case TABLEWARE:
+                    JSONObject tableware = card.jsonObject();
+                    Geschirr geschirrObject = new Geschirr(tableware);
+                    geschirrObject.setRollAgain(true);
+                    break;
+            }
+        }
+    }
+
+    public void setRoommateAwake(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case ROOMMATE:
+                    JSONObject roommateEasy = card.jsonObject();
+                    RoommateEasy roommateEasyObject = new RoommateEasy(roommateEasy);
+                    roommateEasyObject.setAwake(true);
+                    break;
+                case ROOMMATEDIFF:
+                    JSONObject roommateDiff = card.jsonObject();
+                    RoommateDifficult roommateDifficultObject = new RoommateDifficult(roommateDiff);
+                    roommateDifficultObject.setAwake(true);
+                    break;
+            }
+        }
+    }
+
+    public void setPenalty(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case TROUBLEMAKER:
+                    JSONObject troublemaker = card.jsonObject();
+                    Troublemaker troublemakerObject = new Troublemaker(troublemaker);
+                    // Chriss fragen
+
+                case WITZIG:
+                    JSONObject witzig = card.jsonObject();
+                    WitzigToDos witzigObject = new WitzigToDos(witzig);
+                    // Chriss fragen
+
+                case WITZIGWITZIG:
+                    JSONObject witzigWitzigTodos = card.jsonObject();
+                    WitzigWitzigToDos witzigWitzigToDosObject = new WitzigWitzigToDos(witzigWitzigTodos);
+                    // Chriss fragen
             }
         }
     }
