@@ -211,6 +211,7 @@ public class Card {
                 card.put("number", this.getNumber());
                 card.put("count", this.getCount());
                 card.put("stealCard", this.getStealCard());
+                card.put("schnapspralinen", this.getSchnapspralinen());
                 card.put("itemBenefit", "");
                  break;
             case ROOMMATE:
