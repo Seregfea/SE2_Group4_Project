@@ -29,6 +29,7 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     private boolean isSensorAvailable;
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
+    private int testValue;
 
 
     /////////////////////////////////// Constructor and check availability ///////////////////////////////////
@@ -60,12 +61,18 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     public void registerSensor(){
         if (isSensorAvailable){
             sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        } else {
+            Log.d("Sensor", "Sensor is not available!");
+            setTestValue(3);
         }
     }
 
     public void unRegisterSensor(){
         if (isSensorAvailable){
             sensorManager.unregisterListener(this);
+        } else {
+            Log.d("Sensor", "Sensor is not available!");
+            setTestValue(4);
         }
     }
 
@@ -88,27 +95,7 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         // If difference is greater than thresh hold, message gets send and sensor unregistered
         if(notFirstTime)
         {
-            xDifference = Math.abs(lastX - currentX);
-            yDifference = Math.abs(lastY - currentY);
-            zDifference = Math.abs(lastZ - currentZ);
-
-            if((xDifference > shakeThreshhold && yDifference > shakeThreshhold) ||
-                    (xDifference > shakeThreshhold && zDifference > shakeThreshhold) ||
-                    (yDifference > shakeThreshhold && zDifference > shakeThreshhold))
-            {
-                Log.d("Sensor", "You shook the phone");
-                clientHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            clientCallbacks.cheatFunction("0");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-                unRegisterSensor();
-            }
+            calculateSensorValues(currentX, currentY, currentZ, lastX, lastY, lastZ);
         }
 
         lastX = currentX;
@@ -120,6 +107,33 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
 
 
 
+    public void calculateSensorValues(float currentX, float currentY, float currentZ, float lastX, float lastY, float lastZ){
+        xDifference = Math.abs(lastX - currentX);
+        yDifference = Math.abs(lastY - currentY);
+        zDifference = Math.abs(lastZ - currentZ);
+
+        if((xDifference > shakeThreshhold && yDifference > shakeThreshhold) ||
+                (xDifference > shakeThreshhold && zDifference > shakeThreshhold) ||
+                (yDifference > shakeThreshhold && zDifference > shakeThreshhold))
+        {
+            Log.d("Sensor", "You shook the phone");
+            testValue = 1;
+            clientHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        clientCallbacks.cheatFunction("0");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            unRegisterSensor();
+        }else {
+            Log.d("Sensor", "No changes noticed");
+            testValue = 2;
+        }
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
@@ -226,5 +240,13 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
 
     public void setSensorAvailable(boolean sensorAvailable) {
         isSensorAvailable = sensorAvailable;
+    }
+
+    public int getTestValue() {
+        return testValue;
+    }
+
+    public void setTestValue(int testValue) {
+        this.testValue = testValue;
     }
 }
