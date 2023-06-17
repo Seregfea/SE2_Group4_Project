@@ -29,6 +29,7 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Me;
 import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
@@ -46,6 +47,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -507,6 +509,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     isParkBtn = 0;
                 }
                 addCardsToPlayer();
+
                 // call function to flip current card
                 // flipCurrentCardListener();
                 try {
@@ -524,19 +527,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                /*
-                try {
-                    c.checkIfHighlight(c.getWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                 */
+//                try {
+//                    c.checkIfHighlight(c.getWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                try {
+//                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
                 try {
                     c.checkIfHighlight(c.getPlayerBlueStack(), this);
                 } catch (JSONException e) {
@@ -561,6 +561,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             testDice();
         });
+    }
+
+    //Methodenaufruf Beispiel, Übergabe muss current player sein
+    //setDiceAmoutforCardList(c.getPlayerBlueStack);
+    public void setDiceAmountForCardList(ArrayList<Card> cards) throws JSONException {
+        for(Card card : cards){
+            switch(card.getCardType()){
+                case ME:
+                    JSONObject me = card.jsonObject();
+                    Me meObjekt = new Me(me);
+                    meObjekt.setDiceSpaceMe(true);
+            }
+        }
     }
 
     public boolean checkDiceParking(Map<ImageView, Boolean> diceSelect, int parkDiceCount) {

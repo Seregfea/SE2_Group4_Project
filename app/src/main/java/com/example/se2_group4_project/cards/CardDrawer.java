@@ -155,11 +155,7 @@ public class CardDrawer {
 
             switch (cardType) {
                 case ITEM:
-                    JSONObject itemObjekt = new JSONObject();
-                    itemObjekt.put("number", card.getNumber());
-                    itemObjekt.put("count", card.getCount());
-                    itemObjekt.put("stealCard", card.getStealCard());
-                    itemObjekt.put("itemBenefit","");
+                    JSONObject itemObjekt = card.jsonObject();
                     Item item = new Item(itemObjekt);
 
                     if (item.isAvailable(rolledDices)) {
@@ -168,29 +164,25 @@ public class CardDrawer {
                     break;
 
                 case ROOMMATE:
-                    JSONObject roommateObjektEasy = new JSONObject();
-                    roommateObjektEasy.put("number", card.getNumber());
-                    roommateObjektEasy.put("count", card.getCount());
+                    JSONObject roommateObjektEasy =  card.jsonObject();
                     RoommateEasy roommateEasy = new RoommateEasy(roommateObjektEasy);
 
                     if (roommateEasy.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
-                    JSONObject roommateObjektDifficult = new JSONObject();
-                    roommateObjektDifficult.put("following", card.getFollowing());
-                    roommateObjektDifficult.put("count", card.getCount());
-                    roommateObjektDifficult.put("roommateBenefit","");
-                    RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
-
-                    if (roommateDifficult.isAvailable(rolledDices)) {
-                        gameboard.highlightCards(card);
-                    }
                     break;
 
+                case ROOMMATEDIFF:
+                JSONObject roommateObjektDifficult = card.jsonObject();
+                RoommateDifficult roommateDifficult = new RoommateDifficult(roommateObjektDifficult);
+
+                if (roommateDifficult.isAvailable(rolledDices)) {
+                    gameboard.highlightCards(card);
+                }
+                break;
+
                 case ME:
-                    JSONObject meObjekt = new JSONObject();
-                    meObjekt.put("number", card.getNumber());
-                    meObjekt.put("count", card.getCount());
+                    JSONObject meObjekt = card.jsonObject();
                     Me me = new Me(meObjekt);
 
                     if (me.isAvailable(rolledDices)) {
@@ -199,45 +191,33 @@ public class CardDrawer {
                     break;
 
                 case BATHTUB:
-                    JSONObject badewanneObjekt = new JSONObject();
-                    badewanneObjekt.put("number", card.getNumber());
-                    badewanneObjekt.put("count", card.getCount());
+                    JSONObject badewanneObjekt = card.jsonObject();
                     Badewanne badewanne = new Badewanne(badewanneObjekt);
+
                     if (badewanne.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
 
                 case COUCH:
-                    JSONObject couchObjekt = new JSONObject();
-                    couchObjekt.put("number", card.getNumber());
-                    couchObjekt.put("count", card.getCount());
+                    JSONObject couchObjekt = card.jsonObject();
                     Couch couch = new Couch(couchObjekt);
+
                     if (couch.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
                 case TABLEWARE:
-                    JSONObject geschirrObjekt = new JSONObject();
-                    geschirrObjekt.put("number", card.getNumber());
-                    geschirrObjekt.put("count", card.getCount());
+                    JSONObject geschirrObjekt = card.jsonObject();
                     Geschirr geschirr = new Geschirr(geschirrObjekt);
+
                     if (geschirr.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
                     }
                     break;
 
                 case WITZIG:
-                    JSONObject witzigObjekt = new JSONObject();
-                    witzigObjekt.put("number", card.getNumber());
-                    witzigObjekt.put("count", card.getCount());
-                    witzigObjekt.put("number2", card.getNumber2());
-                    witzigObjekt.put("count2", card.getCount2());
-                    witzigObjekt.put("following", card.getFollowing());
-                    witzigObjekt.put("min_sum", card.getMinSum());
-                    witzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
-                    JSONArray toDoswitzig = new JSONArray(card.getToDo());
-                    witzigObjekt.put("toDoPenalty", toDoswitzig);
+                    JSONObject witzigObjekt = card.jsonObject();
                     WitzigToDos witzigToDos = new WitzigToDos(witzigObjekt);
 
                     if (witzigToDos.isAvailable(rolledDices)) {
@@ -246,23 +226,13 @@ public class CardDrawer {
                     break;
 
                 case WITZIGWITZIG:
-                    JSONObject witzigwitzigObjekt = new JSONObject();
-                    witzigwitzigObjekt.put("number", card.getNumber());
-                    witzigwitzigObjekt.put("count", card.getCount());
-                    witzigwitzigObjekt.put("number2", card.getNumber2());
-                    witzigwitzigObjekt.put("count2", card.getCount2());
-                    witzigwitzigObjekt.put("number3", card.getNumber3());
-                    witzigwitzigObjekt.put("count3", card.getCount3());
-                    witzigwitzigObjekt.put("number4", card.getNumber4());
-                    witzigwitzigObjekt.put("count4", card.getCount4());
-                    witzigwitzigObjekt.put("schnapspralinen", card.getSchnapspralinen());
-                    JSONArray toDoswitzigwitzig = new JSONArray(card.getToDo());
-                    witzigwitzigObjekt.put("toDoPenalty", toDoswitzigwitzig);
+                    JSONObject witzigwitzigObjekt = card.jsonObject();
                     WitzigWitzigToDos witzigWitzigToDos = new WitzigWitzigToDos(witzigwitzigObjekt);
+
                     if (witzigWitzigToDos.isAvailable(rolledDices)) {
                         gameboard.highlightCards(card);
-                        break;
                     }
+                    break;
             }
         }
     }
