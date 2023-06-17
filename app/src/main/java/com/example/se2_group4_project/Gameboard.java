@@ -53,7 +53,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
@@ -99,8 +98,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private int cheatCounter;
     private boolean cheated;
 
-    /////////////////////////// player disable variables ///////////////////////////////
-    private boolean myTurn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,12 +128,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-        myTurn = true; //until player states are implemented test it by switching this boolean
-        if(myTurn) {
             setUpDice();
             setUpCheatButtons();
             setListeners();
-        }
+
         cheatCounter = 0;
         cheated = false;
     }
@@ -744,6 +739,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     @Override
     public void playerTurn(int playerNumber, ArrayList<Card> cards) {
         player.setMyTurn(1);
+        enablePlayer();
     }
 
     @Override
@@ -866,6 +862,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     @Override
     public void reduceDiceCheatingPlayer() {
         this.player.setDiceCount(this.player.getDiceCount()-1);
+    }
+
+    @Override
+    public void disablePlayer() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    @Override
+    public void enablePlayer() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }
 
