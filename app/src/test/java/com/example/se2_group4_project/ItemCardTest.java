@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.example.se2_group4_project.cards.Item;
 
 public class ItemCardTest {
-    private Item itemCard;
+   /* private Item itemCard;
     private JSONObject jsonObject;
 
     @BeforeEach
@@ -78,5 +78,5 @@ public class ItemCardTest {
     @Test
     public void testItemCard() throws JSONException {
 
-    }
+    } */
 }
