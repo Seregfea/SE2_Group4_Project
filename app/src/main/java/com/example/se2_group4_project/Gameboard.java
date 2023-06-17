@@ -241,6 +241,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         for (int i = 0; i < cardDrawer.getItemsStack().size(); i++) {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
             final Card card = cardDrawer.getItemsStack().get(i);
+
             Log.d("card gameboard", card.toString());
             Log.d("card gameboard image", itemCardImage.toString());
             itemCardImage.setOnClickListener(view -> {
@@ -357,12 +358,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addTroublemakerCardsToPlayer(){
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         for (int i = 0; i < c.getTroublemakerStack().size(); i++){
             final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
             final Card card = c.getTroublemakerStack().get(i);
