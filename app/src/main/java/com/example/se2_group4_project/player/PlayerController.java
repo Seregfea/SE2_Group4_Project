@@ -22,6 +22,11 @@ import java.util.ArrayList;
 public class PlayerController {
     private final int playerID;
     private ArrayList<Card> playerInitialCards;
+
+    private ArrayList<Card> playerOneCards;
+    private ArrayList<Card> playerTwoCards;
+    private ArrayList<Card> playerThreeCards;
+
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int playerTurn = 0;
@@ -200,5 +205,33 @@ public class PlayerController {
     public void setMyTurn(int myTurn) {
         this.myTurn = myTurn;
 
+    }
+
+    public void setPlayerInitialCards(ArrayList<Card> playerInitialCards) {
+        this.playerInitialCards = playerInitialCards;
+    }
+
+    public ArrayList<Card> getPlayerOneCards() {
+        return playerOneCards;
+    }
+
+    public void setPlayerOneCards(ArrayList<Card> playerOneCards) {
+        this.playerOneCards = playerOneCards;
+    }
+
+    public ArrayList<Card> getPlayerTwoCards() {
+        return playerTwoCards;
+    }
+
+    public void setPlayerTwoCards(ArrayList<Card> playerTwoCards) {
+        this.playerTwoCards = playerTwoCards;
+    }
+
+    public ArrayList<Card> getPlayerThreeCards() {
+        return playerThreeCards;
+    }
+
+    public void setPlayerThreeCards(ArrayList<Card> playerThreeCards) {
+        this.playerThreeCards = playerThreeCards;
     }
 }

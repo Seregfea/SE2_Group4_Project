@@ -19,6 +19,7 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
     PlayerController playerController;
     int LayoutID;
 
+    public MyRecyclerviewAdabter(){}
 
     public MyRecyclerviewAdabter(Context context, List<Card> items, int layoutID) {
         this.context = context;
