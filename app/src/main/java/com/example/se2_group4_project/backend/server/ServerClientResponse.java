@@ -114,6 +114,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
                 Log.d("Server Client dice", messageInput);
                 break;
             case "0":
+            case "2":
             case "5":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
