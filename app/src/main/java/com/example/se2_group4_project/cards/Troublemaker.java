@@ -3,6 +3,7 @@ package com.example.se2_group4_project.cards;
 import org.json.*;
 
 public class Troublemaker {
+    private int id;
     private int schnapspralinen;
     private boolean me = false;
     private boolean couch = false;
@@ -12,34 +13,30 @@ public class Troublemaker {
     private boolean room = false;
     private boolean roommate = false;
     private boolean turn = false;
+    private String penalty;
 
     public Troublemaker(JSONObject troublemaker) throws JSONException {
         this.schnapspralinen = troublemaker.getInt("schnapspralinen");
+        this.id = troublemaker.getInt("id");
 
         switch (troublemaker.getString("troublemakerPenalty")){
-            case "TABLEWARE":
-                this.tableware = true;
+            case "couch dreckig":
+                this.penalty = "couch dreckig";
                 break;
-            case "ROOM":
-                this.room = true;
+            case "badewanne dreckig":
+                this.penalty = "badewanne dreckig";
                 break;
-            case "ITEMS":
-                this.item = true;
+            case "geschirr dreckig":
+                this.penalty = "geschirr dreckig";
                 break;
-            case "ROOMMATE":
-                this.roommate = true;
+            case "alles dreckig":
+                this.penalty = "alles dreckig";
                 break;
-            case "TURN":
-                this.turn = true;
+            case "alle schlafen":
+                this.penalty = "alle schlafen";
                 break;
-            case "BATHTUB":
-                this.bathtub = true;
-                break;
-            case "ICH":
-                this.me = true;
-                break;
-            case "COUCH":
-                this.couch = true;
+            case "ich schlafe":
+                this.penalty = "ich schlafe";
                 break;
             default:
                 System.out.println("No troublemaker assignments to do");
@@ -121,6 +118,22 @@ public class Troublemaker {
 
     public void setTurn(boolean turn) {
         this.turn = turn;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(String penalty) {
+        this.penalty = penalty;
     }
 }
 

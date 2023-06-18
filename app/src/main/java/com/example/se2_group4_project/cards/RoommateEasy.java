@@ -6,12 +6,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RoommateEasy {
-    private int additionalDice = 0;
+    private int id;
+    private int additionalDice = 1;
     private int number;
     private int count;
     private boolean awake = false;
 
     public RoommateEasy(JSONObject roommateEasy) throws JSONException {
+        this.id = roommateEasy.getInt("id");
         this.number = roommateEasy.getInt("number");
         this.count = roommateEasy.getInt("count");
     }
@@ -28,17 +30,46 @@ public class RoommateEasy {
         return awake;
     }
 
-    public void setAwake(boolean awake) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    // if put to sleep or awake, returns updated additional dice
+    public int setAwake(boolean awake) {
         this.awake = awake;
 
-        if (awake) {
+        if (isAwake()) {
             setAdditionalDice(1);
         } else {
-            setAdditionalDice(0);
+            setAdditionalDice(-1);
         }
+        return getAdditionalDice();
     }
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
+        if(rolledDice.size()<2){
+            return false;
+        }
         int counter = 0;
 
         for (int i = 0; i < rolledDice.size(); i++) {
