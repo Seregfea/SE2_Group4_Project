@@ -69,7 +69,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private ClientCallbacks clientCallbacks;
     private MyRecyclerviewAdabter playerRecyclerviewAdabter;
     private MyRecyclerviewAdabter myRecyclerviewAdabterLeft;
-    private MyRecyclerviewAdabter myRecyclerviewAdabterRight;
     private MyRecyclerviewAdabter myRecyclerviewAdabterTop;
 
     private PlayerController player;
@@ -81,6 +80,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     private CardDrawer c;
+    private MyRecyclerviewAdabter myRecyclerviewAdabterRight;
     private DicePopUpActivity dicePopUpActivity;
     // hardcoded
     // später: methode aus player-klasse
@@ -120,6 +120,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         view = activityGameboardBinding.getRoot();
         startWindowFeature();
         setContentView(view);
+        this.cheated = false;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -448,15 +449,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
-            iView.setOnClickListener(v -> {
-                        Log.d("get item card", ""+iView.getId());
-                        linearLayout.removeView(iView);
-                        Log.d("get item card before", ""+this.playerRecyclerviewAdabter.getItemCount());
-                        this.playerRecyclerviewAdabter.addCardsArray(card);
-                        Log.d("get item card after", ""+this.playerRecyclerviewAdabter.getItemCount());
-                        this.playerRecyclerviewAdabter.notifyDataSetChanged();
-
-                    });
 
 
 
@@ -631,6 +623,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 boolean hasParked = false;
                 ArrayList<Integer> parkedDices = new ArrayList<>();
 
+                if(activityGameboardBinding.btnParkDice.getText().equals("end rolling")){
+                    this.player.diceToServer();
+                }
                 if (isParkBtn == 1) {
                     if (checkDiceParking(diceSelect, player.getParkDiceCount())) {
                         Log.d("selected saved dices", selectedDices.toString());
@@ -674,6 +669,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
+
             });
 
             diceIsRolled = true;
@@ -685,21 +681,21 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 }
 
                 addCardsToPlayerListener();
+                addRoommateDifficultCardsToPlayer();
+                addWitzigCardsToPlayer();
+                addWitzigWitzigCardsToPlayer();
+                addTroublemakerCards();
                 testDice();
+                // checking pralinen and other cards methods
+                checkSpecialCards(pralinen);
+
                 Log.d("player dice usable rolled", playerDice.toString());
                 Log.d("player dice usable rolled", enemyDice.toString());
                 highlightBoardCards(playerDice);
             }
         });
 
-            //addItemCardsToPlayer();
-            //addRoommateEasyCardsToPlayer();
-           //addRoommateDifficultCardsToPlayer();
-            //addWitzigCardsToPlayer();
-            //addWitzigWitzigCardsToPlayer();
 
-            // checking pralinen and other cards methods
-            checkSpecialCards(pralinen);
     }
 
 
@@ -1013,9 +1009,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
-        if (!cheated){
-            cheatFunction();
-        }
     }
 
     @Override
@@ -1045,8 +1038,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void cheatFunction() {
-        CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
-        cheatFunction.registerSensor();
+        if(this.cheated){
+
+        }else{
+            this.cheated = true;
+            CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
+            cheatFunction.registerSensor();
+        }
+
     }
 
     @Override

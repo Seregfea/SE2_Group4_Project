@@ -85,10 +85,10 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     private String messageDecode(String messageInput){
         String [] commands = messageInput.split(" ");
-        Log.d("client player", commands[0]);
-        Log.d("client identifier", commands[1]);
-        Log.d("client message", commands[2]);
-        Log.d("client enemy", commands[3]);
+        Log.d("server player", commands[0]);
+        Log.d("server identifier", commands[1]);
+        Log.d("server message", commands[2]);
+        Log.d("server enemy", commands[3]);
         this.enemy = commands[3];
        return commands[1];
     }
@@ -97,6 +97,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
             case "1":
             case "6":
+            case "8":
                serverThreadHandler.post(() -> {
                    serverCallbacks.messageToALL(this.messageInput, this.playerNumber);
                });
@@ -153,8 +154,9 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     @Override
     public void getMessage(String messageInput) throws IOException {
+        Log.d("get message client", messageInput);
         this.serverMessage.writeUTF(messageInput);
-        this.serverMessage.flush();
+        //this.serverMessage.flush();
     }
 
     @Override
