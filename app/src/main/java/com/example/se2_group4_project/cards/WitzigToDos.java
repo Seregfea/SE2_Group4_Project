@@ -61,13 +61,17 @@ public class WitzigToDos {
             filledFields.add("following");
         }
 
+        this.toDoPenalty = new ArrayList<>();
 
         JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
-        try {
-            Integer k = (Integer) toDoPenaltyArray.get(0);
+        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+            toDoPenalty.add(toDoPenaltyArray.getString(i));
+        }
 
-            for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-                switch (toDoPenaltyArray.getString(i)) {
+        try {
+
+            for (int j = 0; j < toDoPenaltyArray.length(); j++) {
+                switch (toDoPenaltyArray.getString(j)) {
                     case "BATHTUB":
                         this.bathtub = true;
                         break;
@@ -96,37 +100,33 @@ public class WitzigToDos {
 
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
+        ArrayList<Integer> diceCopy = new ArrayList(rolledDice);
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
-            if (checkNumberCount(rolledDice)) {
-                return true;
+            if (checkNumberCount(rolledDice)){
+                removeNumber(diceCopy,number, count);
             }
-
+            return checkNumberCount(rolledDice);
         } else if (filledFields.contains("count")) {
-            if (checkCount(rolledDice)) {
-                return true;
-            }
+            return checkCount(rolledDice);
         }
         if (filledFields.contains("number") && filledFields.contains("following")) {
-            if (checkFollowing(rolledDice)) {
-                return true;
-            }
+            return checkFollowing(rolledDice);
         }
         if (filledFields.contains("number2") && filledFields.contains("count2")) {
-            if (checkNumber2Count2(rolledDice)) {
-                return true;
+            if(checkNumber2Count2(diceCopy)){
+                removeNumber(diceCopy,number2, count2);
             }
+            return checkNumber2Count2(diceCopy);
         } else if (filledFields.contains("count2")) {
-            if (checkCount2(rolledDice)) {
-                return true;
-            }
+            return checkCount2(diceCopy);
         }
         if (filledFields.contains("min_sum")) {
-            if (checkMinSum(rolledDice)) {
-                return true;
-            }
+            return checkMinSum(rolledDice);
         }
-        return false;
+        else {
+            return false;
+        }
     }
 
     public boolean checkNumberCount(ArrayList<Integer> rolledDice) {
@@ -136,12 +136,9 @@ public class WitzigToDos {
             int diceValue = rolledDice.get(i);
             if (diceValue == num) {
                 numberCount++;
-                if (numberCount == count) {
-                    return true;
-                }
             }
         }
-        return false;
+        return numberCount >= count;
     }
 
     public boolean checkCount(ArrayList<Integer> rolledDice){
@@ -188,12 +185,9 @@ public class WitzigToDos {
             int diceValue = rolledDice.get(i);
             if (diceValue == num2) {
                 number2Count++;
-                if (number2Count == count2) {
-                    return true;
-                }
             }
         }
-        return false;
+        return number2Count >= count2;
     }
 
 
@@ -212,7 +206,6 @@ public class WitzigToDos {
         }
         return false;
     }
-
     public boolean checkMinSum(ArrayList<Integer>rolledDice) {
         int sum = 0;
         for (int i = 0; i < rolledDice.size(); i++) {
@@ -223,6 +216,18 @@ public class WitzigToDos {
             return true;
         }
         return false;
+    }
+    public void removeNumber(ArrayList<Integer> diceArray, String number, int count) {
+        int removedCount = 0;
+        for (int i = diceArray.size() - 1; i >= 0; i--) {
+            if (diceArray.get(i) == Integer.parseInt(number)) {
+                diceArray.remove(i);
+                removedCount++;
+                if (removedCount == count) {
+                    break;
+                }
+            }
+        }
     }
 
 
@@ -255,7 +260,7 @@ public class WitzigToDos {
     public void setTableware(boolean tableware) { this.tableware = tableware;}
     public void setSleep(boolean sleep) { this.sleep = sleep;}
     public void setAwake(boolean awake) { this.awake = awake;}
-    public void setNumber(String number) { this.number = this.number; }
+    public void setNumber(String number) { this.number = number; }
     public void setNumber2(String number2) { this.number2 = number2; }
     public void setCount(int count) { this.count = count; }
     public void setCount2(int count2) { this.count2 = count2; }

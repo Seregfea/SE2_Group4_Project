@@ -25,7 +25,7 @@ public class Card {
     private int stealCard;
     private int following;
 
-    private ArrayList<CardType> toDoPenalty;
+    private ArrayList<String> toDoPenalty;
     private int schnapspralinen;
     private CardType cardType;
     private String cardFront;
@@ -37,7 +37,7 @@ public class Card {
     private int imageViewBackID;
 
     public Card(CardType cardType, int id, String name, int number, int count, int number2, int count2, int number3, int count3,
-                int number4, int count4, int minSum, int stealCard, ArrayList<CardType> toDo,
+                int number4, int count4, int minSum, int stealCard, ArrayList<String> toDo,
                 int schnapspralinen, String cardFront, String cardBack, int neededSchnapspralinen, boolean isFront) {
         this.cardType = cardType;
         this.id = id;
@@ -52,7 +52,7 @@ public class Card {
         this.count4 = count4;
         this.minSum = minSum;
         this.stealCard = stealCard;
-       // this.toDo = toDo;
+        this.toDoPenalty = toDo;
         this.schnapspralinen = schnapspralinen;
         this.cardFront = cardFront;
         this.cardBack = cardBack;
@@ -83,11 +83,11 @@ public class Card {
         this.name = name;
     }
 
-    public ArrayList<CardType> getToDo() {
+    public ArrayList<String> getToDo() {
         return toDoPenalty;
     }
 
-    public void setToDo(ArrayList<CardType> toDo) {
+    public void setToDo(ArrayList<String> toDo) {
         this.toDoPenalty = toDo;
     }
 
