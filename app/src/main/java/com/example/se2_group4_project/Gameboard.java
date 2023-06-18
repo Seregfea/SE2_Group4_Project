@@ -499,7 +499,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         // If card is available --> then we can flip
         for (ImageView card : displayedCards) {
             card.setOnClickListener(view -> {
-                // flipCard(card);
+                 //flipCard(card);
             });
         }
     }
@@ -535,6 +535,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         for (ImageView iView : displayedCards) {
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
                 iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
+                iView.setOnClickListener(view -> {
+                    flipCard(card);
+                });
             }
         }
     }
