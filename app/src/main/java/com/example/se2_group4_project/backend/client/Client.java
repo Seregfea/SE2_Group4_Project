@@ -83,6 +83,7 @@ public class Client extends Thread implements ClientCallbacks {
     public void messageSend(String messageInput) throws IOException {
         Log.d("message send client", messageInput);
         serverMessage.writeUTF(messageInput);
+        serverMessage.flush();
     }
 
     private String messageCode(String messageInput) {
@@ -251,7 +252,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void cheatFunction(String cheatStart) throws IOException {
-        messageSend(messageCode(cheatStart + SPACE + " " + ENEMY));
+        messageSend(messageCode(cheatStart + SPACE + " " + this.playerSendedNumber));
     }
 
 

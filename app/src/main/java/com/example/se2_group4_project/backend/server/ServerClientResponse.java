@@ -63,7 +63,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
         while (client.isConnected()){
             try {
-
                 this.messageInput = clientInput.readUTF();
                 chooseIdentifierFunction(messageDecode(messageInput));
 
@@ -103,11 +102,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
                });
                break;
             case "7":
-                serverThreadHandler.post(() -> {
-                    serverCallbacks.messageAcceptDice(this.playerNumber);
-                });
-                Log.d("Server Client dice", messageInput);
-                break;
             case "4":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageAcceptDice(this.playerNumber);
@@ -156,11 +150,12 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
     public void getMessage(String messageInput) throws IOException {
         Log.d("get message client", messageInput);
         this.serverMessage.writeUTF(messageInput);
-        //this.serverMessage.flush();
+        serverMessage.flush();
     }
 
     @Override
     public void acceptDice(String message) throws IOException {
         this.serverMessage.writeUTF(this.playerNumber + " " + "6" + " " + message + " " + "5");
+        serverMessage.flush();
     }
 }

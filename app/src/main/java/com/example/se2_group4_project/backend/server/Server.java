@@ -68,7 +68,7 @@ public class Server extends Thread implements ServerCallbacks {
                 clientCallbacks.put(count,socketListener.getCallbacks());
                 clientHandlers.put(count,socketListener.getServerClientHandler());
                 socketListener.start();
-                updateServerUI(clients.get(count).getInetAddress().toString());
+                //updateServerUI(clients.get(count).getInetAddress().toString());
                 count++;
             }
         } catch (IOException e) {
@@ -115,12 +115,9 @@ public class Server extends Thread implements ServerCallbacks {
     public void messageToALL(String message, Integer player)  {
         for (int key : clients.keySet()) {
             if(player != key){
-
-            }else {
                 Log.d("message to all", message);
                 sendMessage(message,key);
             }
-
         }
     }
 
@@ -133,7 +130,7 @@ public class Server extends Thread implements ServerCallbacks {
     public void messageToOne(String message, Integer player) {
         Log.d("message to one", message);
         if(player > this.clients.size()){
-            sendMessage(message,this.clients.size());
+            sendMessage(message,this.clients.size() -1);
         }else {
             sendMessage(message,player);
         }
@@ -164,7 +161,7 @@ public class Server extends Thread implements ServerCallbacks {
 
     private void sendMessage(String message, Integer player){
         Log.d("server message get", message);
-        updateServerUI(message);
+        //updateServerUI(message);
         this.clientHandlers.get(player).post(() -> {
             try {
                 this.clientCallbacks.get(player).getMessage(message);

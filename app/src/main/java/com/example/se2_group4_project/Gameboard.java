@@ -40,6 +40,7 @@ import com.example.se2_group4_project.cards.WitzigToDos;
 import com.example.se2_group4_project.cards.WitzigWitzigToDos;
 import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
+import com.example.se2_group4_project.databinding.ActivityCheatPopupBinding;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
 import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
@@ -102,6 +103,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;
+
+    private ActivityCheatPopupBinding activityCheatPopupBinding;
     private View view;
 
     /////////////////////////// cheat buttons/variables ///////////////////////////////
@@ -117,6 +120,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         super.onCreate(savedInstanceState);
         activityDiceBinding = ActivityDiceBinding.inflate(getLayoutInflater());
         activityGameboardBinding = ActivityGameboardBinding.inflate(getLayoutInflater());
+        activityCheatPopupBinding = ActivityCheatPopupBinding.inflate(getLayoutInflater());
         view = activityGameboardBinding.getRoot();
         startWindowFeature();
         setContentView(view);
@@ -144,7 +148,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
 
             setUpDice();
-            setUpCheatButtons();
             setListeners();
 
         cheatCounter = 0;
@@ -525,7 +528,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                 "cardborder", "drawable", this.getApplicationContext().getPackageName());
 
         for (ImageView iView : displayedCards) {
+            Log.d("Highlight ImageView", iView.toString());
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+                Log.d("Highlight if", iView.getId() + "");
                 iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
             }
         }
@@ -553,7 +558,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-            dicePopUpActivity.rollDice(player.getDiceCount());
+                dicePopUpActivity.rollDice(player.getDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -877,6 +882,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
+    public void cardBenefit(String benefit){
+        switch (benefit){
+            case "badewanne sauber":
+
+        }
+    }
+
     private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
@@ -963,6 +975,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         client.start();
     }
 
+    public void disablePlayer() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public void enablePlayer() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
     ///////////////////// callbacks //////////////////////////////////
 
 
@@ -990,7 +1010,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     @Override
     public void playerTurn(int playerNumber, ArrayList<Card> cards) {
         player.setMyTurn(1);
-        enablePlayer();
     }
 
     @Override
@@ -1032,8 +1051,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void sendedEnemyDice(ArrayList<Integer> enemyDice) {
-        dicePopUpActivity.setIsEnemyDice(1);
-        dicePopUpActivity.visualizeDice(enemyDice);
+        this.player.setDiceValuesNotUsable(enemyDice);
+        this.player.setDiceCount(enemyDice.size());
+        startDiceRolling(new View(this));
     }
 
     @Override
@@ -1052,11 +1072,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void cheatPopUpActivity(int cheatedPlayer) {
         if (cheatCounter < 1) {
             cheatCounter ++;
-            CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
+            ArrayList<Integer> players = new ArrayList<>();
+            for (int i = 0; i< 4; i++){
+                if (i != this.player.getPlayerID()){
+                    players.add(i);
+                }
+            }
+            CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this, this.activityCheatPopupBinding);
             cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
             cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
-            player1btn.setOnClickListener(view -> {
-                if (cheatPopUpActivity.cheatingPlayer(1)) {
+
+            activityCheatPopupBinding.player1btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 1 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(0))) {
                     clientHandler.post(() -> {
                         try {
                             clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
@@ -1072,8 +1100,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     startDiceRolling(view);
                 }
             });
-            player2btn.setOnClickListener(view -> {
-                if (cheatPopUpActivity.cheatingPlayer(2)) {
+            activityCheatPopupBinding.player2btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 2 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(1))) {
                     clientHandler.post(() -> {
                         try {
                             clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
@@ -1089,8 +1118,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     startDiceRolling(view);
                 }
             });
-            player3btn.setOnClickListener(view -> {
-                if (cheatPopUpActivity.cheatingPlayer(3)) {
+            activityCheatPopupBinding.player3btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 3 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(2))) {
                     clientHandler.post(() -> {
                         try {
                             clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
@@ -1115,18 +1145,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void reduceDiceCheatingPlayer() {
+        Log.d("BeforeReduce", " "+this.player.getDiceCount());
         this.player.setDiceCount(this.player.getDiceCount()-1);
+        Log.d("AfterReduce", " "+this.player.getDiceCount());
     }
 
-    @Override
-    public void disablePlayer() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    @Override
-    public void enablePlayer() {
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
 
     @Override
     public void endTurnPralinen(int pralinen){
