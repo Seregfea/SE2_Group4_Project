@@ -67,7 +67,7 @@ public class RoommateEasy {
     }
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
-        if(rolledDice.size()<2){
+        if (rolledDice.size() < 2) {
             return false;
         }
         int counter = 0;

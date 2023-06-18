@@ -171,7 +171,7 @@ public class RoommateDifficult {
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
         if (count > 0) {
-            if (rolledDice.size() < 3){
+            if (rolledDice.size() < 3) {
                 return false;
             }
             for (int i = 0; i < rolledDice.size(); i++) {
@@ -190,7 +190,7 @@ public class RoommateDifficult {
         }
 
         if (following > 0) {
-            if(rolledDice.size()<4){
+            if (rolledDice.size() < 4) {
                 return false;
             }
             int counter = 1;
@@ -218,7 +218,7 @@ public class RoommateDifficult {
         if (isAwake()) {
             switch (rmDiffType) {
                 case BUKOWSKI:
-                    if(getAwakeCount() > 0){
+                    if (getAwakeCount() > 0) {
                         return 0;
                     }
                     setAdditionalDice(3);

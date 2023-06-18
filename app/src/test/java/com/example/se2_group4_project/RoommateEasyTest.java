@@ -17,7 +17,7 @@ public class RoommateEasyTest {
 
     @BeforeEach
     void setUp() throws JSONException {
-        jsonObject = new JSONObject("{" + "number: 1," + "count: 2" + "}");
+        jsonObject = new JSONObject("{" + "id: 1," + "number: 1," + "count: 2" + "}");
         roommateEasy = new RoommateEasy(jsonObject);
     }
 
@@ -46,7 +46,8 @@ public class RoommateEasyTest {
 
     @Test
     public void checkGetAdditionalDiceIfIsNotAwake() {
-        Assertions.assertEquals(0, roommateEasy.getAdditionalDice());
+        roommateEasy.setAwake(false);
+        Assertions.assertEquals(-1, roommateEasy.getAdditionalDice());
     }
 
     @Test
