@@ -16,6 +16,8 @@ public class Badewanne {
     int number;
     int count;
 
+    private String benefit = "badewanne sauber";
+
 
     public Badewanne(JSONObject badewanne) throws JSONException {
         this.number = badewanne.getInt("number");
@@ -61,5 +63,13 @@ public class Badewanne {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getBenefit() {
+        return benefit;
+    }
+
+    public void setBenefit(String benefit) {
+        this.benefit = benefit;
     }
 }

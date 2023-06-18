@@ -32,15 +32,20 @@ public class PlayerController {
     private int playerTurn = 0;
     private int diceCount = 4;
 
+    private int roomMateDiceCount = 0;
 
+    private int roomMateAmount = 0;
 
+    private boolean kanguru = false;
     private int myTurn = 0;
 
     // testweise auf 1
-    private int parkDiceCount = 1;
+    private int parkDiceCount = 2;
 
     // tesweise auf true
-    private boolean reRoll = true;
+    private int reRoll = 1;
+
+    private int tempReRoll = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
     private ArrayList<Integer> parkedDices = new ArrayList<>();
@@ -59,7 +64,6 @@ public class PlayerController {
         this.clientHandler = clientHandler;
 
     }
-
     // 2 Functions
 
     // 1 Fun - in die Liste einsetzt
@@ -148,11 +152,11 @@ public class PlayerController {
         this.parkDiceCount = parkDiceCount;
     }
 
-    public boolean isReRoll() {
+    public int isReRoll() {
         return reRoll;
     }
 
-    public void setReRoll(boolean reRoll) {
+    public void setReRoll(int reRoll) {
         this.reRoll = reRoll;
     }
 
@@ -254,5 +258,37 @@ public class PlayerController {
 
     public void setHasTroublemaker(boolean hasTroublemaker) {
         this.hasTroublemaker = hasTroublemaker;
+    }
+
+    public int getTempReRoll() {
+        return tempReRoll;
+    }
+
+    public void setTempReRoll(int tempReRoll) {
+        this.tempReRoll = tempReRoll;
+    }
+
+    public boolean isKanguru() {
+        return kanguru;
+    }
+
+    public void setKanguru(boolean kanguru) {
+        this.kanguru = kanguru;
+    }
+
+    public int getRoomMateDiceCount() {
+        return roomMateDiceCount;
+    }
+
+    public void setRoomMateDiceCount(int roomMateDiceCount) {
+        this.roomMateDiceCount = roomMateDiceCount;
+    }
+
+    public int getRoomMateAmount() {
+        return roomMateAmount;
+    }
+
+    public void setRoomMateAmount(int roomMateAmount) {
+        this.roomMateAmount = roomMateAmount;
     }
 }

@@ -544,7 +544,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void setUpDice() {
         Log.d("setUpDice", "called");
-        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
+        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()), this.player.isKanguru());
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -561,7 +561,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-                dicePopUpActivity.rollDice(player.getDiceCount());
+                dicePopUpActivity.rollDice(this.player.getDiceCount() + this.player.getRoomMateDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -683,7 +683,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             diceIsRolled = true;
 
             if (diceIsRolled) {
-                if (!player.isReRoll()) {
+                if (player.isReRoll() == 0 ) {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
@@ -698,8 +698,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 checkSpecialCards(pralinen);
 
                 Log.d("player dice usable rolled", playerDice.toString());
-                Log.d("player dice usable rolled", enemyDice.toString());
-                highlightBoardCards(playerDice);
+                Log.d("player enemyDice", enemyDice.toString());
+                // highlightBoardCards(playerDice);
             }
         });
 
@@ -888,9 +888,133 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void cardBenefit(String benefit){
         switch (benefit){
             case "badewanne sauber":
+                this.player.setKanguru(true);
+                break;
 
+            case "geschirr sauber":
+                if(this.player.isReRoll() == 1){
+                    this.player.setReRoll(this.player.isReRoll()+1);
+                }
+                break;
+
+            case "couch sauber":
+                if(this.player.getParkDiceCount() == 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                }
+                break;
+
+            case "alles sauber":
+                this.player.setKanguru(true);
+                if(this.player.isReRoll() == 1){
+                    this.player.setReRoll(this.player.isReRoll()+1);
+                }
+                if(this.player.getParkDiceCount() == 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                }
+                break;
+
+            case "ich wach":
+                if (this.player.getDiceCount() < 4){
+                    this.player.setDiceCount(this.player.getDiceCount() + 1);
+                }
+                if (this.player.getParkDiceCount() < 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                }
+                break;
+
+            case "alle wach":
+                if (this.player.getDiceCount() < 4){
+                    this.player.setDiceCount(this.player.getDiceCount() + 1);
+                }
+                if (this.player.getParkDiceCount() < 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                }
+                if (this.player.getRoomMateDiceCount() == 0){
+                    this.player.setRoomMateDiceCount(this.player.getRoomMateAmount());
+                }
+                break;
+
+            default:
+                System.out.println("No benefits");
         }
     }
+
+    public void cardPenalty(String penalty){
+        switch (penalty){
+            case "badewanne dreckig":
+                this.player.setKanguru(false);
+                break;
+
+            case "geschirr dreckig":
+                if (this.player.isReRoll() > 1){
+                    this.player.setReRoll(this.player.isReRoll()-1);
+                }
+                break;
+
+            case "couch dreckig":
+                if(this.player.getParkDiceCount() > 3){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                }
+                break;
+
+            case "alles dreckig":
+                this.player.setKanguru(false);
+                if (this.player.isReRoll() > 1){
+                    this.player.setReRoll(this.player.isReRoll()-1);
+                }
+                if(this.player.getParkDiceCount() > 3){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                }
+                break;
+
+            case "ich schlafe":
+                if (this.player.getDiceCount() > 3){
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                }
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
+                }
+                break;
+
+            case "alle schlafen":
+                if (this.player.getDiceCount() > 3){
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                }
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
+                }
+                if (this.player.getRoomMateDiceCount() > 0){
+                    this.player.setRoomMateDiceCount(0);
+                }
+        }
+    }
+
+    public void addRoomMateEasy(){
+        this.player.setRoomMateAmount(this.player.getRoomMateAmount()+1);
+        this.player.setRoomMateDiceCount(this.player.getRoomMateDiceCount()+1);
+    }
+
+    public void addRoomMateDifficult(String benefit){
+        addRoomMateEasy();
+        cardBenefit(benefit);
+    }
+
+    public void addTroubleMaker(String penalty, int pralinen){
+            cardPenalty(penalty);
+            this.player.setPralinen(this.player.getPralinen() + pralinen);
+            this.player.setHasTroublemaker(true);
+    }
+
+    public void addItem(String penalty){
+        cardPenalty(penalty);
+        this.player.setPralinen(this.player.getPralinen() + 2);
+    }
+
+    public void removeItem(){
+        this.player.setPralinen(this.player.getPralinen() - 2);
+    }
+
+
 
     private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
@@ -928,6 +1052,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private void setListeners() {
         activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
             if (activityGameboardBinding.btnRollDice.getText().equals("würfeln")) {
+                this.player.setTempReRoll(this.player.isReRoll()-1);
                 startDiceRolling(view);
                 // vorerst testweise auf true setzen
                 hasCheated = true;

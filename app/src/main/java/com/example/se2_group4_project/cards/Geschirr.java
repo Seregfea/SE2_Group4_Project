@@ -12,6 +12,8 @@ public class Geschirr {
 
     private int following;
 
+    private String benefit = "geschirr sauber";
+
     public Geschirr(JSONObject geschirr) throws JSONException {
         this.following = geschirr.getInt("following");
     }
@@ -69,5 +71,13 @@ public class Geschirr {
 
     public void setFollowing(int following) {
         this.following = following;
+    }
+
+    public String getBenefit() {
+        return benefit;
+    }
+
+    public void setBenefit(String benefit) {
+        this.benefit = benefit;
     }
 }
