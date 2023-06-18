@@ -47,6 +47,8 @@ public class PlayerController {
 
     private int pralinen;
 
+    private boolean hasTroublemaker = false;
+
     public PlayerController(){}
 
 
@@ -242,5 +244,13 @@ public class PlayerController {
 
     public void setPralinen(int pralinen) {
         this.pralinen = pralinen;
+    }
+
+    public boolean isHasTroublemaker() {
+        return hasTroublemaker;
+    }
+
+    public void setHasTroublemaker(boolean hasTroublemaker) {
+        this.hasTroublemaker = hasTroublemaker;
     }
 }
