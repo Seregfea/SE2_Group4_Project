@@ -5,18 +5,14 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import java.util.ArrayList;
 
 public class Schaukelstuhl {
-
-    PointDisplay pointDisplay = new PointDisplay();
-    private int points = pointDisplay.getPoints();
-
-    //punkte auch von anderen Spielern von Heinz
-
-    public void checkSpecialCards(){
-       //Liste vom aktuellen Player
-
-        if(points >= 16){
-
-       }
+    private int chairCount;
+    public void setUpChair(){
+        setChairCount(0);
     }
-
+    public int getChairCount() {
+        return chairCount;
+    }
+    public void setChairCount(int chairCount) {
+        this.chairCount = chairCount;
+    }
 }
