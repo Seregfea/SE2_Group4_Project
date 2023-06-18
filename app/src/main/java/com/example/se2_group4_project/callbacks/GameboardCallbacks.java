@@ -32,9 +32,5 @@ public interface GameboardCallbacks {
     void getClientHändlerCallbacks(ClientCallbacks clientCallbacks, Handler clientHandler);
     void playerTurn(int playerNumber, ArrayList<Card> cards);
     void reduceDiceCheatingPlayer();
-
-    void disablePlayer();
-
-    void enablePlayer();
     void endTurnPralinen(int pralinen);
 }

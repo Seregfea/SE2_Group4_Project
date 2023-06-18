@@ -72,16 +72,18 @@ public class Client extends Thread implements ClientCallbacks {
                 messageDecode();
                 chooseIdentifierFunction(this.messageIdentifier);
             }
-
             clientHandlerThread.quit();
         } catch (IOException e) {
+            Log.d("exception client read", this.messageInput + e);
             throw new RuntimeException(e);
         }
     }
 
 
     public void messageSend(String messageInput) throws IOException {
+        Log.d("message send client", messageInput);
         serverMessage.writeUTF(messageInput);
+        serverMessage.flush();
     }
 
     private String messageCode(String messageInput) {
@@ -110,6 +112,7 @@ public class Client extends Thread implements ClientCallbacks {
                 break;
             case "1":
                 handlerUIGameboard.post(() -> {
+                    Log.d("client 1 ", this.messageInput);
                     gameboardCallbacks.sendedEnemyDice(jsonToArraylist(this.messageInput));
                 });
                 break;
@@ -122,20 +125,32 @@ public class Client extends Thread implements ClientCallbacks {
             case "3":
                 startPlayer();
                 break;
-            case "6":
-                handlerUIGameboard.post(() -> {
-                    gameboardCallbacks.diceFirstAccept(Integer.parseInt(messageInput));
-                });
-                break;
 
             case "4":
                 handlerUIGameboard.post(() -> {
                     gameboardCallbacks.playerTurn(this.playerSendedNumber,jsonToCard(this.messageInput));
                 });
                 break;
+
             case "5":
                 handlerUIGameboard.post(() -> {
                     gameboardCallbacks.reduceDiceCheatingPlayer();
+                });
+                break;
+
+            case "6":
+                handlerUIGameboard.post(() -> {
+                    gameboardCallbacks.diceFirstAccept(Integer.parseInt(messageInput));
+                });
+                break;
+
+            case "8":
+                handlerUIGameboard.post(() -> {
+                    try {
+                        gameboardCallbacks.cheatFunction();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
                 break;
 
@@ -237,7 +252,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void cheatFunction(String cheatStart) throws IOException {
-        messageSend(messageCode(cheatStart + SPACE + " " + ENEMY));
+        messageSend(messageCode(cheatStart + SPACE + " " + this.playerSendedNumber));
     }
 
 

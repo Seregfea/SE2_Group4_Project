@@ -11,16 +11,21 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 import com.example.se2_group4_project.R;
+import com.example.se2_group4_project.databinding.ActivityCheatPopupBinding;
 
 public class CheatPopUpActivity extends PopupWindow {
     private View cheatPopUpView;
     private int cheatingPlayer;
+
+    private ActivityCheatPopupBinding activityCheatPopupBinding;
     @SuppressLint("InflateParams")
-    public CheatPopUpActivity(Context context){
+    public CheatPopUpActivity(Context context, ActivityCheatPopupBinding activityCheatPopupBinding){
         super(context);
         Log.d("Cheating", "I am your Popup!");
-        cheatPopUpView = LayoutInflater.from(context).inflate(R.layout.cheat_popup, null);
-        setContentView(cheatPopUpView);
+        this.activityCheatPopupBinding = activityCheatPopupBinding;
+        View view = this.activityCheatPopupBinding.getRoot();
+        //cheatPopUpView = LayoutInflater.from(context).inflate(R.layout.activity_cheat_popup, null);
+        setContentView(view);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);

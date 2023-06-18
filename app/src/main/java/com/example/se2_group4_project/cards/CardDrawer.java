@@ -2,6 +2,7 @@ package com.example.se2_group4_project.cards;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.se2_group4_project.Gameboard;
@@ -159,6 +160,7 @@ public class CardDrawer {
                     Item item = new Item(itemObjekt);
 
                     if (item.isAvailable(rolledDices)) {
+                        Log.d("Highlight", "Item Highlight");
                         gameboard.highlightCards(card);
                     }
                     break;

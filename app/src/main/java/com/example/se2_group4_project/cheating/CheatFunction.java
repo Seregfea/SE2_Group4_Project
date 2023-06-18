@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.PopupWindow;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 
@@ -48,9 +49,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         {
             accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             isSensorAvailable = true;
-            Log.d("Sensor", "Sensor available!");
+            Log.d("Sensor CheatShake", "Sensor available!");
         }else{
-            Log.d("Sensor", "Sensor is not available!");
+            Log.d("Sensor CheatShake", "Sensor is not available!");
             isSensorAvailable = false;
         }
     }
@@ -61,8 +62,9 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
     public void registerSensor(){
         if (isSensorAvailable){
             sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(cheatContext, "Sensor aktiviert", Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("Sensor", "Sensor is not available!");
+            Log.d("Sensor Register", "Sensor is not available!");
             setTestValue(3);
         }
     }
@@ -71,7 +73,7 @@ public class CheatFunction extends PopupWindow implements SensorEventListener {
         if (isSensorAvailable){
             sensorManager.unregisterListener(this);
         } else {
-            Log.d("Sensor", "Sensor is not available!");
+            Log.d("Sensor Unregister", "Sensor is not available!");
             setTestValue(4);
         }
     }

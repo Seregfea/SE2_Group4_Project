@@ -186,7 +186,9 @@ public class PlayerController {
             public void run() {
                 try {
                     clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
-                } catch (IOException e) {
+                    Thread.sleep(1000);
+                    clientCallbacks.cheatFunction("8");
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
