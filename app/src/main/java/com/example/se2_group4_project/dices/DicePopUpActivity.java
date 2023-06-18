@@ -34,6 +34,7 @@ public class DicePopUpActivity extends PopupWindow {
     private int isEnemyDice = 0;
     private final int delayTime = 20;
     private final int rollAnimation = 40;
+    private boolean kanguru = false;
     private ArrayList<Integer> playerDices;
     private ArrayList<Integer> enemyDices;
     private ArrayList<Integer> selectedDices;
@@ -56,12 +57,13 @@ public class DicePopUpActivity extends PopupWindow {
     }
 
     @SuppressLint("InflateParams")
-    public DicePopUpActivity(Context context, GameboardCallbacks gameboardCallbacks, Handler handler) {
+    public DicePopUpActivity(Context context, GameboardCallbacks gameboardCallbacks, Handler handler, boolean kanguru) {
         super(context);
         dicePopUpView = LayoutInflater.from(context).inflate(R.layout.activity_dice, null);
 
         this.gbCallbacks = gameboardCallbacks;
         this.handler = handler;
+        this.kanguru = kanguru;
 
         setContentView(dicePopUpView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -209,11 +211,11 @@ public class DicePopUpActivity extends PopupWindow {
                     selectedDices.add(diceValue);
                 }
                 // überprüfen ob ein Känguru ausgewählt ist und das Textfeld entsprechend bearbeitbar machen
-                if (diceValue == 6 && selectedDices.contains(diceValue)) {
+                if (diceValue == 6 && selectedDices.contains(diceValue) && kanguru) {
                     changeDiceValue.setEnabled(true);
                     Log.d("change dice value called", "enabled");
                 }
-                else if (diceValue == 6 && !selectedDices.contains(diceValue)) {
+                else if (diceValue == 6 && !selectedDices.contains(diceValue) && !kanguru) {
                     changeDiceValue.setEnabled(false);
                     Log.d("change dice value called", "disabled");
                 }
