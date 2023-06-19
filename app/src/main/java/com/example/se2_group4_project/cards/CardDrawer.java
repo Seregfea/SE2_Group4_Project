@@ -173,7 +173,7 @@ public class CardDrawer {
         ArrayList<Card> cardNew = new ArrayList<>();
         cardNew = cards;
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
+        Log.d("card new", cardNew.toString());
         switch (toMap) {
             case "item.json":
                 Log.d("Json context item", "");
@@ -189,6 +189,7 @@ public class CardDrawer {
                     int id = cardContext.getResources().getIdentifier(drawable, null, cardContext.getPackageName());
                     Log.d("Json context id1", id + "");
                     for (int d = 0; d < cardNew.size(); d++) {
+                        Log.d("Json context loop", cardNew.get(d).getImageViewID() + "");
                         if (cardNew.get(d).getImageViewID() == id) {
                             Log.d("Json context id2", cardNew.get(d).getImageViewID() + "");
                             cardNew.get(d).setItem(item.get(i));

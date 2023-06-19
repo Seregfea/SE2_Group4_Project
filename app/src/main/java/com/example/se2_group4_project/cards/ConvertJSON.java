@@ -20,10 +20,8 @@ import java.util.ArrayList;
 public class ConvertJSON {
 
     private Context applicationContext;
-    ObjectMapper mapper;
 
     public ConvertJSON (Context context){
-        this.mapper = new ObjectMapper();
         this.applicationContext = context;
     }
 

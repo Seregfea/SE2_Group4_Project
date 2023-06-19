@@ -212,7 +212,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 Log.d("no player", "no player " + player);
                 break;
         }
-        c.addCardsType(this);
+
         this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,0);
         createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.playerRecyclerviewAdabter);
         this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,1);
@@ -230,14 +230,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
        // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
-
+        c.addCardsType(this);
         // Card Listeners
         addCardsToPlayerListener();
         addRoommateEasyCardsToPlayer();
         addRoommateDifficultCardsToPlayer();
         addWitzigCardsToPlayer();
         addWitzigWitzigCardsToPlayer();
-        addTroublemakerCardsToPlayer();
+        //addTroublemakerCardsToPlayer();
 
         // checking pralinen and other cards methods
         checkSpecialCards(pralinen);
@@ -366,8 +366,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
             final Card card = c.getTroublemakerStack().get(i);
 
-            c.getTroublemakerStack().remove(card);
+
             addTroubleMaker(card.getTroublemaker().getTroublemakerPenalty(), card.getTroublemaker().getSchnapspralinen());
+            c.getTroublemakerStack().remove(card);
             System.out.println("Clicked troublemaker card");
             activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
 
@@ -713,7 +714,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 testDice();
                 Log.d("player dice usable rolled", playerDice.toString());
                 Log.d("player enemyDice", enemyDice.toString());
-                highlightBoardCards(playerDice);
+                //highlightBoardCards(playerDice);
             }
         });
 
