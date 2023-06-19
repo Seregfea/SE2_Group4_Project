@@ -34,13 +34,8 @@ public class WitzigToDosTest {
 
         witzigObjekt.put("schnapspralinen", 4);
 
-        //JSONArray toDoswitzig = new JSONArray();
-        //toDoswitzig.put("TABLEWARE");
-        //ArrayList<String> toDoPenaltyList = new ArrayList<>();
-        //for (int i = 0; i < toDoswitzig.length(); i++) {
-        //    toDoPenaltyList.add(toDoswitzig.getString(i));
-        //}
-        //witzigObjekt.put("toDoPenalty", toDoswitzig);
+        witzigObjekt.put("toDoPenalty", "TABLEWARE");
+
         witzigToDos = new WitzigToDos(witzigObjekt);
 
         rolledDice.add(1);
@@ -80,9 +75,6 @@ public class WitzigToDosTest {
         int expectedCount2 = 1;
         assertEquals(expectedCount2, actualCount2);
 
-        //ArrayList<String> actualToDoPenalty = witzigToDos.getToDoPenalty();
-        //ArrayList<String> expectedToDoPenalty = new ArrayList<>();
-        //assertEquals(expectedToDoPenalty, actualToDoPenalty);
 
     }
 

@@ -63,15 +63,8 @@ public class WitzigToDos {
         }
 
 
-
-        //JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
-        //for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-        //    toDoPenalty.add(toDoPenaltyArray.getString(i));
-        //}
-
         try {
 
-            //for (int j = 0; j < toDoPenaltyArray.length(); j++) {
                 switch ("toDoPenalty") {
                     case "BATHTUB":
                         this.bathtub = true;

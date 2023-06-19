@@ -70,16 +70,8 @@ public class WitzigWitzigToDos {
             this.filledFields.add("count4");
         }
 
-
-        //this.toDoPenalty = new ArrayList<>();
-
-        //JSONArray toDoPenaltyArray = witzigWitzigCards.getJSONArray("toDoPenalty");
-        //for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-        //}
-
         try {
 
-            //for (int i = 0; i < toDoPenaltyArray.length(); i++) {
                 switch ("toDoPenalty") {
                     case "BATHTUB":
                         this.bathtub = true;
