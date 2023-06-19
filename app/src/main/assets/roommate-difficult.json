@@ -2,8 +2,8 @@
   {
     "id": 0,
     "name": "Bukowksi",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "does_not_sleep",
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "ich wach",
     "following": 4,
     "cardFront": "spezial_bukowski_vs",
     "cardBack": "spezial_bukowski_rs",
@@ -12,9 +12,9 @@
   {
     "id": 1,
     "name": "Friedrich-Wilhelm",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "clean_dishes",
-    "following": 3,
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "geschirr sauber",
+    "following": 4,
     "cardFront": "spezial_friedrichwilhelm_vs",
     "cardBack": "spezial_friedrichwilhelm_rs",
     "isFront": false
@@ -22,8 +22,8 @@
   {
     "id": 2,
     "name": "Herta",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "clean_couch",
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "couch sauber",
     "count": 3,
     "cardFront": "spezial_herta_vs",
     "cardBack": "spezial_herta_rs",
@@ -32,8 +32,8 @@
   {
     "id": 3,
     "name": "Krapotke",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "park_dice",
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "badewanne sauber",
     "count": 3,
     "cardFront": "spezial_krapotke_vs",
     "cardBack": "spezial_krapotke_rs",
@@ -42,9 +42,9 @@
   {
     "id": 4,
     "name": "Marc-Uwe",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "reroll",
-    "following": 3,
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "alle wach",
+    "following": 4,
     "cardFront": "spezial_marcuwe_vs",
     "cardBack": "spezial_marcuwe_rs",
     "isFront": false
@@ -52,9 +52,9 @@
   {
     "id": 5,
     "name": "Maria",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "reroll",
-    "following": 3,
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "ich wach",
+    "following": 4,
     "cardFront": "spezial_maria_vs",
     "cardBack": "spezial_maria_rs",
     "isFront": false
@@ -62,9 +62,9 @@
   {
     "id": 6,
     "name": "Otto-Von",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "clean_bathtub",
-    "following": 3,
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "geschirr sauber",
+    "following": 4,
     "cardFront": "spezial_ottovon_vs",
     "cardBack": "spezial_ottovon_rs",
     "isFront": false
@@ -72,8 +72,8 @@
   {
     "id": 7,
     "name": "Sarah",
-    "cardType": "ROOMMATE",
-    "roommateBenefit": "park_dice",
+    "cardType": "ROOMMATEDIFF",
+    "roommateBenefit": "couch sauber",
     "count": 3,
     "cardFront": "spezial_sarah_vs",
     "cardBack": "spezial_sarah_rs",

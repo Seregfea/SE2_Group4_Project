@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Badewanne {
 
@@ -15,20 +16,20 @@ public class Badewanne {
     int number;
     int count;
 
+    private String benefit = "badewanne sauber";
+
+
     public Badewanne(JSONObject badewanne) throws JSONException {
         this.number = badewanne.getInt("number");
         this.count = badewanne.getInt("count");
     }
 
-    public boolean checkBadewanne(){
-
-        return isKanguru();
-    }
-
-    public boolean isAvailable(ArrayList<Integer> rolledDice){
+    public boolean isAvailable(ArrayList<Integer> rolledDice)  {
         boolean isAvailable = false;
         int usedCount = count;
-
+        if (rolledDice.size() == 0){
+            return false;
+        }
         for (int i = 0; i < rolledDice.size(); i++){
             if (rolledDice.get(i) == number) {
                 usedCount--;
@@ -62,5 +63,13 @@ public class Badewanne {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getBenefit() {
+        return benefit;
+    }
+
+    public void setBenefit(String benefit) {
+        this.benefit = benefit;
     }
 }

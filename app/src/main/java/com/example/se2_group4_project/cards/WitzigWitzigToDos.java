@@ -9,7 +9,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
+
 public class WitzigWitzigToDos {
+    private int id;
+    private String name;
+    private CardType cardType;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
 
     private int schnapspralinen;
     private ArrayList<String> toDoPenalty;
@@ -29,6 +38,11 @@ public class WitzigWitzigToDos {
     private int count4;
     private Set<String> filledFields;
 
+    private String penalty;
+
+    public WitzigWitzigToDos(){
+        super();
+    }
     public WitzigWitzigToDos(JSONObject witzigWitzigCards) throws JSONException {
 
         this.schnapspralinen = witzigWitzigCards.getInt("schnapspralinen");
@@ -69,27 +83,32 @@ public class WitzigWitzigToDos {
         }
 
 
-        JSONArray toDoPenalty = witzigWitzigCards.getJSONArray("toDoPenalty");
+        /*JSONArray toDope = witzigWitzigCards.getJSONArray("toDoPenalty");
 
         try {
-            Integer k = (Integer) toDoPenalty.get(0);
+            Integer k = (Integer) toDope.get(0);
 
-            for (int i = 0; i < toDoPenalty.length(); i++) {
-                switch (toDoPenalty.getString(i)) {
+            for (int i = 0; i < toDope.length(); i++) {
+                switch (toDope.getString(i)) {
                     case "BATHTUB":
                         this.bathtub = true;
+                        this.penalty = "badewanne dreckig";
                         break;
                     case "COUCH":
                         this.couch = true;
+                        this.penalty = "couch dreckig";
                         break;
                     case "TABLEWARE":
                         this.tableware = true;
+                        this.penalty = "geschirr dreckig";
                         break;
                     case "SLEEP":
                         this.sleep = true;
+                        this.penalty = "ich schlafe";
                         break;
                     case "AWAKE":
                         this.awake = true;
+                        this.penalty = "alle schlafen";
                         break;
                     default:
                         System.out.println("No to-do penalty assignments to do");
@@ -99,7 +118,7 @@ public class WitzigWitzigToDos {
 
         } catch (JSONException e) {
 
-        }
+        }*/
     }
 
 
@@ -176,7 +195,13 @@ public class WitzigWitzigToDos {
 
 
     // Getters and Setters
+    public String getCardFront() {
+        return cardFront;
+    }
 
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     public int getSchnapspralinen() { return schnapspralinen; }
     public ArrayList<String> getToDoPenalty() { return toDoPenalty; }
     public boolean getBathtub() { return bathtub; }
@@ -213,6 +238,11 @@ public class WitzigWitzigToDos {
     public void setCount3(int count3) { this.count3 = count3; }
     public void setCount4(int count4) { this.count4 = count4; }
 
+    public String getPenalty() {
+        return penalty;
+    }
 
-
+    public void setPenalty(String penalty) {
+        this.penalty = penalty;
+    }
 }

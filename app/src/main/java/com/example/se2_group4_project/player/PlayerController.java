@@ -20,28 +20,43 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PlayerController {
-    private final int playerID;
+    private int playerID;
     private ArrayList<Card> playerInitialCards;
+
+    private ArrayList<Card> playerOneCards;
+    private ArrayList<Card> playerTwoCards;
+    private ArrayList<Card> playerThreeCards;
+
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
     private int playerTurn = 0;
     private int diceCount = 4;
 
+    private boolean hasWon = false;
 
+    private int roomMateDiceCount = 0;
 
+    private int roomMateAmount = 0;
+
+    private boolean kanguru = false;
     private int myTurn = 0;
 
     // testweise auf 1
-    private int parkDiceCount = 1;
+    private int parkDiceCount = 2;
 
     // tesweise auf true
-    private boolean reRoll = true;
+    private int reRoll = 1;
+
+    private int tempReRoll = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
     private ArrayList<Integer> parkedDices = new ArrayList<>();
 
     private int pralinen;
 
+    private boolean hasTroublemaker = false;
+
+    public PlayerController(){}
 
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
@@ -51,7 +66,6 @@ public class PlayerController {
         this.clientHandler = clientHandler;
 
     }
-
     // 2 Functions
 
     // 1 Fun - in die Liste einsetzt
@@ -89,9 +103,6 @@ public class PlayerController {
         }
     }
 
-    public void cardsRemove() {
-
-    }
 
     // Listen mit Würfeln den Client weiterschickt
     // Array Listen von Interger
@@ -140,11 +151,11 @@ public class PlayerController {
         this.parkDiceCount = parkDiceCount;
     }
 
-    public boolean isReRoll() {
+    public int isReRoll() {
         return reRoll;
     }
 
-    public void setReRoll(boolean reRoll) {
+    public void setReRoll(int reRoll) {
         this.reRoll = reRoll;
     }
 
@@ -178,7 +189,9 @@ public class PlayerController {
             public void run() {
                 try {
                     clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
-                } catch (IOException e) {
+                    Thread.sleep(1000);
+                    clientCallbacks.cheatFunction("8");
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -200,5 +213,89 @@ public class PlayerController {
     public void setMyTurn(int myTurn) {
         this.myTurn = myTurn;
 
+    }
+
+    public void setPlayerInitialCards(ArrayList<Card> playerInitialCards) {
+        this.playerInitialCards = playerInitialCards;
+    }
+
+    public ArrayList<Card> getPlayerOneCards() {
+        return playerOneCards;
+    }
+
+    public void setPlayerOneCards(ArrayList<Card> playerOneCards) {
+        this.playerOneCards = playerOneCards;
+    }
+
+    public ArrayList<Card> getPlayerTwoCards() {
+        return playerTwoCards;
+    }
+
+    public void setPlayerTwoCards(ArrayList<Card> playerTwoCards) {
+        this.playerTwoCards = playerTwoCards;
+    }
+
+    public ArrayList<Card> getPlayerThreeCards() {
+        return playerThreeCards;
+    }
+
+    public void setPlayerThreeCards(ArrayList<Card> playerThreeCards) {
+        this.playerThreeCards = playerThreeCards;
+    }
+
+    public int getPralinen() {
+        return pralinen;
+    }
+
+    public void setPralinen(int pralinen) {
+        this.pralinen = pralinen;
+    }
+
+    public boolean isHasTroublemaker() {
+        return hasTroublemaker;
+    }
+
+    public void setHasTroublemaker(boolean hasTroublemaker) {
+        this.hasTroublemaker = hasTroublemaker;
+    }
+
+    public int getTempReRoll() {
+        return tempReRoll;
+    }
+
+    public void setTempReRoll(int tempReRoll) {
+        this.tempReRoll = tempReRoll;
+    }
+
+    public boolean isKanguru() {
+        return kanguru;
+    }
+
+    public void setKanguru(boolean kanguru) {
+        this.kanguru = kanguru;
+    }
+
+    public int getRoomMateDiceCount() {
+        return roomMateDiceCount;
+    }
+
+    public void setRoomMateDiceCount(int roomMateDiceCount) {
+        this.roomMateDiceCount = roomMateDiceCount;
+    }
+
+    public int getRoomMateAmount() {
+        return roomMateAmount;
+    }
+
+    public void setRoomMateAmount(int roomMateAmount) {
+        this.roomMateAmount = roomMateAmount;
+    }
+
+    public boolean isHasWon() {
+        return hasWon;
+    }
+
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 }

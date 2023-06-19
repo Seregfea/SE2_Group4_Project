@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.example.se2_group4_project.cards.Card;
 import com.example.se2_group4_project.player.PlayerController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -15,28 +16,93 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
     Context context;
-    List<Card> items;
+    ArrayList<Card> items;
     PlayerController playerController;
-    int LayoutID;
+    int layoutID;
+    int playerID;
 
-
-    public MyRecyclerviewAdabter(Context context, List<Card> items, int layoutID) {
+    public MyRecyclerviewAdabter(Context context, PlayerController playerController, int layoutID, int player) {
+        Log.d("recycler array",""+playerController);
+        Log.d("recycler arraylist", ""+playerController.getPlayerInitialCards());
         this.context = context;
-        this.items = items;
-        this.LayoutID = layoutID;
+        this.items = new ArrayList<>();
+        this.playerID = player;
+        this.layoutID = layoutID;
+        this.playerController = playerController;
+        switch (playerID) {
+            case 0:
+                this.items = this.playerController.getPlayerInitialCards();
+                break;
+            case 1:
+                this.items = this.playerController.getPlayerOneCards();
+                break;
+            case 2:
+                this.items = this.playerController.getPlayerTwoCards();
+                break;
+            case 3:
+                this.items = this.playerController.getPlayerThreeCards();
+                break;
+            default:
+                break;
+        }
+       //getCardsArray(this.playerID);
+        Log.d("palyer recycler", this.playerController.toString());
     }
 
-    public MyRecyclerviewAdabter(Context context, PlayerController playerController, int layoutID) {
-        this.context = context;
-        this.items = playerController.getPlayerInitialCards();
-        this.LayoutID = layoutID;
-        this.playerController = playerController;
+
+    public void removeCardsArray(Card card){
+        switch (this.playerID) {
+            case 0:
+                this.items.remove(card);
+                this.playerController.setPlayerInitialCards(this.items);
+                break;
+            case 1:
+                this.items.remove(card);
+                this.playerController.setPlayerOneCards(this.items);
+                break;
+            case 2:
+                this.items.remove(card);
+                this.playerController.setPlayerTwoCards(this.items);
+                break;
+            case 3:
+                this.items.remove(card);
+                this.playerController.setPlayerThreeCards(this.items);
+                break;
+            default:
+                break;
+        }
+    }
+    public void addCardsArray(Card card){
+        switch (this.playerID) {
+            case 0:
+                this.items.add(card);
+                this.playerController.setPlayerInitialCards(this.items);
+                break;
+            case 1:
+                this.items.add(card);
+                this.playerController.setPlayerOneCards(this.items);
+                break;
+            case 2:
+                this.items.add(card);
+                this.playerController.setPlayerTwoCards(this.items);
+                break;
+            case 3:
+                this.items.add(card);
+                this.playerController.setPlayerThreeCards(this.items);
+                break;
+            default:
+                break;
+        }
+    }
+    public PlayerController getPlayer(){
+        return this.playerController;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(this.LayoutID,parent,false));
+        Log.d("viewholder cards",viewType+"" );
+        return new MyViewHolder(LayoutInflater.from(context).inflate(this.layoutID,parent,false));
     }
 
     @Override
@@ -51,25 +117,10 @@ public class MyRecyclerviewAdabter extends RecyclerView.Adapter<MyViewHolder>{
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return this.items.size();
     }
 
-    public void addPlayerItem(Card card){
-        Log.d("add card recycler", card+"");
-        Log.d("add card recycler", this.playerController.getPlayerInitialCards()+"");
-        this.playerController.addPlayerInitialCard(card);
-        this.items = this.playerController.getPlayerInitialCards();
-    }
 
-    public void removePlayerItemItem(Card card){
-        this.playerController.removePlayerInitialCard(card);
-        this.items = this.playerController.getPlayerInitialCards();
-    }
-    public void addCardItem(Card card){
-        this.items.add(card);
-    }
-    public void removeCardItem(Card card){
-        this.items.remove(card);
-    }
+
 
 }

@@ -5,12 +5,7 @@
     "cardType": "WITZIG",
     "number": "3",
     "count": 3,
-
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alles dreckig"],
     "schnapspralinen": 5,
     "cardFront": "witzig_toepfern",
     "cardBack": "witzig_rs",
@@ -21,11 +16,7 @@
     "name": "Anti-Terror-Anschlag planen",
     "cardType": "WITZIG",
     "count": 4,
-
-    "toDoPenalty": [
-      "BATHTUB",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["ich schlafe"],
     "schnapspralinen": 5,
     "cardFront": "witzig_antiterror",
     "cardBack": "witzig_rs",
@@ -37,11 +28,7 @@
     "cardType": "WITZIG",
     "number": "4",
     "count": 3,
-    "toDoPenalty": [
-      "BATHTUB",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alle schlafen"],
     "schnapspralinen": 5,
     "cardFront": "witzig_boxtraining",
     "cardBack": "witzig_rs",
@@ -52,12 +39,7 @@
     "name": "Dielenboden abschleifen",
     "cardType": "WITZIG",
     "min_sum": 20,
-
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alles dreckig"],
     "schnapspralinen": 6,
     "cardFront": "witzig_dielenboden",
     "cardBack": "witzig_rs",
@@ -68,11 +50,7 @@
     "name": "Eierkuchen backen",
     "cardType": "WITZIG",
     "min_sum": 16,
-
-    "toDoPenalty": [
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["ich schlafe"],
     "schnapspralinen": 4,
     "cardFront": "witzig_eierkuchen",
     "cardBack": "witzig_rs",
@@ -84,12 +62,7 @@
     "cardType": "WITZIG",
     "count": 2,
     "count2": 2,
-
-    "toDoPenalty": [
-      "COUCH",
-      "BATHTUB",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alle schlafen"],
     "schnapspralinen": 5,
     "cardFront": "witzig_geheimbund",
     "cardBack": "witzig_rs",
@@ -100,11 +73,7 @@
     "name": "Zu Nirvana durchs Zimmer pogen",
     "cardType": "WITZIG",
     "min_sum": 18,
-
-    "toDoPenalty": [
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alles dreckig"],
     "schnapspralinen": 5,
     "cardFront": "witzig_nirvana",
     "cardBack": "witzig_rs",
@@ -117,12 +86,7 @@
     "count": 2,
     "number2": "2",
     "count2": 2,
-
-    "toDoPenalty": [
-      "COUCH",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["ich schlafe"],
     "schnapspralinen": 6,
     "cardFront": "witzig_nottodoliste",
     "cardBack": "witzig_rs",
@@ -134,11 +98,7 @@
     "cardType": "WITZIG",
     "number": "1",
     "following": 3,
-
-    "toDoPenalty": [
-      "TABLEWARE",
-      "AWAKE"
-    ],
+    "toDoPenalty": ["alle schlafen"],
     "schnapspralinen": 2,
     "cardFront": "witzig_posaune",
     "cardBack": "witzig_rs",
@@ -150,11 +110,7 @@
     "cardType": "WITZIG",
     "number": "5",
     "count": 3,
-
-    "toDoPenalty": [
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alles dreckig"],
     "schnapspralinen": 5,
     "cardFront": "witzig_sinndeslebens",
     "cardBack": "witzig_rs",
@@ -165,11 +121,7 @@
     "name": "Transformers gucken in doppelter Geschwindigkeit",
     "cardType": "WITZIG",
     "count": 4,
-
-    "toDoPenalty": [
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["ich schlafe"],
     "schnapspralinen": 5,
     "cardFront": "witzig_transformers",
     "cardBack": "witzig_rs",
@@ -181,11 +133,7 @@
     "cardType": "WITZIG",
     "number": "1",
     "count": 3,
-
-    "toDoPenalty": [
-      "BATHTUB",
-      "SLEEP"
-    ],
+    "toDoPenalty": ["alle schlafen"],
     "schnapspralinen": 5,
     "cardFront": "witzig_youtube",
     "cardBack": "witzig_rs",

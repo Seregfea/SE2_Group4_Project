@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -28,11 +29,21 @@ import com.example.se2_group4_project.backend.callbacks.ClientCallbacks;
 import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
+import com.example.se2_group4_project.cards.Badewanne;
+import com.example.se2_group4_project.cards.CardType;
+import com.example.se2_group4_project.cards.Couch;
+import com.example.se2_group4_project.cards.Geschirr;
+import com.example.se2_group4_project.cards.Me;
+import com.example.se2_group4_project.cards.RoommateDifficult;
+import com.example.se2_group4_project.cards.RoommateEasy;
+import com.example.se2_group4_project.cards.Troublemaker;
+import com.example.se2_group4_project.cards.WitzigToDos;
+import com.example.se2_group4_project.cards.WitzigWitzigToDos;
 import com.example.se2_group4_project.cheating.CheatFunction;
 import com.example.se2_group4_project.cheating.CheatPopUpActivity;
+import com.example.se2_group4_project.databinding.ActivityCheatPopupBinding;
 import com.example.se2_group4_project.databinding.ActivityDiceBinding;
 import com.example.se2_group4_project.databinding.ActivityGameboardBinding;
-import com.example.se2_group4_project.cards.Badewanne;
 import com.example.se2_group4_project.dices.DicePopUpActivity;
 
 import com.example.se2_group4_project.cards.Card;
@@ -45,6 +56,7 @@ import com.example.se2_group4_project.pointDisplay.PointDisplay;
 import com.example.se2_group4_project.recyclerview.MyRecyclerviewAdabter;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,13 +70,19 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private Handler clientHandler;
     private ClientCallbacks clientCallbacks;
     private MyRecyclerviewAdabter playerRecyclerviewAdabter;
+    private MyRecyclerviewAdabter myRecyclerviewAdabterLeft;
+    private MyRecyclerviewAdabter myRecyclerviewAdabterTop;
+
     private PlayerController player;
+
+    private final int pralinen = new PointDisplay().getPoints();
 
     public PlayerController getPlayer() {
         return player;
     }
 
     private CardDrawer c;
+    private MyRecyclerviewAdabter myRecyclerviewAdabterRight;
     private DicePopUpActivity dicePopUpActivity;
     // hardcoded
     // später: methode aus player-klasse
@@ -76,7 +94,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private int isParkBtn = 0;
 
     private boolean hasCheated = false;
-    private Badewanne badewanne;
 
     private static List<ImageView> displayedCards = new ArrayList<>();
 
@@ -87,16 +104,30 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     //////////////////////////// activity bindings /////////////////////////////////
     private ActivityGameboardBinding activityGameboardBinding;
     private ActivityDiceBinding activityDiceBinding;
+
+    private ActivityCheatPopupBinding activityCheatPopupBinding;
     private View view;
+
+    /////////////////////////// cheat buttons/variables ///////////////////////////////
+    private Button player1btn;
+    private Button player2btn;
+    private Button player3btn;
+
+    private int cheatCounter;
+    private boolean cheated;
+
+    private PointDisplay pointDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityDiceBinding = ActivityDiceBinding.inflate(getLayoutInflater());
         activityGameboardBinding = ActivityGameboardBinding.inflate(getLayoutInflater());
+        activityCheatPopupBinding = ActivityCheatPopupBinding.inflate(getLayoutInflater());
         view = activityGameboardBinding.getRoot();
         startWindowFeature();
         setContentView(view);
+        this.cheated = false;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -107,7 +138,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         handlerThread = new HandlerThread("boardHandler");
         handlerThread.start();
         Log.d("pointdisplay", "start");
-        PointDisplay pointDisplay = new PointDisplay();
+        pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
         Log.d("carddrawer start", "start");
         initCarddrawer();
@@ -119,8 +150,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-        setUpDice();
-        setListeners();
+            setUpDice();
+            setListeners();
+
+        cheatCounter = 0;
+        cheated = false;
     }
 
     @Override
@@ -153,76 +187,263 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         switch (player) {
             case 0:
-                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));1
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerOrangeStack());
+                this.player = new PlayerController(player, c.getPlayerBlueStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
+                this.player.setPlayerOneCards(c.getPlayerTealStack());
+                this.player.setPlayerTwoCards(c.getPlayerOrangeStack());
+                this.player.setPlayerThreeCards(c.getPlayerGreenStack());
                 break;
             case 1:
                 this.player = new PlayerController(player, c.getPlayerGreenStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerTealStack());
+                this.player.setPlayerOneCards(c.getPlayerBlueStack());
+                this.player.setPlayerTwoCards(c.getPlayerTealStack());
+                this.player.setPlayerThreeCards(c.getPlayerOrangeStack());
                 break;
             case 2:
                 this.player = new PlayerController(player, c.getPlayerOrangeStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerGreenStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerTealStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerBlueStack());
-                break;
+                this.player.setPlayerOneCards(c.getPlayerGreenStack());
+                this.player.setPlayerTwoCards(c.getPlayerBlueStack());
+                this.player.setPlayerThreeCards(c.getPlayerTealStack());
+               break;
             case 3:
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
-                addCardsToLinearLayout(R.id.CardsLayoutLeft, c.getPlayerOrangeStack());
-                addCardsToLinearLayout(R.id.CardsLayoutTop, c.getPlayerBlueStack());
-                addCardsToLinearLayout(R.id.CardsLayoutRight, c.getPlayerGreenStack());
+                this.player.setPlayerOneCards(c.getPlayerOrangeStack());
+                this.player.setPlayerTwoCards(c.getPlayerGreenStack());
+                this.player.setPlayerThreeCards(c.getPlayerBlueStack());
                 break;
             default:
                 Log.d("no player", "no player " + player);
                 break;
         }
-        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.player, R.layout.recycler_item_view);
-        addCardsToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
-        addCardsToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
-        addCardsToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
-        addCardsToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
-        addCardsToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
+
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,0);
+        createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.playerRecyclerviewAdabter);
+        this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,1);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterLeft);
+        this.myRecyclerviewAdabterTop = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,2);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterTop);
+        this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,3);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV, LinearLayoutManager.HORIZONTAL,this.myRecyclerviewAdabterRight);
+
+        addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
+        addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
+        addTopCardToLinearLayout(R.id.witzigLayout, c.getWitzigStack());
+        addTopCardToLinearLayout(R.id.witzigWitzigLayout, c.getWitzigWitzigStack());
+        addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
+       // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
+        c.addCardsType(this);
+        // Card Listeners
+        addCardsToPlayerListener();
+        addRoommateEasyCardsToPlayer();
+        addRoommateDifficultCardsToPlayer();
+        addWitzigCardsToPlayer();
+        addWitzigWitzigCardsToPlayer();
+        //addTroublemakerCardsToPlayer();
+
+        // checking pralinen and other cards methods
+        checkSpecialCards(pralinen);
+
+        Log.d("check item in cards", c.getItemsStack().get(0).getItem().getCardFront());
+        Log.d("check roommate-difficult in cards", c.getRoommateDifficultStack().get(0).getRoommateDifficult().getCardFront());
+        Log.d("check roomate-easy in cards", c.getRoommateEasyStack().get(0).getRoommateEasy().getCardFront());
+        Log.d("check schaukelstuhl in cards", c.getSchaukelstuhlStack().get(0).getSchaukelstuhl().getCardFront());
+        Log.d("check troublemaker in cards", c.getTroublemakerStack().get(0).getTroublemaker().getCardFront());
+        Log.d("check witzigToDo in cards", c.getWitzigStack().get(0).getWitzigToDos().getCardFront());
+        Log.d("check witzigWitzigToDo in cards", c.getWitzigWitzigStack().get(0).getWitzigWitzigToDos().getCardFront());
 
     }
 
-    public void addCardsToPlayer() {
-        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
+    public void addCardsToPlayerListener() {
 
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (int i = 0; i < cardDrawer.getItemsStack().size(); i++) {
-
+        for (int i = 0; i < c.getItemsStack().size(); i++) {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
-            final Card card = cardDrawer.getItemsStack().get(i);
-            Log.d("card gameboard", card.toString());
-            itemCardImage.setOnClickListener(view -> {
-                Log.d("get item card", " click 1");
-                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+            final Card card = c.getItemsStack().get(i);
 
-                this.playerRecyclerviewAdabter.addPlayerItem(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+            Log.d("card gameboard", card.toString());
+            Log.d("card gameboard image", itemCardImage.toString());
+            itemCardImage.setOnClickListener(view -> {
+                if (card.getItem().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(((Object) card.getItem().getNumber()));
+                    tempDice.remove(((Object) card.getItem().getNumber()));
+                    this.getPlayer().setDiceValuesNotUsable(tempDice);
+                    c.getItemsStack().remove(card);
+                    addItem(card.getItem().getItemBenefit());
+                    Log.d("get item card", " click 1");
+                    activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
             });
         }
     }
 
-    private void createItem(View view) {
 
+
+    public void addRoommateEasyCardsToPlayer(){
+
+        for (int i = 0; i < c.getRoommateEasyStack().size(); i++){
+            final ImageView roommateEasyImage = (ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(i);
+            final Card card = c.getRoommateEasyStack().get(i);
+
+            roommateEasyImage.setOnClickListener(view -> {
+                if(card.getRoommateEasy().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(((Object) card.getRoommateEasy().getNumber()));
+                    tempDice.remove(((Object) card.getRoommateEasy().getNumber()));
+                    this.getPlayer().setDiceValuesNotUsable(tempDice);
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.roommateEasyLayout.removeView(roommateEasyImage);
+                    c.getRoommateEasyStack().remove(card);
+                    addRoomMateEasy();
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
+            });
+        }
+    }
+
+    public void addRoommateDifficultCardsToPlayer(){
+
+        for (int i = 0; i < c.getRoommateDifficultStack().size(); i++){
+            final ImageView roommateDifficultImage = (ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(i);
+            final Card card = c.getRoommateDifficultStack().get(i);
+
+            roommateDifficultImage.setOnClickListener(view -> {
+                if(card.getRoommateDifficult().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.roommateDifficultLayout.removeView(roommateDifficultImage);
+                    c.getRoommateDifficultStack().remove(card);
+                    addRoomMateDifficult(card.getRoommateDifficult().getRoommateBenefit());
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
+            });
+        }
+    }
+
+    public void addWitzigCardsToPlayer(){
+        for (int i = 0; i < c.getWitzigStack().size(); i++){
+            final ImageView witzigImage = (ImageView) activityGameboardBinding.witzigLayout.getChildAt(i);
+            final Card card = c.getWitzigStack().get(i);
+
+            witzigImage.setOnClickListener(view -> {
+                if (card.getWitzigToDos().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    c.getWitzigStack().remove(card);
+                    cardPenalty(card.getWitzigToDos().getToDoPenalty().get(0));
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.witzigLayout.removeView(witzigImage);
+
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
+            });
+        }
+    }
+
+    public void addWitzigWitzigCardsToPlayer(){
+        for (int i = 0; i < c.getWitzigWitzigStack().size(); i++){
+            final ImageView witzigWitzigImage = (ImageView) activityGameboardBinding.witzigWitzigLayout.getChildAt(i);
+            final Card card = c.getWitzigWitzigStack().get(i);
+
+            witzigWitzigImage.setOnClickListener(view -> {
+                if (card.getWitzigWitzigToDos().isAvailable(this.player.getDiceValuesUsable())) {
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    c.getWitzigWitzigStack().remove(card);
+                    cardPenalty(card.getWitzigWitzigToDos().getToDoPenalty().get(0));
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.witzigWitzigLayout.removeView(witzigWitzigImage);
+
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+            });
+        }
+    }
+
+    public void addTroublemakerCardsToPlayer(){
+        for (int i = 0; i < c.getTroublemakerStack().size(); i++){
+            final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
+            final Card card = c.getTroublemakerStack().get(i);
+
+
+            addTroubleMaker(card.getTroublemaker().getTroublemakerPenalty(), card.getTroublemaker().getSchnapspralinen());
+            c.getTroublemakerStack().remove(card);
+            System.out.println("Clicked troublemaker card");
+            activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
+
+            // add cards to arraylist, RV, Player
+            this.playerRecyclerviewAdabter.addCardsArray(card);
+            int integry = this.playerRecyclerviewAdabter.getItemCount();
+            Log.d("get item card", " click 2");
+            this.playerRecyclerviewAdabter.notifyDataSetChanged();
+            Log.d("get item card", "" + integry);
+            break;
+        }
+    }
+
+    public void addSchaukestuhlCardsToPlayer(){
+
+        for (int i = 0; i < c.getSchaukelstuhlStack().size(); i++){
+            final ImageView schaukelStuhlImage = (ImageView) activityGameboardBinding.SchaukelstuhlLayout.getChildAt(i);
+            final Card card = c.getSchaukelstuhlStack().get(i);
+            this.player.setHasWon(true);
+            System.out.println("Clicked troublemaker card");
+            activityGameboardBinding.troublemakerLayout.removeView(schaukelStuhlImage);
+
+            // add cards to arraylist, RV, Player
+            this.playerRecyclerviewAdabter.addCardsArray(card);
+            int integry = this.playerRecyclerviewAdabter.getItemCount();
+            Log.d("get item card", " click 2");
+            this.playerRecyclerviewAdabter.notifyDataSetChanged();
+            Log.d("get item card", "" + integry);
+            break;
+        }
     }
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
+
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             LinearLayout linearLayout = findViewById(linearLayoutId);
@@ -235,22 +456,35 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
+            if(!card.getCardType().equals(CardType.ITEM)){
+                String currentCardBack = card.getCurrentCardBack();
+                final int imageRessourceIDBack =
+                        this.getResources()
+                                .getIdentifier(
+                                        currentCardBack, "drawable", this.getApplicationContext().getPackageName());
+                Log.d("back cardd id ", imageRessourceIDBack+"");
+                cards.get(i).setImageViewBackID(imageRessourceIDBack);
+            }
+
+            cards.get(i).setImageViewID(imageRessourceID);
+
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
             linearLayout.addView(iView);
             displayedCards.add(iView);
             card.setImageViewID(iView.getId());
+            /*if(this.player.getMyTurn() == 1) { // disabled if not your turn
+                iView.setOnClickListener(view -> {
+                    linearLayout.removeView(iView);
 
-            iView.setOnClickListener(view -> {
-                linearLayout.removeView(iView);
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.weight = 5;
-                iView.setLayoutParams(params);
-                // activityGameboardBinding.UserCardsLayout.addView(iView);
-            });
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.weight = 5;
+                    iView.setLayoutParams(params);
+                    // activityGameboardBinding.UserCardsLayout.addView(iView);
+                });
+            }*/
         }
     }
 
@@ -260,14 +494,29 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             ImageView iView = new ImageView(linearLayout.getContext());
 
             String currentCardFront = card.getCurrentCardFront();
+            Log.d("back cardd id ", currentCardFront);
 
             final int imageRessourceID =
                     this.getResources()
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
+            if(!card.getCardType().equals(CardType.ITEM)){
+                String currentCardBack = card.getCurrentCardBack();
+                final int imageRessourceIDBack =
+                        this.getResources()
+                                .getIdentifier(
+                                        currentCardBack, "drawable", this.getApplicationContext().getPackageName());
+                Log.d("back cardd id ", imageRessourceIDBack+"");
+                card.setImageViewBackID(imageRessourceIDBack);
+            }
+
+
+            card.setImageViewID(imageRessourceID);
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
+
+
 
             float aspectRatio = 5;
 
@@ -308,7 +557,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         // If card is available --> then we can flip
         for (ImageView card : displayedCards) {
             card.setOnClickListener(view -> {
-                // flipCard(card);
+                 //flipCard(card);
             });
         }
     }
@@ -342,8 +591,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                                 "cardborder", "drawable", this.getApplicationContext().getPackageName());
 
         for (ImageView iView : displayedCards) {
+            Log.d("Highlight ImageView", iView.toString());
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+                Log.d("Highlight if", iView.getId() + "");
                 iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
+                iView.setOnClickListener(view -> {
+                    flipCard(card);
+                });
             }
         }
     }
@@ -353,7 +607,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void setUpDice() {
         Log.d("setUpDice", "called");
-        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()));
+        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()), false);
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -361,15 +615,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
 
-        activityGameboardBinding.btnRollDice.setEnabled(true);
-        activityGameboardBinding.savedDicesContainer.removeAllViews();
-        activityGameboardBinding.parkedDicesContainer.removeAllViews();
+            activityGameboardBinding.btnRollDice.setEnabled(true);
+            activityGameboardBinding.savedDicesContainer.removeAllViews();
+            activityGameboardBinding.parkedDicesContainer.removeAllViews();
+
     }
 
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-            dicePopUpActivity.rollDice(player.getDiceCount());
+                dicePopUpActivity.rollDice(this.player.getDiceCount() + this.player.getRoomMateDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -439,6 +694,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 boolean hasParked = false;
                 ArrayList<Integer> parkedDices = new ArrayList<>();
 
+                if(activityGameboardBinding.btnParkDice.getText().equals("end rolling")){
+                    this.player.diceToServer();
+                }
                 if (isParkBtn == 1) {
                     if (checkDiceParking(diceSelect, player.getParkDiceCount())) {
                         Log.d("selected saved dices", selectedDices.toString());
@@ -482,70 +740,164 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
+
             });
 
             diceIsRolled = true;
 
             if (diceIsRolled) {
-                if (!player.isReRoll()) {
+                if (player.isReRoll() == 0 ) {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
-                addCardsToPlayer();
+
+
+                testDice();
+                Log.d("player dice usable rolled", playerDice.toString());
+                Log.d("player enemyDice", enemyDice.toString());
+                //highlightBoardCards(playerDice);
+            }
+        });
+
+
+    }
+
+
+
+
                 // call function to flip current card
                 // flipCurrentCardListener();
-                try {
-                    c.checkIfHighlight(c.getItemsStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateEasyStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getRoommateDifficultStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                /*
-                try {
-                    c.checkIfHighlight(c.getWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+
+
+                public void highlightBoardCards(ArrayList<Integer> dices) {
+                    try {
+                        c.checkIfHighlight(c.getItemsStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getRoommateEasyStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getRoommateDifficultStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+//                try {
+//                    c.checkIfHighlight(c.getWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                try {
+//                    c.checkIfHighlight(c.getWitzigWitzigStack(), this);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+                    try {
+                        c.checkIfHighlight(c.getPlayerBlueStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerGreenStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerTealStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        c.checkIfHighlight(c.getPlayerOrangeStack(), this, dices);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
-                 */
-                try {
-                    c.checkIfHighlight(c.getPlayerBlueStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerGreenStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerTealStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    c.checkIfHighlight(c.getPlayerOrangeStack(), this);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+
+    //Methodenaufruf Beispiel, Übergabe muss current player sein
+    //setDiceAmoutforCardList(c.getPlayerBlueStack);
+    public void setDiceAmountForCardList(ArrayList<Card> cards) throws JSONException {
+        for(Card card : cards){
+            switch(card.getCardType()){
+                case ME:
+                    JSONObject me = card.jsonObject();
+                    Me meObjekt = new Me(me);
+                    meObjekt.setDiceSpaceMe(true);
+                    break;
+                case COUCH:
+                    JSONObject couch = card.jsonObject();
+                    Couch couchObject = new Couch(couch);
+                    couchObject.setIncreaseDiceSpace(true);
+                    break;
             }
+        }
+    }
 
-            testDice();
-        });
+    public void setKanguruTrue(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case BATHTUB:
+                    JSONObject bathtub = card.jsonObject();
+                    Badewanne badewanneObject = new Badewanne(bathtub);
+                    badewanneObject.setKanguru(true);
+                    break;
+            }
+        }
+    }
+
+    public void setDiceRollAgain(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case TABLEWARE:
+                    JSONObject tableware = card.jsonObject();
+                    Geschirr geschirrObject = new Geschirr(tableware);
+                    geschirrObject.setRollAgain(true);
+                    break;
+            }
+        }
+    }
+
+    public void setRoommateAwake(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case ROOMMATE:
+                    JSONObject roommateEasy = card.jsonObject();
+                    RoommateEasy roommateEasyObject = new RoommateEasy(roommateEasy);
+                    roommateEasyObject.setAwake(true);
+                    break;
+                case ROOMMATEDIFF:
+                    JSONObject roommateDiff = card.jsonObject();
+                    RoommateDifficult roommateDifficultObject = new RoommateDifficult(roommateDiff);
+                    roommateDifficultObject.setAwake(true);
+                    break;
+            }
+        }
+    }
+
+    public void setPenalty(ArrayList<Card> cards) throws JSONException {
+        for (Card card : cards){
+            switch (card.getCardType()){
+                case TROUBLEMAKER:
+                    JSONObject troublemaker = card.jsonObject();
+                    Troublemaker troublemakerObject = new Troublemaker(troublemaker);
+                    // Chriss fragen
+
+                case WITZIG:
+                    JSONObject witzig = card.jsonObject();
+                    WitzigToDos witzigObject = new WitzigToDos(witzig);
+                    // Chriss fragen
+
+                case WITZIGWITZIG:
+                    JSONObject witzigWitzigTodos = card.jsonObject();
+                    WitzigWitzigToDos witzigWitzigToDosObject = new WitzigWitzigToDos(witzigWitzigTodos);
+                    // Chriss fragen
+            }
+        }
     }
 
     public boolean checkDiceParking(Map<ImageView, Boolean> diceSelect, int parkDiceCount) {
@@ -589,18 +941,142 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
-    private void createRecyclerviewCards(RecyclerView recyclerview, int orientation, ArrayList<Card> playercards, int recyclerItem) {
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
-        recyclerview.setLayoutManager(manager);
-        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playercards, recyclerItem);
-        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+    public void cardBenefit(String benefit){
+        switch (benefit){
+            case "badewanne sauber":
+                this.player.setKanguru(true);
+                break;
+
+            case "geschirr sauber":
+                if(this.player.isReRoll() == 1){
+                    this.player.setReRoll(this.player.isReRoll()+1);
+                }
+                break;
+
+            case "couch sauber":
+                if(this.player.getParkDiceCount() == 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                }
+                break;
+
+            case "alles sauber":
+                this.player.setKanguru(true);
+                if(this.player.isReRoll() == 1){
+                    this.player.setReRoll(this.player.isReRoll()+1);
+                }
+                if(this.player.getParkDiceCount() == 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                }
+                break;
+
+            case "ich wach":
+                if (this.player.getDiceCount() < 4){
+                    this.player.setDiceCount(this.player.getDiceCount() + 1);
+                }
+                if (this.player.getParkDiceCount() < 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                }
+                break;
+
+            case "alle wach":
+                if (this.player.getDiceCount() < 4){
+                    this.player.setDiceCount(this.player.getDiceCount() + 1);
+                }
+                if (this.player.getParkDiceCount() < 2){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                }
+                if (this.player.getRoomMateDiceCount() == 0){
+                    this.player.setRoomMateDiceCount(this.player.getRoomMateAmount());
+                }
+                break;
+
+            default:
+                System.out.println("No benefits");
+        }
     }
 
-    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, PlayerController playerController, int recyclerItem) {
+    public void cardPenalty(String penalty){
+        switch (penalty){
+            case "badewanne dreckig":
+                this.player.setKanguru(false);
+                break;
+
+            case "geschirr dreckig":
+                if (this.player.isReRoll() > 1){
+                    this.player.setReRoll(this.player.isReRoll()-1);
+                }
+                break;
+
+            case "couch dreckig":
+                if(this.player.getParkDiceCount() > 3){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                }
+                break;
+
+            case "alles dreckig":
+                this.player.setKanguru(false);
+                if (this.player.isReRoll() > 1){
+                    this.player.setReRoll(this.player.isReRoll()-1);
+                }
+                if(this.player.getParkDiceCount() > 3){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                }
+                break;
+
+            case "ich schlafe":
+                if (this.player.getDiceCount() > 3){
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                }
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
+                }
+                break;
+
+            case "alle schlafen":
+                if (this.player.getDiceCount() > 3){
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                }
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
+                }
+                if (this.player.getRoomMateDiceCount() > 0){
+                    this.player.setRoomMateDiceCount(0);
+                }
+        }
+    }
+
+    public void addRoomMateEasy(){
+        this.player.setRoomMateAmount(this.player.getRoomMateAmount()+1);
+        this.player.setRoomMateDiceCount(this.player.getRoomMateDiceCount()+1);
+    }
+
+    public void addRoomMateDifficult(String benefit){
+        addRoomMateEasy();
+        cardBenefit(benefit);
+    }
+
+    public void addTroubleMaker(String penalty, int pralinen){
+            cardPenalty(penalty);
+            this.player.setPralinen(this.player.getPralinen() + pralinen);
+            this.player.setHasTroublemaker(true);
+    }
+
+    public void addItem(String penalty){
+        cardPenalty(penalty);
+        this.player.setPralinen(this.player.getPralinen() + 2);
+        updatePointView(this.player.getPralinen(), pointDisplay);
+    }
+
+    public void removeItem(){
+        this.player.setPralinen(this.player.getPralinen() - 2);
+    }
+
+
+
+    private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, orientation, false);
         recyclerview.setLayoutManager(manager);
-        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(getApplicationContext(), playerController, recyclerItem);
-        activityGameboardBinding.userCardRecyclerView.setAdapter(playerRecyclerviewAdabter);
+        recyclerview.setAdapter(myRecyclerviewAdabter);
     }
 
     private void initCarddrawer() {
@@ -633,6 +1109,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private void setListeners() {
         activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
             if (activityGameboardBinding.btnRollDice.getText().equals("würfeln")) {
+                this.player.setTempReRoll(this.player.isReRoll()-1);
                 startDiceRolling(view);
                 // vorerst testweise auf true setzen
                 hasCheated = true;
@@ -640,12 +1117,20 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 clientHandler.post(() -> {
                     try {
                         clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
+                        clientCallbacks.endTurnPralinen(this.player.getPralinen());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 });
             }
         });
+        //addItemCardsToPlayer();
+    }
+
+    public void setUpCheatButtons(){
+        player1btn = findViewById(R.id.player1btn);
+        player2btn = findViewById(R.id.player2btn);
+        player3btn = findViewById(R.id.player3btn);
     }
 
     @SuppressLint("SetTextI18n")
@@ -654,36 +1139,18 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay) {
-        activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
+        activityGameboardBinding.points.setText(String.valueOf("points: "+pointDisplay.updatePoints(point)));
     }
 
     public void checkSpecialCards(int pralinen) {
         if (pralinen >= 10) {
-            //then add one Troublemaker to current player
-            //how do i know who the current player is
-            //add to which arraylist
+            addTroublemakerCardsToPlayer();
         }
 
         if (pralinen >= 16) {
-            //then add one Schaukelstuhl to current player
-            //how do i know who the current player is
-            //add to which arraylist
-            //how to check 1 round?
+            addSchaukestuhlCardsToPlayer();
         }
     }
-//    public void endTurn(){
-//        checkSpecialCards(10);
-//        clientHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    clientCallbacks.endTurn(player.pralinen);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-//    }
 
     private void testmodus() {
         Server server = new Server(1234, new Handler(handlerThread.getLooper()));
@@ -693,7 +1160,17 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         client.start();
     }
 
+    public void disablePlayer() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public void enablePlayer() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
     ///////////////////// callbacks //////////////////////////////////
+
+
     @Override
     public void createPlayer(int playerNumber) {
         Log.d("create player card", playerNumber + "");
@@ -733,7 +1210,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     @Override
-    public void diceEnemy(ArrayList<Integer> diceEnemy) {
+    public void diceEnemy(ArrayList<Integer> diceEnemy) throws IOException {
         player.setDiceValuesNotUsable(diceEnemy);
         dicePopUpActivity.visualizeDice(player.getDiceValuesNotUsable());
     }
@@ -759,24 +1236,109 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void sendedEnemyDice(ArrayList<Integer> enemyDice) {
-        dicePopUpActivity.setIsEnemyDice(1);
-        dicePopUpActivity.visualizeDice(enemyDice);
+        this.player.setDiceValuesNotUsable(enemyDice);
+        this.player.setDiceCount(enemyDice.size());
+        startDiceRolling(new View(this));
     }
 
     @Override
-    public void cheatFunction(String cheatStart) {
-        CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
-        cheatFunction.registerSensor();
+    public void cheatFunction() {
+        if(this.cheated){
+
+        }else{
+            this.cheated = true;
+            CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
+            cheatFunction.registerSensor();
+        }
+
     }
 
     @Override
-    public void cheatPopUpActivity() {
-        CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this);
-        cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+    public void cheatPopUpActivity(int cheatedPlayer) {
+        if (cheatCounter < 1) {
+            cheatCounter ++;
+            ArrayList<Integer> players = new ArrayList<>();
+            for (int i = 0; i< 4; i++){
+                if (i != this.player.getPlayerID()){
+                    players.add(i);
+                }
+            }
+            CheatPopUpActivity cheatPopUpActivity = new CheatPopUpActivity(this, this.activityCheatPopupBinding);
+            cheatPopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
+            cheatPopUpActivity.setCheatingPlayer(cheatedPlayer);
+
+            activityCheatPopupBinding.player1btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 1 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(0))) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            activityCheatPopupBinding.player2btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 2 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(1))) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+            activityCheatPopupBinding.player3btn.setOnClickListener(view -> {
+                Log.d("CheatButton", "Button 3 clicked!");
+                if (cheatPopUpActivity.cheatingPlayer(players.get(2))) {
+                    clientHandler.post(() -> {
+                        try {
+                            clientCallbacks.reduceDiceOfCheater(cheatedPlayer);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    cheatPopUpActivity.dismiss();
+                    startDiceRolling(view);
+                } else {
+                    cheatPopUpActivity.dismiss();
+                    this.player.setDiceCount(this.player.getDiceCount() - 1);
+                    startDiceRolling(view);
+                }
+            });
+        }
     }
-  
+
     public DicePopUpActivity getDicePopUpActivity() {
         return dicePopUpActivity;
+    }
+
+    @Override
+    public void reduceDiceCheatingPlayer() {
+        Log.d("BeforeReduce", " "+this.player.getDiceCount());
+        this.player.setDiceCount(this.player.getDiceCount()-1);
+        Log.d("AfterReduce", " "+this.player.getDiceCount());
+    }
+
+
+    @Override
+    public void endTurnPralinen(int pralinen){
+
     }
 }
 

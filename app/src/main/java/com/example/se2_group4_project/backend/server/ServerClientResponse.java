@@ -63,7 +63,6 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
         while (client.isConnected()){
             try {
-
                 this.messageInput = clientInput.readUTF();
                 chooseIdentifierFunction(messageDecode(messageInput));
 
@@ -85,35 +84,32 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     private String messageDecode(String messageInput){
         String [] commands = messageInput.split(" ");
-        Log.d("client player", commands[0]);
-        Log.d("client identifier", commands[1]);
-        Log.d("client message", commands[2]);
-        Log.d("client enemy", commands[3]);
+        Log.d("server player", commands[0]);
+        Log.d("server identifier", commands[1]);
+        Log.d("server message", commands[2]);
+        Log.d("server enemy", commands[3]);
         this.enemy = commands[3];
        return commands[1];
     }
     private void chooseIdentifierFunction(String identifier) throws IOException {
         switch (identifier){
-            case "0":
+
             case "1":
             case "6":
+            case "8":
                serverThreadHandler.post(() -> {
                    serverCallbacks.messageToALL(this.messageInput, this.playerNumber);
                });
                break;
             case "7":
-                serverThreadHandler.post(() -> {
-                    serverCallbacks.messageAcceptDice(this.playerNumber);
-                });
-                Log.d("Server Client dice", messageInput);
-                break;
             case "4":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageAcceptDice(this.playerNumber);
                 });
                 Log.d("Server Client dice", messageInput);
                 break;
-
+            case "0":
+            case "2":
             case "5":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
@@ -152,12 +148,14 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
 
     @Override
     public void getMessage(String messageInput) throws IOException {
+        Log.d("get message client", messageInput);
         this.serverMessage.writeUTF(messageInput);
-        this.serverMessage.flush();
+        serverMessage.flush();
     }
 
     @Override
     public void acceptDice(String message) throws IOException {
         this.serverMessage.writeUTF(this.playerNumber + " " + "6" + " " + message + " " + "5");
+        serverMessage.flush();
     }
 }

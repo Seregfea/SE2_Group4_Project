@@ -6,9 +6,10 @@
     "number": 1,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "Couch matschig",
+    "itemBenefit": "couch matschig",
     "cardFront": "jojo_vs",
-    "isFront": true
+    "isFront": true,
+    "schnapspralinen": 2
   },
   {
     "id": 1,
@@ -17,9 +18,10 @@
     "number": 3,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "Couch matschig",
+    "itemBenefit": "couch matschig",
     "cardFront": "decke_vs",
-    "isFront": true
+    "isFront": true,
+    "schnapspralinen": 2
   },
   {
     "id": 2,
@@ -28,9 +30,10 @@
     "number": 4,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "Badewanne dreckig",
+    "itemBenefit": "badewanne dreckig",
     "cardFront": "wasserbombe_vs",
-    "isFront": true
+    "isFront": true,
+    "schnapspralinen": 2
   },
   {
     "id": 3,
@@ -39,9 +42,10 @@
     "number": 5,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "Geschirr dreckig",
+    "itemBenefit": "geschirr dreckig",
     "cardFront": "pfanneundco_vs",
-    "isFront": true
+    "isFront": true,
+    "schnapspralinen": 2
   },
   {
     "id": 4,
@@ -50,8 +54,9 @@
     "number": 2,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "Geschirr dreckig",
+    "itemBenefit": "geschirr dreckig",
     "cardFront": "kuechenradio_vs",
-    "isFront": true
+    "isFront": true,
+    "schnapspralinen": 2
   }
 ]

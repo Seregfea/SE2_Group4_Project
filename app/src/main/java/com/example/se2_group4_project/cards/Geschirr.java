@@ -9,36 +9,37 @@ public class Geschirr {
 
     private int countRoll = 1;
     private boolean rollAgain = false;
-    int number;
-    int count;
+
+    private int following;
+
+    private String benefit = "geschirr sauber";
 
     public Geschirr(JSONObject geschirr) throws JSONException {
-        this.number = geschirr.getInt("number");
-        this.count = geschirr.getInt("count");
+        this.following = geschirr.getInt("following");
     }
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
-        if (rolledDice.size() < 3) {
+        if (rolledDice.size() < following) {
             return false;
         }
 
-        for (int i = 2; i < rolledDice.size(); i++) {
+        for (int i = following-1; i < rolledDice.size(); i++) {
             int current = rolledDice.get(i);
             int prev1 = rolledDice.get(i - 1);
             int prev2 = rolledDice.get(i - 2);
 
+            if (current < 1 || prev1 < 1 || prev2 < 1){
+                return false;
+            }
+            if (current > 5 || prev1 > 5 || prev2 > 5){
+                return false;
+            }
             if (current == prev1 + 1 && current == prev2 + 2) {
                 return true;
             }
         }
 
         return false;
-    }
-
-
-
-    public boolean checkRollAgain(){
-        return rollAgain;
     }
 
     public int getCountRoll() {
@@ -62,5 +63,21 @@ public class Geschirr {
         else{
             setCountRoll(1);
         }
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
+
+    public String getBenefit() {
+        return benefit;
+    }
+
+    public void setBenefit(String benefit) {
+        this.benefit = benefit;
     }
 }
