@@ -185,6 +185,14 @@ public class RoommateDifficult {
         this.awakeCount = awakeCount;
     }
 
+    public String getRoommateBenefit() {
+        return roommateBenefit;
+    }
+
+    public void setRoommateBenefit(String roommateBenefit) {
+        this.roommateBenefit = roommateBenefit;
+    }
+
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
         if (count > 0) {
             if (rolledDice.size() < 3) {

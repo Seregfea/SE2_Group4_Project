@@ -308,7 +308,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 System.out.println("Clicked troublemaker card");
                 activityGameboardBinding.roommateDifficultLayout.removeView(roommateDifficultImage);
                 c.getRoommateDifficultStack().remove(card);
-                addRoomMateDifficult(card.getRoommateDifficult().getBenefit());
+                addRoomMateDifficult(card.getRoommateDifficult().getRoommateBenefit());
                 // add cards to arraylist, RV, Player
                 this.playerRecyclerviewAdabter.addCardsArray(card);
                 int integry = this.playerRecyclerviewAdabter.getItemCount();
