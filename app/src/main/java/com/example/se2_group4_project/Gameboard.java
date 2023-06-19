@@ -1139,7 +1139,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay) {
-        activityGameboardBinding.points.setText(String.valueOf("points: "+pointDisplay.updatePoints(point)));
+        activityGameboardBinding.points.setText(String.valueOf("Points: "+pointDisplay.updatePoints(point)));
     }
 
     public void checkSpecialCards(int pralinen) {
