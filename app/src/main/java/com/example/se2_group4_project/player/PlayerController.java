@@ -32,6 +32,8 @@ public class PlayerController {
     private int playerTurn = 0;
     private int diceCount = 4;
 
+    private boolean hasWon = false;
+
     private int roomMateDiceCount = 0;
 
     private int roomMateAmount = 0;
@@ -287,5 +289,13 @@ public class PlayerController {
 
     public void setRoomMateAmount(int roomMateAmount) {
         this.roomMateAmount = roomMateAmount;
+    }
+
+    public boolean isHasWon() {
+        return hasWon;
+    }
+
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 }
