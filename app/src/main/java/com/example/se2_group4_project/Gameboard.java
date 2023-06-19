@@ -529,7 +529,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
         for (ImageView iView : displayedCards) {
             Log.d("Highlight ImageView", iView.toString());
-            //if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
+            if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
                 Log.d("Highlight if", iView.getId() + "");
                 iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
                 iView.setOnClickListener(view -> {
@@ -537,7 +537,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 });
             }
         }
-    //}
+    }
 
 
     ///////////////////////// dice methods ////////////////////////
