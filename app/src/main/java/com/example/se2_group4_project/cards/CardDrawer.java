@@ -1,21 +1,20 @@
 package com.example.se2_group4_project.cards;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.example.se2_group4_project.Gameboard;
-import com.example.se2_group4_project.backend.database.entities.Player;
-import com.example.se2_group4_project.dices.DicePopUpActivity;
 import com.example.se2_group4_project.player.PlayerController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CardDrawer {
@@ -34,9 +33,13 @@ public class CardDrawer {
     private ArrayList<Card> schaukelstuhlStack = new ArrayList<>();
     private ConvertJSON convertJSON;
     private PlayerController playerController;
+    ObjectMapper mapper;
 
+    private Context context;
 
     public CardDrawer(Context context) {
+        this.context = context;
+        this.mapper = new ObjectMapper();
         this.convertJSON = new ConvertJSON(context);
     }
 
@@ -143,6 +146,81 @@ public class CardDrawer {
         this.schaukelstuhlStack = this.convertJSON.getCards("schaukelstuhl");
     }
 
+
+    public void addCardsType(Context cardcontext){
+        try {
+            this.setItemsStack(createCardAbilitys("item.json",this.itemsStack,cardcontext));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    //ME,
+    //BATHTUB,
+    //COUCH,
+    //TABLEWARE,
+    //SLEEP,
+    //AWAKE,
+
+    private ArrayList createCardAbilitys(String toMap, ArrayList<Card> cards, Context cardContext) throws JsonProcessingException {
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        switch (toMap){
+            case "item.json":
+                ArrayList<Item> item = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<Item>>() {});
+                ArrayList<Card> cardNew = new ArrayList<>();
+                cardNew = cards;
+                Log.d("JSON to array witzig", item.toString());
+                for (int i =0; i < item.size(); i++){
+
+                    Log.d("Json card front", ""+item.get(i).getCardFront());
+                    String drawable = "@drawable/"+item.get(i).getCardFront();
+                    Log.d("item card item id", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null,cardContext.getPackageName());
+                    Log.d("Json context id", id+"");
+                    for (int d = 0; d < cardNew.size(); d++){
+                        if(cardNew.get(d).getImageViewID() == id){
+                            Log.d("item card card id", cardNew.get(d).getImageViewID()+"");
+                            cardNew.get(d).setItem(item.get(i));
+                        }
+                    }
+                }
+                return cardNew;
+
+            case "roommate-difficult.json":
+                break;
+            case "roommate-easy.json":
+                break;
+            case "schaukelstuhl.json":
+                break;
+            case "troublemaker.json":
+                break;
+            case "witzigToDo.json":
+                ArrayList<WitzigToDos> witzig = mapper.readValue(readFileAsString(toMap),ArrayList.class);
+                Log.d("JSON to array witzig", witzig.toString());
+                return witzig;
+
+            case "witzigWitzigToDo.json":
+                break;
+
+        }
+        return null;
+    }
+
+    private String readFileAsString(String filename) {
+        String jsonString;
+        try {
+            InputStream is = this.context.getAssets().open(filename);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            jsonString = new String(buffer, "UTF-8");
+        } catch (Exception e) {
+            return null;
+        }
+        return jsonString;
+    }
     // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte
     // checkIfHighlight überpfrüft dann nur mehr die ifs
 

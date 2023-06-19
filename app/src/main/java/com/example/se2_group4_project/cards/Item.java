@@ -1,29 +1,66 @@
 package com.example.se2_group4_project.cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+
+
+
+
+
+
+
+
 public class Item {
     private int id;
+    private String name;
+    private CardType cardType;
     private int number;
     private int count;
     private int stealCard;
+    private String itemBenefit;
+    private String cardFront;
+    private boolean isFront;
+    private int schnapspralinen;
+    @JsonIgnore
     private boolean couchMatschig = false;
+    @JsonIgnore
     private boolean badewanneDreckig = false;
+    @JsonIgnore
     private boolean geschirrDreckig = false;
-
+    @JsonIgnore
     private String penalty;
 
-    private int schnapspralinen;
 
+    public Item(){
+        super();
+    }
+    public Item(int id,String name, CardType cardType, int number,int count , int stealCard, String itemBenefit, String cardFront,boolean isFront, int schnapspralinen){
+        this.id = id;
+        this.name = name;
+        this.cardType = cardType;
+        this.number = number;
+        this.count = count;
+        this.stealCard = stealCard;
+        this.itemBenefit = itemBenefit;
+        this.cardFront = cardFront;
+        this.isFront = isFront;
+        this.schnapspralinen = schnapspralinen;
+    }
 
     public Item(JSONObject item) throws JSONException {
         this.id = item.getInt("id");
+        this.name = item.getString("name");
         this.number = item.getInt("number");
         this.count = item.getInt("count");
         this.stealCard = item.getInt("stealCard");
+        this.penalty = item.getString("itemBenefit");
+        this.schnapspralinen = item.getInt("schnapspralinen");
 
         switch (item.getString("itemBenefit")){
             case "Couch matschig":
@@ -74,6 +111,13 @@ public class Item {
 
 
     // Getters/Setters
+    public String getCardFront() {
+        return cardFront;
+    }
+
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     public int getNumber() {
         return number;
     }

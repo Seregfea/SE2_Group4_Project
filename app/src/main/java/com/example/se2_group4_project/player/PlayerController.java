@@ -101,9 +101,6 @@ public class PlayerController {
         }
     }
 
-    public void cardsRemove() {
-
-    }
 
     // Listen mit Würfeln den Client weiterschickt
     // Array Listen von Interger

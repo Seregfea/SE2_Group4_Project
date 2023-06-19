@@ -147,7 +147,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-            setUpDice();
+           // setUpDice();
             setListeners();
 
         cheatCounter = 0;
@@ -229,6 +229,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
        // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
+
+        c.addCardsType(this);
+        Log.d("check item in cards", c.getItemsStack().get(2).getItem().getCardFront());
+
 
     }
 
@@ -699,7 +703,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                 Log.d("player dice usable rolled", playerDice.toString());
                 Log.d("player enemyDice", enemyDice.toString());
-                // highlightBoardCards(playerDice);
+                highlightBoardCards(playerDice);
             }
         });
 

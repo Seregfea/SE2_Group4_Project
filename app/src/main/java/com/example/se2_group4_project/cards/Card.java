@@ -27,9 +27,11 @@ public class Card {
     private int stealCard;
     private int following;
 
+
     private ArrayList<CardType> toDoPenalty;
     private int schnapspralinen;
     private CardType cardType;
+    private Item item;
     private String cardFront;
     private String cardBack;
     private boolean isFront;
@@ -63,6 +65,13 @@ public class Card {
         this.isFront = isFront;
     }
 
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
     public CardType getCardType() {
         return cardType;
     }
