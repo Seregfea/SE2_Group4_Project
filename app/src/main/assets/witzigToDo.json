@@ -5,7 +5,6 @@
     "cardType": "WITZIG",
     "number": "3",
     "count": 3,
-
     "toDoPenalty": "alles dreckig",
     "schnapspralinen": 5,
     "cardFront": "witzig_toepfern",
@@ -17,7 +16,6 @@
     "name": "Anti-Terror-Anschlag planen",
     "cardType": "WITZIG",
     "count": 4,
-
     "toDoPenalty": "ich schlafe",
     "schnapspralinen": 5,
     "cardFront": "witzig_antiterror",
@@ -41,7 +39,6 @@
     "name": "Dielenboden abschleifen",
     "cardType": "WITZIG",
     "min_sum": 20,
-
     "toDoPenalty": "alles dreckig",
     "schnapspralinen": 6,
     "cardFront": "witzig_dielenboden",
@@ -53,7 +50,6 @@
     "name": "Eierkuchen backen",
     "cardType": "WITZIG",
     "min_sum": 16,
-
     "toDoPenalty": "ich schlafe",
     "schnapspralinen": 4,
     "cardFront": "witzig_eierkuchen",
@@ -66,7 +62,6 @@
     "cardType": "WITZIG",
     "count": 2,
     "count2": 2,
-
     "toDoPenalty": "alle schlafen",
     "schnapspralinen": 5,
     "cardFront": "witzig_geheimbund",
@@ -78,7 +73,6 @@
     "name": "Zu Nirvana durchs Zimmer pogen",
     "cardType": "WITZIG",
     "min_sum": 18,
-
     "toDoPenalty": "alles dreckig",
     "schnapspralinen": 5,
     "cardFront": "witzig_nirvana",
@@ -92,7 +86,6 @@
     "count": 2,
     "number2": "2",
     "count2": 2,
-
     "toDoPenalty": "ich schlafe",
     "schnapspralinen": 6,
     "cardFront": "witzig_nottodoliste",
@@ -105,7 +98,6 @@
     "cardType": "WITZIG",
     "number": "1",
     "following": 3,
-
     "toDoPenalty": "alle schlafen",
     "schnapspralinen": 2,
     "cardFront": "witzig_posaune",
@@ -118,7 +110,6 @@
     "cardType": "WITZIG",
     "number": "5",
     "count": 3,
-
     "toDoPenalty": "alles dreckig",
     "schnapspralinen": 5,
     "cardFront": "witzig_sinndeslebens",
@@ -130,7 +121,6 @@
     "name": "Transformers gucken in doppelter Geschwindigkeit",
     "cardType": "WITZIG",
     "count": 4,
-
     "toDoPenalty": "ich schlafe",
     "schnapspralinen": 5,
     "cardFront": "witzig_transformers",
@@ -143,7 +133,6 @@
     "cardType": "WITZIG",
     "number": "1",
     "count": 3,
-
     "toDoPenalty": "alle schlafen",
     "schnapspralinen": 5,
     "cardFront": "witzig_youtube",

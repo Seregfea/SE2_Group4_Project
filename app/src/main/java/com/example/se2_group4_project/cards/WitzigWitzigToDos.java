@@ -83,13 +83,13 @@ public class WitzigWitzigToDos {
         }
 
 
-        JSONArray toDoPenalty = witzigWitzigCards.getJSONArray("toDoPenalty");
+        /*JSONArray toDope = witzigWitzigCards.getJSONArray("toDoPenalty");
 
         try {
-            Integer k = (Integer) toDoPenalty.get(0);
+            Integer k = (Integer) toDope.get(0);
 
-            for (int i = 0; i < toDoPenalty.length(); i++) {
-                switch (toDoPenalty.getString(i)) {
+            for (int i = 0; i < toDope.length(); i++) {
+                switch (toDope.getString(i)) {
                     case "BATHTUB":
                         this.bathtub = true;
                         this.penalty = "badewanne dreckig";
@@ -118,7 +118,7 @@ public class WitzigWitzigToDos {
 
         } catch (JSONException e) {
 
-        }
+        }*/
     }
 
 
