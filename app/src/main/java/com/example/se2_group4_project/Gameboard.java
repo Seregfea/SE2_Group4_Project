@@ -233,13 +233,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addCardsToPlayerListener() {
-        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
+        CardDrawer cardDrawer = c;
 
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            cardDrawer.generateInitialCards();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
 
         for (int i = 0; i < cardDrawer.getItemsStack().size(); i++) {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
@@ -264,12 +264,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void addTroublemakerCards(){
 
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         for (int i = 0; i < c.getRoommateEasyStack().size(); i++){
             final ImageView roommateEasyImage = (ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(i);
             final Card card = c.getRoommateEasyStack().get(i);
@@ -289,11 +283,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addRoommateDifficultCardsToPlayer(){
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         for (int i = 0; i < c.getRoommateDifficultStack().size(); i++){
             final ImageView roommateDifficultImage = (ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(i);
@@ -314,11 +303,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addWitzigCardsToPlayer(){
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         for (int i = 0; i < c.getWitzigStack().size(); i++){
             final ImageView witzigImage = (ImageView) activityGameboardBinding.witzigLayout.getChildAt(i);
@@ -339,11 +323,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addWitzigWitzigCardsToPlayer(){
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         for (int i = 0; i < c.getWitzigWitzigStack().size(); i++){
             final ImageView witzigWitzigImage = (ImageView) activityGameboardBinding.witzigWitzigLayout.getChildAt(i);
@@ -382,11 +361,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addSchaukestuhlCardsToPlayer(){
-        try {
-            c.generateInitialCards();
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         for (int i = 0; i < c.getSchaukelstuhlStack().size(); i++){
             final ImageView schaukelStuhlImage = (ImageView) activityGameboardBinding.SchaukelstuhlLayout.getChildAt(i);
