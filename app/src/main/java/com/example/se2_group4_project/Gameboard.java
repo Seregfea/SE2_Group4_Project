@@ -261,16 +261,24 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             Log.d("card gameboard", card.toString());
             Log.d("card gameboard image", itemCardImage.toString());
             itemCardImage.setOnClickListener(view -> {
-                c.getItemsStack().remove(card);
-                addItem(card.getItem().getItemBenefit());
-                Log.d("get item card", " click 1");
-                activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
+                if (card.getItem().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(((Object) card.getItem().getNumber()));
+                    tempDice.remove(((Object) card.getItem().getNumber()));
+                    this.getPlayer().setDiceValuesNotUsable(tempDice);
+                    c.getItemsStack().remove(card);
+                    addItem(card.getItem().getItemBenefit());
+                    Log.d("get item card", " click 1");
+                    activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
-                this.playerRecyclerviewAdabter.addCardsArray(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
             });
         }
     }
@@ -284,16 +292,24 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final Card card = c.getRoommateEasyStack().get(i);
 
             roommateEasyImage.setOnClickListener(view -> {
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.roommateEasyLayout.removeView(roommateEasyImage);
-                c.getRoommateEasyStack().remove(card);
-                addRoomMateEasy();
-                // add cards to arraylist, RV, Player
-                this.playerRecyclerviewAdabter.addCardsArray(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                if(card.getRoommateEasy().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(((Object) card.getRoommateEasy().getNumber()));
+                    tempDice.remove(((Object) card.getRoommateEasy().getNumber()));
+                    this.getPlayer().setDiceValuesNotUsable(tempDice);
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.roommateEasyLayout.removeView(roommateEasyImage);
+                    c.getRoommateEasyStack().remove(card);
+                    addRoomMateEasy();
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
             });
         }
     }
@@ -305,16 +321,24 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final Card card = c.getRoommateDifficultStack().get(i);
 
             roommateDifficultImage.setOnClickListener(view -> {
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.roommateDifficultLayout.removeView(roommateDifficultImage);
-                c.getRoommateDifficultStack().remove(card);
-                addRoomMateDifficult(card.getRoommateDifficult().getRoommateBenefit());
-                // add cards to arraylist, RV, Player
-                this.playerRecyclerviewAdabter.addCardsArray(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                if(card.getRoommateDifficult().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.roommateDifficultLayout.removeView(roommateDifficultImage);
+                    c.getRoommateDifficultStack().remove(card);
+                    addRoomMateDifficult(card.getRoommateDifficult().getRoommateBenefit());
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
             });
         }
     }
