@@ -532,9 +532,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             if (iView.getId() == card.getImageViewID()) { //hier wird zb die id von der imageview mit der karten id gecheckt
                 Log.d("Highlight if", iView.getId() + "");
                 iView.setForeground(this.getResources().getDrawable(R.drawable.cardborder));
-                iView.setOnClickListener(view -> {
-                    flipCard(card);
-                });
+                //iView.setOnClickListener(view -> {
+                //    flipCard(card);
+                //});
             }
         }
     }
@@ -544,7 +544,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     public void setUpDice() {
         Log.d("setUpDice", "called");
-        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()), this.player.isKanguru());
+        dicePopUpActivity = new DicePopUpActivity(this, this, new Handler(handlerThread.getLooper()), false);
 
         for (int i = 0; i < availableDices; i++) {
             ImageView imageView = new ImageView(this);
@@ -699,7 +699,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                 Log.d("player dice usable rolled", playerDice.toString());
                 Log.d("player enemyDice", enemyDice.toString());
-                // highlightBoardCards(playerDice);
+                highlightBoardCards(playerDice);
             }
         });
 
