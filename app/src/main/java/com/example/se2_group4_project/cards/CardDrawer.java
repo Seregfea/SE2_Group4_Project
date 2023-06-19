@@ -146,10 +146,10 @@ public class CardDrawer {
     // checkIfHighlight methode abändern als allgemeine Methode für zugriff auf objekte
     // checkIfHighlight überpfrüft dann nur mehr die ifs
 
-    public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard, ArrayList<Integer> dices) throws JSONException {
+    public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard) throws JSONException {
 
         ArrayList<Integer> rolledDices = gameboard.getDicePopUpActivity().getPlayerDices();
-        ;
+
         for (Card card : cardStack) {
 
             CardType cardType = card.getCardType();
