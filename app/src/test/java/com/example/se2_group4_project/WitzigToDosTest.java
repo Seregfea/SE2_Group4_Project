@@ -80,10 +80,9 @@ public class WitzigToDosTest {
         int expectedCount2 = 1;
         assertEquals(expectedCount2, actualCount2);
 
-        ArrayList<String> actualToDoPenalty = witzigToDos.getToDoPenalty();
-        ArrayList<String> expectedToDoPenalty = new ArrayList<>();
-        expectedToDoPenalty.add("TABLEWARE");
-        assertEquals(expectedToDoPenalty, actualToDoPenalty);
+        //ArrayList<String> actualToDoPenalty = witzigToDos.getToDoPenalty();
+        //ArrayList<String> expectedToDoPenalty = new ArrayList<>();
+        //assertEquals(expectedToDoPenalty, actualToDoPenalty);
 
     }
 

@@ -244,8 +244,9 @@ public class Card {
                 card.put("following", this.getFollowing());
                 card.put("min_sum", this.getMinSum());
                 card.put("schnapspralinen", this.getSchnapspralinen());
-                JSONArray toDoswitzig = new JSONArray(this.getToDo());
-                card.put("toDoPenalty", toDoswitzig);
+                card.put("toDoPenalty","");
+                //JSONArray toDoswitzig = new JSONArray(this.getToDo());
+                //card.put("toDoPenalty", toDoswitzig);
                 break;
             case WITZIGWITZIG:
                 card.put("number", this.getNumber());
@@ -257,8 +258,8 @@ public class Card {
                 card.put("number4", this.getNumber4());
                 card.put("count4", this.getCount4());
                 card.put("schnapspralinen", this.getSchnapspralinen());
-                JSONArray toDoswitzigwitzig = new JSONArray(this.getToDo());
-                card.put("toDoPenalty", toDoswitzigwitzig);
+                card.put("toDoPenalty","");
+                //card.put("toDoPenalty", toDoswitzigwitzig);
         }
 
 

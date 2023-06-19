@@ -689,7 +689,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                /*
                 try {
                     c.checkIfHighlight(c.getWitzigStack(), this);
                 } catch (JSONException e) {
@@ -700,8 +699,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-
-                 */
                 try {
                     c.checkIfHighlight(c.getPlayerBlueStack(), this);
                 } catch (JSONException e) {

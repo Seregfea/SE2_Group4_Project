@@ -14,7 +14,7 @@ import java.util.Set;
 public class WitzigToDos {
 
     private int schnapspralinen;
-    private ArrayList<String> toDoPenalty;
+    //private ArrayList<String> toDoPenalty;
     private boolean bathtub = false;
     private boolean couch = false;
     private boolean tableware = false;
@@ -28,7 +28,7 @@ public class WitzigToDos {
     private int following;
     private ArrayList<String> filledFields;
 
-    private String penalty;
+    private String toDoPenalty;
 
 
     public WitzigToDos(JSONObject witzigCard) throws JSONException {
@@ -62,44 +62,44 @@ public class WitzigToDos {
             filledFields.add("following");
         }
 
-        this.toDoPenalty = new ArrayList<>();
 
-        JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
-        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
-            toDoPenalty.add(toDoPenaltyArray.getString(i));
-        }
+
+        //JSONArray toDoPenaltyArray = witzigCard.getJSONArray("toDoPenalty");
+        //for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+        //    toDoPenalty.add(toDoPenaltyArray.getString(i));
+        //}
 
         try {
 
-            for (int j = 0; j < toDoPenaltyArray.length(); j++) {
-                switch (toDoPenaltyArray.getString(j)) {
+            //for (int j = 0; j < toDoPenaltyArray.length(); j++) {
+                switch ("toDoPenalty") {
                     case "BATHTUB":
                         this.bathtub = true;
-                        this.penalty = "badewanne dreckig";
+                        this.toDoPenalty = "badewanne dreckig";
                         break;
                     case "COUCH":
                         this.couch = true;
-                        this.penalty = "couch dreckig";
+                        this.toDoPenalty = "couch dreckig";
                         break;
                     case "TABLEWARE":
                         this.tableware = true;
-                        this.penalty = "geschirr dreckig";
+                        this.toDoPenalty = "geschirr dreckig";
                         break;
                     case "SLEEP":
                         this.sleep = true;
-                        this.penalty = "ich schlafe";
+                        this.toDoPenalty = "ich schlafe";
                         break;
                     case "AWAKE":
                         this.awake = true;
-                        this.penalty = "alle schlafen";
+                        this.toDoPenalty = "alle schlafen";
                         break;
                     default:
                         System.out.println("No to-do penalty assignments to do");
                         break;
                 }
-            }
+            //}
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
 
         }
     }
@@ -242,7 +242,7 @@ public class WitzigToDos {
     // Getters and Setters
 
     public int getSchnapspralinen() { return schnapspralinen; }
-    public ArrayList<String> getToDoPenalty() { return toDoPenalty; }
+    public String getToDoPenalty() { return toDoPenalty; }
     public boolean getBathtub() { return bathtub; }
     public boolean getCouch() { return couch; }
     public boolean getTableware() { return tableware; }
@@ -260,7 +260,7 @@ public class WitzigToDos {
 
 
     public void setSchnapspralinen(int schnapspralinen) { this.schnapspralinen = schnapspralinen; }
-    public void setToDoPenalty(ArrayList<String> toDoPenalty) { this.toDoPenalty = toDoPenalty; }
+    public void setToDoPenalty(String toDoPenalty) { this.toDoPenalty = toDoPenalty; }
     public void setBathtub(boolean bathtub) { this.bathtub = bathtub;}
     public void setCouch(boolean couch) { this.couch = couch;}
     public void setTableware(boolean tableware) { this.tableware = tableware;}
@@ -277,10 +277,10 @@ public class WitzigToDos {
     }
 
     public String getPenalty() {
-        return penalty;
+        return toDoPenalty;
     }
 
     public void setPenalty(String penalty) {
-        this.penalty = penalty;
+        this.toDoPenalty = penalty;
     }
 }

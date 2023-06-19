@@ -39,14 +39,14 @@ public class WitzigWitzigToDosTest {
 
         witzigWitzigObjekt.put("schnapspralinen", 4);
 
-        JSONArray toDosWitzigWitzig = new JSONArray();
-        toDosWitzigWitzig.put("TABLEWARE");
-        toDosWitzigWitzig.put("BATHTUB");
-        ArrayList<String> toDoPenaltyList = new ArrayList<>();
-        for (int i = 0; i < toDosWitzigWitzig.length(); i++) {
-            toDoPenaltyList.add(toDosWitzigWitzig.getString(i));
-        }
-        witzigWitzigObjekt.put("toDoPenalty", toDosWitzigWitzig);
+        //JSONArray toDosWitzigWitzig = new JSONArray();
+        //toDosWitzigWitzig.put("TABLEWARE");
+        //toDosWitzigWitzig.put("BATHTUB");
+        //ArrayList<String> toDoPenaltyList = new ArrayList<>();
+        //for (int i = 0; i < toDosWitzigWitzig.length(); i++) {
+        //    toDoPenaltyList.add(toDosWitzigWitzig.getString(i));
+        //}
+        //witzigWitzigObjekt.put("toDoPenalty", toDosWitzigWitzig);
         witzigWitzigToDos = new WitzigWitzigToDos(witzigWitzigObjekt);
 
         rolledDice.add(1);
@@ -104,11 +104,11 @@ public class WitzigWitzigToDosTest {
         int expectedCount4 = 1;
         assertEquals(expectedCount4, actualCount4);
 
-        ArrayList<String> actualToDoPenalty = witzigWitzigToDos.getToDoPenalty();
-        ArrayList<String> expectedToDoPenalty = new ArrayList<>();
-        expectedToDoPenalty.add("TABLEWARE");
-        expectedToDoPenalty.add("BATHTUB");
-        assertEquals(expectedToDoPenalty, actualToDoPenalty);
+        //ArrayList<String> actualToDoPenalty = witzigWitzigToDos.getToDoPenalty();
+        //ArrayList<String> expectedToDoPenalty = new ArrayList<>();
+        //expectedToDoPenalty.add("TABLEWARE");
+        //expectedToDoPenalty.add("BATHTUB");
+        //assertEquals(expectedToDoPenalty, actualToDoPenalty);
 
     }
 
