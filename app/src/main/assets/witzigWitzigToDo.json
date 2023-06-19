@@ -7,12 +7,7 @@
     "number2": "4",
     "count2": 2,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": "alles dreckig",
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_wettessen_vs",
     "cardBack": "witzigwitzig_rs",
@@ -29,12 +24,7 @@
     "number3": "5",
     "count3": 2,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": "ich schlafe",
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_bud_spencer",
     "cardBack": "witzigwitzig_rs",
@@ -46,12 +36,7 @@
     "cardType": "WITZIGWITZIG",
     "count": 5,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "TABLEWAREALL",
-      "SLEEP"
-    ],
+    "toDoPenalty": "alle schlafen",
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_facebookhausparty",
     "cardBack": "witzigwitzig_rs",
@@ -70,11 +55,7 @@
     "number4": "4",
     "count4": 1,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": "alles dreckig",
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_kunstpeformance",
     "cardBack": "witzigwitzig_rs",
@@ -88,12 +69,7 @@
     "number2": "2",
     "count2": 3,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "COUCH",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": "ich schlafe",
     "schnapspralinen": 8,
     "cardFront": "witzigwitzig_lebowski",
     "cardBack": "witzigwitzig_rs",
@@ -107,11 +83,7 @@
     "number2": "2",
     "count2": 2,
 
-    "toDoPenalty": [
-      "TABLEWARE",
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": "alle schlafen",
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_monopoly",
     "cardBack": "witzigwitzig_rs",
@@ -125,11 +97,7 @@
     "number2": "3",
     "count2": 2,
 
-    "toDoPenalty": [
-      "BATHTUB",
-      "TABLEWARE",
-      "SLEEP"
-    ],
+    "toDoPenalty": "alles dreckig",
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_porsche",
     "cardBack": "witzigwitzig_rs",
@@ -144,11 +112,7 @@
     "number2": "5",
     "count2": 2,
 
-    "toDoPenalty": [
-      "TABLEWARE",
-      "COUCH",
-      "SLEEP"
-    ],
+    "toDoPenalty": "ich schlafe",
     "schnapspralinen": 7,
     "cardFront": "witzigwitzig_trampolin",
     "cardBack": "witzigwitzig_rs",
