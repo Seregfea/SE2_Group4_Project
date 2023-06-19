@@ -21,9 +21,12 @@
     <string name="previous">Previous</string>
     <string name="submit_clicked_btns">Bestätigen</string>
     <string name="cheat_popup">Who cheated?</string>
-   
 
     <string name="change_dice_value">neuer Würfelwert (1-5)</string>
+    <string name="saved_dices">gespeicherte Würfel:</string>
+    <string name="parked_dices">geparkte Würfel:</string>
+    <string name="park_dices">parken</string>
+
 
 
     <string name="lorem_ipsum">

@@ -29,6 +29,8 @@ public class WitzigWitzigToDos {
     private int count4;
     private Set<String> filledFields;
 
+    private String penalty;
+
     public WitzigWitzigToDos(JSONObject witzigWitzigCards) throws JSONException {
 
         this.schnapspralinen = witzigWitzigCards.getInt("schnapspralinen");
@@ -82,18 +84,23 @@ public class WitzigWitzigToDos {
                 switch (toDoPenaltyArray.getString(i)) {
                     case "BATHTUB":
                         this.bathtub = true;
+                        this.penalty = "badewanne dreckig";
                         break;
                     case "COUCH":
                         this.couch = true;
+                        this.penalty = "couch dreckig";
                         break;
                     case "TABLEWARE":
                         this.tableware = true;
+                        this.penalty = "geschirr dreckig";
                         break;
                     case "SLEEP":
                         this.sleep = true;
+                        this.penalty = "ich schlafe";
                         break;
                     case "AWAKE":
                         this.awake = true;
+                        this.penalty = "alle schlafen";
                         break;
                     default:
                         System.out.println("No to-do penalty assignments to do");
@@ -306,6 +313,11 @@ public class WitzigWitzigToDos {
     public void setCount3(int count3) { this.count3 = count3; }
     public void setCount4(int count4) { this.count4 = count4; }
 
+    public String getPenalty() {
+        return penalty;
+    }
 
-
+    public void setPenalty(String penalty) {
+        this.penalty = penalty;
+    }
 }

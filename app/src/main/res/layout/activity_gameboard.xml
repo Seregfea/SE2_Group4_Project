@@ -23,117 +23,184 @@
 
         />
 
+    <!--    <LinearLayout-->
+<!--        android:id="@+id/CardsLayoutRight"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="207dp"-->
+<!--        android:layout_marginTop="88dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginBottom="116dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"></LinearLayout>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userCardRecyclerView"
-        android:layout_width="369dp"
-        android:layout_height="130dp"
+        android:layout_width="309dp"
+        android:layout_height="101dp"
         android:layout_marginStart="89dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/availableDiceContainer"
+        app:layout_constraintEnd_toStartOf="@+id/btnRollDice"
         app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft" />
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeftRV" />
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutTop"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
+
+    <!--    <LinearLayout-->
+<!--        android:id="@+id/CardsLayoutLeft"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:layout_marginEnd="71dp"-->
+<!--        android:layout_marginBottom="88dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/ItemCardsLayout"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView"></LinearLayout>-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CardsLayoutTopRV"
+        android:layout_width="264dp"
+        android:layout_height="92dp"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="220dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutRight"
-        android:layout_width="80dp"
-        android:layout_height="207dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CardsLayoutRightRV"
+        android:layout_width="99dp"
+        android:layout_height="136dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="116dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toEndOf="@+id/cardStacks"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69" />
 
-    <LinearLayout
-        android:id="@+id/CardsLayoutLeft"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CardsLayoutLeftRV"
+        android:layout_width="108dp"
+        android:layout_height="136dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="71dp"
         android:layout_marginBottom="88dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ItemCardsLayout"
+        app:layout_constraintHorizontal_bias="0.774"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ItemCardsLayout"
-        android:layout_width="324dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="19dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/cardStacks"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.431" />
 
     <Button
         android:id="@+id/btnRollDice"
-        android:layout_width="109dp"
+        android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_row="0"
         android:layout_column="0"
         android:layout_marginStart="69dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="68dp"
         android:scaleType="fitXY"
         android:text="@string/roll_dice_btn"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/availableDiceContainer" />
+        app:layout_constraintStart_toEndOf="@+id/userCardRecyclerView" />
 
+    <Button
+        android:id="@+id/btnParkDice"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_marginStart="399dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitXY"
+        android:text="end rolling"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnRollDice"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/userCardRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/btnRollDice"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_availableDices"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="308dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="87dp"
+        android:layout_marginStart="305dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="8dp"
         android:gravity="right"
         android:text="@string/available_dices_et"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.979"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/availableDiceContainer"
+        app:layout_constraintEnd_toStartOf="@+id/points"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="@+id/CardsLayoutTopRV" />
 
     <LinearLayout
         android:id="@+id/availableDiceContainer"
-        android:layout_width="176dp"
+        android:layout_width="240dp"
         android:layout_height="30dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:gravity="right"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="2dp"
+        android:gravity="left"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnRollDice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/UserCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tv_availableDices"
+        app:layout_constraintBottom_toTopOf="@+id/CardsLayoutRightRV"
+        app:layout_constraintStart_toStartOf="@+id/CardsLayoutTopRV"
+        app:layout_constraintTop_toTopOf="@+id/points"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_savedDices"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="227dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/saved_dices"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/savedDicesContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/CardsLayoutLeftRV"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/tv_parkedDices"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:text="@string/parked_dices"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/parkedDicesContainer"
+        app:layout_constraintEnd_toStartOf="@+id/userCardRecyclerView"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/CardsLayoutLeftRV"
         app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
@@ -141,26 +208,30 @@
         android:layout_width="161dp"
         android:layout_height="30dp"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="552dp"
-        android:gravity="right"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutLeft"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutLeftRV"
+        app:layout_constraintVertical_bias="0.17">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/cardStacks"
         android:layout_width="324dp"
         android:layout_height="70dp"
         android:layout_marginStart="113dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="115dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
+        app:layout_constraintBottom_toTopOf="@+id/userCardRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/SchaukelstuhlLayout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout">
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutLeftRV"
+        app:layout_constraintTop_toBottomOf="@+id/ItemCardsLayout"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/roommateDifficultLayout"
@@ -208,26 +279,57 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="38dp"
         android:text="@string/points"
-        app:layout_constraintBottom_toTopOf="@+id/CardsLayoutRight"
+        app:layout_constraintBottom_toTopOf="@+id/CardsLayoutRightRV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/CardsLayoutTop"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/CardsLayoutTopRV"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/SchaukelstuhlLayout"
         android:layout_width="50dp"
         android:layout_height="60dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="97dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="92dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/cardStacks"
-        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRight"
-        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintBottom_toTopOf="@+id/userCardRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/CardsLayoutRightRV"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ItemCardsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTop"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTopRV"
+        app:layout_constraintVertical_bias="0.75">
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ItemCardsLayout"
+        android:layout_width="324dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/userCardRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/availableDiceContainer"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/CardsLayoutTopRV"
+        app:layout_constraintVertical_bias="0.206"/>
+
+    <LinearLayout
+        android:id="@+id/parkedDicesContainer"
+        android:layout_width="161dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/savedDicesContainer"
+        app:layout_constraintEnd_toStartOf="@+id/userCardRecyclerView"
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_savedDices"
+        app:layout_constraintVertical_bias="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,9 @@ public class Couch {
         boolean isAvailable = false;
         int usedCount = count;
 
+        if(rolledDice.size() == 0){
+            return false;
+        }
         for (int i = 0; i < rolledDice.size(); i++){
             if (rolledDice.get(i) == number) {
                 usedCount--;
@@ -30,10 +33,6 @@ public class Couch {
             isAvailable = true;
         }
         return isAvailable;
-    }
-
-    public boolean checkDiceSpace() {
-        return increaseDiceSpace;
     }
 
     public int getDiceSpace() {

@@ -21,6 +21,10 @@ public class Me {
         boolean isAvailable = false;
         int usedCount = count;
 
+        if (rolledDice.size() < 2){
+            return false;
+        }
+
         for (int i = 0; i < rolledDice.size(); i++){
             if (rolledDice.get(i) == number) {
                 usedCount--;
@@ -48,11 +52,27 @@ public class Me {
     public void setDiceSpaceMe(boolean diceSpaceMe) {
         this.diceSpaceMe = diceSpaceMe;
 
-        if(diceSpaceMe){
+        if(isDiceSpaceMe()){
             setAmountDiceMe(4);
         }
         else{
             setAmountDiceMe(1);
         }
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

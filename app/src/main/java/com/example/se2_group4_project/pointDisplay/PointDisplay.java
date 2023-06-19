@@ -1,7 +1,5 @@
 package com.example.se2_group4_project.pointDisplay;
 
-import android.content.Context;
-import android.widget.TextView;
 
 public class PointDisplay {
 

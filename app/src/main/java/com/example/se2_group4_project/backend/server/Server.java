@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
+import com.example.se2_group4_project.backend.callbacks.ServerClientCallbacks;
 import com.example.se2_group4_project.backend.callbacks.ServerUICallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 
@@ -23,10 +24,13 @@ public class Server extends Thread implements ServerCallbacks {
     private final int serverPort;
     private ServerSocket server;
     private Map<Integer, Socket> clients = new HashMap<Integer, Socket>();
+    private Map<Integer, ServerClientCallbacks> clientCallbacks = new HashMap();
+    private Map<Integer, Handler> clientHandlers = new HashMap<>();
     private Boolean serverrun;
     private final Handler handlerServer;
     private ServerUICallbacks callbacks;
     private WGDatabase wgDatabase;
+    private int enemydiceAccepted = 0;
 
     public Server(int serverPort, Handler handlerServer, ServerUICallbacks callbacks, WGDatabase wgDatabase){
         this.serverPort = serverPort;
@@ -53,7 +57,6 @@ public class Server extends Thread implements ServerCallbacks {
             Log.d("server port",  server.getLocalPort()+ " server ");
 
             String message = "server started on port: " + serverPort;
-            //handlerServer.post(() -> callbacks.onMessageSend(message));
             int count = 0;
             while (serverrun){
                 Log.d("loop","in loop");
@@ -62,8 +65,10 @@ public class Server extends Thread implements ServerCallbacks {
                 Log.d("client respond", " client respond : " + client.getRemoteSocketAddress());
 
                 ServerClientResponse socketListener = new ServerClientResponse(client, this.handlerServer, this, wgDatabase, count);
-
+                clientCallbacks.put(count,socketListener.getCallbacks());
+                clientHandlers.put(count,socketListener.getServerClientHandler());
                 socketListener.start();
+                //updateServerUI(clients.get(count).getInetAddress().toString());
                 count++;
             }
         } catch (IOException e) {
@@ -73,6 +78,11 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
 
+    private void updateServerUI(String message){
+        handlerServer.post(() -> {
+            callbacks.onMessageSend(message);
+        });
+    }
     public String returnPlayer(int count){
         switch (count){
             case 0:
@@ -102,9 +112,12 @@ public class Server extends Thread implements ServerCallbacks {
 
     ///////////////////////// callbacks ///////////////////////
     @Override
-    public void messageCheat(String message)  {
+    public void messageToALL(String message, Integer player)  {
         for (int key : clients.keySet()) {
-            sendMessage(message,key);
+            if(player != key){
+                Log.d("message to all", message);
+                sendMessage(message,key);
+            }
         }
     }
 
@@ -114,18 +127,47 @@ public class Server extends Thread implements ServerCallbacks {
     }
 
     @Override
-    public void messageNextPlayer(String message, Integer player) {
-        sendMessage(message,player);
+    public void messageToOne(String message, Integer player) {
+        Log.d("message to one", message);
+        if(player > this.clients.size()){
+            sendMessage(message,this.clients.size() -1);
+        }else {
+            sendMessage(message,player);
+        }
+
+    }
+
+    @Override
+    public void messageAcceptDice(Integer player) {
+        if (this.enemydiceAccepted == 0){
+            this.enemydiceAccepted = 1;
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("1");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }else {
+            this.clientHandlers.get(player).post(() -> {
+                try {
+                    this.clientCallbacks.get(player).getMessage("0");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
     }
 
     private void sendMessage(String message, Integer player){
-        Socket client = clients.get(player);
-        DataOutputStream serverMessage = null;
-        try {
-            serverMessage = new DataOutputStream(Objects.requireNonNull(client).getOutputStream());
-            serverMessage.writeUTF(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Log.d("server message get", message);
+        //updateServerUI(message);
+        this.clientHandlers.get(player).post(() -> {
+            try {
+                this.clientCallbacks.get(player).getMessage(message);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

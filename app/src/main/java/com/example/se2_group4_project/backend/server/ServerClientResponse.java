@@ -1,16 +1,17 @@
 package com.example.se2_group4_project.backend.server;
 
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 
 
 import com.example.se2_group4_project.backend.callbacks.ServerCallbacks;
 
+import com.example.se2_group4_project.backend.callbacks.ServerClientCallbacks;
 import com.example.se2_group4_project.backend.database.CRUDoperations;
 import com.example.se2_group4_project.backend.callbacks.DatabaseCallbacks;
 import com.example.se2_group4_project.backend.database.WGDatabase;
 import com.example.se2_group4_project.backend.database.entities.Player;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.DataInputStream;
@@ -18,69 +19,59 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ServerClientResponse extends Thread implements DatabaseCallbacks {
+public class ServerClientResponse extends Thread implements DatabaseCallbacks, ServerClientCallbacks {
 
     final private Socket client;
-    final private Handler mainThread;
-
-    final private ServerCallbacks callbacks;
-
-    private ObjectMapper mapper;
+    final private Handler serverThreadHandler;
+    final private ServerCallbacks serverCallbacks;
     private CRUDoperations cruDoperations;
     private final WGDatabase wgDatabase;
     private final int playerNumber;
+    private String messageInput;
+    private String enemy;
+    private DataOutputStream serverMessage;
+    private DataInputStream clientInput;
+    private HandlerThread handlerThread;
 
 
-    ServerClientResponse(Socket client, Handler mainThread, ServerCallbacks callbacks, WGDatabase wgDatabase, int playerNumber){
+    ServerClientResponse(Socket client, Handler serverThreadHandler, ServerCallbacks serverCallbacks, WGDatabase wgDatabase, int playerNumber){
         this.client = client;
-        this.mainThread = mainThread;
-        this.callbacks = callbacks;
+        this.serverThreadHandler = serverThreadHandler;
+        this.serverCallbacks = serverCallbacks;
         this.wgDatabase = wgDatabase;
         this.playerNumber = playerNumber;
+
+        this.handlerThread = new HandlerThread("ServerClient Handler");
+        this.handlerThread.start();
     }
 
     @Override
     public void run() {
-        mapper = new ObjectMapper();
-        DataOutputStream serverMessage;
-        DataInputStream clientInput;
-        String messageInput;
-        Handler messageHandler;
 
         try {
-            clientInput = new DataInputStream(client.getInputStream());
-            serverMessage = new DataOutputStream(client.getOutputStream());
-            messageHandler = new Handler(mainThread.getLooper());
+            this.clientInput = new DataInputStream(client.getInputStream());
+            this.serverMessage = new DataOutputStream(client.getOutputStream());
 
-            serverMessage.writeUTF(Integer.toString(playerNumber)+" "+"3 "+"player");
+            this.serverMessage.writeUTF(playerNumber+ " " + "3" + " " + "player" + " " + "5");
             Log.d("playerNumber sended", Integer.toString(playerNumber));
+            this.serverMessage.flush();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        int count = 0;
+
         while (client.isConnected()){
             try {
-                Log.d("wait before test", count+"");
-                messageInput = clientInput.readUTF();
-                Log.d("wait test", count+"");
-                count++;
-                if(count == 0){
+                this.messageInput = clientInput.readUTF();
+                chooseIdentifierFunction(messageDecode(messageInput));
 
-                    Log.d("message",messageInput);
-                    Player player = jsonToObject(messageInput);
-                    Log.d("message name", player.getName());
+                Log.d("message achieved",messageInput);
 
-                    runCRUD(player);
 
-                    String finalMessageInput = player.getName();
-                    String finalMessageOutput = "we recieved!!!";
-                    serverMessage.writeUTF(finalMessageOutput);
-                    count++;
-                }
+                   // runCRUD(player);
 
-            } catch (IOException e) {
+                } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -91,39 +82,80 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks {
         new Thread(this.cruDoperations).start();
     }
 
+    private String messageDecode(String messageInput){
+        String [] commands = messageInput.split(" ");
+        Log.d("server player", commands[0]);
+        Log.d("server identifier", commands[1]);
+        Log.d("server message", commands[2]);
+        Log.d("server enemy", commands[3]);
+        this.enemy = commands[3];
+       return commands[1];
+    }
+    private void chooseIdentifierFunction(String identifier) throws IOException {
+        switch (identifier){
 
-    private Player jsonToObject(String object){
-
-        Player player;
-        try {
-            player = mapper.readValue(object, Player.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            case "1":
+            case "6":
+            case "8":
+               serverThreadHandler.post(() -> {
+                   serverCallbacks.messageToALL(this.messageInput, this.playerNumber);
+               });
+               break;
+            case "7":
+            case "4":
+                serverThreadHandler.post(() -> {
+                    serverCallbacks.messageAcceptDice(this.playerNumber);
+                });
+                Log.d("Server Client dice", messageInput);
+                break;
+            case "0":
+            case "2":
+            case "5":
+                serverThreadHandler.post(() -> {
+                    serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
+                });
+                break;
+            case "10":
+                serverThreadHandler.post(() -> {
+                    serverCallbacks.onMessageSend(this.enemy);
+                });
+                break;
+            default:
+                Log.d("ChooseFunction", "Choose Function Server failed!");
+                break;
         }
-        return player;
     }
 
-    private String objectToString(Object object){
-        try {
-            return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public ServerClientCallbacks getCallbacks(){
+        return this;
     }
 
-
-    private void messageToAll(String enemyDice) {
-        mainThread.post(() -> callbacks.messageCheat(enemyDice));
+    public Handler getServerClientHandler(){
+        return new Handler(this.handlerThread.getLooper());
     }
 
+    ////////////////////////// callbacks ////////////////////////
 
     @Override
     public void addPLayer(Player player) {
-            callbacks.onMessageSend(player.getName());
+            serverCallbacks.onMessageSend(player.getName());
     }
 
     @Override
     public void getPlayer() {
 
+    }
+
+    @Override
+    public void getMessage(String messageInput) throws IOException {
+        Log.d("get message client", messageInput);
+        this.serverMessage.writeUTF(messageInput);
+        serverMessage.flush();
+    }
+
+    @Override
+    public void acceptDice(String message) throws IOException {
+        this.serverMessage.writeUTF(this.playerNumber + " " + "6" + " " + message + " " + "5");
+        serverMessage.flush();
     }
 }

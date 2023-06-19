@@ -18,19 +18,43 @@ import com.example.se2_group4_project.cards.WitzigToDos;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerController {
-    private final int playerID;
-    private final ArrayList<Card> playerInitialCards;
-    private ArrayList<Card> playerExtraCards;
+    private int playerID;
+    private ArrayList<Card> playerInitialCards;
+
+    private ArrayList<Card> playerOneCards;
+    private ArrayList<Card> playerTwoCards;
+    private ArrayList<Card> playerThreeCards;
+
     private ClientCallbacks clientCallbacks;
     private Handler clientHandler;
+    private int playerTurn = 0;
     private int diceCount = 4;
+
+    private int roomMateDiceCount = 0;
+
+    private int roomMateAmount = 0;
+
+    private boolean kanguru = false;
+    private int myTurn = 0;
+
+    // testweise auf 1
+    private int parkDiceCount = 2;
+
+    // tesweise auf true
+    private int reRoll = 1;
+
+    private int tempReRoll = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
-    private ArrayList<Arrays> cardTypes;
-    private ArrayList<Item> itemCards;
+    private ArrayList<Integer> parkedDices = new ArrayList<>();
+
+    private int pralinen;
+
+    private boolean hasTroublemaker = false;
+
+    public PlayerController(){}
 
 
     public PlayerController(int playerID, ArrayList<Card> playerInitialCards, ClientCallbacks clientCallbacks, Handler clientHandler) {
@@ -40,7 +64,6 @@ public class PlayerController {
         this.clientHandler = clientHandler;
 
     }
-
     // 2 Functions
 
     // 1 Fun - in die Liste einsetzt
@@ -95,12 +118,22 @@ public class PlayerController {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 
+    public void saveParkedDices(ArrayList<Integer> parkedDices){
+        this.parkedDices = parkedDices;
+    }
+
     public int getPlayerID() {
         return playerID;
     }
 
     public ArrayList<Card> getPlayerInitialCards() {
         return playerInitialCards;
+    }
+    public void addPlayerInitialCard(Card card){
+        this.playerInitialCards.add(card);
+    }
+    public void removePlayerInitialCard(Card card){
+        this.playerInitialCards.remove(card);
     }
 
     public int getDiceCount() {
@@ -109,6 +142,22 @@ public class PlayerController {
 
     public void setDiceCount(int diceCount) {
         this.diceCount = diceCount;
+    }
+
+    public int getParkDiceCount() {
+        return parkDiceCount;
+    }
+
+    public void setParkDiceCount(int parkDiceCount) {
+        this.parkDiceCount = parkDiceCount;
+    }
+
+    public int isReRoll() {
+        return reRoll;
+    }
+
+    public void setReRoll(int reRoll) {
+        this.reRoll = reRoll;
     }
 
     public ArrayList<Integer> getDiceValuesUsable() {
@@ -127,17 +176,119 @@ public class PlayerController {
         this.diceValuesNotUsable = diceValuesNotUsable;
     }
 
+    public ArrayList<Integer> getParkedDices() {
+        return parkedDices;
+    }
+
+    public void setParkedDices(ArrayList<Integer> parkedDices) {
+        this.parkedDices = parkedDices;
+    }
+
     public void diceToServer() {
         clientHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "0");
-                } catch (IOException e) {
+                    clientCallbacks.diceToEnemy(getDiceValuesNotUsable(), "1");
+                    Thread.sleep(1000);
+                    clientCallbacks.cheatFunction("8");
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
     }
 
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+      
+    public int getMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(int myTurn) {
+        this.myTurn = myTurn;
+
+    }
+
+    public void setPlayerInitialCards(ArrayList<Card> playerInitialCards) {
+        this.playerInitialCards = playerInitialCards;
+    }
+
+    public ArrayList<Card> getPlayerOneCards() {
+        return playerOneCards;
+    }
+
+    public void setPlayerOneCards(ArrayList<Card> playerOneCards) {
+        this.playerOneCards = playerOneCards;
+    }
+
+    public ArrayList<Card> getPlayerTwoCards() {
+        return playerTwoCards;
+    }
+
+    public void setPlayerTwoCards(ArrayList<Card> playerTwoCards) {
+        this.playerTwoCards = playerTwoCards;
+    }
+
+    public ArrayList<Card> getPlayerThreeCards() {
+        return playerThreeCards;
+    }
+
+    public void setPlayerThreeCards(ArrayList<Card> playerThreeCards) {
+        this.playerThreeCards = playerThreeCards;
+    }
+
+    public int getPralinen() {
+        return pralinen;
+    }
+
+    public void setPralinen(int pralinen) {
+        this.pralinen = pralinen;
+    }
+
+    public boolean isHasTroublemaker() {
+        return hasTroublemaker;
+    }
+
+    public void setHasTroublemaker(boolean hasTroublemaker) {
+        this.hasTroublemaker = hasTroublemaker;
+    }
+
+    public int getTempReRoll() {
+        return tempReRoll;
+    }
+
+    public void setTempReRoll(int tempReRoll) {
+        this.tempReRoll = tempReRoll;
+    }
+
+    public boolean isKanguru() {
+        return kanguru;
+    }
+
+    public void setKanguru(boolean kanguru) {
+        this.kanguru = kanguru;
+    }
+
+    public int getRoomMateDiceCount() {
+        return roomMateDiceCount;
+    }
+
+    public void setRoomMateDiceCount(int roomMateDiceCount) {
+        this.roomMateDiceCount = roomMateDiceCount;
+    }
+
+    public int getRoomMateAmount() {
+        return roomMateAmount;
+    }
+
+    public void setRoomMateAmount(int roomMateAmount) {
+        this.roomMateAmount = roomMateAmount;
+    }
 }
