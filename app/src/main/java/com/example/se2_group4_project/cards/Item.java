@@ -189,4 +189,12 @@ public class Item {
     public void setPenalty(String penalty) {
         this.penalty = penalty;
     }
+
+    public String getItemBenefit() {
+        return itemBenefit;
+    }
+
+    public void setItemBenefit(String itemBenefit) {
+        this.itemBenefit = itemBenefit;
+    }
 }

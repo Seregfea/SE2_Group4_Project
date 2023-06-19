@@ -253,21 +253,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addCardsToPlayerListener() {
-        CardDrawer cardDrawer = new CardDrawer(this.getApplicationContext());
 
-        try {
-            cardDrawer.generateInitialCards();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (int i = 0; i < cardDrawer.getItemsStack().size(); i++) {
+        for (int i = 0; i < c.getItemsStack().size(); i++) {
             final ImageView itemCardImage = (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(i);
-            final Card card = cardDrawer.getItemsStack().get(i);
+            final Card card = c.getItemsStack().get(i);
 
             Log.d("card gameboard", card.toString());
             Log.d("card gameboard image", itemCardImage.toString());
             itemCardImage.setOnClickListener(view -> {
+                c.getItemsStack().remove(card);
+                addItem(card.getItem().getItemBenefit());
                 Log.d("get item card", " click 1");
                 activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
 
