@@ -699,7 +699,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                 Log.d("player dice usable rolled", playerDice.toString());
                 Log.d("player enemyDice", enemyDice.toString());
-                highlightBoardCards(playerDice);
+
+                highlightBoardCards(getDicePopUpActivity().getPlayerDices());
             }
         });
 

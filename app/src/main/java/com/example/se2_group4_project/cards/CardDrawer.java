@@ -148,7 +148,8 @@ public class CardDrawer {
 
     public void checkIfHighlight(ArrayList<Card> cardStack, Gameboard gameboard, ArrayList<Integer> dices) throws JSONException {
 
-        ArrayList<Integer> rolledDices = dices;
+        ArrayList<Integer> rolledDices = gameboard.getDicePopUpActivity().getPlayerDices();
+        ;
         for (Card card : cardStack) {
 
             CardType cardType = card.getCardType();
