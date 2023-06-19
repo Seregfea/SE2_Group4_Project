@@ -116,6 +116,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private int cheatCounter;
     private boolean cheated;
 
+    private PointDisplay pointDisplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +138,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         handlerThread = new HandlerThread("boardHandler");
         handlerThread.start();
         Log.d("pointdisplay", "start");
-        PointDisplay pointDisplay = new PointDisplay();
+        pointDisplay = new PointDisplay();
         startPointView(pointDisplay);
         Log.d("carddrawer start", "start");
         initCarddrawer();
@@ -349,17 +351,25 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final Card card = c.getWitzigStack().get(i);
 
             witzigImage.setOnClickListener(view -> {
-                c.getWitzigStack().remove(card);
-                cardPenalty(card.getWitzigToDos().getToDoPenalty().get(0));
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.witzigLayout.removeView(witzigImage);
+                if (card.getWitzigToDos().isAvailable(this.player.getDiceValuesUsable())){
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    c.getWitzigStack().remove(card);
+                    cardPenalty(card.getWitzigToDos().getToDoPenalty().get(0));
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.witzigLayout.removeView(witzigImage);
 
-                // add cards to arraylist, RV, Player
-                this.playerRecyclerviewAdabter.addCardsArray(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
+
             });
         }
     }
@@ -370,17 +380,24 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final Card card = c.getWitzigWitzigStack().get(i);
 
             witzigWitzigImage.setOnClickListener(view -> {
-                c.getWitzigWitzigStack().remove(card);
-                cardPenalty(card.getWitzigWitzigToDos().getToDoPenalty().get(0));
-                System.out.println("Clicked troublemaker card");
-                activityGameboardBinding.witzigWitzigLayout.removeView(witzigWitzigImage);
+                if (card.getWitzigWitzigToDos().isAvailable(this.player.getDiceValuesUsable())) {
+                    ArrayList<Integer> tempDice = new ArrayList<Integer>();
+                    tempDice = this.player.getDiceValuesUsable();
+                    tempDice.remove(2);
+                    tempDice.remove(1);
+                    tempDice.remove(0);
+                    c.getWitzigWitzigStack().remove(card);
+                    cardPenalty(card.getWitzigWitzigToDos().getToDoPenalty().get(0));
+                    System.out.println("Clicked troublemaker card");
+                    activityGameboardBinding.witzigWitzigLayout.removeView(witzigWitzigImage);
 
-                // add cards to arraylist, RV, Player
-                this.playerRecyclerviewAdabter.addCardsArray(card);
-                int integry = this.playerRecyclerviewAdabter.getItemCount();
-                Log.d("get item card", " click 2");
-                this.playerRecyclerviewAdabter.notifyDataSetChanged();
-                Log.d("get item card", "" + integry);
+                    // add cards to arraylist, RV, Player
+                    this.playerRecyclerviewAdabter.addCardsArray(card);
+                    int integry = this.playerRecyclerviewAdabter.getItemCount();
+                    Log.d("get item card", " click 2");
+                    this.playerRecyclerviewAdabter.notifyDataSetChanged();
+                    Log.d("get item card", "" + integry);
+                }
             });
         }
     }
@@ -1047,6 +1064,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void addItem(String penalty){
         cardPenalty(penalty);
         this.player.setPralinen(this.player.getPralinen() + 2);
+        updatePointView(this.player.getPralinen(), pointDisplay);
     }
 
     public void removeItem(){
@@ -1121,7 +1139,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay) {
-        activityGameboardBinding.points.setText(String.valueOf(pointDisplay.updatePoints(point)));
+        activityGameboardBinding.points.setText(String.valueOf("points: "+pointDisplay.updatePoints(point)));
     }
 
     public void checkSpecialCards(int pralinen) {
