@@ -18,7 +18,7 @@ public class WitzigToDos {
     private CardType cardType;
     private String number;
     private int count;
-    private String toDoPenalty;
+    private ArrayList<String> toDoPenalty;
     private int schnapspralinen;
     private String cardFront;
     private String cardBack;
@@ -254,7 +254,7 @@ public class WitzigToDos {
     }
 
     public int getSchnapspralinen() { return schnapspralinen; }
-    public String getToDoPenalty() { return toDoPenalty; }
+    public ArrayList<String> getToDoPenalty() { return toDoPenalty; }
     public boolean getBathtub() { return bathtub; }
     public boolean getCouch() { return couch; }
     public boolean getTableware() { return tableware; }
@@ -272,7 +272,7 @@ public class WitzigToDos {
 
 
     public void setSchnapspralinen(int schnapspralinen) { this.schnapspralinen = schnapspralinen; }
-    public void setToDoPenalty(String toDoPenalty) { this.toDoPenalty = toDoPenalty; }
+    public void setToDoPenalty(ArrayList<String> toDoPenalty) { this.toDoPenalty = toDoPenalty; }
     public void setBathtub(boolean bathtub) { this.bathtub = bathtub;}
     public void setCouch(boolean couch) { this.couch = couch;}
     public void setTableware(boolean tableware) { this.tableware = tableware;}

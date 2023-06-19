@@ -2,6 +2,10 @@ package com.example.se2_group4_project.cards;
 
 import android.content.Context;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -16,8 +20,10 @@ import java.util.ArrayList;
 public class ConvertJSON {
 
     private Context applicationContext;
+    ObjectMapper mapper;
 
     public ConvertJSON (Context context){
+        this.mapper = new ObjectMapper();
         this.applicationContext = context;
     }
 
@@ -76,6 +82,8 @@ public class ConvertJSON {
                 new TypeToken<ArrayList<Card>>() {
                 }.getType());
         return cards;
+
+
     }
 
     private String readFileAsString(String filename) {

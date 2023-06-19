@@ -326,7 +326,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             witzigImage.setOnClickListener(view -> {
                 c.getWitzigStack().remove(card);
-                cardPenalty(card.getWitzigToDos().getToDoPenalty());
+                cardPenalty(card.getWitzigToDos().getToDoPenalty().get(0));
                 System.out.println("Clicked troublemaker card");
                 activityGameboardBinding.witzigLayout.removeView(witzigImage);
 
@@ -347,7 +347,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             witzigWitzigImage.setOnClickListener(view -> {
                 c.getWitzigWitzigStack().remove(card);
-                cardPenalty(card.getWitzigWitzigToDos().getToDoPenalty());
+                cardPenalty(card.getWitzigWitzigToDos().getToDoPenalty().get(0));
                 System.out.println("Clicked troublemaker card");
                 activityGameboardBinding.witzigWitzigLayout.removeView(witzigWitzigImage);
 
