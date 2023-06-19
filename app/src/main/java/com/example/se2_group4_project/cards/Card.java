@@ -208,6 +208,7 @@ public class Card {
         JSONObject card = new JSONObject();
         switch (this.cardType) {
             case ITEM:
+                card.put("id", this.getId());
                 card.put("number", this.getNumber());
                 card.put("count", this.getCount());
                 card.put("stealCard", this.getStealCard());
@@ -215,6 +216,7 @@ public class Card {
                 card.put("itemBenefit", "");
                  break;
             case ROOMMATE:
+                card.put("id", this.getId());
 
             case ME:
 
@@ -226,6 +228,7 @@ public class Card {
                 break;
 
             case ROOMMATEDIFF:
+                card.put("id", this.getId());
                 card.put("following", this.getFollowing());
                 card.put("count", this.getCount());
                 card.put("roommateBenefit","");
