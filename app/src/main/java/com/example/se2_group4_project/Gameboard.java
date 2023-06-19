@@ -367,7 +367,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             final Card card = c.getTroublemakerStack().get(i);
 
             c.getTroublemakerStack().remove(card);
-            addTroubleMaker(card.getTroublemaker().getPenalty(), card.getTroublemaker().getSchnapspralinen());
+            addTroubleMaker(card.getTroublemaker().getTroublemakerPenalty(), card.getTroublemaker().getSchnapspralinen());
             System.out.println("Clicked troublemaker card");
             activityGameboardBinding.troublemakerLayout.removeView(troubleMakerImage);
 

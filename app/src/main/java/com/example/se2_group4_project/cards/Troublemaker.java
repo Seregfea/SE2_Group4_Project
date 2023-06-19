@@ -151,5 +151,13 @@ public class Troublemaker {
     public void setPenalty(String penalty) {
         this.penalty = penalty;
     }
+
+    public String getTroublemakerPenalty() {
+        return troublemakerPenalty;
+    }
+
+    public void setTroublemakerPenalty(String troublemakerPenalty) {
+        this.troublemakerPenalty = troublemakerPenalty;
+    }
 }
 
