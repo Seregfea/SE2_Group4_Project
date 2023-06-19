@@ -150,6 +150,12 @@ public class CardDrawer {
     public void addCardsType(Context cardcontext){
         try {
             this.setItemsStack(createCardAbilitys("item.json",this.itemsStack,cardcontext));
+            this.setRoommateDifficultStack(createCardAbilitys("roommate-difficult.json",this.roommateDifficultStack,cardcontext));
+            this.setRoommateEasyStack(createCardAbilitys("roommate-easy.json",this.roommateEasyStack,cardcontext));
+            this.setSchaukelstuhlStack(createCardAbilitys("schaukelstuhl.json",this.schaukelstuhlStack,cardcontext));
+            this.setTroublemakerStack(createCardAbilitys("troublemaker.json",this.troublemakerStack,cardcontext));
+            this.setWitzigStack(createCardAbilitys("witzigToDo.json",this.witzigStack,cardcontext));
+            this.setWitzigWitzigStack(createCardAbilitys("witzigWitzigToDo.json",this.witzigWitzigStack,cardcontext));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -164,23 +170,27 @@ public class CardDrawer {
     //AWAKE,
 
     private ArrayList createCardAbilitys(String toMap, ArrayList<Card> cards, Context cardContext) throws JsonProcessingException {
+        ArrayList<Card> cardNew = new ArrayList<>();
+        cardNew = cards;
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        switch (toMap){
-            case "item.json":
-                ArrayList<Item> item = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<Item>>() {});
-                ArrayList<Card> cardNew = new ArrayList<>();
-                cardNew = cards;
-                Log.d("JSON to array witzig", item.toString());
-                for (int i =0; i < item.size(); i++){
 
-                    Log.d("Json card front", ""+item.get(i).getCardFront());
-                    String drawable = "@drawable/"+item.get(i).getCardFront();
-                    Log.d("item card item id", drawable);
-                    int id = cardContext.getResources().getIdentifier(drawable, null,cardContext.getPackageName());
-                    Log.d("Json context id", id+"");
-                    for (int d = 0; d < cardNew.size(); d++){
-                        if(cardNew.get(d).getImageViewID() == id){
-                            Log.d("item card card id", cardNew.get(d).getImageViewID()+"");
+        switch (toMap) {
+            case "item.json":
+                Log.d("Json context item", "");
+                ArrayList<Item> item = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<Item>>() {
+                });
+                Log.d("JSON to array witzig", item.toString());
+
+                for (int i = 0; i < item.size(); i++) {
+
+                    Log.d("Json card front", "" + item.get(i).getCardFront());
+                    String drawable = "@drawable/" + item.get(i).getCardFront();
+                    Log.d("item card item", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null, cardContext.getPackageName());
+                    Log.d("Json context id1", id + "");
+                    for (int d = 0; d < cardNew.size(); d++) {
+                        if (cardNew.get(d).getImageViewID() == id) {
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID() + "");
                             cardNew.get(d).setItem(item.get(i));
                         }
                     }
@@ -188,24 +198,129 @@ public class CardDrawer {
                 return cardNew;
 
             case "roommate-difficult.json":
-                break;
+                Log.d("Json context romm dif", "");
+                ArrayList<RoommateDifficult> room = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<RoommateDifficult>>() {
+                });
+                Log.d("JSON to array witzig", room.toString());
+
+                for (int i = 0; i < room.size(); i++) {
+
+                    Log.d("Json card front", "" + room.get(i).getCardFront());
+                    String drawable = "@drawable/" + room.get(i).getCardFront();
+                    Log.d("Json cont", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null, cardContext.getPackageName());
+                    Log.d("Json context id1", id + "");
+                    for (int d = 0; d < cardNew.size(); d++) {
+                        if (cardNew.get(d).getImageViewBackID() == id) {
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID() + "");
+                            cardNew.get(d).setRoommateDifficult(room.get(i));
+                        }
+                    }
+                }
+                return cardNew;
+
             case "roommate-easy.json":
-                break;
+                Log.d("Json context romm easy", "");
+                ArrayList<RoommateEasy> roomE = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<RoommateEasy>>() {});
+                Log.d("JSON to array witzig", roomE.toString());
+
+                for (int i = 0; i < roomE.size(); i++) {
+
+                    Log.d("Json card front", "" + roomE.get(i).getCardFront());
+                    String drawable = "@drawable/" + roomE.get(i).getCardFront();
+                    Log.d("item card item id", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null, cardContext.getPackageName());
+                    Log.d("Json context id1", id + "");
+                    for (int d = 0; d < cardNew.size(); d++) {
+                        if (cardNew.get(d).getImageViewBackID() == id) {
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID() + "");
+                            cardNew.get(d).setRoommateEasy(roomE.get(i));
+                        }
+                    }
+                }
+                return cardNew;
+
             case "schaukelstuhl.json":
-                break;
+                Log.d("Json context schauk", "");
+                ArrayList<Schaukelstuhl> schaukel = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<Schaukelstuhl>>() {});
+                Log.d("JSON to array witzig", schaukel.toString());
+
+                Log.d("Json card front", "" + schaukel.get(0).getCardFront());
+                String drawableS = "@drawable/" + schaukel.get(0).getCardFront();
+                Log.d("item card item id", drawableS);
+                int idS = cardContext.getResources().getIdentifier(drawableS, null, cardContext.getPackageName());
+                Log.d("Json context id1", idS + "");
+                cardNew.get(0).setSchaukelstuhl(schaukel.get(0));
+                return cardNew;
+
+
             case "troublemaker.json":
-                break;
+                Log.d("Json context trouble", "");
+                ArrayList<Troublemaker> trouble = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<Troublemaker>>() {});
+                Log.d("JSON to array witzig", trouble.toString());
+
+                for (int i =0; i < trouble.size(); i++){
+
+                    Log.d("Json card front", ""+trouble.get(i).getCardFront());
+                    String drawable = "@drawable/"+trouble.get(i).getCardFront();
+                    Log.d("item card item id", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null,cardContext.getPackageName());
+                    Log.d("Json context id1", id+"");
+                    for (int d = 0; d < cardNew.size(); d++){
+                        if(cardNew.get(d).getImageViewBackID() == id){
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID()+"");
+                            cardNew.get(d).setTroublemaker(trouble.get(i));
+                        }
+                    }
+                }
+                return cardNew;
+
             case "witzigToDo.json":
-                ArrayList<WitzigToDos> witzig = mapper.readValue(readFileAsString(toMap),ArrayList.class);
+                Log.d("Json context witz", "");
+                ArrayList<WitzigToDos> witzig = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<WitzigToDos>>() {});
                 Log.d("JSON to array witzig", witzig.toString());
-                return witzig;
+
+                for (int i =0; i < witzig.size(); i++){
+
+                    Log.d("Json card front", ""+witzig.get(i).getCardFront());
+                    String drawable = "@drawable/"+witzig.get(i).getCardFront();
+                    Log.d("item card item id", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null,cardContext.getPackageName());
+                    Log.d("Json context id1", id+"");
+                    for (int d = 0; d < cardNew.size(); d++){
+                        if(cardNew.get(d).getImageViewID() == id){
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID()+"");
+                            cardNew.get(d).setWitzigToDos(witzig.get(i));
+                        }
+                    }
+                }
+                return cardNew;
 
             case "witzigWitzigToDo.json":
-                break;
+                Log.d("Json context witz", "");
+                ArrayList<WitzigWitzigToDos> witzigT = mapper.readValue(readFileAsString(toMap), new TypeReference<ArrayList<WitzigWitzigToDos>>() {});
+                Log.d("JSON to array witzig", witzigT.toString());
+
+                for (int i =0; i < witzigT.size(); i++){
+
+                    Log.d("Json card front", ""+witzigT.get(i).getCardFront());
+                    String drawable = "@drawable/"+witzigT.get(i).getCardFront();
+                    Log.d("item card item id", drawable);
+                    int id = cardContext.getResources().getIdentifier(drawable, null,cardContext.getPackageName());
+                    Log.d("Json context id1", id+"");
+                    for (int d = 0; d < cardNew.size(); d++){
+                        if(cardNew.get(d).getImageViewID() == id){
+                            Log.d("Json context id2", cardNew.get(d).getImageViewID()+"");
+                            cardNew.get(d).setWitzigWitzigToDos(witzigT.get(i));
+                        }
+                    }
+                }
+                return cardNew;
 
         }
         return null;
     }
+
 
     private String readFileAsString(String filename) {
         String jsonString;

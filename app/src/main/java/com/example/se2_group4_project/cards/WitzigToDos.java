@@ -13,16 +13,23 @@ import java.util.Set;
 
 public class WitzigToDos {
 
-    private int schnapspralinen;
+    private int id;
+    private String name;
+    private CardType cardType;
+    private String number;
+    private int count;
     private ArrayList<String> toDoPenalty;
+    private int schnapspralinen;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
     private boolean bathtub = false;
     private boolean couch = false;
     private boolean tableware = false;
     private boolean sleep = false;
     private boolean awake = false;
-    private String number;
+
     private String number2;
-    private int count;
     private int count2;
     private int min_sum;
     private int following;
@@ -30,6 +37,9 @@ public class WitzigToDos {
 
     private String penalty;
 
+    public WitzigToDos(){
+        super();
+    }
 
     public WitzigToDos(JSONObject witzigCard) throws JSONException {
 
@@ -235,6 +245,13 @@ public class WitzigToDos {
 
 
     // Getters and Setters
+    public String getCardFront() {
+        return cardFront;
+    }
+
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
 
     public int getSchnapspralinen() { return schnapspralinen; }
     public ArrayList<String> getToDoPenalty() { return toDoPenalty; }

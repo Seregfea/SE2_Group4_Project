@@ -4,7 +4,14 @@ import org.json.*;
 
 public class Troublemaker {
     private int id;
+    private String name;
+    private CardType cardType;
+    private String troublemakerPenalty;
+    private int neededSchnapspralinen;
     private int schnapspralinen;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
     private boolean me = false;
     private boolean couch = false;
     private boolean tableware = false;
@@ -15,6 +22,9 @@ public class Troublemaker {
     private boolean turn = false;
     private String penalty;
 
+    public Troublemaker(){
+        super();
+    }
     public Troublemaker(JSONObject troublemaker) throws JSONException {
         this.schnapspralinen = troublemaker.getInt("schnapspralinen");
         this.id = troublemaker.getInt("id");
@@ -43,7 +53,13 @@ public class Troublemaker {
                 break;
         }
     }
+    public String getCardFront() {
+        return cardFront;
+    }
 
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     // Getter
     public int getSchnapspralinen() {
         return schnapspralinen;

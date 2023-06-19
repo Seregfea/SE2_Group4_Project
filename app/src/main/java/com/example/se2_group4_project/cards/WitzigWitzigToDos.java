@@ -9,7 +9,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
+
 public class WitzigWitzigToDos {
+    private int id;
+    private String name;
+    private CardType cardType;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
 
     private int schnapspralinen;
     private ArrayList<String> toDoPenalty;
@@ -31,6 +40,9 @@ public class WitzigWitzigToDos {
 
     private String penalty;
 
+    public WitzigWitzigToDos(){
+        super();
+    }
     public WitzigWitzigToDos(JSONObject witzigWitzigCards) throws JSONException {
 
         this.schnapspralinen = witzigWitzigCards.getInt("schnapspralinen");
@@ -183,7 +195,13 @@ public class WitzigWitzigToDos {
 
 
     // Getters and Setters
+    public String getCardFront() {
+        return cardFront;
+    }
 
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     public int getSchnapspralinen() { return schnapspralinen; }
     public ArrayList<String> getToDoPenalty() { return toDoPenalty; }
     public boolean getBathtub() { return bathtub; }

@@ -7,10 +7,20 @@ import java.util.ArrayList;
 
 public class RoommateEasy {
     private int id;
-    private int additionalDice = 1;
-    private int number;
+    private String name;
+    private CardType cardType;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
     private int count;
+    private int number;
+    private int additionalDice = 1;
+
+
     private boolean awake = false;
+    public RoommateEasy(){
+        super();
+    }
 
     public RoommateEasy(JSONObject roommateEasy) throws JSONException {
         this.id = roommateEasy.getInt("id");
@@ -18,6 +28,13 @@ public class RoommateEasy {
         this.count = roommateEasy.getInt("count");
     }
 
+    public String getCardFront() {
+        return cardFront;
+    }
+
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     public int getAdditionalDice() {
         return additionalDice;
     }

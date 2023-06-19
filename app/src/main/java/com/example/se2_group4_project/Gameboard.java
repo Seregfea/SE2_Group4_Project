@@ -30,6 +30,7 @@ import com.example.se2_group4_project.backend.server.Server;
 import com.example.se2_group4_project.callbacks.GameboardCallbacks;
 import com.example.se2_group4_project.backend.client.Client;
 import com.example.se2_group4_project.cards.Badewanne;
+import com.example.se2_group4_project.cards.CardType;
 import com.example.se2_group4_project.cards.Couch;
 import com.example.se2_group4_project.cards.Geschirr;
 import com.example.se2_group4_project.cards.Me;
@@ -231,8 +232,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
        // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
 
         c.addCardsType(this);
-        Log.d("check item in cards", c.getItemsStack().get(2).getItem().getCardFront());
-
+        Log.d("check item in cards", c.getItemsStack().get(0).getItem().getCardFront());
+        Log.d("check roommate-difficult in cards", c.getRoommateDifficultStack().get(0).getRoommateDifficult().getCardFront());
+        Log.d("check roomate-easy in cards", c.getRoommateEasyStack().get(0).getRoommateEasy().getCardFront());
+        Log.d("check schaukelstuhl in cards", c.getSchaukelstuhlStack().get(0).getSchaukelstuhl().getCardFront());
+        Log.d("check troublemaker in cards", c.getTroublemakerStack().get(0).getTroublemaker().getCardFront());
+        Log.d("check witzigToDo in cards", c.getWitzigStack().get(0).getWitzigToDos().getCardFront());
+        Log.d("check witzigWitzigToDo in cards", c.getWitzigWitzigStack().get(0).getWitzigWitzigToDos().getCardFront());
 
     }
 
@@ -410,6 +416,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void addTopCardToLinearLayout(int linearLayoutId, ArrayList<Card> cards) {
+
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             LinearLayout linearLayout = findViewById(linearLayoutId);
@@ -421,6 +428,18 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     this.getResources()
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
+
+            if(!card.getCardType().equals(CardType.ITEM)){
+                String currentCardBack = card.getCurrentCardBack();
+                final int imageRessourceIDBack =
+                        this.getResources()
+                                .getIdentifier(
+                                        currentCardBack, "drawable", this.getApplicationContext().getPackageName());
+                Log.d("back cardd id ", imageRessourceIDBack+"");
+                cards.get(i).setImageViewBackID(imageRessourceIDBack);
+            }
+
+            cards.get(i).setImageViewID(imageRessourceID);
 
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
@@ -448,12 +467,25 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             ImageView iView = new ImageView(linearLayout.getContext());
 
             String currentCardFront = card.getCurrentCardFront();
+            Log.d("back cardd id ", currentCardFront);
 
             final int imageRessourceID =
                     this.getResources()
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
+            if(!card.getCardType().equals(CardType.ITEM)){
+                String currentCardBack = card.getCurrentCardBack();
+                final int imageRessourceIDBack =
+                        this.getResources()
+                                .getIdentifier(
+                                        currentCardBack, "drawable", this.getApplicationContext().getPackageName());
+                Log.d("back cardd id ", imageRessourceIDBack+"");
+                card.setImageViewBackID(imageRessourceIDBack);
+            }
+
+
+            card.setImageViewID(imageRessourceID);
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
 

@@ -32,6 +32,15 @@ public class Card {
     private int schnapspralinen;
     private CardType cardType;
     private Item item;
+    private RoommateDifficult roommateDifficult;
+    private RoommateEasy roommateEasy;
+    private Schaukelstuhl schaukelstuhl;
+
+    private Troublemaker troublemaker;
+    private WitzigToDos witzigToDos;
+
+
+    private WitzigWitzigToDos witzigWitzigToDos;
     private String cardFront;
     private String cardBack;
     private boolean isFront;
@@ -65,6 +74,48 @@ public class Card {
         this.isFront = isFront;
     }
 
+    public WitzigWitzigToDos getWitzigWitzigToDos() {
+        return witzigWitzigToDos;
+    }
+
+    public void setWitzigWitzigToDos(WitzigWitzigToDos witzigWitzigToDos) {
+        this.witzigWitzigToDos = witzigWitzigToDos;
+    }
+    public WitzigToDos getWitzigToDos() {
+        return witzigToDos;
+    }
+
+    public void setWitzigToDos(WitzigToDos witzigToDos) {
+        this.witzigToDos = witzigToDos;
+    }
+    public Troublemaker getTroublemaker() {
+        return troublemaker;
+    }
+
+    public void setTroublemaker(Troublemaker troublemaker) {
+        this.troublemaker = troublemaker;
+    }
+    public RoommateDifficult getRoommateDifficult() {
+        return roommateDifficult;
+    }
+
+    public void setRoommateDifficult(RoommateDifficult roommateDifficult) {
+        this.roommateDifficult = roommateDifficult;
+    }
+    public Schaukelstuhl getSchaukelstuhl() {
+        return schaukelstuhl;
+    }
+
+    public void setSchaukelstuhl(Schaukelstuhl schaukelstuhl) {
+        this.schaukelstuhl = schaukelstuhl;
+    }
+    public RoommateEasy getRoommateEasy() {
+        return roommateEasy;
+    }
+
+    public void setRoommateEasy(RoommateEasy roommateEasy) {
+        this.roommateEasy = roommateEasy;
+    }
     public Item getItem() {
         return item;
     }
@@ -156,6 +207,13 @@ public class Card {
         }
     }
 
+    public int getImageViewBackID() {
+        return imageViewBackID;
+    }
+
+    public void setImageViewBackID(int imageViewBackID) {
+        this.imageViewBackID = imageViewBackID;
+    }
     public int getImageViewID() {
         return imageViewFrontID;
     }

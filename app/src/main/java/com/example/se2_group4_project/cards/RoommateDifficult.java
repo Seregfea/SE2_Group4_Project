@@ -10,11 +10,18 @@ import java.util.Objects;
 
 public class RoommateDifficult {
     private int id;
+    private String name;
+    private CardType cardType;
+    private String roommateBenefit;
+    private String cardFront;
+    private String cardBack;
+    private boolean isFront;
+    private int following;
     private int awakeCount = 0;
     private int additionalDice = 1;
     private int addedDicePlace = 0;
     private int count;
-    private int following;
+
     private RoommateDiffType rmDiffType;
     private boolean awake = false;
     private boolean does_not_sleep = false;
@@ -25,6 +32,9 @@ public class RoommateDifficult {
 
     private String benefit;
 
+    public RoommateDifficult(){
+        super();
+    }
     public RoommateDifficult(JSONObject roommateDifficult) throws JSONException {
         this.id = roommateDifficult.getInt("id");
         this.count = roommateDifficult.getInt("count");
@@ -60,7 +70,13 @@ public class RoommateDifficult {
                 break;
         }
     }
+    public String getCardFront() {
+        return cardFront;
+    }
 
+    public void setCardFront(String cardFront) {
+        this.cardFront = cardFront;
+    }
     public int getAdditionalDice() {
         return additionalDice;
     }
