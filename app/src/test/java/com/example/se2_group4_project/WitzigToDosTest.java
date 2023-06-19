@@ -34,13 +34,13 @@ public class WitzigToDosTest {
 
         witzigObjekt.put("schnapspralinen", 4);
 
-        JSONArray toDoswitzig = new JSONArray();
-        toDoswitzig.put("TABLEWARE");
-        ArrayList<String> toDoPenaltyList = new ArrayList<>();
-        for (int i = 0; i < toDoswitzig.length(); i++) {
-            toDoPenaltyList.add(toDoswitzig.getString(i));
-        }
-        witzigObjekt.put("toDoPenalty", toDoswitzig);
+        //JSONArray toDoswitzig = new JSONArray();
+        //toDoswitzig.put("TABLEWARE");
+        //ArrayList<String> toDoPenaltyList = new ArrayList<>();
+        //for (int i = 0; i < toDoswitzig.length(); i++) {
+        //    toDoPenaltyList.add(toDoswitzig.getString(i));
+        //}
+        //witzigObjekt.put("toDoPenalty", toDoswitzig);
         witzigToDos = new WitzigToDos(witzigObjekt);
 
         rolledDice.add(1);
