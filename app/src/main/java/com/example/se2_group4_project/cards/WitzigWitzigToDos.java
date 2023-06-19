@@ -71,13 +71,17 @@ public class WitzigWitzigToDos {
         }
 
 
-        JSONArray toDoPenalty = witzigWitzigCards.getJSONArray("toDoPenalty");
+        this.toDoPenalty = new ArrayList<>();
+
+        JSONArray toDoPenaltyArray = witzigWitzigCards.getJSONArray("toDoPenalty");
+        for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+            this.toDoPenalty.add(toDoPenaltyArray.getString(i));
+        }
 
         try {
-            Integer k = (Integer) toDoPenalty.get(0);
 
-            for (int i = 0; i < toDoPenalty.length(); i++) {
-                switch (toDoPenalty.getString(i)) {
+            for (int i = 0; i < toDoPenaltyArray.length(); i++) {
+                switch (toDoPenaltyArray.getString(i)) {
                     case "BATHTUB":
                         this.bathtub = true;
                         this.penalty = "badewanne dreckig";
@@ -109,76 +113,165 @@ public class WitzigWitzigToDos {
         }
     }
 
-
-
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
-        boolean checkBoolean = false;
-        Set<Integer> usedIndices = new HashSet<Integer>();
+        ArrayList<Integer> diceCopy = new ArrayList(rolledDice);
 
         if (filledFields.contains("number") && filledFields.contains("count")) {
-            int intNumber = Integer.parseInt(number);
-            if (rolledDice.get(intNumber - 1) >= count) {
-                checkBoolean = true;
-                usedIndices.add(intNumber - 1);
+            if (checkNumberCount(rolledDice)) {
+                removeNumber(diceCopy, number, count);
             }
+            return checkNumberCount(rolledDice);
+
         } else if (filledFields.contains("count")) {
-            for (int i = 0; i < rolledDice.size(); i++) {
-                if (rolledDice.get(i) >= count && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
-            }
+            return checkCount(rolledDice);
         }
-        if(filledFields.contains("number2") && filledFields.contains("count2")) {
-            int intNumber2 = Integer.parseInt(number2);
-            if(rolledDice.get(intNumber2 - 1) >= count2 && !usedIndices.contains(intNumber2-1)) {
-                checkBoolean = true;
-                usedIndices.add(intNumber2 - 1);
+        if (filledFields.contains("number2") && filledFields.contains("count2")) {
+            if (checkNumber2Count2(diceCopy)) {
+                removeNumber(diceCopy, number2, count2);
             }
+            return checkNumber2Count2(diceCopy);
         } else if (filledFields.contains("count2")) {
-            for (int i = 0; i < rolledDice.size(); i++) {
-                if (rolledDice.get(i) >= count2 && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
-            }
+            return checkCount2(diceCopy);
         }
-        if(filledFields.contains("number3") && filledFields.contains("count3")) {
-            int intNumber3 = Integer.parseInt(number3);
-            if(rolledDice.get(intNumber3 - 1) >= count3 && !usedIndices.contains(intNumber3-1)) {
-                checkBoolean = true;
-                usedIndices.add(intNumber3 - 1);
+        if (filledFields.contains("number3") && filledFields.contains("count3")) {
+            if (checkNumber3Count3(diceCopy)) {
+                removeNumber(diceCopy, number3, count3);
             }
+            return checkNumber3Count3(diceCopy);
         } else if (filledFields.contains("count3")) {
-            for (int i = 0; i < rolledDice.size(); i++) {
-                if (rolledDice.get(i) >= count3 && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
-            }
+            return checkCount3(diceCopy);
         }
-        if(filledFields.contains("number4") && filledFields.contains("count4")) {
-            int intNumber4 = Integer.parseInt(number4);
-            if(rolledDice.get(intNumber4 - 1) >= count4 && !usedIndices.contains(intNumber4-1)) {
-                checkBoolean = true;
-                usedIndices.add(intNumber4 - 1);
+        if (filledFields.contains("number4") && filledFields.contains("count4")) {
+            if (checkNumber4Count4(diceCopy)) {
+                removeNumber(diceCopy, number4, count4);
             }
+            return checkNumber4Count4(diceCopy);
+
         } else if (filledFields.contains("count4")) {
-            for (int i = 0; i < rolledDice.size(); i++) {
-                if (rolledDice.get(i) >= count4 && !usedIndices.contains(i)) {
-                    checkBoolean = true;
-                    usedIndices.add(i);
-                    break;
-                }
-            }
+            return checkCount4(diceCopy);
+        } else {
+            return false;
         }
-        return checkBoolean;
     }
 
+    public boolean checkNumberCount(ArrayList<Integer> rolledDice) {
+        int num = Integer.parseInt(number);
+        int numberCount = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == num) {
+                numberCount++;
+            }
+        }
+        return numberCount >= count;
+    }
+    public boolean checkCount(ArrayList<Integer> rolledDice){
+        int[] numberArray = new int[5];
+        for(int i = 0; i<rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if(diceValue >= 1 && diceValue <= 5){
+                numberArray[diceValue-1]++;
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if(numberArray[i] == count){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkNumber2Count2(ArrayList<Integer> rolledDice){
+        int num2 = Integer.parseInt(number2);
+        int number2Count = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == num2) {
+                number2Count++;
+            }
+        }
+        return number2Count >= count2;
+    }
+    public boolean checkCount2(ArrayList<Integer> rolledDice){
+        int[] numberArray = new int[5];
+        for(int i = 0; i<rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if(diceValue >= 1 && diceValue <= 5){
+                numberArray[diceValue-1]++;
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if(numberArray[i] == count2){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkNumber3Count3(ArrayList<Integer> rolledDice){
+        int num3 = Integer.parseInt(number3);
+        int number3Count = 0;
+        for (int i = 0; i < rolledDice.size(); i++) {
+            int diceValue = rolledDice.get(i);
+            if (diceValue == num3) {
+                number3Count++;
+            }
+        }
+        return number3Count >= count3;
+    }
+    public boolean checkCount3(ArrayList<Integer> rolledDice) {
+            int[] numberArray = new int[rolledDice.size()];
+            for (int i = 0; i < rolledDice.size(); i++) {
+                int diceValue = rolledDice.get(i);
+                if (diceValue >= 1 && diceValue <= 5) {
+                    numberArray[diceValue - 1]++;
+                }
+            }
+            for (int i = 0; i < 5; i++) {
+                if (numberArray[i] == count3) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public boolean checkNumber4Count4(ArrayList<Integer> rolledDice){
+            int num4 = Integer.parseInt(number4);
+            int number4Count = 0;
+            for (int i = 0; i < rolledDice.size(); i++) {
+                int diceValue = rolledDice.get(i);
+                if (diceValue == num4) {
+                    number4Count++;
+                }
+            }
+            return number4Count >= count4;
+        }
+        public boolean checkCount4(ArrayList<Integer> rolledDice){
+            int[] numberArray = new int[rolledDice.size()];
+            for(int i = 0; i<rolledDice.size(); i++) {
+                int diceValue = rolledDice.get(i);
+                if(diceValue >= 1 && diceValue <= 5){
+                    numberArray[diceValue-1]++;
+                }
+            }
+            for (int i = 0; i < 5; i++) {
+                if(numberArray[i] == count4){
+                    return true;
+                }
+            }
+            return false;
+        }
 
+    public void removeNumber(ArrayList<Integer>diceArray, String number, int count) {
+        int removedCount = 0;
+        for (int i = 0; i < diceArray.size(); i++) {
+            if (diceArray.get(i) == Integer.parseInt(number)) {
+                diceArray.remove(i);
+                removedCount++;
+                i--; // Decrease the index since the array size has changed
+                if (removedCount == count) {
+                    break;
+                }
+            }
+        }
+    }
 
 
 

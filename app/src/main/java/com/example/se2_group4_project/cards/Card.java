@@ -132,7 +132,7 @@ public class Card {
     }
 
     public String getCurrentCardFront() {
-        if (isFront) {
+        if(isFront) {
             return cardFront;
         } else {
             return cardBack;
@@ -140,7 +140,7 @@ public class Card {
     }
 
     public String getCurrentCardBack() {
-        if (isFront) {
+        if(isFront) {
             return cardBack;
         } else {
             return cardFront;
