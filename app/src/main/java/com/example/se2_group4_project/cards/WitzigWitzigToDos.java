@@ -126,7 +126,9 @@ public class WitzigWitzigToDos {
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
         boolean checkBoolean = false;
         Set<Integer> usedIndices = new HashSet<Integer>();
-
+        if (this.filledFields == null) {
+            return false;
+        }
         if (filledFields.contains("number") && filledFields.contains("count")) {
             int intNumber = Integer.parseInt(number);
             if (rolledDice.get(intNumber - 1) >= count) {

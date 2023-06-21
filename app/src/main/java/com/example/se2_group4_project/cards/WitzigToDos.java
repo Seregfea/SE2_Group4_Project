@@ -113,6 +113,9 @@ public class WitzigToDos {
 
     public boolean isAvailable(ArrayList<Integer> rolledDice) {
 
+        if (this.filledFields == null) {
+            return false;
+        }
         if (filledFields.contains("number") && filledFields.contains("count")) {
             if (checkNumberCount(rolledDice)) {
                 return true;
@@ -142,8 +145,10 @@ public class WitzigToDos {
                 return true;
             }
         }
+
         return false;
     }
+
 
     public boolean checkNumberCount(ArrayList<Integer> rolledDice) {
         int num = Integer.parseInt(number);

@@ -50,7 +50,7 @@ public class PlayerController {
     private int tempReRoll = 1;
     private ArrayList<Integer> diceValuesUsable;
     private ArrayList<Integer> diceValuesNotUsable;
-    private ArrayList<Integer> parkedDices = new ArrayList<>();
+    private ArrayList<Integer> parkedDices;
 
     private int pralinen;
 
@@ -64,6 +64,9 @@ public class PlayerController {
         this.playerInitialCards = playerInitialCards;
         this.clientCallbacks = clientCallbacks;
         this.clientHandler = clientHandler;
+        this.diceValuesUsable = new ArrayList<>();
+        this.diceValuesNotUsable = new ArrayList<>();
+        this.parkedDices = new ArrayList<>();
 
     }
     // 2 Functions

@@ -251,6 +251,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("check troublemaker in cards", c.getTroublemakerStack().get(0).getTroublemaker().getCardFront());
         Log.d("check witzigToDo in cards", c.getWitzigStack().get(0).getWitzigToDos().getCardFront());
         Log.d("check witzigWitzigToDo in cards", c.getWitzigWitzigStack().get(0).getWitzigWitzigToDos().getCardFront());
+        Log.d("check roommate-difficult following", c.getRoommateDifficultStack().get(0).getRoommateDifficult().getFollowing()+"");
 
     }
 
