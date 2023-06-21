@@ -97,7 +97,13 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
             case "1":
             case "6":
             case "8":
-               serverThreadHandler.post(() -> {
+            case "20":
+            case "21":
+            case "22":
+            case "23":
+            case "24":
+            case "25":
+                serverThreadHandler.post(() -> {
                    serverCallbacks.messageToALL(this.messageInput, this.playerNumber);
                });
                break;
@@ -111,6 +117,7 @@ public class ServerClientResponse extends Thread implements DatabaseCallbacks, S
             case "0":
             case "2":
             case "5":
+            case "19":
                 serverThreadHandler.post(() -> {
                     serverCallbacks.messageToOne(this.messageInput,Integer.valueOf(this.enemy));
                 });

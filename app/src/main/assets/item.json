@@ -6,7 +6,7 @@
     "number": 1,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "couch matschig",
+    "itemBenefit": "couchmatschig",
     "cardFront": "jojo_vs",
     "isFront": true,
     "schnapspralinen": 2
@@ -18,7 +18,7 @@
     "number": 3,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "couch matschig",
+    "itemBenefit": "couchmatschig",
     "cardFront": "decke_vs",
     "isFront": true,
     "schnapspralinen": 2
@@ -30,7 +30,7 @@
     "number": 4,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "badewanne dreckig",
+    "itemBenefit": "badewannedreckig",
     "cardFront": "wasserbombe_vs",
     "isFront": true,
     "schnapspralinen": 2
@@ -42,7 +42,7 @@
     "number": 5,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "geschirr dreckig",
+    "itemBenefit": "geschirrdreckig",
     "cardFront": "pfanneundco_vs",
     "isFront": true,
     "schnapspralinen": 2
@@ -54,7 +54,7 @@
     "number": 2,
     "count": 2,
     "stealCard": 3,
-    "itemBenefit": "geschirr dreckig",
+    "itemBenefit": "geschirrdreckig",
     "cardFront": "kuechenradio_vs",
     "isFront": true,
     "schnapspralinen": 2

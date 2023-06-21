@@ -15,5 +15,7 @@ public interface ClientCallbacks {
     void endTurnPralinen(int pralinen) throws IOException;
     void endTurnPlayer(ArrayList<Card> cards) throws IOException;
     void reduceDiceOfCheater(int cheatingPlayer) throws IOException;
+    void updateCards(int indexy ,String arrayType) throws IOException;
+    void enableCheater(int cheater) throws IOException;
 }
 

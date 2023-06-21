@@ -33,4 +33,7 @@ public interface GameboardCallbacks {
     void playerTurn(int playerNumber, ArrayList<Card> cards);
     void reduceDiceCheatingPlayer();
     void endTurnPralinen(int pralinen);
+    void updateCards(int indexy ,String arrayType);
+    void disablePlayerCallback();
+    void enablePlayerCallback();
 }
