@@ -151,8 +151,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             startClient();
         }
 
-            setUpDice();
-            setListeners();
+        setUpDice();
+        setListeners();
 
         cheatCounter = 0;
         cheated = false;
@@ -206,7 +206,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 this.player.setPlayerOneCards(c.getPlayerGreenStack());
                 this.player.setPlayerTwoCards(c.getPlayerBlueStack());
                 this.player.setPlayerThreeCards(c.getPlayerTealStack());
-               break;
+                break;
             case 3:
                 disablePlayer();
                 this.player = new PlayerController(player, c.getPlayerTealStack(), clientCallbacks, new Handler(handlerThread.getLooper()));
@@ -219,14 +219,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 break;
         }
 
-        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,0);
+        this.playerRecyclerviewAdabter = new MyRecyclerviewAdabter(this, this.player, R.layout.recycler_item_view, 0);
         createRecyclerviewPlayer(activityGameboardBinding.userCardRecyclerView, LinearLayoutManager.HORIZONTAL, this.playerRecyclerviewAdabter);
-        this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,1);
+        this.myRecyclerviewAdabterLeft = new MyRecyclerviewAdabter(this, this.player, R.layout.recycler_item_view, 1);
         createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutLeftRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterLeft);
-        this.myRecyclerviewAdabterTop = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,2);
+        this.myRecyclerviewAdabterTop = new MyRecyclerviewAdabter(this, this.player, R.layout.recycler_item_view, 2);
         createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutTopRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterTop);
-        this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter(this,this.player, R.layout.recycler_item_view,3);
-        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV, LinearLayoutManager.HORIZONTAL,this.myRecyclerviewAdabterRight);
+        this.myRecyclerviewAdabterRight = new MyRecyclerviewAdabter(this, this.player, R.layout.recycler_item_view, 3);
+        createRecyclerviewPlayer(activityGameboardBinding.CardsLayoutRightRV, LinearLayoutManager.HORIZONTAL, this.myRecyclerviewAdabterRight);
 
         addTopCardToLinearLayout(R.id.roommateDifficultLayout, c.getRoommateDifficultStack());
         addTopCardToLinearLayout(R.id.roommateEasyLayout, c.getRoommateEasyStack());
@@ -235,7 +235,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         addTopCardToLinearLayout(R.id.troublemakerLayout, c.getTroublemakerStack());
         addCardsToLinearLayout(R.id.ItemCardsLayout, c.getItemsStack());
         addCardsToLinearLayout(R.id.SchaukelstuhlLayout, c.getSchaukelstuhlStack());
-       // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
+        // Log.d("player in controller", this.playerRecyclerviewAdabter.getPlayer().toString());
         c.addCardsType(this);
         // Card Listeners
         addCardsToPlayerListener();
@@ -255,7 +255,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         Log.d("check troublemaker in cards", c.getTroublemakerStack().get(0).getTroublemaker().getCardFront());
         Log.d("check witzigToDo in cards", c.getWitzigStack().get(0).getWitzigToDos().getCardFront());
         Log.d("check witzigWitzigToDo in cards", c.getWitzigWitzigStack().get(0).getWitzigWitzigToDos().getCardFront());
-        Log.d("check roommate-difficult following", c.getRoommateDifficultStack().get(0).getRoommateDifficult().getFollowing()+"");
+        Log.d("check roommate-difficult following", c.getRoommateDifficultStack().get(0).getRoommateDifficult().getFollowing() + "");
 
     }
 
@@ -269,7 +269,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             Log.d("card gameboard image", itemCardImage.toString());
             int finalI = i;
             itemCardImage.setOnClickListener(view -> {
-                if (card.getItem().isAvailable(this.player.getDiceValuesUsable())){
+                if (card.getItem().isAvailable(this.player.getDiceValuesUsable())) {
                     ArrayList<Integer> tempDice = new ArrayList<Integer>();
                     tempDice = this.player.getDiceValuesUsable();
                     tempDice.remove(((Object) card.getItem().getNumber()));
@@ -279,9 +279,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     addItem(card.getItem().getItemBenefit());
                     Log.d("get item card", " click 1");
                     activityGameboardBinding.ItemCardsLayout.removeView(itemCardImage);
-                    this.clientHandler.post(()->{
+                    this.clientHandler.post(() -> {
                         try {
-                            this.clientCallbacks.updateCards(finalI,"20");
+                            this.clientCallbacks.updateCards(finalI, "20");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -299,16 +299,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
 
+    public void addRoommateEasyCardsToPlayer() {
 
-    public void addRoommateEasyCardsToPlayer(){
-
-        for (int i = 0; i < c.getRoommateEasyStack().size(); i++){
+        for (int i = 0; i < c.getRoommateEasyStack().size(); i++) {
             final ImageView roommateEasyImage = (ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(i);
             final Card card = c.getRoommateEasyStack().get(i);
 
             int finalI = i;
             roommateEasyImage.setOnClickListener(view -> {
-                if(card.getRoommateEasy().isAvailable(this.player.getDiceValuesUsable())){
+                if (card.getRoommateEasy().isAvailable(this.player.getDiceValuesUsable())) {
                     ArrayList<Integer> tempDice = new ArrayList<Integer>();
                     tempDice = this.player.getDiceValuesUsable();
                     tempDice.remove(((Object) card.getRoommateEasy().getNumber()));
@@ -320,9 +319,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     addRoomMateEasy();
                     // add cards to arraylist, RV, Player
                     this.playerRecyclerviewAdabter.addCardsArray(card);
-                    this.clientHandler.post(()->{
+                    this.clientHandler.post(() -> {
                         try {
-                            this.clientCallbacks.updateCards(finalI,"21");
+                            this.clientCallbacks.updateCards(finalI, "21");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -337,15 +336,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addRoommateDifficultCardsToPlayer(){
+    public void addRoommateDifficultCardsToPlayer() {
 
-        for (int i = 0; i < c.getRoommateDifficultStack().size(); i++){
+        for (int i = 0; i < c.getRoommateDifficultStack().size(); i++) {
             final ImageView roommateDifficultImage = (ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(i);
             final Card card = c.getRoommateDifficultStack().get(i);
 
             int finalI = i;
             roommateDifficultImage.setOnClickListener(view -> {
-                if(card.getRoommateDifficult().isAvailable(this.player.getDiceValuesUsable())){
+                if (card.getRoommateDifficult().isAvailable(this.player.getDiceValuesUsable())) {
                     ArrayList<Integer> tempDice = new ArrayList<Integer>();
                     tempDice = this.player.getDiceValuesUsable();
                     tempDice.remove(2);
@@ -357,9 +356,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     addRoomMateDifficult(card.getRoommateDifficult().getRoommateBenefit());
                     // add cards to arraylist, RV, Player
                     this.playerRecyclerviewAdabter.addCardsArray(card);
-                    this.clientHandler.post(()->{
+                    this.clientHandler.post(() -> {
                         try {
-                            this.clientCallbacks.updateCards(finalI,"22");
+                            this.clientCallbacks.updateCards(finalI, "22");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -374,14 +373,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addWitzigCardsToPlayer(){
-        for (int i = 0; i < c.getWitzigStack().size(); i++){
+    public void addWitzigCardsToPlayer() {
+        for (int i = 0; i < c.getWitzigStack().size(); i++) {
             final ImageView witzigImage = (ImageView) activityGameboardBinding.witzigLayout.getChildAt(i);
             final Card card = c.getWitzigStack().get(i);
 
             int finalI = i;
             witzigImage.setOnClickListener(view -> {
-                if (card.getWitzigToDos().isAvailable(this.player.getDiceValuesUsable())){
+                if (card.getWitzigToDos().isAvailable(this.player.getDiceValuesUsable())) {
                     ArrayList<Integer> tempDice = new ArrayList<Integer>();
                     tempDice = this.player.getDiceValuesUsable();
                     tempDice.remove(2);
@@ -394,9 +393,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                     // add cards to arraylist, RV, Player
                     this.playerRecyclerviewAdabter.addCardsArray(card);
-                    this.clientHandler.post(()->{
+                    this.clientHandler.post(() -> {
                         try {
-                            this.clientCallbacks.updateCards(finalI,"23");
+                            this.clientCallbacks.updateCards(finalI, "23");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -411,8 +410,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addWitzigWitzigCardsToPlayer(){
-        for (int i = 0; i < c.getWitzigWitzigStack().size(); i++){
+    public void addWitzigWitzigCardsToPlayer() {
+        for (int i = 0; i < c.getWitzigWitzigStack().size(); i++) {
             final ImageView witzigWitzigImage = (ImageView) activityGameboardBinding.witzigWitzigLayout.getChildAt(i);
             final Card card = c.getWitzigWitzigStack().get(i);
 
@@ -431,9 +430,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
                     // add cards to arraylist, RV, Player
                     this.playerRecyclerviewAdabter.addCardsArray(card);
-                    this.clientHandler.post(()->{
+                    this.clientHandler.post(() -> {
                         try {
-                            this.clientCallbacks.updateCards(finalI,"24");
+                            this.clientCallbacks.updateCards(finalI, "24");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -447,8 +446,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addTroublemakerCardsToPlayer(){
-        for (int i = 0; i < c.getTroublemakerStack().size(); i++){
+    public void addTroublemakerCardsToPlayer() {
+        for (int i = 0; i < c.getTroublemakerStack().size(); i++) {
             final ImageView troubleMakerImage = (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(i);
             final Card card = c.getTroublemakerStack().get(i);
 
@@ -460,9 +459,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             // add cards to arraylist, RV, Player
             this.playerRecyclerviewAdabter.addCardsArray(card);
-            this.clientHandler.post(()->{
+            this.clientHandler.post(() -> {
                 try {
-                    this.clientCallbacks.updateCards(i,"25");
+                    this.clientCallbacks.updateCards(i, "25");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -475,9 +474,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void addSchaukestuhlCardsToPlayer(){
+    public void addSchaukestuhlCardsToPlayer() {
 
-        for (int i = 0; i < c.getSchaukelstuhlStack().size(); i++){
+        for (int i = 0; i < c.getSchaukelstuhlStack().size(); i++) {
             final ImageView schaukelStuhlImage = (ImageView) activityGameboardBinding.SchaukelstuhlLayout.getChildAt(i);
             final Card card = c.getSchaukelstuhlStack().get(i);
             this.player.setHasWon(true);
@@ -508,13 +507,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
-            if(!card.getCardType().equals(CardType.ITEM)){
+            if (!card.getCardType().equals(CardType.ITEM)) {
                 String currentCardBack = card.getCurrentCardBack();
                 final int imageRessourceIDBack =
                         this.getResources()
                                 .getIdentifier(
                                         currentCardBack, "drawable", this.getApplicationContext().getPackageName());
-                Log.d("back cardd id ", imageRessourceIDBack+"");
+                Log.d("back cardd id ", imageRessourceIDBack + "");
                 cards.get(i).setImageViewBackID(imageRessourceIDBack);
             }
 
@@ -553,13 +552,13 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                             .getIdentifier(
                                     currentCardFront, "drawable", this.getApplicationContext().getPackageName());
 
-            if(!card.getCardType().equals(CardType.ITEM)){
+            if (!card.getCardType().equals(CardType.ITEM)) {
                 String currentCardBack = card.getCurrentCardBack();
                 final int imageRessourceIDBack =
                         this.getResources()
                                 .getIdentifier(
                                         currentCardBack, "drawable", this.getApplicationContext().getPackageName());
-                Log.d("back cardd id ", imageRessourceIDBack+"");
+                Log.d("back cardd id ", imageRessourceIDBack + "");
                 card.setImageViewBackID(imageRessourceIDBack);
             }
 
@@ -567,7 +566,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             card.setImageViewID(imageRessourceID);
             iView.setImageResource(imageRessourceID);
             iView.setId(imageRessourceID);
-
 
 
             float aspectRatio = 5;
@@ -609,7 +607,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         // If card is available --> then we can flip
         for (ImageView card : displayedCards) {
             card.setOnClickListener(view -> {
-                 //flipCard(card);
+                //flipCard(card);
             });
         }
     }
@@ -667,16 +665,16 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             activityGameboardBinding.availableDiceContainer.addView(imageView);
         }
 
-            activityGameboardBinding.btnRollDice.setEnabled(true);
-            activityGameboardBinding.savedDicesContainer.removeAllViews();
-            activityGameboardBinding.parkedDicesContainer.removeAllViews();
+        activityGameboardBinding.btnRollDice.setEnabled(true);
+        activityGameboardBinding.savedDicesContainer.removeAllViews();
+        activityGameboardBinding.parkedDicesContainer.removeAllViews();
 
     }
 
     public void startDiceRolling(View view) {
         dicePopUpActivity.showAtLocation(view, Gravity.CENTER, 0, 0);
         try {
-                dicePopUpActivity.rollDice(this.player.getDiceCount() + this.player.getRoomMateDiceCount());
+            dicePopUpActivity.rollDice(this.player.getDiceCount() + this.player.getRoomMateDiceCount());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -746,10 +744,10 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                 boolean hasParked = false;
                 ArrayList<Integer> parkedDices = new ArrayList<>();
 
-                if(activityGameboardBinding.btnParkDice.getText().equals("end rolling")){
-                    if(this.cheated){
+                if (activityGameboardBinding.btnParkDice.getText().equals("end rolling")) {
+                    if (this.cheated) {
 
-                    }else {
+                    } else {
                         this.player.diceToServer();
                         this.cheated = true;
                     }
@@ -804,7 +802,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
             diceIsRolled = true;
 
             if (diceIsRolled) {
-                if (player.isReRoll() == 0 ) {
+                if (player.isReRoll() == 0) {
                     activityGameboardBinding.btnParkDice.setText("end rolling");
                     isParkBtn = 0;
                 }
@@ -821,28 +819,26 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
 
+    // call function to flip current card
+    // flipCurrentCardListener();
 
 
-                // call function to flip current card
-                // flipCurrentCardListener();
-
-
-                public void highlightBoardCards(ArrayList<Integer> dices) {
-                    try {
-                        c.checkIfHighlight(c.getItemsStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        c.checkIfHighlight(c.getRoommateEasyStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        c.checkIfHighlight(c.getRoommateDifficultStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
+    public void highlightBoardCards(ArrayList<Integer> dices) {
+        try {
+            c.checkIfHighlight(c.getItemsStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            c.checkIfHighlight(c.getRoommateEasyStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            c.checkIfHighlight(c.getRoommateDifficultStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
 //                try {
 //                    c.checkIfHighlight(c.getWitzigStack(), this);
@@ -854,34 +850,34 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 //                } catch (JSONException e) {
 //                    throw new RuntimeException(e);
 //                }
-                    try {
-                        c.checkIfHighlight(c.getPlayerBlueStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        c.checkIfHighlight(c.getPlayerGreenStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        c.checkIfHighlight(c.getPlayerTealStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        c.checkIfHighlight(c.getPlayerOrangeStack(), this, dices);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+        try {
+            c.checkIfHighlight(c.getPlayerBlueStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            c.checkIfHighlight(c.getPlayerGreenStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            c.checkIfHighlight(c.getPlayerTealStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            c.checkIfHighlight(c.getPlayerOrangeStack(), this, dices);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     //Methodenaufruf Beispiel, Übergabe muss current player sein
     //setDiceAmoutforCardList(c.getPlayerBlueStack);
     public void setDiceAmountForCardList(ArrayList<Card> cards) throws JSONException {
-        for(Card card : cards){
-            switch(card.getCardType()){
+        for (Card card : cards) {
+            switch (card.getCardType()) {
                 case ME:
                     JSONObject me = card.jsonObject();
                     Me meObjekt = new Me(me);
@@ -897,8 +893,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void setKanguruTrue(ArrayList<Card> cards) throws JSONException {
-        for (Card card : cards){
-            switch (card.getCardType()){
+        for (Card card : cards) {
+            switch (card.getCardType()) {
                 case BATHTUB:
                     JSONObject bathtub = card.jsonObject();
                     Badewanne badewanneObject = new Badewanne(bathtub);
@@ -909,8 +905,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void setDiceRollAgain(ArrayList<Card> cards) throws JSONException {
-        for (Card card : cards){
-            switch (card.getCardType()){
+        for (Card card : cards) {
+            switch (card.getCardType()) {
                 case TABLEWARE:
                     JSONObject tableware = card.jsonObject();
                     Geschirr geschirrObject = new Geschirr(tableware);
@@ -921,8 +917,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void setRoommateAwake(ArrayList<Card> cards) throws JSONException {
-        for (Card card : cards){
-            switch (card.getCardType()){
+        for (Card card : cards) {
+            switch (card.getCardType()) {
                 case ROOMMATE:
                     JSONObject roommateEasy = card.jsonObject();
                     RoommateEasy roommateEasyObject = new RoommateEasy(roommateEasy);
@@ -938,8 +934,8 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void setPenalty(ArrayList<Card> cards) throws JSONException {
-        for (Card card : cards){
-            switch (card.getCardType()){
+        for (Card card : cards) {
+            switch (card.getCardType()) {
                 case TROUBLEMAKER:
                     JSONObject troublemaker = card.jsonObject();
                     Troublemaker troublemakerObject = new Troublemaker(troublemaker);
@@ -999,51 +995,51 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     ////////////////////// other methods //////////////////////////
 
-    public void cardBenefit(String benefit){
-        switch (benefit){
+    public void cardBenefit(String benefit) {
+        switch (benefit) {
             case "badewanne sauber":
                 this.player.setKanguru(true);
                 break;
 
             case "geschirr sauber":
-                if(this.player.isReRoll() == 1){
-                    this.player.setReRoll(this.player.isReRoll()+1);
+                if (this.player.isReRoll() == 1) {
+                    this.player.setReRoll(this.player.isReRoll() + 1);
                 }
                 break;
 
             case "couch sauber":
-                if(this.player.getParkDiceCount() == 2){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                if (this.player.getParkDiceCount() == 2) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() + 3);
                 }
                 break;
 
             case "alles sauber":
                 this.player.setKanguru(true);
-                if(this.player.isReRoll() == 1){
-                    this.player.setReRoll(this.player.isReRoll()+1);
+                if (this.player.isReRoll() == 1) {
+                    this.player.setReRoll(this.player.isReRoll() + 1);
                 }
-                if(this.player.getParkDiceCount() == 2){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()+3);
+                if (this.player.getParkDiceCount() == 2) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() + 3);
                 }
                 break;
 
             case "ich wach":
-                if (this.player.getDiceCount() < 4){
+                if (this.player.getDiceCount() < 4) {
                     this.player.setDiceCount(this.player.getDiceCount() + 1);
                 }
-                if (this.player.getParkDiceCount() < 2){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                if (this.player.getParkDiceCount() < 2) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() + 1);
                 }
                 break;
 
             case "alle wach":
-                if (this.player.getDiceCount() < 4){
+                if (this.player.getDiceCount() < 4) {
                     this.player.setDiceCount(this.player.getDiceCount() + 1);
                 }
-                if (this.player.getParkDiceCount() < 2){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()+1);
+                if (this.player.getParkDiceCount() < 2) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() + 1);
                 }
-                if (this.player.getRoomMateDiceCount() == 0){
+                if (this.player.getRoomMateDiceCount() == 0) {
                     this.player.setRoomMateDiceCount(this.player.getRoomMateAmount());
                 }
                 break;
@@ -1053,82 +1049,81 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         }
     }
 
-    public void cardPenalty(String penalty){
-        switch (penalty){
+    public void cardPenalty(String penalty) {
+        switch (penalty) {
             case "badewanne dreckig":
                 this.player.setKanguru(false);
                 break;
 
             case "geschirr dreckig":
-                if (this.player.isReRoll() > 1){
-                    this.player.setReRoll(this.player.isReRoll()-1);
+                if (this.player.isReRoll() > 1) {
+                    this.player.setReRoll(this.player.isReRoll() - 1);
                 }
                 break;
 
             case "couch dreckig":
-                if(this.player.getParkDiceCount() > 3){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                if (this.player.getParkDiceCount() > 3) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 3);
                 }
                 break;
 
             case "alles dreckig":
                 this.player.setKanguru(false);
-                if (this.player.isReRoll() > 1){
-                    this.player.setReRoll(this.player.isReRoll()-1);
+                if (this.player.isReRoll() > 1) {
+                    this.player.setReRoll(this.player.isReRoll() - 1);
                 }
-                if(this.player.getParkDiceCount() > 3){
-                    this.player.setParkDiceCount(this.player.getParkDiceCount()-3);
+                if (this.player.getParkDiceCount() > 3) {
+                    this.player.setParkDiceCount(this.player.getParkDiceCount() - 3);
                 }
                 break;
 
             case "ich schlafe":
-                if (this.player.getDiceCount() > 3){
+                if (this.player.getDiceCount() > 3) {
                     this.player.setDiceCount(this.player.getDiceCount() - 1);
                 }
-                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5) {
                     this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
                 }
                 break;
 
             case "alle schlafen":
-                if (this.player.getDiceCount() > 3){
+                if (this.player.getDiceCount() > 3) {
                     this.player.setDiceCount(this.player.getDiceCount() - 1);
                 }
-                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5){
+                if (this.player.getParkDiceCount() > 2 && this.player.getParkDiceCount() < 5) {
                     this.player.setParkDiceCount(this.player.getParkDiceCount() - 1);
                 }
-                if (this.player.getRoomMateDiceCount() > 0){
+                if (this.player.getRoomMateDiceCount() > 0) {
                     this.player.setRoomMateDiceCount(0);
                 }
         }
     }
 
-    public void addRoomMateEasy(){
-        this.player.setRoomMateAmount(this.player.getRoomMateAmount()+1);
-        this.player.setRoomMateDiceCount(this.player.getRoomMateDiceCount()+1);
+    public void addRoomMateEasy() {
+        this.player.setRoomMateAmount(this.player.getRoomMateAmount() + 1);
+        this.player.setRoomMateDiceCount(this.player.getRoomMateDiceCount() + 1);
     }
 
-    public void addRoomMateDifficult(String benefit){
+    public void addRoomMateDifficult(String benefit) {
         addRoomMateEasy();
         cardBenefit(benefit);
     }
 
-    public void addTroubleMaker(String penalty, int pralinen){
-            cardPenalty(penalty);
-            this.player.setPralinen(this.player.getPralinen() + pralinen);
-            this.player.setHasTroublemaker(true);
+    public void addTroubleMaker(String penalty, int pralinen) {
+        cardPenalty(penalty);
+        this.player.setPralinen(this.player.getPralinen() + pralinen);
+        this.player.setHasTroublemaker(true);
     }
 
-    public void addItem(String penalty){
+    public void addItem(String penalty) {
         cardPenalty(penalty);
         this.player.setPralinen(this.player.getPralinen() + 2);
         updatePointView(this.player.getPralinen(), pointDisplay);
     }
 
-    public void removeItem(){
+    public void removeItem() {
         this.player.setPralinen(this.player.getPralinen() - 2);
     }
-
 
 
     private void createRecyclerviewPlayer(RecyclerView recyclerview, int orientation, MyRecyclerviewAdabter myRecyclerviewAdabter) {
@@ -1167,14 +1162,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     private void setListeners() {
         activityGameboardBinding.btnRollDice.setOnClickListener(view -> {
             if (activityGameboardBinding.btnRollDice.getText().equals("würfeln")) {
-                this.player.setTempReRoll(this.player.isReRoll()-1);
+                this.player.setTempReRoll(this.player.isReRoll() - 1);
                 startDiceRolling(view);
                 // vorerst testweise auf true setzen
                 hasCheated = true;
             } else {
                 clientHandler.post(() -> {
                     try {
-                        clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
+                       // clientCallbacks.endTurnPlayer(this.player.getPlayerInitialCards());
                         clientCallbacks.endTurnPralinen(this.player.getPralinen());
                         activityGameboardBinding.btnRollDice.setText("würfeln");
                         //disablePlayer();
@@ -1187,7 +1182,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         //addItemCardsToPlayer();
     }
 
-    public void setUpCheatButtons(){
+    public void setUpCheatButtons() {
         player1btn = findViewById(R.id.player1btn);
         player2btn = findViewById(R.id.player2btn);
         player3btn = findViewById(R.id.player3btn);
@@ -1199,7 +1194,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     }
 
     public void updatePointView(int point, PointDisplay pointDisplay) {
-        activityGameboardBinding.points.setText(String.valueOf("Points: "+pointDisplay.updatePoints(point)));
+        activityGameboardBinding.points.setText(String.valueOf("Points: " + pointDisplay.updatePoints(point)));
     }
 
     public void checkSpecialCards(int pralinen) {
@@ -1254,7 +1249,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void playerTurn(int playerNumber, ArrayList<Card> cards) {
-        enablePlayer();
+        //enablePlayer();
         cheatCounter = 0;
         cheated = false;
         player.setMyTurn(1);
@@ -1307,10 +1302,9 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void cheatFunction() {
-        if(this.cheated){
+        if (this.cheated) {
 
-        }else{
-            enablePlayer();
+        } else {
             this.cheated = true;
             CheatFunction cheatFunction = new CheatFunction(this, this.clientHandler, this.clientCallbacks);
             cheatFunction.registerSensor();
@@ -1323,11 +1317,11 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
         enablePlayer();
         if (cheatCounter < 1) {
             int cheatedtPlayernow = cheatedPlayer;
-            Log.d("cheated player", cheatedtPlayernow+"");
-            cheatCounter ++;
+            Log.d("cheated player", cheatedtPlayernow + "");
+            cheatCounter++;
             ArrayList<Integer> players = new ArrayList<>();
-            for (int i = 0; i< 4; i++){
-                if (i != this.player.getPlayerID()){
+            for (int i = 0; i < 4; i++) {
+                if (i != this.player.getPlayerID()) {
                     players.add(i);
                 }
             }
@@ -1389,14 +1383,6 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
                     startDiceRolling(view);
                 }
             });
-            clientHandler.post(() -> {
-                try {
-                    clientCallbacks.enableCheater(cheatedtPlayernow);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            //disablePlayer();
         }
     }
 
@@ -1406,14 +1392,14 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void reduceDiceCheatingPlayer() {
-        Log.d("BeforeReduce", " "+this.player.getDiceCount());
-        this.player.setDiceCount(this.player.getDiceCount()-1);
-        Log.d("AfterReduce", " "+this.player.getDiceCount());
+        Log.d("BeforeReduce", " " + this.player.getDiceCount());
+        this.player.setDiceCount(this.player.getDiceCount() - 1);
+        Log.d("AfterReduce", " " + this.player.getDiceCount());
     }
 
 
     @Override
-    public void endTurnPralinen(int pralinen){
+    public void endTurnPralinen(int pralinen) {
         enablePlayer();
     }
 
@@ -1421,15 +1407,15 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
     public void updateCards(int indexy, String arrayType) {
         int index = indexy;
         Card cards = new Card();
-        switch (arrayType){
-            case"20":
-                Log.d("update cards",c.getItemsStack().size()+"");
-                Log.d("update cards",c.getItemsStack().get(0).getItem().toString());
+        switch (arrayType) {
+            case "20":
+                Log.d("update cards", c.getItemsStack().size() + "");
+                Log.d("update cards", c.getItemsStack().get(0).getItem().toString());
 
                 //Log.d("update cards",cards.get(0).getItem().toString());
 
-                Log.d("update card index", index+"");
-                activityGameboardBinding.ItemCardsLayout.removeView( (ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(index));
+                Log.d("update card index", index + "");
+                activityGameboardBinding.ItemCardsLayout.removeView((ImageView) activityGameboardBinding.ItemCardsLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getItemsStack().remove(cards);
 
@@ -1437,35 +1423,35 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
             case "21":
                 index = c.getRoommateEasyStack().indexOf(cards);
-                activityGameboardBinding.roommateEasyLayout.removeView( (ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(index));
+                activityGameboardBinding.roommateEasyLayout.removeView((ImageView) activityGameboardBinding.roommateEasyLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getRoommateEasyStack().remove(cards);
                 break;
 
             case "22":
                 index = c.getRoommateDifficultStack().indexOf(cards);
-                activityGameboardBinding.roommateDifficultLayout.removeView( (ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(index));
+                activityGameboardBinding.roommateDifficultLayout.removeView((ImageView) activityGameboardBinding.roommateDifficultLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getRoommateDifficultStack().remove(cards);
                 break;
 
             case "23":
                 index = c.getWitzigStack().indexOf(cards);
-                activityGameboardBinding.witzigLayout.removeView( (ImageView) activityGameboardBinding.witzigLayout.getChildAt(index));
+                activityGameboardBinding.witzigLayout.removeView((ImageView) activityGameboardBinding.witzigLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getWitzigStack().remove(cards);
                 break;
 
             case "24":
                 index = c.getWitzigWitzigStack().indexOf(cards);
-                activityGameboardBinding.witzigWitzigLayout.removeView( (ImageView) activityGameboardBinding.witzigLayout.getChildAt(index));
+                activityGameboardBinding.witzigWitzigLayout.removeView((ImageView) activityGameboardBinding.witzigLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getWitzigWitzigStack().remove(cards);
                 break;
 
             case "25":
                 index = c.getTroublemakerStack().indexOf(cards);
-                activityGameboardBinding.troublemakerLayout.removeView( (ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(index));
+                activityGameboardBinding.troublemakerLayout.removeView((ImageView) activityGameboardBinding.troublemakerLayout.getChildAt(index));
                 cards = c.getItemsStack().get(indexy);
                 c.getTroublemakerStack().remove(cards);
                 break;
@@ -1476,11 +1462,7 @@ public class Gameboard extends AppCompatActivity implements GameboardCallbacks {
 
     @Override
     public void disablePlayerCallback() {
-        //disablePlayer();
-    }
-
-    @Override
-    public void enablePlayerCallback() {
-        enablePlayer();
+        disablePlayer();
     }
 }
+

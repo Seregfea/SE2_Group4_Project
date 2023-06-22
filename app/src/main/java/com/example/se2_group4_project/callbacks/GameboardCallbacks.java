@@ -35,5 +35,4 @@ public interface GameboardCallbacks {
     void endTurnPralinen(int pralinen);
     void updateCards(int indexy ,String arrayType);
     void disablePlayerCallback();
-    void enablePlayerCallback();
 }

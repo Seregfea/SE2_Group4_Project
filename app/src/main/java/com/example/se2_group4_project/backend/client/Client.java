@@ -91,9 +91,6 @@ public class Client extends Thread implements ClientCallbacks {
     private String messageCode(String messageInput) {
         return this.playerNumber + this.SPACE + messageInput + this.SPACE;
     }
-    private String messageOHNECode(int identifier2) {
-        return identifier2 + this.SPACE;
-    }
 
     private void messageDecode() {
         Log.d("client before split", messageInput);
@@ -161,7 +158,7 @@ public class Client extends Thread implements ClientCallbacks {
 
             case "19":
                 handlerUIGameboard.post(()->{
-                   gameboardCallbacks.enablePlayerCallback();
+                   gameboardCallbacks.disablePlayerCallback();
                 });
                 break;
 
@@ -256,7 +253,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void acceptDice(int yes) throws IOException {
-        messageSend(messageCode("4" + this.SPACE + yes + this.SPACE + this.ENEMY));
+        messageSend(messageCode("4" + this.SPACE + yes ) + this.ENEMY);
     }
 
     public void endTurnPralinen(int pralinen) throws IOException {
@@ -272,7 +269,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void reduceDiceOfCheater(int cheatingPlayer) throws IOException {
-        messageSend(messageCode("5" + SPACE + " " + cheatingPlayer));
+        messageSend(messageCode("5" + this.SPACE + "88")+ cheatingPlayer);
     }
 
     @Override
@@ -288,7 +285,7 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void cheatFunction(String cheatStart) throws IOException {
-        messageSend(messageCode(cheatStart + SPACE + " " ) + this.playerSendedNumber);
+        messageSend(messageCode(cheatStart + SPACE + "88") + this.playerSendedNumber );
     }
 
     @Override
@@ -298,6 +295,6 @@ public class Client extends Thread implements ClientCallbacks {
 
     @Override
     public void enableCheater(int cheater) throws IOException {
-        messageSend(messageCode("19" + SPACE + " " + cheater));
+        messageSend(messageCode("19" + SPACE + "88" )+ this.ENEMY);
     }
 }
