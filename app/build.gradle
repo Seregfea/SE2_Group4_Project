@@ -70,6 +70,7 @@ sonarqube {
     properties {
         property "sonar.projectKey", "Seregfea_SE2_Group4_Project"
         property "sonar.organization", "seregfea"
+        provider "sonar.buildbreaker.skip", "false"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
