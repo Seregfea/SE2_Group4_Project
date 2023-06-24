@@ -65,12 +65,15 @@ public class Item {
         switch (item.getString("itemBenefit")){
             case "Couch matschig":
                 this.penalty = "couch dreckig";
+                this.couchMatschig = true;
                 break;
             case "Badewanne dreckig":
                 this.penalty = "badewanne dreckig";
+                this.badewanneDreckig = true;
                 break;
             case "Geschirr dreckig":
                 this.penalty = "geschirr dreckig";
+                this.geschirrDreckig = true;
                 break;
             default:
                 System.out.println("Keine item Benefits");

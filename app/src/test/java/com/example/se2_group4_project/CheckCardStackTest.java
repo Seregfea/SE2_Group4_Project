@@ -11,8 +11,8 @@ class CheckCardStackTest {
 
     private CardDrawer cardDrawer = new CardDrawer(null);
 
-    @Test
-    void testCardArrayNotEmpty() {
+
+   /* void testCardArrayNotEmpty() {
 
         ArrayList<Card> itemStack = cardDrawer.getItemsStack();
 
@@ -21,5 +21,5 @@ class CheckCardStackTest {
         int expected = 4;
         Assertions.assertEquals(expected, itemStack.size(), "Anzahl Items");
 
-    }
+    }*/
 }

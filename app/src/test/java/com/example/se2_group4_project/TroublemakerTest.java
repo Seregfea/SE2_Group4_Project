@@ -14,7 +14,8 @@ public class TroublemakerTest {
     public void basicTestPinguin() throws JSONException {
         JSONObject troublemaker_pinguin = new JSONObject(
                 "{" +
-                        "troublemakerPenalty: TABLEWARE," +
+                        "id: 1,"+
+                        "troublemakerPenalty: geschirr dreckig," +
                         "schnapspralinen: 0" +
                         "}"
         );
@@ -22,7 +23,7 @@ public class TroublemakerTest {
         int actualPraline = troublemaker.getSchnapspralinen();
         int expectedPraline = 0;
         String actualPenalty = troublemaker_pinguin.getString("troublemakerPenalty");
-        String expectedPenalty = "TABLEWARE";
+        String expectedPenalty = "geschirr dreckig";
         assertEquals(expectedPenalty, actualPenalty);
         assertEquals(expectedPraline, actualPraline);
         assertTrue(troublemaker.isTableware());
@@ -32,7 +33,8 @@ public class TroublemakerTest {
     public void basicTestDickerMann() throws JSONException {
         JSONObject troublemaker_dickermann = new JSONObject(
                 "{" +
-                        "troublemakerPenalty: TURN," +
+                        "id: 1,"+
+                        "troublemakerPenalty: couch dreckig," +
                         "schnapspralinen: -2" +
                         "}"
         );
@@ -40,17 +42,18 @@ public class TroublemakerTest {
         int actualPraline = troublemaker.getSchnapspralinen();
         int expectedPraline = -2;
         String actualPenalty = troublemaker_dickermann.getString("troublemakerPenalty");
-        String expectedPenalty = "TURN";
+        String expectedPenalty = "couch dreckig";
         assertEquals(expectedPenalty, actualPenalty);
         assertEquals(expectedPraline, actualPraline);
-        assertTrue(troublemaker.isTurn());
+        assertTrue(troublemaker.isCouch());
     }
 
     @Test
     public void basicTestGespenst() throws JSONException {
         JSONObject troublemaker_gespenst = new JSONObject(
                 "{" +
-                        "troublemakerPenalty: ROOM," +
+                        "id: 1,"+
+                        "troublemakerPenalty: badewanne dreckig," +
                         "schnapspralinen: -1" +
                         "}"
         );
@@ -58,10 +61,10 @@ public class TroublemakerTest {
         int actualPraline = troublemaker.getSchnapspralinen();
         int expectedPraline = -1;
         String actualPenalty = troublemaker_gespenst.getString("troublemakerPenalty");
-        String expectedPenalty = "ROOM";
+        String expectedPenalty = "badewanne dreckig";
         assertEquals(expectedPenalty, actualPenalty);
         assertEquals(expectedPraline, actualPraline);
-        assertTrue(troublemaker.isRoom());
+        assertTrue(troublemaker.isBathtub());
     }
 
 }

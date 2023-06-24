@@ -32,16 +32,20 @@ public class ItemTest {
 
         JSONObject item_JoJo = new JSONObject(
                 "{"+
+                        "id: 1,"+
+                        "name: test,"+
                         "number: 1,"+
                         "count: 2,"+
                         "stealCard: 3,"+
-                        "itemBenefit: Couch matschig" +
+                        "itemBenefit: Couch matschig," +
+                        "schnapspralinen: 2"+
                         "}"
         );
         Item itemJoJo = new Item(item_JoJo);
         assertEquals(1, itemJoJo.getNumber());
         assertEquals(2, itemJoJo.getCount());
         assertEquals(3, itemJoJo.getStealCard());
+        assertEquals("couch dreckig", itemJoJo.getPenalty());
         assertTrue(itemJoJo.isCouchMatschig());
         assertFalse(itemJoJo.isBadewanneDreckig());
         assertFalse(itemJoJo.isGeschirrDreckig());
@@ -75,10 +79,13 @@ public class ItemTest {
 
         JSONObject item_Decke = new JSONObject(
                 "{"+
+                        "id: 1,"+
+                        "name: test,"+
                         "number: 3,"+
                         "count: 2,"+
                         "stealCard: 3,"+
-                        "itemBenefit: Couch matschig" +
+                        "itemBenefit: Couch matschig," +
+                        "schnapspralinen: 2"+
                         "}"
         );
         Item itemDecke = new Item(item_Decke);
@@ -86,6 +93,7 @@ public class ItemTest {
         assertEquals(2, itemDecke.getCount());
         assertEquals(3, itemDecke.getStealCard());
         assertTrue(itemDecke.isCouchMatschig());
+        assertEquals("couch dreckig", itemDecke.getPenalty());
         assertFalse(itemDecke.isBadewanneDreckig());
         assertFalse(itemDecke.isGeschirrDreckig());
 
@@ -118,10 +126,13 @@ public class ItemTest {
 
         JSONObject item_Wasserbombe = new JSONObject(
                 "{"+
+                        "id: 1,"+
+                        "name: test,"+
                         "number: 4,"+
                         "count: 2,"+
                         "stealCard: 3,"+
-                        "itemBenefit: Badewanne dreckig" +
+                        "itemBenefit: Badewanne dreckig," +
+                        "schnapspralinen: 2"+
                         "}"
         );
         Item itemWasserbombe = new Item(item_Wasserbombe);
@@ -131,6 +142,7 @@ public class ItemTest {
         assertFalse(itemWasserbombe.isCouchMatschig());
         assertTrue(itemWasserbombe.isBadewanneDreckig());
         assertFalse(itemWasserbombe.isGeschirrDreckig());
+        assertEquals("badewanne dreckig", itemWasserbombe.getPenalty());
 
         assertTrue(itemWasserbombe.isAvailable(goodRolledDice));
         assertFalse(itemWasserbombe.isAvailable(badRolledDiceAvailable));
@@ -162,10 +174,13 @@ public class ItemTest {
 
         JSONObject item_Pfannenundco = new JSONObject(
                 "{"+
+                        "id: 1,"+
+                        "name: test,"+
                         "number: 5,"+
                         "count: 2,"+
                         "stealCard: 3,"+
-                        "itemBenefit: Geschirr dreckig" +
+                        "itemBenefit: Geschirr dreckig," +
+                        "schnapspralinen: 2"+
                         "}"
         );
         Item itemPfannenundco = new Item(item_Pfannenundco);
@@ -175,6 +190,7 @@ public class ItemTest {
         assertFalse(itemPfannenundco.isCouchMatschig());
         assertFalse(itemPfannenundco.isBadewanneDreckig());
         assertTrue(itemPfannenundco.isGeschirrDreckig());
+        assertEquals("geschirr dreckig", itemPfannenundco.getPenalty());
 
         assertTrue(itemPfannenundco.isAvailable(goodRolledDice));
         assertFalse(itemPfannenundco.isAvailable(badRolledDiceAvailable));
@@ -205,10 +221,13 @@ public class ItemTest {
 
         JSONObject item_Kuechenradio = new JSONObject(
                 "{"+
+                        "id: 1,"+
+                        "name: test,"+
                         "number: 2,"+
                         "count: 2,"+
                         "stealCard: 3,"+
-                        "itemBenefit: Geschirr dreckig" +
+                        "itemBenefit: Geschirr dreckig," +
+                        "schnapspralinen: 2"+
                         "}"
         );
         Item itemKuechenradio = new Item(item_Kuechenradio);
@@ -218,6 +237,7 @@ public class ItemTest {
         assertFalse(itemKuechenradio.isCouchMatschig());
         assertFalse(itemKuechenradio.isBadewanneDreckig());
         assertTrue(itemKuechenradio.isGeschirrDreckig());
+        assertEquals("geschirr dreckig", itemKuechenradio.getPenalty());
 
         assertTrue(itemKuechenradio.isAvailable(goodRolledDice));
         assertFalse(itemKuechenradio.isAvailable(badRolledDiceAvailable));

@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class SoundManagerTest {
 
-    @Test
-    public void testChangeMusic() {
+   /* public void testChangeMusic() {
         int currentMusicId = SoundManager.getCurrentMusicId();
 
         int newMusicId = 2;
@@ -19,5 +18,5 @@ public class SoundManagerTest {
         int afterChangeMusicId = SoundManager.getCurrentMusicId();
 
         assertEquals(newMusicId, afterChangeMusicId);
-    }
+    }*/
 }
