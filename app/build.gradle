@@ -68,8 +68,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
 sonarqube {
     properties {
-        property ("sonar.projectKey", "SE2-sample-tut-project_demo-repo")
-        property ("sonar.organization", "se2-sample-tut-project")
+        property ("sonar.projectKey", "Seregfea_SE2_Group4_Project")
+        property ("sonar.organization", "seregfea")
+        property("sonar.token", "6823b8213d758d540c37877964a444db6d40ba5a")
         property ("sonar.host.url", "https://sonarcloud.io")
         property ("sonar.buildbreaker.skip" , false)
         property ("sonar.qualitygate.wait", true)
