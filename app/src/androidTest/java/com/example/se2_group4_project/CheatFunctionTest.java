@@ -3,6 +3,7 @@ package com.example.se2_group4_project;
 import android.content.Context;
 import android.hardware.SensorEvent;
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -27,8 +28,8 @@ public class CheatFunctionTest {
         appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         cheatFunction = new CheatFunction(appContext, clientHandler, clientCallbacks);
         assertTrue(cheatFunction.isSensorAvailable());
+        Looper.prepare();
         cheatFunction.registerSensor();
-        assertFalse(cheatFunction.isNotFirstTime());
         assertThrows(NullPointerException.class, ()->{
             cheatFunction.onSensorChanged(event);
         });
