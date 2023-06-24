@@ -68,13 +68,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "Seregfea_SE2_Group4_Project"
-        property "sonar.organization", "seregfea"
-        provider("sonar.buildbreaker.skip", false)
-        property "sonar.host.url", "https://sonarcloud.io"
-        property("sonar.qualitygate.wait", true)
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+        property ("sonar.projectKey", SE2-sample-tut-project_demo-repo)
+        property ("sonar.organization", se2-sample-tut-project)
+        property ("sonar.host.url", "https://sonarcloud.io")
+        property ("sonar.buildbreaker.skip" , false)
+        property ("sonar.qualitygate.wait", true)
+        property ("sonar.java.coveragePlugin", jacoco)
+        property ("sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
 }
 
