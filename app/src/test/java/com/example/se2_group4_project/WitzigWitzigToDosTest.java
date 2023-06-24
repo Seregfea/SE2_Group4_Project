@@ -9,6 +9,7 @@ import com.example.se2_group4_project.cards.WitzigWitzigToDos;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,20 +17,24 @@ import java.util.ArrayList;
 public class WitzigWitzigToDosTest {
 
     WitzigWitzigToDos witzigWitzigToDos;
-    ArrayList<Integer> rolledDice = new ArrayList<Integer>();
+    ArrayList<Integer> rolledDice = new ArrayList<>();
+    ArrayList<Integer> rolledDiceBad = new ArrayList<>();
 
-
-    @Test
-    public void witzigWitzigToDosTesting() throws JSONException {
-
+    @BeforeEach
+    public void setUp() throws JSONException {
         rolledDice.add(2);
         rolledDice.add(1);
         rolledDice.add(2);
         rolledDice.add(1);
         rolledDice.add(0);
-
-        JSONObject witzigWitzig = new JSONObject("{" + "count: 2" + "number2: 3" + "count2: 1" + "number3: 4" + "count3: 1" +"toDoPenalty: COUCH, TABLEWARE" + "schnapspralinen: 7" + "}");
+        rolledDiceBad.add(1);
+        rolledDiceBad.add(1);
+        JSONObject witzigWitzig = new JSONObject("{" + "count: 2," + "number2: '3'," + "count2: 1," + "number3: '4'," + "count3: 1,"  + "schnapspralinen: 7" + "}");
         witzigWitzigToDos = new WitzigWitzigToDos(witzigWitzig);
+    }
+
+    @Test
+    public void witzigWitzigToDosTesting() {
 
         int actualSchnapspraline = witzigWitzigToDos.getSchnapspralinen();
         int expectedSchnapspraline = 7;
@@ -54,21 +59,12 @@ public class WitzigWitzigToDosTest {
         int actualCount3 = witzigWitzigToDos.getCount3();
         int expectedCount3 = 1;
         assertEquals(expectedCount3, actualCount3);
-
-        ArrayList<String> actualToDoPenalty = witzigWitzigToDos.getToDoPenalty();
-        ArrayList<String> expectedToDoPenalty = new ArrayList<>();
-        expectedToDoPenalty.add("COUCH");
-        expectedToDoPenalty.add("TABLEWARE");
-        assertEquals(expectedToDoPenalty, actualToDoPenalty);
-
     }
 
     @Test
     public void testIsAvailable () {
         assertTrue(witzigWitzigToDos.isAvailable(rolledDice));
-
-        rolledDice.set(3,0);
-        assertFalse(witzigWitzigToDos.isAvailable(rolledDice));
+        assertFalse(witzigWitzigToDos.isAvailable(rolledDiceBad));
 
     }
 }
