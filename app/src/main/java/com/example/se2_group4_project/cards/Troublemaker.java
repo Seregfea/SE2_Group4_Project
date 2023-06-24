@@ -32,15 +32,21 @@ public class Troublemaker {
         switch (troublemaker.getString("troublemakerPenalty")){
             case "couch dreckig":
                 this.penalty = "couch dreckig";
+                this.couch = true;
                 break;
             case "badewanne dreckig":
                 this.penalty = "badewanne dreckig";
+                this.bathtub = true;
                 break;
             case "geschirr dreckig":
                 this.penalty = "geschirr dreckig";
+                this.tableware = true;
                 break;
             case "alles dreckig":
                 this.penalty = "alles dreckig";
+                this.bathtub = true;
+                this.tableware = true;
+                this.couch = true;
                 break;
             case "alle schlafen":
                 this.penalty = "alle schlafen";
